@@ -8,7 +8,14 @@
         <converter-for-class>java.lang.Enum</converter-for-class>
         <converter-class>javax.faces.convert.EnumConverter</converter-class>
     </converter>
-    <locale-config>
-        <default-locale>pt_BR</default-locale>
-    </locale-config>
+    <application>
+        <locale-config>
+            <default-locale>pt_BR</default-locale>
+        </locale-config>
+        <resource-bundle>
+            <base-name>label</base-name>
+            <var>label</var>
+        </resource-bundle>
+        <message-bundle>label</message-bundle>
+    </application>
 </faces-config>
