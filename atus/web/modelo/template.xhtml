@@ -11,25 +11,35 @@
             <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
             <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
         </f:facet>
-        <link rel="shortcut icon" type="image/png" href="../resources/imagens/logo.png" />
-
+        <link rel="shortcut icon" type="image/png" href="../resources/imagens/ico.ico" />
+        <h:outputStylesheet library="css" name="default.css"/>
         <h:outputScript name="calendario_pt_BR.js" library="js" />
         <title>#{label['nome.sistema']}</title>
     </h:head>
-    <h:body>
+    <h:body styleClass="boby">
         <p:layout fullPage="true">
             <p:layoutUnit  id="center"  position="center"   >
-                <div style="height: 50px">
-                    <p:graphicImage  url="/resources/imagens/logo.png" style="float: left"  />
+                <div class="cabecalho">
+                    <p:graphicImage  url="/resources/imagens/logo.png" style="float: left;margin-top: 3px"   />
+                    <div style="float: right;margin-top: 20px;margin-right: 100px;">
+                        <p>Bem Vindo, <strong>Usuário</strong></p>
+                        <h:panelGrid columns="6">
+                            <h:link class="link"  value="Contas e Configurações" hreflang="#" />
+                            <h:outputLabel style="color: #505050 " value="|"/>
+                            <h:link  class="link" value="Ajuda" hreflang="#" />
+                            <h:outputLabel style="color: #505050 " value="|"/>
+                            <h:link class="link" value="Sair" hreflang="#" />
+                        </h:panelGrid>
+                    </div>
                 </div>
                 <h:form>
-                    <p:megaMenu >
-                        <p:menuitem value="Ínicio" action="#"  />
-                        <p:menuitem value="Processos" />
-                        <p:menuitem value="Pessoa" />
-                        <p:menuitem value="Agenda"/>
-                        <p:menuitem value="Relatórios"/>
-                        <p:menuitem value="Segurança"/>
+                    <p:megaMenu styleClass="menu"  >
+                        <p:menuitem styleClass="it" value="Início" action="#"  />
+                        <p:menuitem styleClass="it" value="Processos" />
+                        <p:menuitem styleClass="it" value="Pessoa" />
+                        <p:menuitem styleClass="it" value="Agenda"/>
+                        <p:menuitem styleClass="it" value="Relatórios"/>
+                        <p:menuitem styleClass="it" value="Segurança"/>
                     </p:megaMenu>
                 </h:form>
                 <!--                <h:form>
@@ -49,11 +59,16 @@
 
                 <ui:insert id="crp"  name="corpo"></ui:insert>
 
+                <div class="rodape">
+                   
+                    <div >
+
+                        
+                    </div>                
+                </div>
             </p:layoutUnit>
 
-            <!--            <p:layoutUnit position="south" size="50">
-                            <ccb:rodape/>
-                        </p:layoutUnit>-->
+
         </p:layout>
         <ui:insert name="dialogs">
 
