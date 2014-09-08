@@ -1,8 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:b="http://www.springframework.org/schema/beans"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-">
+    <http auto-config="true" access-denied-page="/login.xhtml">
+        <form-login login-page="/login.xhtml" authentication-failure-url="/login.xhtml?erro=true"/>
+        <intercept-url pattern="/home.xhtml" access="ROLE_ATUS" />
+       
 
-</beans>
+    </http>
+    <authentication-manager>
+<!--        <authentication-provider>
+            <password-encoder hash="md5"/>
+            <jdbc-user-service data-source-ref="dataSource"
+                               users-by-username-query="SELECT u.usu_documento ,u.usu_senha,u.usu_acesso from controle_acesso.usuario u
+                                                            WHERE  (u.usu_acesso = TRUE) and (u.usu_documento = ?) "
+                               authorities-by-username-query="SELECT u.usu_documento, 'ROLE_' || sis.sis_sigla as grp
+                                                                from controle_acesso.usuario u, usuario_sistema us , controle_acesso.sistema sis
+                                                                 WHERE u.usu_id = us.usuario_usu_id AND us.sistemas_sis_id = sis.sis_id and u.usu_documento = ? "
+            />
+        </authentication-provider>-->
+         <authentication-provider>
+            <user-service>
+                <user name="adm" password="123" authorities="ROLE_ATUS" />
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+<!--    <b:bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+         <b:property name="jndiName" value="java:jboss/datasources/PostgreSQLDS"/>
+    </b:bean>-->
+<!--    <b:bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+         <b:property name="jndiName" value="jdbc/integrado"/>
+    </b:bean>-->
+
+
+<!--
+
+<b:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+        <b:property name="url" value="jdbc:postgresql://localhost:5432/integrado" />
+        <b:property name="driverClassName" value="org.postgresql.Driver" />
+        <b:property name="username" value="postgres"/>
+        <b:property name="password" value="postgres"/>
+    </b:bean>
+
+
+<bean id="dataSource"  class="org.springframework.jndi.JndiObjectFactoryBean" >
+    <property name="jndiName" value="post-gre-sql_integrado_postgresPool"/>
+    <property name="lookupOnStartup" value="true"/>
+</bean>
+
+
+    -->
+
+
+
+</b:beans>
+
+
+

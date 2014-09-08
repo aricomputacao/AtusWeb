@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sef="http://sefin.ce.gov.br">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            </f:facet>
+            <link rel="shortcut icon" href="resources/imagens/ico.ico" />
+            <link rel="icon" type="image/png" href="resources/imagens/ico.ico" />
+            <h:outputStylesheet name="/css/default.css"/>
+            <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css"/>
+            <script  type="text/javascript" src="resources/js/bootstrap.js"/>
+            <title>#{label['nome.sistema']}</title>
+        </h:head>
+        <h:body  >
+
+            <!-- Main jumbotron for a primary marketing message or call to action -->
+            <div class="jumbotron center-block painelLogin" style="width: 1149px">
+
+                <div class="panel  center-block " style="width: 301px;">
+                    <div class="  row center-block logo-login" style="width: 300px;border-radius: 5px"   >
+                        <img  class="col-lg-4 img-circle img-responsive"  src="resources/imagens/logo-login.png"/>
+                        <text  style="font-family: Georgia, Palatino, serif;margin-top: 0px;font-size: 50px;" class="col-lg-2">#{label['nome.sistema']}</text>
+
+                    </div>
+                   
+
+                    <h4 class="text-center" style="font-family: Georgia, Palatino, serif;"> Identificação do Usuário</h4>
+                    <hr />
+
+                    <form    action="j_spring_security_check" method="post">
+                        <div class="panel-body " style="margin-top: -10px">
+                            <div class="text-center">
+                            <h:outputText   value="Usuário ou senha incorretos!" rendered="#{param.erro}" style="font-family: Georgia, Palatino, serif;color: red;margin-bottom: 200px;font-weight: bolder"/>
+                            </div>
+                            <div >
+                                <h:panelGrid columns="2"> 
+                                    <h:panelGrid columns="2"  >
+                                        <h:panelGrid >
+                                            <label class="control-label" for="j_username">Usuário</label>
+                                            <p:inputText id="j_username"  requiredMessage="Preencha o documento!"  required="true" style="width: 140px;"/>
+                                        </h:panelGrid>
+                                        <h:panelGrid  style="margin-left: 5px" >
+                                            <label class="control-label" for="j_password">Senha</label>
+                                            <p:password id="j_password"   required="true" style="width: 130px;"/>
+                                        </h:panelGrid>
+
+                                    </h:panelGrid> 
+
+                                </h:panelGrid>
+                                <h:commandButton   image="/resources/imagens/entrar.gif" style="width: 95px;margin-top: 30px;margin-left: 183px;border-radius: 5px"  />
+
+                            </div>
+                            <div class="form-group">
+
+                            </div>
+
+                        </div>
+                        <div class="panel-footer">
+
+                            <h:form>
+                                <h:commandLink value="Esqueci a senha!"/>
+
+                            </h:form>
+
+                            <a   href="http://www.google.com/intl/pt-BR/chrome/" target="_blank"> <img src="resources/imagens/chrome.png" alt="Chrome" width="20" height="20" style="border-style:none;margin-left: 130px" title="Google Chrome" /></a>
+                            <a href="https://www.mozilla.org/pt-BR/firefox/new/" target="_blank"><img src="resources/imagens/firefox.png" alt="Firefox" width="20" height="20" style="border-style:none;" title="Mozilla Firefox" /></a>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="container">
+                <hr/>
+                <footer>
+                    <p>&copy; Company 2014</p>
+                </footer>
+            </div> 
+        </h:body>
+    </f:view>
+    <h:outputScript name="bootstrap.js" library="js" />
+    <h:outputScript library="js" name="numero.js"/>
+    <h:outputScript library="js" name="jquery-1.9.1.js"/>
+
+</html>
