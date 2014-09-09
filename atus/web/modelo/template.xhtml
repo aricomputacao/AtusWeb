@@ -33,39 +33,32 @@
                     </div>
                 </div>
                 <h:form>
-                    <p:megaMenu styleClass="menu"  >
-                        <p:menuitem styleClass="it" value="Início" action="#"  />
-                        
-                        <p:menuitem styleClass="it" value="Processos" />
-                        <p:menuitem styleClass="it" value="Pessoa" />
-                        <p:menuitem styleClass="it" value="Agenda"/>
-                        <p:menuitem styleClass="it" value="Relatórios"/>
-                        <p:menuitem styleClass="it" value="Segurança"/>
-                    </p:megaMenu>
+                    <p:menubar styleClass="menu"   >
+                        <p:menuitem styleClass="item" value="Início" action="#"  />
+                        <p:submenu   styleClass="subMenu" style="font-weight: bolder"  label="Cadastro" >
+                            <p:menuitem styleClass="item"  value="Agentes Recebedores"/>
+
+                        </p:submenu>
+                        <p:submenu  label="Processos" styleClass="subMenu" >
+                            <p:menuitem value="Ramo Juridico" styleClass="item"  actionListener="#{navegacaoMB.redirecionar(navegacao['cad.ramo_juridico'])}" immediate="true"/>
+                            <p:menuitem value="Ramo Juridico" styleClass="item"  actionListener="#{navegacaoMB.redirecionar(navegacao['cad.ramo_juridico'])}" immediate="true"/>
+                            <p:menuitem value="Ramo Juridico" styleClass="item"  actionListener="#{navegacaoMB.redirecionar(navegacao['cad.ramo_juridico'])}" immediate="true"/>
+                            <p:menuitem value="Ramo Juridico" styleClass="item"  actionListener="#{navegacaoMB.redirecionar(navegacao['cad.ramo_juridico'])}" immediate="true"/>
+
+                        </p:submenu>
+                        <p:menuitem styleClass="item" value="Pessoa" />
+                        <p:menuitem styleClass="item" value="Agenda"/>
+                        <p:menuitem styleClass="item" value="Relatórios"/>
+                        <p:menuitem styleClass="item" value="Segurança"/>
+                    </p:menubar>
                 </h:form>
-                <!--                <h:form>
-                                    <p:growl showDetail="true" life="10000" showSummary="true" autoUpdate="true"/>
-                                </h:form>-->
 
-
-
-
-                <!--<ccb:menuJSF/>-->
-
-                <h:form id="frmGeral">
-                    <p:poll immediate="true"  process="@this" interval="1795" onstart="log.show()" />
-                    <!--<p:messages showDetail="true" closable="true" showSummary="true" autoUpdate="true" />-->
-
-                </h:form> 
 
                 <ui:insert id="crp"  name="corpo"></ui:insert>
 
                 <div class="rodape">
-                   
-                    <div >
 
-                        
-                    </div>                
+
                 </div>
             </p:layoutUnit>
 

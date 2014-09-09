@@ -17,5 +17,10 @@
             <var>label</var>
         </resource-bundle>
         <message-bundle>label</message-bundle>
+        <resource-bundle>
+            <base-name>navegacao</base-name>
+            <var>navegacao</var>
+        </resource-bundle>
+        <message-bundle>navegacao</message-bundle>
     </application>
 </faces-config>
