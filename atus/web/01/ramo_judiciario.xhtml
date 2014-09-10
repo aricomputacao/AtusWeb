@@ -5,23 +5,14 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
-                >
+                    
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
     
     <ui:define name="corpo">
-        <h:panelGrid columns="3" width="100%" cellspacing="10">
-            <p:panel id="pnlPro" styleClass="painelPadrao"  header="Processos" >
+        <h:form id="frm_ram">
+            <comp:panel acao_adicionar="#{navegacaoMB.index()}" acao_consultar="#{navegacaoMB.index()}" acao_imprimir="#{navegacaoMB.index()}" acao_salvar="#{navegacaoMB.index()}" cabecalho_grid="Ramo Juridico" id_form="frm_ram"/>
 
-
-            </p:panel>
-            <p:panel id="pnlEve"  styleClass="painelPadrao"  header="Eventos" >
-
-
-            </p:panel>
-            <p:panel id="pnlAge"  styleClass="painelPadrao"  header="Agenda" >
-
-
-            </p:panel>
-        </h:panelGrid>
+        </h:form>
     </ui:define>
     <ui:define name="dialogs">
 

@@ -20,17 +20,19 @@
         <p:layout fullPage="true">
             <p:layoutUnit  id="center"  position="center"   >
                 <div class="cabecalho">
-                    <p:graphicImage  url="/resources/imagens/logo.png" style="float: left;margin-top: 3px"   />
-                    <div style="float: right;margin-top: 20px;margin-right: 100px;">
-                        <p>Bem Vindo, <strong>Usuário</strong></p>
-                        <h:panelGrid columns="6">
-                            <h:link class="link"  value="Contas e Configurações" hreflang="#" />
-                            <h:outputLabel style="color: #505050 " value="|"/>
-                            <h:link  class="link" value="Ajuda" hreflang="#" />
-                            <h:outputLabel style="color: #505050 " value="|"/>
-                            <h:link class="link" value="Sair" hreflang="#" />
-                        </h:panelGrid>
-                    </div>
+                    <h:form>
+                        <p:graphicImage  url="/resources/imagens/logo.png" style="float: left;margin-top: 3px"   />
+                        <div style="float: right;margin-top: 20px;margin-right: 100px;">
+                            <p>Bem Vindo, <strong>Usuário</strong></p>
+                            <h:panelGrid columns="6">
+                                <h:link class="link"  value="Contas e Configurações" hreflang="#" />
+                                <h:outputLabel style="color: #505050 " value="|"/>
+                                <h:link  class="link" value="Ajuda" hreflang="#" />
+                                <h:outputLabel style="color: #505050 " value="|"/>
+                                <h:commandLink class="link" value="Sair"  actionListener="#{navegacaoMB.logout()}" />
+                            </h:panelGrid>
+                        </div>
+                    </h:form>
                 </div>
                 <h:form>
                     <p:menubar styleClass="menu"   >
