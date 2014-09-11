@@ -8,7 +8,9 @@ package br.com.atus.managedbean;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
@@ -27,9 +29,48 @@ public class NavegacaoMB implements Serializable {
     private final Map<String, Object> map;
     private String pagina;
     private String mnemonicoSistema;
+    //-----variaveis para controlar os btn do menu do panel-------//
+    private boolean novo;
+    private boolean consultar;
+    private boolean salvar;
+    private boolean imprimir;
+    private boolean limpar;
+    //-----------------------------------------------------------//
+
+    /**
+     * Variaveis para renderizas consultar ou cadastro true = cadastro false =
+ consultar
+     */
+    private boolean renderPainelCadastro;
 
     public NavegacaoMB() {
         map = new HashMap<>();
+    }
+
+    /**
+     * Renderiza os btn do painel
+     */
+    public void cadastro() {
+        renderPainelCadastro = true;
+        novo = true;
+        consultar = true;
+        salvar = true;
+        imprimir = false;
+        limpar = true;
+
+    }
+
+    /**
+     * Renderiza os btn do painel
+     */
+    public void consulta() {
+        renderPainelCadastro = false;
+        novo = true;
+        consultar = false;
+        salvar = false;
+        imprimir = true;
+        limpar = true;
+
     }
 
     /**
@@ -46,15 +87,34 @@ public class NavegacaoMB implements Serializable {
         } catch (Exception e) {
             Logger.getLogger(NavegacaoMB.class.getName()).log(Level.SEVERE, null, e);
         }
-        redirecionar(pag);
+        redirecionarCadastro(pag);
     }
 
     /**
+     * Retorna a mensagem do bundle
+     *
+     * @param messageId
+     * @param arquivo
+     * @return
+     */
+    public static String getMsg(String messageId, String arquivo) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String msg = "";
+        Locale locale = facesContext.getViewRoot().getLocale();
+        ResourceBundle bundle = ResourceBundle.getBundle(arquivo, locale);
+        try {
+            msg = bundle.getString(messageId);
+        } catch (Exception e) {
+        }
+        return msg;
+    }
+    
+    /**
      * Esse método redireciona para uma página especifica
      *
-     * @param mnemonico
+     * @param pag
      */
-    public void redirecionar(String pag) {
+    public void redirecionarCadastro(String pag) {
         try {
             String modulo = "";
 
@@ -64,11 +124,31 @@ public class NavegacaoMB implements Serializable {
                     break;
 
             }
-            System.out.println(pag);
+            //renderiza atela de cadastro
+            cadastro();
+            redirecionarPagina(getNomeSistema().concat("/") + modulo.concat("/") + pag.substring(4) + ".xhtml");
+        } catch (Exception e) {
+            Logger.getLogger(NavegacaoMB.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
 
-            System.out.println(pag.substring(0, 3));
+    /**
+     * Esse método redireciona para uma página especifica
+     *
+     * @param pag
+     */
+    public void redirecionarConsulta(String pag) {
+        try {
+            String modulo = "";
 
-            System.out.println(getNomeSistema().concat("/") + modulo.concat("/") + pag.substring(4));
+            switch (pag.substring(0, 3)) {
+                case ("cad"):
+                    modulo = "01";
+                    break;
+
+            }
+            //renderiza atela de cadastro
+            consulta();
             redirecionarPagina(getNomeSistema().concat("/") + modulo.concat("/") + pag.substring(4) + ".xhtml");
         } catch (Exception e) {
             Logger.getLogger(NavegacaoMB.class.getName()).log(Level.SEVERE, null, e);
@@ -148,4 +228,54 @@ public class NavegacaoMB implements Serializable {
             Logger.getLogger(NavegacaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public boolean isNovo() {
+        return novo;
+    }
+
+    public void setNovo(boolean novo) {
+        this.novo = novo;
+    }
+
+    public boolean isConsultar() {
+        return consultar;
+    }
+
+    public void setConsultar(boolean consulta) {
+        this.consultar = consulta;
+    }
+
+    public boolean isSalvar() {
+        return salvar;
+    }
+
+    public void setSalvar(boolean salvar) {
+        this.salvar = salvar;
+    }
+
+    public boolean isImprimir() {
+        return imprimir;
+    }
+
+    public void setImprimir(boolean imprimir) {
+        this.imprimir = imprimir;
+    }
+
+    public boolean isLimpar() {
+        return limpar;
+    }
+
+    public void setLimpar(boolean limpar) {
+        this.limpar = limpar;
+    }
+
+    public boolean isRenderPainelCadastro() {
+        return renderPainelCadastro;
+    }
+
+    public void setRenderPainelCadastro(boolean renderPainelCadastro) {
+        this.renderPainelCadastro = renderPainelCadastro;
+    }
+    
+    
 }

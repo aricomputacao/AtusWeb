@@ -16,6 +16,10 @@
             <base-name>label</base-name>
             <var>label</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>mensagens</base-name>
+            <var>mensagens</var>
+        </resource-bundle>
         <message-bundle>label</message-bundle>
         <resource-bundle>
             <base-name>navegacao</base-name>

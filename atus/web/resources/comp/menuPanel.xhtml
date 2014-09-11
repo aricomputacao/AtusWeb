@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <composite:interface>
+        <composite:valueHolder name="idForm" targets="frm"/>
+        <composite:attribute name="acao_salvar" required="true"   method-signature="java.lang.Void action()" shortDescription="Inslusão do metodo salvar"/>
+        <composite:attribute name="acao_consultar" required="true"   method-signature="java.lang.Void action()" shortDescription="Inslusão do metodo consultar"/>
+        <composite:attribute name="acao_adicionar" required="true"   method-signature="java.lang.Void action()" shortDescription="Inclusão do metodo adicionar"/>
+        <composite:attribute name="acao_imprimir" required="true"   method-signature="java.lang.Void action()" shortDescription="Inslusão do metodo imprimir"/>
+
+    </composite:interface>
+    <composite:implementation>
+        <p:menubar  style="margin-top: 20px;border: #E0E0E0  solid 1px" >
+            <p:menuitem id="menNovo" immediate="true" rendered="#{navegacaoMB.novo}" styleClass="menuPanel" icon="ui-icon-circle-plus" title="Novo"   actionListener="#{cc.attrs.acao_adicionar}" update="@form" />
+            <p:menuitem id="menSal"  rendered="#{navegacaoMB.salvar}" styleClass="menuPanel" icon="ui-icon-disk" title="Salvar"  actionListener="#{cc.attrs.acao_salvar}" update="@form" />
+            <p:menuitem id="menCon"  rendered="#{navegacaoMB.consultar}" styleClass="menuPanel" icon="ui-icon-search" title="Consultar"  actionListener="#{cc.attrs.acao_consultar}" immediate="true" />
+            <p:menuitem id="menPri" rendered="#{navegacaoMB.imprimir}"  styleClass="menuPanel" icon="ui-icon-print" title="Imprimir"  actionListener="#{cc.attrs.acao_consultar}" immediate="true" />
+
+            <p:menuitem id="menLim" rendered="#{navegacaoMB.limpar}"  styleClass="menuPanel" icon="ui-icon-arrowrefresh-1-e" title="Limpar"  immediate="true" update="@form"  >
+                <p:resetInput target="@form"/>
+            </p:menuitem>
+        </p:menubar>
+     
+    </composite:implementation>
+</ui:composition>
+
+

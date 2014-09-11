@@ -10,6 +10,8 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
@@ -25,6 +27,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class RamoJudiciario implements Serializable{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "raj_id",nullable = false)
     private Integer id;
     @NotBlank

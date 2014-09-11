@@ -3,4 +3,9 @@
 <facelet-taglib>
     <namespace>http://componente.com.br</namespace>
     
+    <tag>
+        <tag-name>consultaRamoJudiciario</tag-name>
+        <source>consultas/RamoJudiciarioConsulta.xhtml</source>
+    </tag>
+    
 </facelet-taglib>

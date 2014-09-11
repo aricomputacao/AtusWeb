@@ -5,18 +5,44 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
-                    
-                xmlns:comp="http://java.sun.com/jsf/composite/comp">
-    
+
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:ccb="http://componente.com.br"
+                xmlns:f="http://java.sun.com/jsf/core">
+
     <ui:define name="corpo">
-        <h:form id="frm_ram">
-            <comp:panel acao_adicionar="#{navegacaoMB.index()}" acao_consultar="#{navegacaoMB.index()}" acao_imprimir="#{navegacaoMB.index()}" acao_salvar="#{navegacaoMB.index()}" cabecalho_grid="Ramo Juridico" id_form="frm_ram"/>
+        <h:form id="frm_ram" prependId="false" >
+            <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.ramo_judiciario'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.ramo_judiciario'])}" acao_imprimir="#{navegacaoMB.index()}" acao_salvar="#{ramoJudiciarioMB.salvar()}"/>
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Ramo Juridico" id_form="frm_ram"  >
+                <h:panelGrid width="100%" rendered="#{navegacaoMB.renderPainelCadastro}"  >
+                    <p:fieldset id="fieldCad" legend="Cadastro" style="font-weight: bold">
 
+                        <h:panelGrid columns="1"  >
+                            <h:panelGrid >
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Código" for="cod"/>
+                                    <p:message for="cod"/>
+                                </h:panelGrid>
+                                <p:inputText id="cod" disabled="true" value="#{ramoJudiciarioMB.ramoJudiciario.id}"  maxlength="4" size="10" required="true" requiredMessage="Informe o código do Agente Recebedor" readonly="true"/>
+                            </h:panelGrid>
+                            <h:panelGrid id="griPrin3">
+                                <h:panelGrid columns="2" id="grd03">
+                                    <p:outputLabel value="Nome" for="nome"/>
+                                    <p:message for="nome"/>
+                                </h:panelGrid>
+                                <p:inputText value="#{ramoJudiciarioMB.ramoJudiciario.nome}" id="nome" size="50" required="true" requiredMessage="Informe a nome do Agente Recebedor."/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:fieldset>
+                </h:panelGrid>       
+                <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}"> 
+                    <ccb:consultaRamoJudiciario />
+
+                </h:panelGrid>
+            </comp:panel_cadastro>
         </h:form>
-    </ui:define>
-    <ui:define name="dialogs">
-
 
     </ui:define>
+
 </ui:composition>
 

@@ -18,7 +18,7 @@ import javax.persistence.PersistenceContext;
  */
 public abstract class DAO<T, PK extends Serializable> implements Serializable {
 
-    @PersistenceContext(unitName = "atusPU")
+    @PersistenceContext(unitName = "atusWebPU")
     private EntityManager em;
     private final Class<T> entityClass;
 

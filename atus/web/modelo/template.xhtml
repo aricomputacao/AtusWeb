@@ -20,7 +20,7 @@
         <p:layout fullPage="true">
             <p:layoutUnit  id="center"  position="center"   >
                 <div class="cabecalho">
-                    <h:form>
+                    <h:form id="frmCabecalho">
                         <p:graphicImage  url="/resources/imagens/logo.png" style="float: left;margin-top: 3px"   />
                         <div style="float: right;margin-top: 20px;margin-right: 100px;">
                             <p>Bem Vindo, <strong>Usuário</strong></p>
@@ -34,21 +34,17 @@
                         </div>
                     </h:form>
                 </div>
-                <h:form>
+                <h:form id="frmMenuPrincipal" prependId="false">
                     <p:menubar styleClass="menu"   >
                         <p:menuitem styleClass="item" value="Início" action="#"  />
                         <p:submenu   styleClass="subMenu" style="font-weight: bolder"  label="Cadastro" >
-                            <p:menuitem styleClass="item"  value="Agentes Recebedores"/>
+                            <p:menuitem value="Ramo Juridico" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.ramo_judiciario'])}" immediate="true"/>
 
                         </p:submenu>
                         <p:submenu  label="Processos" styleClass="subMenu" >
-                            <p:menuitem value="Ramo Juridico" styleClass="item"  actionListener="#{navegacaoMB.redirecionar(navegacao['cad.ramo_juridico'])}" immediate="true"/>
-                            <p:menuitem value="Ramo Juridico" styleClass="item"  actionListener="#{navegacaoMB.redirecionar(navegacao['cad.ramo_juridico'])}" immediate="true"/>
-                            <p:menuitem value="Ramo Juridico" styleClass="item"  actionListener="#{navegacaoMB.redirecionar(navegacao['cad.ramo_juridico'])}" immediate="true"/>
-                            <p:menuitem value="Ramo Juridico" styleClass="item"  actionListener="#{navegacaoMB.redirecionar(navegacao['cad.ramo_juridico'])}" immediate="true"/>
 
                         </p:submenu>
-                        <p:menuitem styleClass="item" value="Pessoa" />
+                        <p:menuitem styleClass="item"  value="Pessoa" />
                         <p:menuitem styleClass="item" value="Agenda"/>
                         <p:menuitem styleClass="item" value="Relatórios"/>
                         <p:menuitem styleClass="item" value="Segurança"/>

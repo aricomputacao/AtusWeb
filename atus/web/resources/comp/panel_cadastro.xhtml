@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <composite:interface>
+        <composite:attribute name="id_form" required="true"   shortDescription="Id do formulário" />
+        <composite:valueHolder name="idForm" targets="frm"/>
+        <composite:attribute name="cabecalho_grid" required="true" shortDescription="Cabeçalho do panelGrid" />
+    
+    </composite:interface>
+    <composite:implementation >    
+        <p:panel styleClass="painelPadrao" >
+            <f:facet name="header">
+                <p:spacer height="10" width="600"/>
+                <h:outputText id="grdCabe" value="#{cc.attrs.cabecalho_grid}"/>
+            </f:facet>
+            <p:focus/>
+            <p:growl life="10000" showDetail="true" autoUpdate="true" />
+
+           
+            <p:fieldset id="panelCadastro">
+                <composite:insertChildren id="insertCadastro"/>
+            </p:fieldset>
+           
+            <p:separator/>
+        </p:panel>
+    </composite:implementation>
+</ui:composition>
+
+
