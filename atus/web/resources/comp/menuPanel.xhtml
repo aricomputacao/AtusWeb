@@ -18,16 +18,20 @@
 
     </composite:interface>
     <composite:implementation>
+        <p:blockUI block="@form" trigger="menPri,menSal,menCon"    >
+            <p:graphicImage library="imagens" name="carregar.gif"/>
+        </p:blockUI>
         <p:menubar  style="margin-top: 20px;border: #E0E0E0  solid 1px" >
+         
             <p:menuitem id="menNovo" immediate="true" rendered="#{navegacaoMB.novo}" styleClass="menuPanel" icon="ui-icon-circle-plus" title="Novo"   actionListener="#{cc.attrs.acao_adicionar}" update="@form" />
             <p:menuitem id="menSal"  rendered="#{navegacaoMB.salvar}" styleClass="menuPanel" icon="ui-icon-disk" title="Salvar"  actionListener="#{cc.attrs.acao_salvar}" update="@form" />
             <p:menuitem id="menCon"  rendered="#{navegacaoMB.consultar}" styleClass="menuPanel" icon="ui-icon-search" title="Consultar"  actionListener="#{cc.attrs.acao_consultar}" immediate="true" />
-            <p:menuitem id="menPri" rendered="#{navegacaoMB.imprimir}"  styleClass="menuPanel" icon="ui-icon-print" title="Imprimir"  actionListener="#{cc.attrs.acao_consultar}" immediate="true" />
+            <p:menuitem id="menPri" rendered="#{navegacaoMB.imprimir}"  oncomplete="popup('/atus/RelatorioServlet.pdf');"   styleClass="menuPanel" icon="ui-icon-print" title="Imprimir"  actionListener="#{cc.attrs.acao_imprimir}"  />
             <p:menuitem id="menLim" rendered="#{navegacaoMB.limpar}"  styleClass="menuPanel" icon="ui-icon-arrowrefresh-1-e" title="Limpar"  actionListener="#{cc.attrs.acao_limpar}" immediate="true" update="@form"  >
                 <p:resetInput target="@form"/>
             </p:menuitem>
         </p:menubar>
-     
+          
     </composite:implementation>
 </ui:composition>
 

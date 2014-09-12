@@ -235,12 +235,8 @@ ui-layout-unit{
     margin-right: 5px;
 
 }
-/*Icones menu*/
-.ui-icon.ui-icon-triangle-1-s{
 
-    border-radius: 5px;
-       
-}
+/*Icones menu*/
 
 .ui-menuitem-icon.ui-icon.ui-icon-disk{
     background: url("../resources/imagens/salvar.png") ! important; 
@@ -281,6 +277,11 @@ ui-layout-unit{
 .ui-button-icon-left.ui-icon.ui-c.ui-icon-pencil{
     background: url("../resources/imagens/update.png") ! important; 
     width: 16px;
+    height: 16px;
+}
+.ui-button-icon-left.ui-icon.ui-c.ui-icon-trash{
+     background: url("../resources/imagens/delete.png") ! important; 
+  width: 16px;
     height: 16px;
 }
 .ui-datatable .ui-datatable-data .even-row td{

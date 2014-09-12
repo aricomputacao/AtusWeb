@@ -17,7 +17,7 @@
             <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" style="font-weight: bold">
                 <h:panelGrid id="grdConsulta" columns="4">
                     <h:panelGrid id="grdConsulta1">
-                        <p:outputLabel value="Campo de Pesquisa"/>
+                        <p:outputLabel value="Campo"/>
                         <p:selectOneMenu value="#{ramoJudiciarioMB.campoBusca}" styleClass="lista">
                             <f:selectItem itemLabel="Nome" itemValue="nome" />
                         </p:selectOneMenu>
@@ -46,11 +46,12 @@
                     </p:column>
 
 
-                    <p:column headerText="Ação" width="10%">
+<!--                    <p:column headerText="Ação" width="7%" style="text-align: center">
                         <ui:insert name="acaoRamoJudiciario" >
                             <comp:commandButton_editar id="btnEditaRamo" acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.ramo_judiciario'],'ramo_judiciario',t)}" />
+                            <comp:commandButton_excluir acao_butao="#{ramoJudiciarioMB.excluir(t)}" classe="Ramo do Judiciário" form_to_update="@form"/>
                         </ui:insert>
-                    </p:column>
+                    </p:column>-->
 
                 </p:dataTable>
             </p:fieldset>

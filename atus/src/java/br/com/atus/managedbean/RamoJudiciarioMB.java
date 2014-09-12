@@ -52,17 +52,20 @@ public class RamoJudiciarioMB extends BeanGenerico<RamoJudiciario> implements Se
     }
 
     public void listar() {
-        try {
-            listaRamoJudiciario = controller.listarTodos("id");
-            if (listaRamoJudiciario.isEmpty()) {
-                MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
+          try {
+            if (getValorBusca() == null || getValorBusca().equals("")) {
+                listaRamoJudiciario = controller.listarTodos("nome");
+            } else {
+                listaRamoJudiciario = controller.listarLike(getCampoBusca(), getValorBusca());
             }
         } catch (Exception ex) {
-            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("consulta.erro", MenssagemUtil.MENSAGENS));
-
-            Logger.getLogger(RamoJudiciarioMB.class.getName()).log(Level.SEVERE, null, ex);
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("lista.vazia",MenssagemUtil.MENSAGENS));
+            Logger.getLogger(EspecieEventoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+   
+
 
     public RamoJudiciario getRamoJudiciario() {
         return ramoJudiciario;

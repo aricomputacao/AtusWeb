@@ -13,11 +13,12 @@
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
     </composite:interface>
     <composite:implementation  >
+
         <h:panelGrid  width="100%" id="rtt" >
             <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" style="font-weight: bold">
                 <h:panelGrid id="grdConsulta" columns="4">
                     <h:panelGrid id="grdConsulta1">
-                        <p:outputLabel value="Campo de Pesquisa"/>
+                        <p:outputLabel value="Campo"/>
                         <p:selectOneMenu value="#{especieEventoMB.campoBusca}" styleClass="lista">
                             <f:selectItem itemLabel="Nome" itemValue="nome" />
                         </p:selectOneMenu>
@@ -29,6 +30,9 @@
                     <h:panelGrid id="grdConsulta3">
                         <p:spacer width="15"/>
                         <h:panelGrid columns="2" id="btnConRamo">
+                            <p:blockUI block="@form" trigger="btnCon"    >
+                                <p:graphicImage library="imagens" name="carregar.gif"/>
+                            </p:blockUI>
                             <ui:insert name="consultaRamoJudiciario" id="grdConsulta55" >
                                 <comp:commandButton_consulta id="btnCon" acao_butao="#{especieEventoMB.listar()}"  componente_to_update="@form" />
                             </ui:insert>
@@ -46,9 +50,10 @@
                     </p:column>
 
 
-                    <p:column headerText="Ação" width="10%">
+                    <p:column headerText="Ação" width="6%" style="text-align: center">
                         <ui:insert name="acaoEspecieEvento" >
                             <comp:commandButton_editar id="btnEditaRamo"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.especie_evento'],'especie_evento',t)}" />
+                            <comp:commandButton_excluir acao_butao="#{especieEventoMB.excluir(t)}" classe="Especie de Evento" form_to_update="@form"/>
                         </ui:insert>
                     </p:column>
 

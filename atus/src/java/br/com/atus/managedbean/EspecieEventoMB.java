@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -7,10 +7,14 @@ package br.com.atus.managedbean;
 
 import br.com.atus.controller.EspecieEventoController;
 import br.com.atus.modelo.EspecieEvento;
+import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
+import br.com.atus.util.RelatorioSession;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -62,17 +66,36 @@ public class EspecieEventoMB extends BeanGenerico<EspecieEvento> implements Seri
             if (getValorBusca() == null || getValorBusca().equals("")) {
                 listaEspecieEventos = controller.listarTodos("nome");
             } else {
-
                 listaEspecieEventos = controller.listarLike("nome", getValorBusca());
-
             }
         } catch (Exception ex) {
-            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg(MenssagemUtil.MENSAGENS, "lista.vazia"));
-
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("lista.vazia",MenssagemUtil.MENSAGENS));
             Logger.getLogger(EspecieEventoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    public void excluir(EspecieEvento ee) {
+        try {
+            ee = controller.gerenciar(ee.getId());
+            controller.excluir(ee);
+            listaEspecieEventos.remove(ee);
+            MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("excluir", MenssagemUtil.MENSAGENS));
+
+        } catch (Exception ex) {
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("excluir.falha",MenssagemUtil.MENSAGENS));
+            Logger.getLogger(EspecieEventoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+     public void imprimir() {
+        if (!listaEspecieEventos.isEmpty()) {
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaEspecieEventos, m, "WEB-INF/relatorios/rel_especie_eventos.jasper", "Relatório de Especies de Eventos");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        }
+
+    }
+    
     public List<EspecieEvento> getListaEspecieEventos() {
         return listaEspecieEventos;
     }

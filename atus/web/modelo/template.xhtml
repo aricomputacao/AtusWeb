@@ -12,8 +12,8 @@
             <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
             <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
         </f:facet>
-        <link rel="shortcut icon" href="resources/imagens/ico.ico" />
-        <link rel="icon" type="image/png" href="resources/imagens/ico.ico" />
+        <link rel="shortcut icon" href="../resources/imagens/ico.ico" />
+        <link rel="icon" type="image/png" href="../resources/imagens/ico.ico" />
         <h:outputStylesheet library="css" name="default.css"/>
         <h:outputScript name="calendario_pt_BR.js" library="js" />
         <title>#{label['nome.sistema']}</title>
@@ -34,6 +34,7 @@
                                 <h:commandLink class="link" value="Sair"  actionListener="#{navegacaoMB.logout()}" />
                             </h:panelGrid>
                         </div>
+                      
                     </h:form>
                 </div>
 
@@ -42,7 +43,7 @@
                 <ui:insert id="crp"  name="corpo"></ui:insert>
 
                 <div class="rodape">
-                  
+
 
                 </div>
             </p:layoutUnit>
