@@ -11,11 +11,11 @@
 
     <ui:define name="corpo">
         <h:form id="frm_ram" prependId="false" >
-           
-            <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.ramo_judiciario'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.ramo_judiciario'])}" acao_imprimir="#{navegacaoMB.index()}" acao_limpar="#{ramoJudiciarioMB.init()}" acao_salvar="#{ramoJudiciarioMB.salvar()}"/>
-            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Ramo Juridico" id_form="frm_ram"  >
-                <h:panelGrid width="100%" rendered="#{navegacaoMB.renderPainelCadastro}"  >
-                    <p:fieldset id="fieldCad" legend="Cadastro" style="font-weight: bold">
+
+            <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.especie_evento'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.especie_evento'])}" acao_imprimir="#{navegacaoMB.index()}" acao_limpar="#{especieEventoMB.init()}" acao_salvar="#{especieEventoMB.salvar()}"/>
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Especie de Eventos" id_form="frm_ram"  >
+               
+                    <p:fieldset id="fieldCad" rendered="#{navegacaoMB.renderPainelCadastro}" legend="Cadastro" style="font-weight: bold">
 
                         <h:panelGrid columns="1"  >
                             <h:panelGrid >
@@ -23,22 +23,22 @@
                                     <p:outputLabel value="Código" for="cod"/>
                                     <p:message for="cod"/>
                                 </h:panelGrid>
-                                <p:inputText id="cod" disabled="true" value="#{ramoJudiciarioMB.ramoJudiciario.id}"  maxlength="4" size="10" required="true" requiredMessage="#{mensagens['require']}" readonly="true"/>
+                                <p:inputText id="cod" disabled="true" value="#{especieEventoMB.especieEvento.id}"  maxlength="4" size="5" required="true" requiredMessage="#{mensagens['require']}" readonly="true"/>
                             </h:panelGrid>
                             <h:panelGrid id="griPrin3">
                                 <h:panelGrid columns="2" id="grd03">
                                     <p:outputLabel value="Nome" for="nome"/>
                                     <p:message for="nome"/>
                                 </h:panelGrid>
-                                <p:inputText value="#{ramoJudiciarioMB.ramoJudiciario.nome}" id="nome" size="50" required="true" requiredMessage="#{mensagens['require']}"/>
+                                <p:inputText value="#{especieEventoMB.especieEvento.nome}" id="nome" size="50" required="true" requiredMessage="#{mensagens['require']}"/>
                             </h:panelGrid>
                         </h:panelGrid>
                     </p:fieldset>
-                </h:panelGrid>       
-                <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}"> 
-                    <cons:RamoJudiciarioConsulta/>
+             
 
-                </h:panelGrid>
+                <cons:EspecieEventoConsulta rendered="#{not navegacaoMB.renderPainelCadastro}"/>
+
+
             </comp:panel_cadastro>
         </h:form>
 

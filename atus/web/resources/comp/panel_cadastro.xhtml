@@ -15,6 +15,9 @@
     
     </composite:interface>
     <composite:implementation >    
+         <p:blockUI block="@form" widgetVar="bck" >
+                <p:graphicImage library="imagens" name="carregar.gif"/>
+            </p:blockUI>
         <p:panel styleClass="painelPadrao" >
             <f:facet name="header">
                 <p:spacer height="10" width="600"/>
@@ -22,12 +25,7 @@
             </f:facet>
             <p:focus/>
             <p:growl life="10000" showDetail="true" autoUpdate="true" />
-
-           
-            <p:fieldset id="panelCadastro">
                 <composite:insertChildren id="insertCadastro"/>
-            </p:fieldset>
-           
             <p:separator/>
         </p:panel>
     </composite:implementation>

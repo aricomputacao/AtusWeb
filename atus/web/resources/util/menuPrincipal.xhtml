@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite">
+    <composite:interface>
+
+        <composite:attribute name="id" default="frmMenuPrincipal"/>
+    </composite:interface>
+    <composite:implementation>
+        <h:form id="#{cc.attrs.id}" prependId="false">
+            <p:menubar styleClass="menu"   >
+                <p:menuitem styleClass="item" value="Início" actionListener="#{navegacaoMB.index()}"  />
+                <p:submenu   styleClass="subMenu" style="font-weight: bolder"  label="Cadastro" >
+                    <p:menuitem value="Especie Evento" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.especie_evento'])}" immediate="true"/>
+                    <p:menuitem value="Ramo Juridico" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.ramo_judiciario'])}" immediate="true"/>
+                </p:submenu>
+                <p:submenu  label="Processos" styleClass="subMenu" >
+
+                </p:submenu>
+                <p:menuitem styleClass="item"  value="Pessoa" />
+                <p:menuitem styleClass="item" value="Agenda"/>
+                <p:menuitem styleClass="item" value="Relatórios"/>
+                <p:menuitem styleClass="item" value="Segurança"/>
+            </p:menubar>
+        </h:form>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

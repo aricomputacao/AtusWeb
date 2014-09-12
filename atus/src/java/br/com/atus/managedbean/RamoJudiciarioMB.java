@@ -36,7 +36,7 @@ public class RamoJudiciarioMB extends BeanGenerico<RamoJudiciario> implements Se
 
     @PostConstruct
     public void init() {
-        listaRamoJudiciario = new ArrayList<RamoJudiciario>();
+        listaRamoJudiciario = new ArrayList<>();
         ramoJudiciario = (RamoJudiciario) navegacaoMB.getRegistroMapa("ramo_judiciario", new RamoJudiciario());
     }
 

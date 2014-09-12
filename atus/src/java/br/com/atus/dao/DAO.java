@@ -58,6 +58,11 @@ public abstract class DAO<T, PK extends Serializable> implements Serializable {
         return em.createQuery("FROM " + getEntityClass().getName() + " order by :ordem")
                 .setParameter("ordem", ordem).getResultList();
     }
+    
+     public List<T> listarLike(String nomeCampo,String valor) throws Exception {
+        return em.createQuery("FROM " + getEntityClass().getName() + " where UPPER("+nomeCampo+") like :vl")
+                .setParameter("vl", "%"+valor.toUpperCase()+"%").getResultList();
+    }
 
     // Usar somente para classes de Auditoria
     public List<T> listarAuditoria(String campo, PK id) throws Exception {

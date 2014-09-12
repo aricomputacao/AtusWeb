@@ -5,13 +5,15 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:ccb="http://componente.com.br">
+                xmlns:util="http://java.sun.com/jsf/composite/util"
+                >
     <h:head>
         <f:facet name="first">
             <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
             <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
         </f:facet>
-        <link rel="shortcut icon" type="image/png" href="../resources/imagens/ico.ico" />
+        <link rel="shortcut icon" href="resources/imagens/ico.ico" />
+        <link rel="icon" type="image/png" href="resources/imagens/ico.ico" />
         <h:outputStylesheet library="css" name="default.css"/>
         <h:outputScript name="calendario_pt_BR.js" library="js" />
         <title>#{label['nome.sistema']}</title>
@@ -34,28 +36,13 @@
                         </div>
                     </h:form>
                 </div>
-                <h:form id="frmMenuPrincipal" prependId="false">
-                    <p:menubar styleClass="menu"   >
-                        <p:menuitem styleClass="item" value="Início" action="#"  />
-                        <p:submenu   styleClass="subMenu" style="font-weight: bolder"  label="Cadastro" >
-                            <p:menuitem value="Ramo Juridico" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.ramo_judiciario'])}" immediate="true"/>
 
-                        </p:submenu>
-                        <p:submenu  label="Processos" styleClass="subMenu" >
-
-                        </p:submenu>
-                        <p:menuitem styleClass="item"  value="Pessoa" />
-                        <p:menuitem styleClass="item" value="Agenda"/>
-                        <p:menuitem styleClass="item" value="Relatórios"/>
-                        <p:menuitem styleClass="item" value="Segurança"/>
-                    </p:menubar>
-                </h:form>
-
+                <util:menuPrincipal/>
 
                 <ui:insert id="crp"  name="corpo"></ui:insert>
 
                 <div class="rodape">
-
+                  
 
                 </div>
             </p:layoutUnit>

@@ -52,7 +52,7 @@ public class NavegacaoMB implements Serializable {
      */
     public void cadastro() {
         renderPainelCadastro = true;
-        novo = true;
+        novo = false;
         consultar = true;
         salvar = true;
         imprimir = false;

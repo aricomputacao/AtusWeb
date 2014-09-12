@@ -14,6 +14,7 @@
         <composite:attribute name="acao_consultar" required="true"   method-signature="java.lang.Void action()" shortDescription="Inslusão do metodo consultar"/>
         <composite:attribute name="acao_adicionar" required="true"   method-signature="java.lang.Void action()" shortDescription="Inclusão do metodo adicionar"/>
         <composite:attribute name="acao_imprimir" required="true"   method-signature="java.lang.Void action()" shortDescription="Inslusão do metodo imprimir"/>
+        <composite:attribute name="acao_limpar" required="true"   method-signature="java.lang.Void action()" shortDescription="Inslusão do metodo limpar"/>
 
     </composite:interface>
     <composite:implementation>
@@ -22,8 +23,7 @@
             <p:menuitem id="menSal"  rendered="#{navegacaoMB.salvar}" styleClass="menuPanel" icon="ui-icon-disk" title="Salvar"  actionListener="#{cc.attrs.acao_salvar}" update="@form" />
             <p:menuitem id="menCon"  rendered="#{navegacaoMB.consultar}" styleClass="menuPanel" icon="ui-icon-search" title="Consultar"  actionListener="#{cc.attrs.acao_consultar}" immediate="true" />
             <p:menuitem id="menPri" rendered="#{navegacaoMB.imprimir}"  styleClass="menuPanel" icon="ui-icon-print" title="Imprimir"  actionListener="#{cc.attrs.acao_consultar}" immediate="true" />
-
-            <p:menuitem id="menLim" rendered="#{navegacaoMB.limpar}"  styleClass="menuPanel" icon="ui-icon-arrowrefresh-1-e" title="Limpar"  immediate="true" update="@form"  >
+            <p:menuitem id="menLim" rendered="#{navegacaoMB.limpar}"  styleClass="menuPanel" icon="ui-icon-arrowrefresh-1-e" title="Limpar"  actionListener="#{cc.attrs.acao_limpar}" immediate="true" update="@form"  >
                 <p:resetInput target="@form"/>
             </p:menuitem>
         </p:menubar>

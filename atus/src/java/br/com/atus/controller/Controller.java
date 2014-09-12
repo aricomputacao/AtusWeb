@@ -118,4 +118,15 @@ public abstract class Controller<T, PK extends Serializable> implements Serializ
     public List<T> listarTodos(String ordem) throws Exception {
         return dao.listarTodos(ordem);
     }
+    
+    /**
+     * 
+     * @param campo
+     * @param valor
+     * @return
+     * @throws Exception 
+     */
+     public List<T> listarLike(String campo,String valor) throws Exception {
+        return dao.listarLike(campo, valor);
+    }
 }
