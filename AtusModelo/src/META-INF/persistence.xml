@@ -4,6 +4,9 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>br.com.atus.modelo.RamoJudiciario</class>
     <class>br.com.atus.modelo.EspecieEvento</class>
+    <class>br.com.atus.modelo.Orgao</class>
+    <class>br.com.atus.modelo.TipoContrato</class>
+    <class>br.com.atus.modelo.Materia</class>
     <properties>
       <property name="hibernate.connection.username" value=""/>
       <property name="hibernate.connection.driver_class" value=""/>

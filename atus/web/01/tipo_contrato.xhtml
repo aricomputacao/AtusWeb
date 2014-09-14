@@ -10,11 +10,10 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="corpo">
-
-        <h:form id="frm_ram" prependId="false" >
+        <h:form id="frm_pag" prependId="false" >
        
-            <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.especie_evento'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.especie_evento'])}" acao_imprimir="#{especieEventoMB.imprimir()}" acao_limpar="#{especieEventoMB.init()}" acao_salvar="#{especieEventoMB.salvar()}"/>
-            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Especie de Eventos" id_form="frm_ram"  >               
+            <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.tipo_contato'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.tipo_contato'])}" acao_imprimir="#{tipoContratoMB.imprimir()}" acao_limpar="#{tipoContratoMB.init()}" acao_salvar="#{tipoContratoMB.salvar()}"/>
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Tipo de Contrato" id_form="frm_pag"  >               
 
                 <p:fieldset id="fieldCad" rendered="#{navegacaoMB.renderPainelCadastro}" legend="Cadastro" style="font-weight: bold">
 
@@ -24,21 +23,26 @@
                                 <p:outputLabel value="Código" for="cod"/>
                                 <p:message for="cod"/>
                             </h:panelGrid>
-                            <p:inputText id="cod" disabled="true" value="#{especieEventoMB.especieEvento.id}"  maxlength="4" size="5" required="true" requiredMessage="#{mensagens['require']}" readonly="true"/>
+                            <p:inputText id="cod" disabled="true" value="#{tipoContratoMB.tipoContrado.id}"  maxlength="4" size="5" required="true" requiredMessage="#{mensagens['require']}" readonly="true"/>
                         </h:panelGrid>
                         <h:panelGrid id="griPrin3">
                             <h:panelGrid columns="2" id="grd03">
                                 <p:outputLabel value="Nome" for="nome"/>
                                 <p:message for="nome"/>
                             </h:panelGrid>
-                            <p:inputText value="#{especieEventoMB.especieEvento.nome}"  id="nome" size="50" required="true" requiredMessage="#{mensagens['require']}"/>
+                            <p:inputText value="#{tipoContratoMB.tipoContrado.nome}"  id="nome" size="50" required="true" requiredMessage="#{mensagens['require']}"/>
                         </h:panelGrid>
+                        <h:panelGrid id="griPrin4">
+                            <h:panelGrid columns="2" id="grd04">
+                                <p:outputLabel value="Descrição" for="descricao"/>
+                                <p:message for="descricao"/>
+                            </h:panelGrid>
+                            <p:inputTextarea value="#{tipoContratoMB.tipoContrado.descricao}"  id="descricao" cols="50" rows="10" maxlength="1024" placeholder="Descreva as caracteristicas do contrato" required="true" requiredMessage="#{mensagens['require']}"/>
+                        </h:panelGrid>
+                        
                     </h:panelGrid>
                 </p:fieldset>
-
-
-                <cons:EspecieEventoConsulta rendered="#{not navegacaoMB.renderPainelCadastro}"/>
-
+                <cons:TipoContratoConsulta rendered="#{not navegacaoMB.renderPainelCadastro}"/>
             </comp:panel_cadastro>
         </h:form>
 

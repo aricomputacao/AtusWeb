@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:cons="http://java.sun.com/jsf/composite/consultas"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="corpo">
+        <h:form id="frm_ram" prependId="false" >
+           
+            <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.materia'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.materia'])}" acao_imprimir="#{materiaMB.imprimir()}" acao_limpar="#{materiaMB.init()}" acao_salvar="#{materiaMB.salvar()}"/>
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Materia" id_form="frm_ram"  >
+                <h:panelGrid width="100%" rendered="#{navegacaoMB.renderPainelCadastro}"  >
+                    <p:fieldset id="fieldCad" legend="Cadastro" style="font-weight: bold">
+
+                        <h:panelGrid columns="1"  >
+                            <h:panelGrid >
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Código" for="cod"/>
+                                    <p:message for="cod"/>
+                                </h:panelGrid>
+                                <p:inputText id="cod" disabled="true" value="#{materiaMB.materia.id}"  maxlength="4" size="10" required="true" requiredMessage="#{mensagens['require']}" readonly="true"/>
+                            </h:panelGrid>
+                            <h:panelGrid id="griPrin3">
+                                <h:panelGrid columns="2" id="grd03">
+                                    <p:outputLabel value="Nome" for="nome"/>
+                                    <p:message for="nome"/>
+                                </h:panelGrid>
+                                <p:inputText value="#{materiaMB.materia.nome}" id="nome" size="50" required="true" requiredMessage="#{mensagens['require']}"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:fieldset>
+                </h:panelGrid>       
+                <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}"> 
+                    <cons:MateriaConsulta/>
+
+                </h:panelGrid>
+            </comp:panel_cadastro>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+

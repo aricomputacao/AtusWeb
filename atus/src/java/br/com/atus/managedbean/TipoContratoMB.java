@@ -1,12 +1,12 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package br.com.atus.managedbean;
 
-import br.com.atus.controller.EspecieEventoController;
-import br.com.atus.modelo.EspecieEvento;
+import br.com.atus.controller.TipoContratoController;
+import br.com.atus.modelo.TipoContrato;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
@@ -29,44 +29,42 @@ import javax.inject.Inject;
  */
 @ManagedBean
 @ViewScoped
-public class EspecieEventoMB extends BeanGenerico<EspecieEvento> implements Serializable {
+public class TipoContratoMB extends BeanGenerico<TipoContratoMB> implements Serializable {
 
     @Inject
     private NavegacaoMB navegacaoMB;
     @EJB
-    private EspecieEventoController controller;
-    private List<EspecieEvento> listaEspecieEventos;
-    private EspecieEvento especieEvento;
+    private TipoContratoController controller;
+    private List<TipoContrato> listaTipoContrados;
+    private TipoContrato tipoContrado;
 
-    public EspecieEventoMB() {
-        super(EspecieEvento.class);
-
+    public TipoContratoMB() {
+        super(TipoContratoMB.class);
     }
 
     @PostConstruct
     public void init() {
-        listaEspecieEventos = new ArrayList<>();
-        especieEvento = (EspecieEvento) navegacaoMB.getRegistroMapa("especie_evento", new EspecieEvento());
+        tipoContrado = (TipoContrato) navegacaoMB.getRegistroMapa("tipo_contrato", new TipoContrato());
+        listaTipoContrados = new ArrayList<>();
     }
 
     public void salvar() {
         try {
-            controller.atualizar(especieEvento);
+            controller.salvarouAtualizar(tipoContrado);
             init();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
-
         } catch (Exception ex) {
-            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS), ex, "RamoJudiciario");
-            Logger.getLogger(EspecieEventoMB.class.getName()).log(Level.SEVERE, null, ex);
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS), ex, "TipoContrato");
+            Logger.getLogger(TipoContratoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaEspecieEventos = controller.listarTodos("nome");
+                listaTipoContrados = controller.listarTodos("nome");
             } else {
-                listaEspecieEventos = controller.listarLike("nome", getValorBusca());
+                listaTipoContrados = controller.listarLike("nome", getValorBusca());
                 MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
             }
@@ -76,11 +74,11 @@ public class EspecieEventoMB extends BeanGenerico<EspecieEvento> implements Seri
         }
     }
 
-    public void excluir(EspecieEvento ee) {
+    public void excluir(TipoContrato ee) {
         try {
             ee = controller.gerenciar(ee.getId());
             controller.excluir(ee);
-            listaEspecieEventos.remove(ee);
+            listaTipoContrados.remove(ee);
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("excluir", MenssagemUtil.MENSAGENS));
 
         } catch (Exception ex) {
@@ -90,28 +88,28 @@ public class EspecieEventoMB extends BeanGenerico<EspecieEvento> implements Seri
     }
 
     public void imprimir() {
-        if (!listaEspecieEventos.isEmpty()) {
+        if (!listaTipoContrados.isEmpty()) {
             Map<String, Object> m = new HashMap<>();
-            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaEspecieEventos, m, "WEB-INF/relatorios/rel_especie_eventos.jasper", "Relatório de Especies de Eventos");
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaTipoContrados, m, "WEB-INF/relatorios/rel_tipo_contrato.jasper", "Relatório de Tipos de Contratos");
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
 
     }
 
-    public List<EspecieEvento> getListaEspecieEventos() {
-        return listaEspecieEventos;
+    public List<TipoContrato> getListaTipoContrados() {
+        return listaTipoContrados;
     }
 
-    public void setListaEspecieEventos(List<EspecieEvento> listaEspecieEventos) {
-        this.listaEspecieEventos = listaEspecieEventos;
+    public void setListaTipoContrados(List<TipoContrato> listaTipoContrados) {
+        this.listaTipoContrados = listaTipoContrados;
     }
 
-    public EspecieEvento getEspecieEvento() {
-        return especieEvento;
+    public TipoContrato getTipoContrado() {
+        return tipoContrado;
     }
 
-    public void setEspecieEvento(EspecieEvento especieEvento) {
-        this.especieEvento = especieEvento;
+    public void setTipoContrado(TipoContrato tipoContrado) {
+        this.tipoContrado = tipoContrado;
     }
 
 }

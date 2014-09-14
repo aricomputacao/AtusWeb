@@ -6,6 +6,9 @@
     <jta-data-source>jdbc/atus</jta-data-source>
     <class>br.com.atus.modelo.RamoJudiciario</class>
     <class>br.com.atus.modelo.EspecieEvento</class>
+    <class>br.com.atus.modelo.Orgao</class>
+    <class>br.com.atus.modelo.TipoContrato</class>
+    <class>br.com.atus.modelo.Materia</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!--<property name="hibernate.show_sql" value="true"/>-->

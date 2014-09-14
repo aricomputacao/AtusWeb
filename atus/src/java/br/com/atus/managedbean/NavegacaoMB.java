@@ -93,6 +93,7 @@ public class NavegacaoMB implements Serializable {
     /**
      * Retorna a mensagem do bundle
      *
+     * 
      * @param messageId
      * @param arquivo
      * @return

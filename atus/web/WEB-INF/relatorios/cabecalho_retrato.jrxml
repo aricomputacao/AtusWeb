@@ -9,51 +9,36 @@
 	<noData>
 		<band height="65">
 			<frame>
-				<reportElement uuid="fbd7bade-f682-4656-8072-5a3bdd4dccb4" mode="Opaque" x="0" y="0" width="555" height="65" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
-				<frame>
-					<reportElement uuid="9ba9a430-a986-4a27-94c6-d8ea12084bc7" mode="Opaque" x="0" y="0" width="553" height="65" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
-					<textField>
-						<reportElement uuid="d7af5dc1-3b32-4198-9fb9-8d04eb6dd62e" x="63" y="43" width="298" height="20" backcolor="#000000"/>
-						<textElement>
-							<font size="14" isItalic="true"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$P{relatorio}]]></textFieldExpression>
-					</textField>
-					<line>
-						<reportElement uuid="6c4ab1c5-10d7-477b-bc59-2793206928fd" x="0" y="63" width="553" height="1"/>
-					</line>
-					<line>
-						<reportElement uuid="50a7cad0-a8bb-4b59-815c-c0308bf94da7" x="0" y="1" width="553" height="1"/>
-					</line>
-					<line>
-						<reportElement uuid="bab142a6-885a-4124-81f6-f115ba2aa1d4" x="552" y="2" width="1" height="61"/>
-					</line>
-					<line>
-						<reportElement uuid="d8b2e5d4-a7a0-4d83-a03f-582d7c3a8d25" x="0" y="2" width="1" height="61"/>
-					</line>
-					<staticText>
-						<reportElement uuid="c1ac50c9-50ac-4e0e-82e8-5bd7ae4ddd87" x="63" y="2" width="54" height="24" forecolor="#333333" backcolor="#000000"/>
-						<textElement verticalAlignment="Bottom">
-							<font fontName="SansSerif" size="16" isBold="true" isItalic="true"/>
-						</textElement>
-						<text><![CDATA[Atus]]></text>
-					</staticText>
-					<staticText>
-						<reportElement uuid="32467076-5524-4837-9568-68a06616e189" x="63" y="27" width="298" height="18" forecolor="#333333" backcolor="#000000"/>
-						<textElement verticalAlignment="Top">
-							<font fontName="SansSerif" size="12" isBold="true" isItalic="true"/>
-						</textElement>
-						<text><![CDATA[Sistema de Administração de Escritório]]></text>
-					</staticText>
-					<image>
-						<reportElement uuid="db04febb-603b-432d-a3e8-3b497b2c6617" x="3" y="3" width="64" height="57"/>
-						<imageExpression><![CDATA[$P{img}]]></imageExpression>
-					</image>
-					<image>
-						<reportElement uuid="8bb95064-d1eb-488d-84d2-e449bd7ca58f" x="482" y="5" width="65" height="55"/>
-						<imageExpression><![CDATA[$P{img1}]]></imageExpression>
-					</image>
-				</frame>
+				<reportElement uuid="9ba9a430-a986-4a27-94c6-d8ea12084bc7" mode="Opaque" x="0" y="1" width="555" height="62" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#333333"/>
+					<topPen lineWidth="0.5" lineColor="#333333"/>
+					<leftPen lineWidth="0.5" lineColor="#333333"/>
+					<bottomPen lineWidth="0.5" lineColor="#333333"/>
+					<rightPen lineWidth="0.5" lineColor="#333333"/>
+				</box>
+				<textField>
+					<reportElement uuid="d7af5dc1-3b32-4198-9fb9-8d04eb6dd62e" x="63" y="42" width="298" height="20" backcolor="#000000"/>
+					<textElement>
+						<font size="14" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{relatorio}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="c1ac50c9-50ac-4e0e-82e8-5bd7ae4ddd87" x="63" y="2" width="71" height="39" forecolor="#333333" backcolor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif" size="26" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Atus]]></text>
+				</staticText>
+				<image>
+					<reportElement uuid="db04febb-603b-432d-a3e8-3b497b2c6617" x="3" y="3" width="64" height="57"/>
+					<imageExpression><![CDATA[$P{img}]]></imageExpression>
+				</image>
+				<image>
+					<reportElement uuid="8bb95064-d1eb-488d-84d2-e449bd7ca58f" x="482" y="5" width="65" height="55"/>
+					<imageExpression><![CDATA[$P{img1}]]></imageExpression>
+				</image>
 			</frame>
 		</band>
 	</noData>

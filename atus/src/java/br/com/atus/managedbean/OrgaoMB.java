@@ -1,12 +1,12 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package br.com.atus.managedbean;
 
-import br.com.atus.controller.EspecieEventoController;
-import br.com.atus.modelo.EspecieEvento;
+import br.com.atus.controller.OrgaoController;
+import br.com.atus.modelo.Orgao;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
@@ -29,89 +29,87 @@ import javax.inject.Inject;
  */
 @ManagedBean
 @ViewScoped
-public class EspecieEventoMB extends BeanGenerico<EspecieEvento> implements Serializable {
+public class OrgaoMB extends BeanGenerico<Orgao> implements Serializable {
 
     @Inject
     private NavegacaoMB navegacaoMB;
     @EJB
-    private EspecieEventoController controller;
-    private List<EspecieEvento> listaEspecieEventos;
-    private EspecieEvento especieEvento;
+    private OrgaoController controller;
+    private List<Orgao> listaOrgaos;
+    private Orgao orgao;
 
-    public EspecieEventoMB() {
-        super(EspecieEvento.class);
-
+    public OrgaoMB() {
+        super(Orgao.class);
     }
 
     @PostConstruct
     public void init() {
-        listaEspecieEventos = new ArrayList<>();
-        especieEvento = (EspecieEvento) navegacaoMB.getRegistroMapa("especie_evento", new EspecieEvento());
+        orgao = (Orgao) navegacaoMB.getRegistroMapa("orgao", new Orgao());
+        listaOrgaos = new ArrayList<>();
     }
 
     public void salvar() {
         try {
-            controller.atualizar(especieEvento);
+            controller.salvarouAtualizar(orgao);
             init();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
-
         } catch (Exception ex) {
-            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS), ex, "RamoJudiciario");
-            Logger.getLogger(EspecieEventoMB.class.getName()).log(Level.SEVERE, null, ex);
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS));
+            Logger.getLogger(OrgaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaEspecieEventos = controller.listarTodos("nome");
+                listaOrgaos = controller.listarTodos("nome");
             } else {
-                listaEspecieEventos = controller.listarLike("nome", getValorBusca());
+                listaOrgaos = controller.listarLike(getCampoBusca(), getValorBusca());
                 MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
             }
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
-            Logger.getLogger(EspecieEventoMB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrgaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void excluir(EspecieEvento ee) {
+    public void excluir(Orgao ee) {
         try {
             ee = controller.gerenciar(ee.getId());
             controller.excluir(ee);
-            listaEspecieEventos.remove(ee);
+            listaOrgaos.remove(ee);
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("excluir", MenssagemUtil.MENSAGENS));
 
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("excluir.falha", MenssagemUtil.MENSAGENS));
-            Logger.getLogger(EspecieEventoMB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrgaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void imprimir() {
-        if (!listaEspecieEventos.isEmpty()) {
+        if (!listaOrgaos.isEmpty()) {
             Map<String, Object> m = new HashMap<>();
-            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaEspecieEventos, m, "WEB-INF/relatorios/rel_especie_eventos.jasper", "Relatório de Especies de Eventos");
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaOrgaos, m, "WEB-INF/relatorios/rel_orgao.jasper", "Relatório de Ógãos");
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
 
     }
 
-    public List<EspecieEvento> getListaEspecieEventos() {
-        return listaEspecieEventos;
+    public List<Orgao> getListaOrgaos() {
+        return listaOrgaos;
     }
 
-    public void setListaEspecieEventos(List<EspecieEvento> listaEspecieEventos) {
-        this.listaEspecieEventos = listaEspecieEventos;
+    public void setListaOrgaos(List<Orgao> listaOrgaos) {
+        this.listaOrgaos = listaOrgaos;
     }
 
-    public EspecieEvento getEspecieEvento() {
-        return especieEvento;
+    public Orgao getOrgao() {
+        return orgao;
     }
 
-    public void setEspecieEvento(EspecieEvento especieEvento) {
-        this.especieEvento = especieEvento;
+    public void setOrgao(Orgao orgao) {
+        this.orgao = orgao;
     }
 
 }
