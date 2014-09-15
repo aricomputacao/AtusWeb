@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.atus.modelo;
 
 import java.io.Serializable;
@@ -23,15 +22,16 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author Ari
  */
 @Entity
-@Table(name = "orgao",schema = "cadastro")
+@Table(name = "orgao", schema = "cadastro")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Orgao implements Serializable{
-      @Id
+public class Orgao implements Serializable {
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "org_id",nullable = false)
+    @Column(name = "org_id", nullable = false)
     private Integer id;
     @NotBlank
-    @Column(name = "org_nome",nullable = false,unique = true)
+    @Column(name = "org_nome", nullable = false, unique = true)
     private String nome;
 
     public Integer getId() {
@@ -66,12 +66,7 @@ public class Orgao implements Serializable{
             return false;
         }
         final Orgao other = (Orgao) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
-    
-    
 
 }
