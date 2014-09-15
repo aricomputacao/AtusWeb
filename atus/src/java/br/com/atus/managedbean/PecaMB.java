@@ -7,8 +7,10 @@ package br.com.atus.managedbean;
 
 import br.com.atus.controller.PecaController;
 import br.com.atus.modelo.Peca;
+import br.com.atus.util.ArquivoUtil;
 import br.com.atus.util.MenssagemUtil;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -126,41 +130,35 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
 
     public void uploadArquivo(FileUploadEvent event) {
         try {
-            String pasta = requisicaoPublicacao.getId() + "-" + requisicaoPublicacao.getEmissor().getDocumento() + "-" + String.format("%td-%tm-%tY", requisicaoPublicacao.getDataRequisicao(), requisicaoPublicacao.getDataRequisicao(), requisicaoPublicacao.getDataRequisicao());
-            ArquivoUtil.uploadArquivo(event, pasta);
+            //ArquivoUtil.uploadArquivo(event, pasta);
             MenssagemUtil.addMessageInfo("Arquivo enviado com sucesso!");
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro("Erro ao fazer upload do arquivo", ex, this.getClass().getName());
         }
-        buscarArquivodDownload(requisicaoPublicacao);
     }
 
-    private void buscarArquivodDownload(RequisicaoPublicacao r) {
-        try {
-            arquivosDownload = controller.geraListaDownload(r);
-        } catch (FileNotFoundException e) {
-            // O erro provavel Ã© que nÃ£o exista arquivos
-            //MenssagemUtil.addMessageErro(e);
-            arquivosDownload = new ArrayList<>();
-        }
+    private void buscarArquivodDownload(Peca p) {
+        //try {
+        //arquivosDownload = controller.geraListaDownload(p);
+        //} catch (FileNotFoundException e) {
+        //MenssagemUtil.addMessageErro(e);
+        //arquivosDownload = new ArrayList<>();
+        //}
     }
 
-    public List<StreamedContent> getArquivosDownload() {
-        return arquivosDownload;
-    }
-
-    public void setArquivosDownload(List<StreamedContent> arquivosDownload) {
-        this.arquivosDownload = arquivosDownload;
-    }
-
-    public void removeArquivo(StreamedContent streamedContent) {
-        try {
-            arquivosDownload.remove(streamedContent);
-            ArquivoUtil.excluirAquivo(requisicaoPublicacao.getId() + "-" + requisicaoPublicacao.getEmissor().getDocumento() + "-" + String.format("%td-%tm-%tY", requisicaoPublicacao.getDataRequisicao(), requisicaoPublicacao.getDataRequisicao(), requisicaoPublicacao.getDataRequisicao()), streamedContent.getName());
-            MenssagemUtil.addMessageInfo("Arquivo removido");
-        } catch (Exception e) {
-            MenssagemUtil.addMessageErro("Erro ao remover arquivo", e, this.getClass().getName());
-        }
-    }
-
+    //public List<StreamedContent> getArquivosDownload() {
+    //return arquivosDownload;
+    //}
+    //public void setArquivosDownload(List<StreamedContent> arquivosDownload) {
+    //  this.arquivosDownload = arquivosDownload;
+    //}
+    //public void removeArquivo(StreamedContent streamedContent) {
+//        try {
+//            arquivosDownload.remove(streamedContent);
+//            ArquivoUtil.excluirAquivo(requisicaoPublicacao.getId() + "-" + requisicaoPublicacao.getEmissor().getDocumento() + "-" + String.format("%td-%tm-%tY", requisicaoPublicacao.getDataRequisicao(), requisicaoPublicacao.getDataRequisicao(), requisicaoPublicacao.getDataRequisicao()), streamedContent.getName());
+//            MenssagemUtil.addMessageInfo("Arquivo removido");
+//        } catch (Exception e) {
+//            MenssagemUtil.addMessageErro("Erro ao remover arquivo", e, this.getClass().getName());
+//        }
+//    }
 }
