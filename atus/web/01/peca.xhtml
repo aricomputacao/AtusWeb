@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:cons="http://java.sun.com/jsf/composite/consultas"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="corpo">
+        <h:form id="frm_pag">
+
+            <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.peca'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.peca'])}" acao_imprimir="#{pecaMB.imprimir()}" acao_limpar="#{pecaMB.init()}" acao_salvar="#{pecaMB.salvar()}"/>
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Tipo de Contrato" id_form="frm_pag"  >
+                <p:fieldset id="fieldCad" rendered="#{navegacaoMB.renderPainelCadastro}" legend="Cadastro" style="font-weight: bold">
+
+                    <h:panelGrid columns="1"  >
+                        <h:panelGrid id="griPrin3">
+                            <h:panelGrid columns="2" id="grd03">
+                                <p:outputLabel value="Descrição" for="desc"/>
+                                <p:message for="desc"/>
+                            </h:panelGrid>
+                            <p:inputText value="#{pecaMB.peca.descricao}" size="50" id="desc" required="true" requiredMessage="#{mensagens['require']}"/>
+                        </h:panelGrid>
+                        <h:panelGrid id="griPrin4">
+                            <h:panelGrid columns="2" id="grd04">
+                                <p:outputLabel value="Subgrupo" for="sub"/>
+                                <p:message for="sub"/>
+                            </h:panelGrid>
+                            <p:inputText value="#{pecaMB.peca.subgrupo}" size="50" id="sub" required="true" requiredMessage="#{mensagens['require']}"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <p:fileUpload value="#{pecaMB.file}" mode="simple" allowTypes="*.docx" />
+                </p:fieldset>
+                <cons:TipoContratoConsulta rendered="#{not navegacaoMB.renderPainelCadastro}"/>
+            </comp:panel_cadastro>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+
