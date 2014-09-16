@@ -7,6 +7,8 @@
     <class>br.com.atus.modelo.Orgao</class>
     <class>br.com.atus.modelo.TipoContrato</class>
     <class>br.com.atus.modelo.Materia</class>
+    <class>br.com.atus.modelo.Peca</class>
+    <class>br.com.atus.modelo.JuizoTribunal</class>
     <properties>
       <property name="hibernate.connection.username" value=""/>
       <property name="hibernate.connection.driver_class" value=""/>
