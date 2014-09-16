@@ -1,35 +1,39 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package br.com.atus.modelo;
 
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * Data de criação 23/07/2013
  *
- * @author Ari
+ * @author ari
  */
 @Entity
-@Table(name = "unidade_federativa", schema = "cadastro")
+@Table(name = "nacionalidade",schema = "cadastro")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-public class UnidadeFederativa implements Serializable {
-
+public class Nacionalidade implements Serializable{
     @Id
-    @Column(name = "und_fed_id", nullable = false)
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @Column(name = "nac_id",nullable = false)
     private Integer id;
-    @Column(name = "und_fed_nome")
+    
+    @NotBlank
+    @Column(name = "nac_nome",nullable = false)
     private String nome;
-    @Column(name = "und_fed_abreviacao", unique = true)
-    private String abreviacao;
 
     public Integer getId() {
         return id;
@@ -47,18 +51,10 @@ public class UnidadeFederativa implements Serializable {
         this.nome = nome;
     }
 
-    public String getAbreviacao() {
-        return abreviacao;
-    }
-
-    public void setAbreviacao(String abreviacao) {
-        this.abreviacao = abreviacao;
-    }
-
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -70,15 +66,12 @@ public class UnidadeFederativa implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final UnidadeFederativa other = (UnidadeFederativa) obj;
+        final Nacionalidade other = (Nacionalidade) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "UnidadeFederativa{" + "id=" + id + ", nome=" + nome + ", abreviacao=" + abreviacao + '}';
-    }
+    
+    
 }

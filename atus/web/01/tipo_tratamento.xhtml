@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:cons="http://java.sun.com/jsf/composite/consultas"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="corpo">
+
+        <h:form id="frm_ram" prependId="false" >
+       
+            <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.tipo_tratamento'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.tipo_tratamento'])}" acao_imprimir="#{tipoTratamentoMB.init()}" acao_limpar="#{tipoTratamentoMB.init()}" acao_salvar="#{tipoTratamentoMB.salvar()}"/>
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Especie de Eventos" id_form="frm_ram"  >               
+
+                <p:fieldset id="fieldCad" rendered="#{navegacaoMB.renderPainelCadastro}" legend="Cadastro" style="text-align: left">
+
+                    <h:panelGrid columns="1"  >
+                        <h:panelGrid >
+                            <h:panelGrid columns="2" >
+                                <p:outputLabel value="Código" for="cod"/>
+                                <p:message for="cod"/>
+                            </h:panelGrid>
+                            <p:inputText id="cod" disabled="true" value="#{tipoTratamentoMB.tipoTratamento.id}"  maxlength="4" size="5" required="true" requiredMessage="#{mensagens['require']}" readonly="true"/>
+                        </h:panelGrid>
+                        <h:panelGrid id="griPrin3">
+                            <h:panelGrid columns="2" id="grd03">
+                                <p:outputLabel value="Nome" for="nome"/>
+                                <p:message for="nome"/>
+                            </h:panelGrid>
+                            <p:inputText value="#{tipoTratamentoMB.tipoTratamento.nome}"  id="nome" size="50" required="true" requiredMessage="#{mensagens['require']}"/>
+                        </h:panelGrid>
+                          <h:panelGrid >
+                            <h:panelGrid columns="2" >
+                                <p:outputLabel value="Abreviação" for="abr"/>
+                                <p:message for="abr"/>
+                            </h:panelGrid>
+                              <p:inputText value="#{tipoTratamentoMB.tipoTratamento.abreviacao}"  id="abr" size="10" required="true" requiredMessage="#{mensagens['require']}"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </p:fieldset>
+
+
+                <cons:TipoTratamentoConsulta rendered="#{not navegacaoMB.renderPainelCadastro}"/>
+
+            </comp:panel_cadastro>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+

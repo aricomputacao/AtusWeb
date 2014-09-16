@@ -9,6 +9,12 @@
     <class>br.com.atus.modelo.Materia</class>
     <class>br.com.atus.modelo.Peca</class>
     <class>br.com.atus.modelo.JuizoTribunal</class>
+    <class>br.com.atus.modelo.Cidade</class>
+    <class>br.com.atus.modelo.Cliente</class>
+    <class>br.com.atus.modelo.UnidadeFederativa</class>
+    <class>br.com.atus.modelo.TipoTratamento</class>
+    <class>br.com.atus.modelo.Nacionalidade</class>
+    <class>br.com.atus.modelo.Profissao</class>
     <properties>
       <property name="hibernate.connection.username" value=""/>
       <property name="hibernate.connection.driver_class" value=""/>
