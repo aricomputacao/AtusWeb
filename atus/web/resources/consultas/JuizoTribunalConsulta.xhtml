@@ -18,24 +18,24 @@
                 <h:panelGrid id="grdConsulta" columns="4">
                     <h:panelGrid id="grdConsulta1">
                         <p:outputLabel value="Campo"/>
-                        <p:selectOneMenu value="#{materiaMB.campoBusca}" styleClass="lista">
+                        <p:selectOneMenu value="#{juizoTribunalMB.campoBusca}" styleClass="lista">
                             <f:selectItem itemLabel="Nome" itemValue="nome" />
                         </p:selectOneMenu>
                     </h:panelGrid>
                     <h:panelGrid id="grdConsulta2">
                         <p:outputLabel value="Buscar por"/>
-                        <p:inputText value="#{materiaMB.valorBusca}" />
+                        <p:inputText value="#{juizoTribunalMB.valorBusca}" />
                     </h:panelGrid>
                     <h:panelGrid id="grdConsulta3">
                         <p:spacer width="15"/>
                         <h:panelGrid columns="2">
-                            <ui:insert name="consultaMateria" id="grdConsulta55" >
-                                <comp:commandButton_consulta id="btnCon" acao_butao="#{materiaMB.listar()}"  componente_to_update="@form" />
+                            <ui:insert name="consultaJuizoTribunal" id="grdConsulta55" >
+                                <comp:commandButton_consulta id="btnCon" acao_butao="#{juizoTribunalMB.listar()}"  componente_to_update="@form" />
                             </ui:insert>
                         </h:panelGrid>
                     </h:panelGrid>
                 </h:panelGrid>
-                <p:dataTable value="#{materiaMB.listaMaterias}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
+                <p:dataTable value="#{juizoTribunalMB.listaJuizoTribunals}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
                     <p:column headerText="Código" width="60" sortBy="#{t.id}">
@@ -44,18 +44,14 @@
                     <p:column headerText="Nome" sortBy="#{t.nome}">
                         <comp:outputText value="#{t.nome}"/>
                     </p:column>
-
-
                      <p:column headerText="Ação" width="6%" style="text-align: center">
-                        <ui:insert name="acaoMateria" >
-                            <comp:commandButton_editar id="btnEditaRamo"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.materia'],'materia',t)}" />
-                            <comp:commandButton_excluir acao_butao="#{materiaMB.excluir(t)}" classe="Materia" form_to_update="@form"/>
+                        <ui:insert name="acaoJuizoTribunal" >
+                            <comp:commandButton_editar id="btnEditaRamo"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.juizo_tribunal'],'juizo_tribunal',t)}" />
+                            <comp:commandButton_excluir acao_butao="#{juizoTribunalMB.excluir(t)}" classe="Materia" form_to_update="@form"/>
                         </ui:insert>
                     </p:column>
-
                 </p:dataTable>
             </p:fieldset>
-
         </h:panelGrid>
     </composite:implementation>
 </ui:composition>

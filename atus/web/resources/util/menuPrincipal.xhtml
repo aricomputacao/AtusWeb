@@ -15,12 +15,13 @@
             <p:menubar styleClass="menu"   >
                 <p:menuitem styleClass="item" value="Início" actionListener="#{navegacaoMB.index()}"  />
                 <p:submenu   styleClass="subMenu" style="font-weight: bolder"  label="Cadastro" >
+                    <p:menuitem value="Juizo Tribunal" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.juizo_tribunal'])}" immediate="true"/>
+                    <p:menuitem value="Peças" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.peca'])}" immediate="true"/>
                     <p:menuitem value="Materia" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.materia'])}" immediate="true"/>
                     <p:menuitem value="Tipo de Contrato" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.tipo_contato'])}" immediate="true"/>
                     <p:menuitem value="Órgão" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.orgao'])}" immediate="true"/>
                     <p:menuitem value="Especie Evento" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.especie_evento'])}" immediate="true"/>
                     <p:menuitem value="Ramo Juridico" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.ramo_judiciario'])}" immediate="true"/>
-                    <p:menuitem value="Peças" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.peca'])}" immediate="true"/>
                 </p:submenu>
                 <p:submenu  label="Processos" styleClass="subMenu" >
 

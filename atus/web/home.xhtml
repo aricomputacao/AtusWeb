@@ -10,7 +10,36 @@
     <ui:define name="corpo">
         <h:panelGrid columns="3"  width="100%" cellspacing="10">
             <p:panel id="pnlPro"  styleClass="painelAgendas"  header="Processos" >
+                <h:form id="frmBusca">
+                    <h:panelGrid id="pnCEP" columns="3">
+                        <h:outputText value="CEP: " />
+                        <p:inputMask mask="99999-999" value="#{webServiceMB.cep}" />
 
+                        <p:commandButton value="Pesquisar" icon="ui-icon-search"
+                                         action="#{webServiceMB.encontraCEP()}" update=":frmResultado" />
+                    </h:panelGrid>
+                </h:form>
+
+                <h:form id="frmResultado">
+                    <h:panelGrid id="pnResultado" columns="2">
+                        <h:outputLabel value="UF: "
+                                       style="font-weight:bold; padding-right: 5px; float: right;" />
+                        <p:inputText size="5" value="#{webServiceMB.estado}" />
+
+                        <h:outputLabel value="Logradouro: "
+                                       style="font-weight:bold; padding-right: 5px; float: right;" />
+                        <p:inputText size="50"
+                                     value="#{webServiceMB.tipoLogradouro} #{webServiceMB.logradouro}" />
+
+                        <h:outputLabel value="Cidade: "
+                                       style="font-weight:bold; padding-right: 5px; float: right;" />
+                        <p:inputText size="50" value="#{webServiceMB.cidade}" />
+
+                        <h:outputLabel value="Bairro: "
+                                       style="font-weight:bold; padding-right: 5px; float: right;" />
+                        <p:inputText size="25" value="#{webServiceMB.bairro}" />
+                    </h:panelGrid>
+                </h:form>
 
             </p:panel>
             <p:panel id="pnlEve"  styleClass="painelAgendas"  header="Eventos" >

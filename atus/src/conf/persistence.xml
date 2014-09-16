@@ -9,6 +9,8 @@
     <class>br.com.atus.modelo.Orgao</class>
     <class>br.com.atus.modelo.TipoContrato</class>
     <class>br.com.atus.modelo.Materia</class>
+    <class>br.com.atus.modelo.Peca</class>
+    <class>br.com.atus.modelo.JuizoTribunal</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!--<property name="hibernate.show_sql" value="true"/>-->
