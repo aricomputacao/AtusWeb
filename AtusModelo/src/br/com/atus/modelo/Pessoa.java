@@ -30,7 +30,6 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Pessoa {
 
     // Email da pessoa
-
     @Email
     @Column(name = "pes_email")
     private String email;
@@ -63,6 +62,9 @@ public class Pessoa {
     @Column(name = "end_logradouro")
     private String logradouro;
 
+    @Column(name = "end_bairro")
+    private String bairro;
+
     @Column(name = "end_numero")
     private String numero;
 
@@ -80,8 +82,6 @@ public class Pessoa {
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
-    
-    
 
     public String getLogradouro() {
         return logradouro;
@@ -161,6 +161,14 @@ public class Pessoa {
 
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 
 }
