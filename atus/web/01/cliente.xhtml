@@ -7,7 +7,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:comp="http://java.sun.com/jsf/composite/comp"
                 xmlns:cons="http://java.sun.com/jsf/composite/consultas"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:util="http://java.sun.com/jsf/composite/util">
 
     <ui:define name="corpo">
         <h:form id="frm_pag" prependId="false" >
@@ -18,14 +19,14 @@
                 <p:fieldset id="fieldCad" styleClass="painelPadrao" rendered="#{navegacaoMB.renderPainelCadastro}" legend="Cadastro" style="text-align: left">
 
                     <p:tabView effect="fade" >
-                        <p:tab title="Pessoa Física" >
+                        <p:tab title="Pessoa Física"  >
                             <h:panelGrid columns="3"  >
                                 <h:panelGrid >
                                     <h:panelGrid columns="2" >
                                         <p:outputLabel value="Tratamento" for="trat"/>
                                         <p:message for="trat"/>
                                     </h:panelGrid>
-                                    <p:selectOneMenu id="trat" effect="fade" converter="#{indexConverter}" value="#{clienteMB.cliente.tipoTratamento}" required="true"   >
+                                    <p:selectOneMenu id="trat" effect="fade" style="width: 150px" converter="#{indexConverter}" value="#{clienteMB.cliente.tipoTratamento}" required="true"   >
                                         <f:selectItems value="#{clienteMB.listaTratamentos}" var="tra" itemLabel="#{tra.nome}" itemValue="#{tra}"/>
                                     </p:selectOneMenu>
                                 </h:panelGrid>
@@ -41,12 +42,12 @@
                                         <p:outputLabel value="Sexo" for="sex"/>
                                         <p:message for="sex"/>
                                     </h:panelGrid>
-                                    <p:selectOneMenu id="sex" effect="fade" value="#{clienteMB.cliente.pessoa.sexo}" required="true"   >
+                                    <p:selectOneMenu id="sex" effect="fade" style="width: 150px" value="#{clienteMB.cliente.pessoa.sexo}" required="true"   >
                                         <f:selectItems value="#{clienteMB.listaSexo()}" var="se" itemLabel="#{se}" />
                                     </p:selectOneMenu>
                                 </h:panelGrid>
                             </h:panelGrid>
-                            <h:panelGrid columns="3"  >
+                            <h:panelGrid columns="6"  >
                                 <h:panelGrid >
                                     <h:panelGrid columns="2" >
                                         <p:outputLabel value="Profissão" for="prof"/>
@@ -61,7 +62,7 @@
                                         <p:outputLabel value="Estado Civil" for="est"/>
                                         <p:message for="est"/>
                                     </h:panelGrid>
-                                    <p:selectOneMenu id="est" effect="fade" value="#{clienteMB.cliente.estadoCivil}" required="true"   >
+                                    <p:selectOneMenu id="est" style="width: 150px" effect="fade" value="#{clienteMB.cliente.estadoCivil}" required="true"   >
                                         <f:selectItems value="#{clienteMB.listaEstadoCivil()}" var="es" itemLabel="#{es}" />
                                     </p:selectOneMenu>
                                 </h:panelGrid>
@@ -70,7 +71,7 @@
                                         <p:outputLabel value="Nacionalidade" for="nac"/>
                                         <p:message for="nac"/>
                                     </h:panelGrid>
-                                    <p:selectOneMenu id="nac" effect="fade" value="#{clienteMB.cliente.nacionalidade}" converter="#{indexConverter}" required="true"   >
+                                    <p:selectOneMenu id="nac" style="width: 150px" effect="fade" value="#{clienteMB.cliente.nacionalidade}" converter="#{indexConverter}" required="true"   >
                                         <f:selectItems value="#{clienteMB.listaNacionalidades}" var="na" itemLabel="#{na.nome}" itemValue="#{na}" />
                                     </p:selectOneMenu>
                                 </h:panelGrid>
@@ -78,22 +79,62 @@
                                     <comp:inputTextCalendar nomeLabel="Data Nasc." valorData="#{clienteMB.cliente.pessoa.dataNascimento}"/>
                                 </h:panelGrid>
                                 <h:panelGrid >
-                                    <comp:inputText nomeLabel="CPF" value="#{clienteMB.cliente.cpfCpnj}" idInputTex="cpf"/>
+                                    <comp:inputText nomeLabel="CPF" size="17" value="#{clienteMB.cliente.cpfCpnj}" idInputTex="cpf"/>
+                                </h:panelGrid>
+                                <h:panelGrid >
+                                    <comp:inputText nomeLabel="RG" size="17" value="#{clienteMB.cliente.rg}" idInputTex="rg"/>
+                                </h:panelGrid>
                             </h:panelGrid>
-                        </h:panelGrid>
-                    </p:tab>
-                    <p:tab title="Pessoa Juridica">
+                            <h:panelGrid columns="5" id="grdEnd">
+                                <h:panelGrid columns="2" >
+                                    <h:panelGrid>
+                                        <h:outputLabel value="CEP"/> 
+                                        <p:inputMask mask="99999-999" readonly="true"  size="17"  value="#{clienteMB.cliente.pessoa.cep}" id="cep"/>
+                                    </h:panelGrid>
+                                    <p:commandButton style="margin-top: 19px" styleClass="btnCorreio" value="" title="Consultar CEP" immediate="true" type="button" onclick="PF('dialogCep').show();" />
+                                </h:panelGrid>
+                                <h:panelGrid >
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="UF" for="uf"/>
+                                        <p:message for="uf"/>
+                                    </h:panelGrid>
+                                    <p:selectOneMenu id="uf" style="width: 50px" effect="fade" value="#{clienteMB.uf}"    converter="#{indexConverter}" required="true"   >
+                                        <f:selectItems value="#{clienteMB.listaUnidadeFederativas}" var="u" itemLabel="#{u.abreviacao}" itemValue="#{u}"  />
+                                        <p:ajax update="grdCid" listener="#{clienteMB.listarCidade()}" />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                                <h:panelGrid  id="grdCid" >
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Cidade" for="ci"/>
+                                        <p:message for="ci"/>
+                                    </h:panelGrid>
+                                    <p:selectOneMenu id="ci" style="width: 50px" effect="fade" value="#{clienteMB.cidade}" converter="#{indexConverter}" required="true"   >
+                                        <f:selectItems value="#{clienteMB.listaCidades}" var="c" itemLabel="#{c.nome}" itemValue="#{c}" />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Pessoa Juridica">
 
-                    </p:tab>
+                        </p:tab>
 
-                </p:tabView>
+                    </p:tabView>
 
-            </p:fieldset>
-            <cons:OrgaoConsulta rendered="#{not navegacaoMB.renderPainelCadastro}"/>
-        </comp:panel_cadastro>
-    </h:form>
+                </p:fieldset>
+                <cons:OrgaoConsulta rendered="#{not navegacaoMB.renderPainelCadastro}"/>
+            </comp:panel_cadastro>
 
-</ui:define>
+        </h:form>
+    </ui:define>
+   
+       
+   
+    <ui:define name="dialogs">
+        <p:dialog showEffect="fade" closable="false"  header="Consulta de CEP" id="ce" modal="true" hideEffect="fade" widgetVar="dialogCep">
+            <util:buscaCep/>
+           
+        </p:dialog>
+    </ui:define>
 
 </ui:composition>
 

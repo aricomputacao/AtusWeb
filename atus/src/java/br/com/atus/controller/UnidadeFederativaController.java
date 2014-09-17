@@ -28,5 +28,9 @@ public class UnidadeFederativaController extends Controller<UnidadeFederativa, I
     protected void inicializaDAO() {
         setDAO(dao);
     }
+
+    public UnidadeFederativa buscaAbreviacao(String abre) {
+       return dao.buscaAbreviacao(abre);
+    }
     
 }

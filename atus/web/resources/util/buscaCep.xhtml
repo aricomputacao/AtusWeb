@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite">
+    <composite:interface>
+
+        <composite:attribute name="id" default="frmBusca"/>
+    </composite:interface>
+    <composite:implementation id="compo">
+        <h:form id="frmBusca">
+
+                <h:panelGrid id="pnCEP" columns="3" style="margin-left: 87px" >
+                    <h:outputLabel value="CEP: " style="font-weight:bold; padding-right: 5px; float: right;"/>
+                    <p:inputMask mask="99999-999" value="#{webServiceMB.cep}" />
+
+                    <p:commandButton value="Pesquisar" icon="ui-icon-search"
+                                     actionListener="#{webServiceMB.encontraCEP()}"   update="pnResultado" />
+                </h:panelGrid>
+
+                <h:panelGrid id="pnResultado" columns="2">
+                    <h:outputLabel value="UF: "
+                                   style="font-weight:bold; padding-right: 5px; float: right;" />
+                    <p:inputText size="5" value="#{webServiceMB.estado}" />
+
+                    <h:outputLabel value="Tipo Logradouro: "
+                                   style="font-weight:bold; padding-right: 5px; float: right;" />
+                    <p:inputText size="50"
+                                 value="#{webServiceMB.tipoLogradouro}" />
+                    <h:outputLabel value="Logradouro: "
+                                   style="font-weight:bold; padding-right: 5px; float: right;" />
+                    <p:inputText size="50"
+                                 value="#{webServiceMB.logradouro}" />
+
+                    <h:outputLabel value="Cidade: "
+                                   style="font-weight:bold; padding-right: 5px; float: right;" />
+                    <p:inputText size="50" value="#{webServiceMB.cidade}" />
+
+                    <h:outputLabel value="Bairro: "
+                                   style="font-weight:bold; padding-right: 5px; float: right;" />
+                    <p:inputText size="25" value="#{webServiceMB.bairro}" />
+                </h:panelGrid>
+              <p:commandButton value="Fechar" icon="ui-icon-search" onclick="dialogCep.hide()" update="@form" id="button" 
+                                 actionListener="#{clienteMB.encontraCEP(webServiceMB.cep, webServiceMB.estado, webServiceMB.cidade, webServiceMB.tipoLogradouro, webServiceMB.logradouro, webServiceMB.bairro)}"    />
+               
+        </h:form>
+
+    </composite:implementation>
+</ui:composition>
+
+
+
+

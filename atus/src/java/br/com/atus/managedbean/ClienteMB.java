@@ -5,6 +5,7 @@
  */
 package br.com.atus.managedbean;
 
+import br.com.atus.controller.CEPWebService;
 import br.com.atus.controller.CidadeController;
 import br.com.atus.controller.ClienteController;
 import br.com.atus.controller.NacionalidadeController;
@@ -32,8 +33,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 /**
@@ -66,6 +69,8 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
     private List<Profissao> listaProfissaos;
     private Cliente cliente;
     private UnidadeFederativa uf;
+    private String cep;
+    private Cidade cidade;
 
     public ClienteMB() {
         super(Cliente.class);
@@ -77,23 +82,34 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
             cliente = (Cliente) navegacaoMB.getRegistroMapa("cliente", new Cliente());
             if (cliente.getId() == null) {
                 cliente.setPessoa(new Pessoa());
-            }else{
+            } else {
                 uf = cliente.getPessoa().getCidade().getUnidadeFederativa();
             }
             uf = new UnidadeFederativa();
+            cidade = new Cidade();
             listaCidades = new ArrayList<>();
             listaClientes = new ArrayList<>();
+            
             listaNacionalidades = nacionalidadeController.listarTodos("nome");
             listaTratamentos = tipoTratamentoController.listarTodos("nome");
             listaProfissaos = profissaoController.listarTodos("nome");
             listaUnidadeFederativas = unidadeFederativaController.listarTodos("nome");
-            
+
         } catch (Exception ex) {
             Logger.getLogger(ClienteMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-        public void salvar() {
+    public void encontraCEP(String cep,String ufe,String cid,String tpLog,String log,String bai) {
+        cliente.getPessoa().setCep(cep);
+        uf = unidadeFederativaController.buscaAbreviacao(ufe);
+        cidade = cidadeController.buscarUfNome(uf, cid);
+        cliente.getPessoa().setLogradouro(tpLog.concat(" ".concat(log)));
+        cliente.getPessoa().setBairro(bai);
+
+    }
+
+    public void salvar() {
         try {
             controller.atualizar(cliente);
             init();
@@ -132,8 +148,8 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
             Logger.getLogger(ClienteMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public  void listarCidade(){
+
+    public void listarCidade() {
         listaCidades = cidadeController.listaPorUf(uf);
     }
 
@@ -145,15 +161,15 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
         }
 
     }
-    
-    public Sexo[] listaSexo(){
-       return Sexo.values();
+
+    public Sexo[] listaSexo() {
+        return Sexo.values();
     }
-    
-    public EstadoCivil[] listaEstadoCivil(){
+
+    public EstadoCivil[] listaEstadoCivil() {
         return EstadoCivil.values();
     }
-    
+
     public List<UnidadeFederativa> getListaUnidadeFederativas() {
         return listaUnidadeFederativas;
     }
@@ -217,7 +233,21 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
     public void setUf(UnidadeFederativa uf) {
         this.uf = uf;
     }
-    
-    
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
+    }
 
 }

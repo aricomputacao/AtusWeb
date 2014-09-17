@@ -280,8 +280,8 @@ ui-layout-unit{
     height: 16px;
 }
 .ui-button-icon-left.ui-icon.ui-c.ui-icon-trash{
-     background: url("../resources/imagens/delete.png") ! important; 
-  width: 16px;
+    background: url("../resources/imagens/delete.png") ! important; 
+    width: 16px;
     height: 16px;
 }
 .ui-datatable .ui-datatable-data .even-row td{
@@ -291,6 +291,20 @@ ui-layout-unit{
 
 .ui-datatable .ui-datatable-data .odd-row td{
     background-color: white;
+}
+
+.ui-state-default.ui-corner-top{
+    font-weight: bolder;
+}
+.ui-fieldset-legend.ui-corner-all.ui-state-default{
+    font-weight: bolder;
+    font-size: 15px;
+}
+.btnCorreio.ui-button{
+    background: url("../resources/imagens/correio.png") ! important; 
+    width: 24px;
+    height: 24px;
+    background-color: wheat;
 }
 
 /*
