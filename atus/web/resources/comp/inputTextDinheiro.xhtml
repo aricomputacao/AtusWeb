@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <composite:interface>
+        <composite:attribute name="valor" type="java.math.BigDecimal" />
+        <composite:attribute name="nomeLabel" required="true"  shortDescription="Nome do label "/>
+        <composite:attribute name="idInputDin" default="din" shortDescription="Se o input for dinheiro indique o id" />
+        <composite:attribute name="require" default="false"  />
+        <composite:attribute name="size" default="10"  />
+
+
+
+    </composite:interface>
+    <composite:implementation>
+
+
+
+        <h:panelGrid>
+            <h:panelGrid columns="2">
+                <p:outputLabel value="#{cc.attrs.nomeLabel}" for="#{cc.attrs.idInputDin}"/>
+                <p:message for="#{cc.attrs.idInputDin}"/>
+            </h:panelGrid>
+            <p:inputText styleClass="edtMoeda" value="#{cc.attrs.valor}" id="#{cc.attrs.idInputDin}" onfocus="mascaraInputs();"  required="#{cc.attrs.require}" size="#{cc.attrs.size}" >
+                <f:convertNumber type="currency" />
+            </p:inputText>
+        </h:panelGrid>
+
+
+
+
+
+    </composite:implementation>
+</ui:composition>
+
+

@@ -11,35 +11,89 @@
 
     <ui:define name="corpo">
         <h:form id="frm_pag" prependId="false" >
-       
+
             <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.cliente'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.cliente'])}" acao_imprimir="#{clienteMB.imprimir()}" acao_limpar="#{clienteMB.init()}" acao_salvar="#{clienteMB.salvar()}"/>
-            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Órgão" id_form="frm_pag"  >               
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Clientes" id_form="frm_pag"  >               
 
-                <p:fieldset id="fieldCad" rendered="#{navegacaoMB.renderPainelCadastro}" legend="Cadastro" style="font-weight: bold">
+                <p:fieldset id="fieldCad" styleClass="painelPadrao" rendered="#{navegacaoMB.renderPainelCadastro}" legend="Cadastro" style="text-align: left">
 
-                    <h:panelGrid columns="1"  >
-                        <h:panelGrid >
-                            <h:panelGrid columns="2" >
-                                <p:outputLabel value="Tratamento" for="tra"/>
-                                <p:message for="tra"/>
+                    <p:tabView effect="fade" >
+                        <p:tab title="Pessoa Física" >
+                            <h:panelGrid columns="3"  >
+                                <h:panelGrid >
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Tratamento" for="trat"/>
+                                        <p:message for="trat"/>
+                                    </h:panelGrid>
+                                    <p:selectOneMenu id="trat" effect="fade" converter="#{indexConverter}" value="#{clienteMB.cliente.tipoTratamento}" required="true"   >
+                                        <f:selectItems value="#{clienteMB.listaTratamentos}" var="tra" itemLabel="#{tra.nome}" itemValue="#{tra}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                                <h:panelGrid id="griPrin3">
+                                    <h:panelGrid columns="2" id="grd03">
+                                        <p:outputLabel value="Nome" for="nome"/>
+                                        <p:message for="nome"/>
+                                    </h:panelGrid>
+                                    <p:inputText value="#{orgaoMB.orgao.nome}"  id="nome" size="80" required="true" requiredMessage="#{mensagens['require']}"/>
+                                </h:panelGrid>
+                                <h:panelGrid >
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Sexo" for="sex"/>
+                                        <p:message for="sex"/>
+                                    </h:panelGrid>
+                                    <p:selectOneMenu id="sex" effect="fade" value="#{clienteMB.cliente.pessoa.sexo}" required="true"   >
+                                        <f:selectItems value="#{clienteMB.listaSexo()}" var="se" itemLabel="#{se}" />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
                             </h:panelGrid>
-                            <select
-                            <p:inputText id="cod" disabled="true" value="#{orgaoMB.orgao.id}"  maxlength="4" size="5" required="true" requiredMessage="#{mensagens['require']}" readonly="true"/>
-                        </h:panelGrid>
-                        <h:panelGrid id="griPrin3">
-                            <h:panelGrid columns="2" id="grd03">
-                                <p:outputLabel value="Nome" for="nome"/>
-                                <p:message for="nome"/>
+                            <h:panelGrid columns="3"  >
+                                <h:panelGrid >
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Profissão" for="prof"/>
+                                        <p:message for="prof"/>
+                                    </h:panelGrid>
+                                    <p:selectOneMenu id="prof" style="min-width: 150px" effect="fade" converter="#{indexConverter}" value="#{clienteMB.cliente.profissao}" required="true"   >
+                                        <f:selectItems value="#{clienteMB.listaProfissaos}" var="pro" itemLabel="#{pro.nome}" itemValue="#{pro}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                                <h:panelGrid >
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Estado Civil" for="est"/>
+                                        <p:message for="est"/>
+                                    </h:panelGrid>
+                                    <p:selectOneMenu id="est" effect="fade" value="#{clienteMB.cliente.estadoCivil}" required="true"   >
+                                        <f:selectItems value="#{clienteMB.listaEstadoCivil()}" var="es" itemLabel="#{es}" />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                                <h:panelGrid >
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Nacionalidade" for="nac"/>
+                                        <p:message for="nac"/>
+                                    </h:panelGrid>
+                                    <p:selectOneMenu id="nac" effect="fade" value="#{clienteMB.cliente.nacionalidade}" converter="#{indexConverter}" required="true"   >
+                                        <f:selectItems value="#{clienteMB.listaNacionalidades}" var="na" itemLabel="#{na.nome}" itemValue="#{na}" />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                                <h:panelGrid >
+                                    <comp:inputTextCalendar nomeLabel="Data Nasc." valorData="#{clienteMB.cliente.pessoa.dataNascimento}"/>
+                                </h:panelGrid>
+                                <h:panelGrid >
+                                    <comp:inputText nomeLabel="CPF" value="#{clienteMB.cliente.cpfCpnj}" idInputTex="cpf"/>
                             </h:panelGrid>
-                            <p:inputText value="#{orgaoMB.orgao.nome}"  id="nome" size="50" required="true" requiredMessage="#{mensagens['require']}"/>
                         </h:panelGrid>
-                    </h:panelGrid>
-                </p:fieldset>
-                <cons:OrgaoConsulta rendered="#{not navegacaoMB.renderPainelCadastro}"/>
-            </comp:panel_cadastro>
-        </h:form>
+                    </p:tab>
+                    <p:tab title="Pessoa Juridica">
 
-    </ui:define>
+                    </p:tab>
+
+                </p:tabView>
+
+            </p:fieldset>
+            <cons:OrgaoConsulta rendered="#{not navegacaoMB.renderPainelCadastro}"/>
+        </comp:panel_cadastro>
+    </h:form>
+
+</ui:define>
 
 </ui:composition>
 
