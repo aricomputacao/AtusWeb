@@ -67,7 +67,6 @@ public class ProfissaoMB extends BeanGenerico<Profissao> implements Serializable
                 listaProfissaos = controller.listarTodos("nome");
             } else {
                 listaProfissaos = controller.listarLike("nome", getValorBusca());
-                MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
             }
         } catch (Exception ex) {

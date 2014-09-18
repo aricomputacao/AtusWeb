@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <composite:interface>
+
+        <composite:attribute name="id_frm" default="frmDadosCli"/>
+    </composite:interface>
+    <composite:implementation >
+        <h:form id="#{cc.attrs.id_frm}"   prependId="false">
+
+
+            <p:tabView id="tabV" style="min-height: 380px" >
+                <p:tab title="Geral" >
+                    <p:commandLink  styleClass="printFicha" title="Imprimir" style="float: right"/>
+                    <h:panelGrid>
+                        <h:outputText style="font-weight: bolder;font-size: 15px" value="#{clienteMB.cliente.tipoTratamento.abreviacao} #{clienteMB.cliente.pessoa.nome}"/>
+                        <h:outputText  value="#{clienteMB.cliente.estadoCivil} / #{clienteMB.cliente.nacionalidade.nome}"/>
+                    </h:panelGrid>
+                    <p:separator/>
+                    <h:panelGrid>
+
+                        <h:panelGrid columns="2" rendered="#{clienteMB.cliente.pessoa.tipoPessoa == 'PF'}">
+                            <p:outputLabel   style="font-weight: bolder;" value="DATA NASCIMENTO:" />
+                            <h:outputText   value="#{clienteMB.cliente.pessoa.dataNascimento}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" rendered="#{clienteMB.cliente.pessoa.tipoPessoa == 'PF'}">
+                            <p:outputLabel   style="font-weight: bolder;" value="CPF:" />
+                            <h:outputText   value="#{clienteMB.cliente.cpfCpnj}" converter="#{cpfConverter}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" rendered="#{clienteMB.cliente.pessoa.tipoPessoa == 'PF'}">
+                            <p:outputLabel   style="font-weight: bolder;" value="RG:" />
+                            <h:outputText   value="#{clienteMB.cliente.rg} - #{clienteMB.cliente.orgaoEmissor}" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" rendered="#{clienteMB.cliente.pessoa.tipoPessoa == 'PF'}">
+                            <p:outputLabel   style="font-weight: bolder;" value="PIS/PASEP:" />
+                            <h:outputText   value="#{clienteMB.cliente.rg} - #{clienteMB.cliente.pisPasep}" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" >
+                            <p:outputLabel   style="font-weight: bolder;" value="PROFISSÃO:" />
+                            <h:outputText   value="#{clienteMB.cliente.profissao.nome}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" >
+                            <p:outputLabel   style="font-weight: bolder;" value="CONTATOS:" />
+                            <h:outputText   value="#{clienteMB.cliente.pessoa.celular} - #{clienteMB.cliente.pessoa.telefone} - #{clienteMB.cliente.pessoa.email}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" >
+                            <p:outputLabel   style="font-weight: bolder;" value="ENDEREÇO:" />
+                            <h:outputText   value="#{clienteMB.cliente.pessoa.logradouro} #{clienteMB.cliente.pessoa.numero}  - #{clienteMB.cliente.pessoa.bairro} - #{clienteMB.cliente.pessoa.cidade.nome}/#{clienteMB.cliente.pessoa.cidade.unidadeFederativa.abreviacao}"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Processos">
+
+                </p:tab>
+            </p:tabView>
+
+
+        </h:form>
+
+    </composite:implementation>
+</ui:composition>
+
+
+
+

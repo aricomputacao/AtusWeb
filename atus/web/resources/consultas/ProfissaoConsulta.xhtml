@@ -43,19 +43,15 @@
                     <p:dataTable value="#{profissaoMB.listaProfissaos}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
                                  rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                                  rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
-                        <p:column headerText="Código" width="5%" sortBy="#{t.id}">
+                        <p:column headerText="Id" width="7%" sortBy="#{t.id}">
                             <comp:outputText value="#{t.id}"/>
                         </p:column>
                         <p:column headerText="Nome" sortBy="#{t.nome}">
                             <comp:outputText value="#{t.nome}"/>
                         </p:column>
-
-
-                        <p:column headerText="Ação" width="6%" style="text-align: center">
-                            <p:commandButton value="Fechar" actionListener="#{clienteMB.setarProf(t)}" oncomplete="dialogProf.hide()" update=":frm_pag"  />
-
+                        <p:column headerText="Ação" width="5%" style="text-align: center">
+                            <p:commandButton  actionListener="#{clienteMB.setarProf(t)}" icon="ui-icon-check" oncomplete="PF('dialogProf').hide()" update=":frm_pag:cadFrm:tabView:grdTrab"  />
                         </p:column>
-
                     </p:dataTable>
                 </p:fieldset>
 

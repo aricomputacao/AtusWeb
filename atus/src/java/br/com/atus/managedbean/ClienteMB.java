@@ -14,6 +14,7 @@ import br.com.atus.controller.TipoTratamentoController;
 import br.com.atus.controller.UnidadeFederativaController;
 import br.com.atus.enumerated.EstadoCivil;
 import br.com.atus.enumerated.Sexo;
+import br.com.atus.enumerated.TipoPessoa;
 import br.com.atus.modelo.Cidade;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Nacionalidade;
@@ -83,11 +84,12 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
                 cliente.setPessoa(new Pessoa());
             } else {
                 uf = cliente.getPessoa().getCidade().getUnidadeFederativa();
+                listaCidades = cidadeController.listaPorUf(uf);
+
             }
             uf = new UnidadeFederativa();
-            listaCidades = new ArrayList<>();
             listaClientes = new ArrayList<>();
-            
+
             listaNacionalidades = nacionalidadeController.listarTodos("nome");
             listaTratamentos = tipoTratamentoController.listarTodos("nome");
             listaProfissaos = profissaoController.listarTodos("nome");
@@ -98,7 +100,7 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
         }
     }
 
-    public void encontraCEP(String cep,String ufe,String cid,String tpLog,String log,String bai) {
+    public void encontraCEP(String cep, String ufe, String cid, String tpLog, String log, String bai) {
         cliente.getPessoa().setCep(cep);
         uf = unidadeFederativaController.buscaAbreviacao(ufe.trim());
         listaCidades = cidadeController.listaPorUf(uf);
@@ -107,9 +109,13 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
         cliente.getPessoa().setBairro(bai);
 
     }
-    
-    public  void setarProf(Profissao p){
+
+    public void setarProf(Profissao p) {
         cliente.setProfissao(p);
+    }
+
+    public void setarCliente(Cliente c) {
+        cliente = c;
     }
 
     public void salvar() {
@@ -153,6 +159,18 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
 
     public void listarCidade() {
         listaCidades = cidadeController.listaPorUf(uf);
+    }
+
+    public void setarPJ() {
+        cliente.getPessoa().setTipoPessoa(TipoPessoa.PJ);
+    }
+
+    public void setarPF() {
+        cliente.getPessoa().setTipoPessoa(TipoPessoa.PF);
+    }
+
+    public TipoPessoa pessoaFisica() {
+        return TipoPessoa.PF;
     }
 
     public void imprimir() {
@@ -243,7 +261,5 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
     public void setCep(String cep) {
         this.cep = cep;
     }
-
-    
 
 }
