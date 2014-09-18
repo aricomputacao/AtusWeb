@@ -70,7 +70,6 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
     private Cliente cliente;
     private UnidadeFederativa uf;
     private String cep;
-    private Cidade cidade;
 
     public ClienteMB() {
         super(Cliente.class);
@@ -86,7 +85,6 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
                 uf = cliente.getPessoa().getCidade().getUnidadeFederativa();
             }
             uf = new UnidadeFederativa();
-            cidade = new Cidade();
             listaCidades = new ArrayList<>();
             listaClientes = new ArrayList<>();
             
@@ -102,11 +100,16 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
 
     public void encontraCEP(String cep,String ufe,String cid,String tpLog,String log,String bai) {
         cliente.getPessoa().setCep(cep);
-        uf = unidadeFederativaController.buscaAbreviacao(ufe);
-        cidade = cidadeController.buscarUfNome(uf, cid);
+        uf = unidadeFederativaController.buscaAbreviacao(ufe.trim());
+        listaCidades = cidadeController.listaPorUf(uf);
+        cliente.getPessoa().setCidade(cidadeController.buscarUfNome(uf, cid));
         cliente.getPessoa().setLogradouro(tpLog.concat(" ".concat(log)));
         cliente.getPessoa().setBairro(bai);
 
+    }
+    
+    public  void setarProf(Profissao p){
+        cliente.setProfissao(p);
     }
 
     public void salvar() {
@@ -127,7 +130,6 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
                 listaClientes = controller.listarTodos("nome");
             } else {
                 listaClientes = controller.listarLike("nome", getValorBusca());
-                MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
             }
         } catch (Exception ex) {
@@ -242,12 +244,6 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
         this.cep = cep;
     }
 
-    public Cidade getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(Cidade cidade) {
-        this.cidade = cidade;
-    }
+    
 
 }

@@ -9,6 +9,7 @@
     <composite:interface>
 
         <composite:attribute name="id" default="frmBusca"/>
+        <composite:facet name="btn"/>
     </composite:interface>
     <composite:implementation id="compo">
         <h:form id="frmBusca">
@@ -43,8 +44,7 @@
                                    style="font-weight:bold; padding-right: 5px; float: right;" />
                     <p:inputText size="25" value="#{webServiceMB.bairro}" />
                 </h:panelGrid>
-              <p:commandButton value="Fechar" icon="ui-icon-search" onclick="dialogCep.hide()" update="@form" id="button" 
-                                 actionListener="#{clienteMB.encontraCEP(webServiceMB.cep, webServiceMB.estado, webServiceMB.cidade, webServiceMB.tipoLogradouro, webServiceMB.logradouro, webServiceMB.bairro)}"    />
+            <composite:renderFacet name="btn" />
                
         </h:form>
 

@@ -11,5 +11,5 @@ package br.com.atus.enumerated;
  * @author Ari
  */
 public enum Sexo {
-    MASCULINO,FEMININO
+    M,F
 }

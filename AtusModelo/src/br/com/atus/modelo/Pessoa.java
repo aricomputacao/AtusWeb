@@ -42,8 +42,10 @@ public class Pessoa {
     @Column(name = "pes_telefone")
     private String telefone;
 
+    @Column(name = "pes_celular")
+    private String celular;
+
     @Enumerated(EnumType.STRING)
-    @NotNull
     @Column(name = "pes_tipo", nullable = false)
     private TipoPessoa tipoPessoa;
 
@@ -51,9 +53,8 @@ public class Pessoa {
     @Column(name = "pes_sexo", nullable = false)
     private Sexo sexo;
 
-    @NotNull
     @ManyToOne
-    @JoinColumn(name = "cid_id", referencedColumnName = "cid_id", nullable = false)
+    @JoinColumn(name = "cid_id", referencedColumnName = "cid_id")
     private Cidade cidade;
 
     @Column(name = "end_cep")
@@ -74,6 +75,14 @@ public class Pessoa {
     @Temporal(TemporalType.DATE)
     @Column(name = "pes_data_nascimento")
     private Date dataNascimento;
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
 
     public Date getDataNascimento() {
         return dataNascimento;
