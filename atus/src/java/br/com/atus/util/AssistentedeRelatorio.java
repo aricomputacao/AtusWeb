@@ -143,6 +143,7 @@ public class AssistentedeRelatorio implements Serializable {
         try {
             parametros.put("img", getDiretorioReal("resources/imagens/logo2.png"));
             parametros.put("img1", getDiretorioReal("resources/imagens/avocatus.png"));
+            parametros.put("imgAt", getDiretorioReal("resources/imagens/atus.png"));
 
             parametros.put("imgRoda", getDiretorioReal("resources/imagens/logo.png"));
 

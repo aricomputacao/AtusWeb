@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_ficha_cliente" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="527d07db-137e-4765-8db6-fa1bf2e15248">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="zebra">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean( $V{REPORT_COUNT}.intValue() % 2 == 0 )]]></conditionExpression>
+			<style forecolor="#F0F0F0" backcolor="#F0F0F0"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Projetos\\Atus\\atus\\web\\WEB-INF\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="relatorio" class="java.lang.String"/>
+	<parameter name="img" class="java.lang.String"/>
+	<parameter name="img1" class="java.lang.String"/>
+	<parameter name="rodapeEmail" class="java.lang.String"/>
+	<parameter name="imgRoda" class="java.lang.String"/>
+	<parameter name="imgAt" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="estadoCivil" class="br.com.atus.enumerated.EstadoCivil">
+		<fieldDescription><![CDATA[estadoCivil]]></fieldDescription>
+	</field>
+	<field name="cpfCpnj" class="java.lang.String">
+		<fieldDescription><![CDATA[cpfCpnj]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="nacionalidade" class="br.com.atus.modelo.Nacionalidade">
+		<fieldDescription><![CDATA[nacionalidade]]></fieldDescription>
+	</field>
+	<field name="observacao" class="java.lang.String">
+		<fieldDescription><![CDATA[observacao]]></fieldDescription>
+	</field>
+	<field name="orgaoEmissor" class="java.lang.String">
+		<fieldDescription><![CDATA[orgaoEmissor]]></fieldDescription>
+	</field>
+	<field name="pessoa" class="br.com.atus.modelo.Pessoa">
+		<fieldDescription><![CDATA[pessoa]]></fieldDescription>
+	</field>
+	<field name="pisPasep" class="java.lang.String">
+		<fieldDescription><![CDATA[pisPasep]]></fieldDescription>
+	</field>
+	<field name="profissao" class="br.com.atus.modelo.Profissao">
+		<fieldDescription><![CDATA[profissao]]></fieldDescription>
+	</field>
+	<field name="rg" class="java.lang.String">
+		<fieldDescription><![CDATA[rg]]></fieldDescription>
+	</field>
+	<field name="tipoTratamento" class="br.com.atus.modelo.TipoTratamento">
+		<fieldDescription><![CDATA[tipoTratamento]]></fieldDescription>
+	</field>
+	<title>
+		<band height="63" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="d2bd67c8-f4d3-483c-b6c3-76b7e12a2af5" x="0" y="0" width="555" height="62"/>
+				<subreportParameter name="imgAt">
+					<subreportParameterExpression><![CDATA[$P{imgAt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="img1">
+					<subreportParameterExpression><![CDATA[$P{img1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="img">
+					<subreportParameterExpression><![CDATA[$P{img}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="rodapeEmail">
+					<subreportParameterExpression><![CDATA[$P{rodapeEmail}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="relatorio">
+					<subreportParameterExpression><![CDATA[$P{relatorio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="imgRoda">
+					<subreportParameterExpression><![CDATA[$P{imgRoda}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "cabecalho_retrato.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<detail>
+		<band height="222" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="77e63fe0-eb1c-4d08-9438-16b988d058c0" x="0" y="127" width="555" height="95"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="132e0dff-c37c-4e6e-9ef1-154de687deee" x="0" y="94" width="555" height="29"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="c87911f0-747d-4403-b33b-0a41ad73d12f" x="0" y="62" width="555" height="29"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="779c18b3-0807-4674-9ce8-9140575e731e" x="0" y="31" width="555" height="29"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="4f7940d0-b9d2-49c6-ae97-5cc7112ffb9f" x="0" y="0" width="555" height="29"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="35fd140e-8e50-422a-8d73-a8f99dee86e3" x="6" y="0" width="61" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="3a9f2522-327f-496f-ace2-7f59f125943f" x="6" y="13" width="61" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="6eb2a899-a931-45d8-b655-c5bbd5218ad3" x="68" y="0" width="254" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="2639d2b7-fdf6-4968-8796-9eff79e4a794" x="68" y="13" width="254" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tipoTratamento}.getNome()+" "+$F{pessoa}.getNome()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="4ef2badb-44da-4d81-8718-32288139344c" x="130" y="31" width="100" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF\CNPJ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b23c4bea-b86e-4228-ba64-b1bdc7778327" x="130" y="44" width="100" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cpfCpnj}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a4f0ac09-14bb-49bd-b9f6-b7ea4bed2541" x="231" y="31" width="100" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RG]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="567f3456-3007-4b5c-a84d-f44531178c5e" x="231" y="44" width="100" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[""+$F{rg}+"-"+$F{orgaoEmissor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ebf0bf47-752a-41d1-a53c-83dd93fdddd4" x="6" y="31" width="123" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado Civil]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="22463007-79d5-4dd1-88f5-3fa04a1d1202" x="6" y="44" width="123" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[""+$F{estadoCivil}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="fefa2594-cc7d-47d2-bcfb-1abafd7b5817" x="333" y="31" width="219" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Profissão]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b84b8f60-e91a-434b-8166-719690ddffbc" x="333" y="44" width="219" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{profissao}.getNome()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="044b8e96-30a4-449b-9900-ed3b49089919" x="6" y="62" width="224" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Endereço]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="5620643f-3a7a-4425-94af-1912b3b5966b" x="7" y="75" width="223" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{pessoa}.getLogradouro()+"  "+$F{pessoa}.getBairro()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9f3bcb10-f5e1-4a8e-a406-edc7fef2bcb7" x="429" y="0" width="126" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Nascimento]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="88af1dfe-75ce-4650-a7ed-4db27bee5865" x="429" y="13" width="126" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{pessoa}.getDataNascimento()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="94794cad-97e5-4ac5-b0fa-1f3efd134551" x="231" y="62" width="178" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cidade]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="613de131-92bf-466d-975c-ba6dc83d02cd" x="231" y="75" width="178" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{pessoa}.getCidade().getNome()+"\\"+$F{pessoa}.getCidade().getUnidadeFederativa().getAbreviacao()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="eb2e7ce0-6818-4832-9a8c-1e98ada5cc06" x="333" y="94" width="141" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="f83f4648-bc5c-4088-b1a2-88395e80a911" x="333" y="107" width="141" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{pessoa}.getEmail()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e801858d-0bfe-411b-8338-e9ba68412436" x="6" y="94" width="100" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="6db401ce-4033-4d28-bd82-e6d59e3e9bf5" x="6" y="107" width="100" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{pessoa}.getTelefone()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="dfc9db95-6de9-4406-bfcc-7c5e92042d59" x="129" y="94" width="187" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Celular]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="e042c04c-37fe-4413-a186-08af83dbc38c" x="129" y="107" width="187" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{pessoa}.getCelular()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d78faf6f-e266-4942-9a49-748357ed4cc4" x="6" y="127" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observação]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="774c7c7a-65c7-42e9-9a01-6578957ac531" x="5" y="147" width="552" height="75"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{observacao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="66ff4df5-db79-4294-9431-dcd0a5630a97" x="323" y="0" width="100" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="ea7b1576-a272-4db2-9e99-c3fb3cfc5d2d" x="323" y="13" width="100" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{pessoa}.getSexo()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="47" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="f36809aa-4197-40ab-906c-8d7ca3783ff8" x="0" y="0" width="555" height="45"/>
+				<subreportParameter name="rodapeEmail">
+					<subreportParameterExpression><![CDATA[$P{rodapeEmail}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="imgRoda">
+					<subreportParameterExpression><![CDATA[$P{imgRoda}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rodape_retrato.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageFooter>
+</jasperReport>

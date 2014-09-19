@@ -6,6 +6,7 @@
 	<parameter name="relatorio" class="java.lang.String"/>
 	<parameter name="img" class="java.lang.String"/>
 	<parameter name="img1" class="java.lang.String"/>
+	<parameter name="imgAt" class="java.lang.String"/>
 	<noData>
 		<band height="65">
 			<frame>
@@ -18,19 +19,12 @@
 					<rightPen lineWidth="0.5" lineColor="#333333"/>
 				</box>
 				<textField>
-					<reportElement uuid="d7af5dc1-3b32-4198-9fb9-8d04eb6dd62e" x="63" y="42" width="298" height="20" backcolor="#000000"/>
+					<reportElement uuid="d7af5dc1-3b32-4198-9fb9-8d04eb6dd62e" x="72" y="42" width="298" height="20" backcolor="#000000"/>
 					<textElement>
 						<font size="14" isItalic="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{relatorio}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement uuid="c1ac50c9-50ac-4e0e-82e8-5bd7ae4ddd87" x="63" y="2" width="71" height="39" forecolor="#333333" backcolor="#000000"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="SansSerif" size="26" isBold="true" isItalic="false"/>
-					</textElement>
-					<text><![CDATA[Atus]]></text>
-				</staticText>
 				<image>
 					<reportElement uuid="db04febb-603b-432d-a3e8-3b497b2c6617" x="3" y="3" width="64" height="57"/>
 					<imageExpression><![CDATA[$P{img}]]></imageExpression>
@@ -38,6 +32,10 @@
 				<image>
 					<reportElement uuid="8bb95064-d1eb-488d-84d2-e449bd7ca58f" x="482" y="5" width="65" height="55"/>
 					<imageExpression><![CDATA[$P{img1}]]></imageExpression>
+				</image>
+				<image>
+					<reportElement uuid="cbd46238-1866-4615-a379-c32e154f3be3" x="67" y="5" width="100" height="39"/>
+					<imageExpression><![CDATA[$P{imgAt}]]></imageExpression>
 				</image>
 			</frame>
 		</band>

@@ -290,15 +290,43 @@ ui-layout-unit{
     width: 16px;
     height: 16px;
 }
-.btnConCliente{
+.ui-button-icon-left.ui-icon.ui-c.ui-icon-info{
     background: url("../resources/imagens/info.png") ! important; 
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
 }
+.btnConEdit{
+    width: 16px;
+    height: 16px;
+}
+
+.printFicha.ui-commandlink:HOVER {
+    color: #989898 !important;
+    text-decoration: underline !important;
+    text-decoration-color: #e8e8e8 !important;
+}
+
+.editFicha.ui-commandlink:HOVER {
+    color: #989898 !important;
+    text-decoration: underline !important;
+    text-decoration-color: #e8e8e8 !important;
+}
+
 .printFicha{
-    background: url("../resources/imagens/print.png") ! important; 
-    width: 32px;
-    height: 32px;   
+    /*background: url("../resources/imagens/print.png") ! important;*/ 
+    margin-left: 5px;
+    text-decoration: none;
+    float: right;
+}
+
+
+.editFicha{
+    /*background: url("../resources/imagens/print.png") ! important;*/     
+    text-decoration: none;
+    float: right;
+    margin-right: 5px;
+    
+
 }
 .ui-column-title{
     font-weight: bold;

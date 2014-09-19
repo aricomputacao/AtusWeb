@@ -7,6 +7,7 @@ package br.com.atus.modelo;
 
 import br.com.atus.enumerated.Sexo;
 import br.com.atus.enumerated.TipoPessoa;
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -27,7 +28,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author Ari
  */
 @Embeddable
-public class Pessoa {
+public class Pessoa implements Serializable{
 
     // Email da pessoa
     @Email
