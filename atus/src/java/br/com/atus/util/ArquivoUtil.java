@@ -19,12 +19,14 @@ import org.primefaces.model.UploadedFile;
  */
 public class ArquivoUtil {
 
+    public static final String PATH_FILES = "pecas/documentos";
+
     // Listar os arquivos de uma pasta
     public static List<File> aquivos(String pasta) {
-        String relativo = diretorioRelativo();
-        File f = new File(relativo + "/" + pasta);
+        String relativo = diretorioRelativo() + "/" + pasta;
+        File f = new File(relativo);
         if (f.exists()) {
-            return Arrays.asList(new File(relativo + "/" + pasta).listFiles());
+            return Arrays.asList(f.listFiles());
         } else {
             return new ArrayList<>();
         }
@@ -32,14 +34,14 @@ public class ArquivoUtil {
 
     // Pasta relativa onde deve ficar os arquivos do sistema
     public static void gravaArquivo(String local, String nome, byte[] conteudo) throws IOException, Exception {
-        File pastaGeral = new File(local);
+        File pastaGeral = new File(diretorioRelativo() + "/" + local);
         if (!pastaGeral.exists()) {
-            if (!new File(local).mkdirs()) {
+            if (!pastaGeral.mkdirs()) {
                 throw new Exception("Erro ao cria pasta relativa");
             }
         }
 
-        try (FileOutputStream writer = new FileOutputStream(local + "/" + nome)) {
+        try (FileOutputStream writer = new FileOutputStream(pastaGeral + "/" + nome)) {
             writer.write(conteudo);
             writer.flush();
         }
@@ -56,7 +58,7 @@ public class ArquivoUtil {
         String relativo = localAbs.substring(0, localAbs.lastIndexOf("/"));
         relativo = relativo.substring(0, relativo.lastIndexOf("/"));
         relativo = relativo.substring(0, relativo.lastIndexOf("/"));
-        return relativo + "/pecas/aquivos";
+        return relativo + "/" + PATH_FILES;
 
     }
 
