@@ -22,6 +22,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
@@ -29,8 +30,8 @@ import org.primefaces.model.UploadedFile;
  *
  * @author gilmario
  */
-@ViewScoped
 @ManagedBean
+@ViewScoped
 public class PecaMB extends BeanGenerico<Peca> implements Serializable {
 
     @EJB
@@ -45,6 +46,7 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
     public void init() {
         listaPecas = new ArrayList<>();
         peca = (Peca) navegacaoMB.getRegistroMapa("peca", new Peca());
+        file = null;
     }
 
     public PecaMB() {
@@ -75,14 +77,41 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
         this.listaPecas = listaPecas;
     }
 
+    public void excluirArquivo() {
+        this.file = null;
+    }
+
+    public void listar() {
+        try {
+            listaPecas = controller.listarLike(getCampoBusca(), getValorBusca());
+            if (listaPecas.isEmpty()) {
+                MenssagemUtil.addMessageInfo("Nenhum resultado encontrado");
+            }
+        } catch (Exception e) {
+            MenssagemUtil.addMessageErro(e);
+        }
+    }
+
+    public void excluir(Peca p) {
+
+    }
+
     public void imprimir() {
 
+    }
+
+    public StreamedContent download(Peca p) {
+        try {
+            return controller.getDownload(p);
+        } catch (Exception e) {
+            MenssagemUtil.addMessageErro(e);
+        }
+        return null;
     }
 
     public void salvar() {
         try {
             controller.salvar(peca, file);
-
             MenssagemUtil.addMessageInfo("Registro salvo");
         } catch (Exception e) {
             MenssagemUtil.addMessageErro("Erro ao salvar.");
@@ -130,8 +159,8 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
 
     public void uploadArquivo(FileUploadEvent event) {
         try {
-            //ArquivoUtil.uploadArquivo(event, pasta);
-            MenssagemUtil.addMessageInfo("Arquivo enviado com sucesso!");
+            file = event.getFile();
+            MenssagemUtil.addMessageInfo("Arquivo enviado com sucesso!" + file.getFileName());
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro("Erro ao fazer upload do arquivo", ex, this.getClass().getName());
         }
