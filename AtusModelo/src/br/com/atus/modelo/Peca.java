@@ -36,7 +36,7 @@ public class Peca implements Serializable {
     @Column(name = "pec_arquivo", nullable = false)
     private String arquivo;
     @NotBlank
-    @Column(name = "pec_subgrupo", nullable = false, unique = true)
+    @Column(name = "pec_subgrupo", nullable = false)
     private String subgrupo;
 
     public Long getId() {
