@@ -6,11 +6,12 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:composite="http://java.sun.com/jsf/composite">
 
-    <composite:interface>
+    <composite:interface id="interCompEditar">
         <composite:attribute name="acao_butao" required="true"  method-signature="java.lang.Void action()"/>
+
     </composite:interface>
-    <composite:implementation>
-        <p:commandButton icon="ui-icon-pencil" style="width: 22px;height: 22px" immediate="true" title="Editar" actionListener="#{cc.attrs.acao_butao}" />
+    <composite:implementation id="compEditar" >
+        <p:commandButton  icon="ui-icon-pencil"  style="width: 22px;height: 22px" immediate="true" title="Editar" actionListener="#{cc.attrs.acao_butao}" />
     </composite:implementation>
 </ui:composition>
 

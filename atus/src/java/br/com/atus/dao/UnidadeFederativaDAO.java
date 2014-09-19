@@ -20,5 +20,11 @@ public class UnidadeFederativaDAO extends DAO<UnidadeFederativa, Integer> implem
     public UnidadeFederativaDAO() {
         super(UnidadeFederativa.class);
     }
+
+    public UnidadeFederativa buscaAbreviacao(String abre) {
+       return getEm().createQuery("SELECT u from UnidadeFederativa u WHERE u.abreviacao = :abre", UnidadeFederativa.class)
+               .setParameter("abre", abre)
+               .getSingleResult();
+    }
     
 }

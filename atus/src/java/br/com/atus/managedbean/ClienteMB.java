@@ -5,12 +5,16 @@
  */
 package br.com.atus.managedbean;
 
+import br.com.atus.controller.CEPWebService;
 import br.com.atus.controller.CidadeController;
 import br.com.atus.controller.ClienteController;
 import br.com.atus.controller.NacionalidadeController;
 import br.com.atus.controller.ProfissaoController;
 import br.com.atus.controller.TipoTratamentoController;
 import br.com.atus.controller.UnidadeFederativaController;
+import br.com.atus.enumerated.EstadoCivil;
+import br.com.atus.enumerated.Sexo;
+import br.com.atus.enumerated.TipoPessoa;
 import br.com.atus.modelo.Cidade;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Nacionalidade;
@@ -30,8 +34,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 /**
@@ -64,6 +70,7 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
     private List<Profissao> listaProfissaos;
     private Cliente cliente;
     private UnidadeFederativa uf;
+    private String cep;
 
     public ClienteMB() {
         super(Cliente.class);
@@ -75,23 +82,43 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
             cliente = (Cliente) navegacaoMB.getRegistroMapa("cliente", new Cliente());
             if (cliente.getId() == null) {
                 cliente.setPessoa(new Pessoa());
-            }else{
+            } else {
                 uf = cliente.getPessoa().getCidade().getUnidadeFederativa();
+                listaCidades = cidadeController.listaPorUf(uf);
+
             }
             uf = new UnidadeFederativa();
-            listaCidades = new ArrayList<>();
             listaClientes = new ArrayList<>();
+
             listaNacionalidades = nacionalidadeController.listarTodos("nome");
             listaTratamentos = tipoTratamentoController.listarTodos("nome");
             listaProfissaos = profissaoController.listarTodos("nome");
             listaUnidadeFederativas = unidadeFederativaController.listarTodos("nome");
-            
+
         } catch (Exception ex) {
             Logger.getLogger(ClienteMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-        public void salvar() {
+    public void encontraCEP(String cep, String ufe, String cid, String tpLog, String log, String bai) {
+        cliente.getPessoa().setCep(cep);
+        uf = unidadeFederativaController.buscaAbreviacao(ufe.trim());
+        listaCidades = cidadeController.listaPorUf(uf);
+        cliente.getPessoa().setCidade(cidadeController.buscarUfNome(uf, cid));
+        cliente.getPessoa().setLogradouro(tpLog.concat(" ".concat(log)));
+        cliente.getPessoa().setBairro(bai);
+
+    }
+
+    public void setarProf(Profissao p) {
+        cliente.setProfissao(p);
+    }
+
+    public void setarCliente(Cliente c) {
+        cliente = c;
+    }
+
+    public void salvar() {
         try {
             controller.atualizar(cliente);
             init();
@@ -109,7 +136,6 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
                 listaClientes = controller.listarTodos("nome");
             } else {
                 listaClientes = controller.listarLike("nome", getValorBusca());
-                MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
             }
         } catch (Exception ex) {
@@ -130,9 +156,21 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
             Logger.getLogger(ClienteMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public  void listarCidade(){
+
+    public void listarCidade() {
         listaCidades = cidadeController.listaPorUf(uf);
+    }
+
+    public void setarPJ() {
+        cliente.getPessoa().setTipoPessoa(TipoPessoa.PJ);
+    }
+
+    public void setarPF() {
+        cliente.getPessoa().setTipoPessoa(TipoPessoa.PF);
+    }
+
+    public TipoPessoa pessoaFisica() {
+        return TipoPessoa.PF;
     }
 
     public void imprimir() {
@@ -143,7 +181,15 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
         }
 
     }
-    
+
+    public Sexo[] listaSexo() {
+        return Sexo.values();
+    }
+
+    public EstadoCivil[] listaEstadoCivil() {
+        return EstadoCivil.values();
+    }
+
     public List<UnidadeFederativa> getListaUnidadeFederativas() {
         return listaUnidadeFederativas;
     }
@@ -174,6 +220,46 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public List<Nacionalidade> getListaNacionalidades() {
+        return listaNacionalidades;
+    }
+
+    public void setListaNacionalidades(List<Nacionalidade> listaNacionalidades) {
+        this.listaNacionalidades = listaNacionalidades;
+    }
+
+    public List<TipoTratamento> getListaTratamentos() {
+        return listaTratamentos;
+    }
+
+    public void setListaTratamentos(List<TipoTratamento> listaTratamentos) {
+        this.listaTratamentos = listaTratamentos;
+    }
+
+    public List<Profissao> getListaProfissaos() {
+        return listaProfissaos;
+    }
+
+    public void setListaProfissaos(List<Profissao> listaProfissaos) {
+        this.listaProfissaos = listaProfissaos;
+    }
+
+    public UnidadeFederativa getUf() {
+        return uf;
+    }
+
+    public void setUf(UnidadeFederativa uf) {
+        this.uf = uf;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
 }

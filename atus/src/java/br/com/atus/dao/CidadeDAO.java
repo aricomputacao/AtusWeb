@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.atus.dao;
 
 import br.com.atus.modelo.Cidade;
@@ -17,7 +16,7 @@ import javax.ejb.Stateless;
  * @author ari
  */
 @Stateless
-public class CidadeDAO extends DAO<Cidade, Integer> implements Serializable{
+public class CidadeDAO extends DAO<Cidade, Integer> implements Serializable {
 
     public CidadeDAO() {
         super(Cidade.class);
@@ -28,5 +27,13 @@ public class CidadeDAO extends DAO<Cidade, Integer> implements Serializable{
                 .setParameter("uf", uf)
                 .getResultList();
     }
-    
+
+    public Cidade buscarUfNome(UnidadeFederativa uf, String cidade) {
+        return getEm().createQuery("SELECT c FROM Cidade c WHERE c.unidadeFederativa = :uf AND c.nome = :nome", Cidade.class)
+                .setParameter("uf", uf)
+                .setParameter("nome", cidade)
+                .getSingleResult();
+
+    }
+
 }

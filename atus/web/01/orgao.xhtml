@@ -15,7 +15,7 @@
             <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.orgao'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.orgao'])}" acao_imprimir="#{orgaoMB.imprimir()}" acao_limpar="#{orgaoMB.init()}" acao_salvar="#{orgaoMB.salvar()}"/>
             <comp:panel_cadastro id="cadFrm" cabecalho_grid="Órgão" id_form="frm_pag"  >               
 
-                <p:fieldset id="fieldCad" rendered="#{navegacaoMB.renderPainelCadastro}" legend="Cadastro" style="font-weight: bold">
+                <p:fieldset id="fieldCad" rendered="#{navegacaoMB.renderPainelCadastro}" legend="Cadastro" style="text-align: left">
 
                     <h:panelGrid columns="1"  >
                         <h:panelGrid >

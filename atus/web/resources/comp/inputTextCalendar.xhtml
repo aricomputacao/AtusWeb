@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <composite:interface>
+        <composite:attribute name="valorData" type="java.util.Date"  />
+        <composite:attribute name="nomeLabel" required="true"  shortDescription="Nome do label "/>
+        <composite:attribute name="idCal" default="cal" shortDescription="Se o input for data indique o id" />
+        <composite:attribute name="require" default="false"  />
+        <composite:attribute name="size" default="12"  />
+        <composite:attribute name="desabilitar" default="false"  />
+
+
+
+    </composite:interface>
+    <composite:implementation>
+
+
+
+        <ui:fragment >
+            <h:panelGrid>
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="#{cc.attrs.nomeLabel}" for="#{cc.attrs.idCal}"/>
+                    <p:message for="#{cc.attrs.idCal}"/>
+                </h:panelGrid>
+                <p:calendar value="#{cc.attrs.valorData}" disabled="#{cc.attrs.desabilitar}" id="#{cc.attrs.idCal}" pattern="dd/MM/yyyy" showButtonPanel="true" effect="fade" navigator="true" required="#{cc.attrs.require}" size="#{cc.attrs.size}">
+                </p:calendar>
+            </h:panelGrid>
+        </ui:fragment>
+
+
+
+    </composite:implementation>
+</ui:composition>
+
+

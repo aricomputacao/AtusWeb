@@ -34,5 +34,9 @@ public class CidadeController extends Controller<Cidade, Integer> implements Ser
     public List<Cidade> listaPorUf(UnidadeFederativa uf) {
        return dao.listarPorUf(uf);
     }
+
+    public Cidade buscarUfNome(UnidadeFederativa uf, String cidade) {
+       return dao.buscarUfNome(uf,cidade);
+    }
     
 }
