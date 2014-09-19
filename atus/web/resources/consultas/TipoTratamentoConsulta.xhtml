@@ -18,40 +18,38 @@
                 <h:panelGrid id="grdConsulta" columns="4">
                     <h:panelGrid id="grdConsulta1">
                         <p:outputLabel value="Campo"/>
-                        <p:selectOneMenu value="#{materiaMB.campoBusca}" styleClass="lista">
+                        <p:selectOneMenu value="#{tipoTratamentoMB.campoBusca}" styleClass="lista">
                             <f:selectItem itemLabel="Nome" itemValue="nome" />
                         </p:selectOneMenu>
                     </h:panelGrid>
                     <h:panelGrid id="grdConsulta2">
                         <p:outputLabel value="Buscar por"/>
-                        <p:inputText value="#{materiaMB.valorBusca}" />
+                        <p:inputText value="#{tipoTratamentoMB.valorBusca}" />
                     </h:panelGrid>
                     <h:panelGrid id="grdConsulta3">
                         <p:spacer width="15"/>
                         <h:panelGrid columns="2">
-                            <ui:insert name="consultaMateria" id="grdConsulta55" >
-                                <comp:commandButton_consulta id="btnCon" acao_butao="#{materiaMB.listar()}"  componente_to_update="@form" />
+                            <ui:insert name="consultaTipoTratamento" id="grdConsulta55" >
+                                <comp:commandButton_consulta id="btnCon" acao_butao="#{tipoTratamentoMB.listar()}"  componente_to_update="@form" />
                             </ui:insert>
                         </h:panelGrid>
                     </h:panelGrid>
                 </h:panelGrid>
-                <p:dataTable value="#{materiaMB.listaMaterias}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
+                <p:dataTable value="#{tipoTratamentoMB.listaTipoTratamentos}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
-                    <p:column headerText="Código" width="60" sortBy="#{t.id}">
+                    <p:column headerText="Id" width="3%" sortBy="#{t.id}">
                         <comp:outputText value="#{t.id}"/>
                     </p:column>
-                    <p:column headerText="Nome" sortBy="#{t.nome}">
+                    <p:column headerText="Abreviação" width="5%">
+                        <comp:outputText value="#{t.abreviacao}"/>
+                    </p:column>
+                    <p:column headerText="Nome"  sortBy="#{t.nome}">
                         <comp:outputText value="#{t.nome}"/>
                     </p:column>
+                  
 
 
-                     <p:column headerText="Ação" width="6%" style="text-align: center">
-                        <ui:insert name="acaoMateria" >
-                            <comp:commandButton_editar id="btnEditaRamo"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.materia'],'materia',t)}" />
-                            <comp:commandButton_excluir acao_butao="#{materiaMB.excluir(t)}" classe="Materia" form_to_update="@form"/>
-                        </ui:insert>
-                    </p:column>
 
                 </p:dataTable>
             </p:fieldset>
