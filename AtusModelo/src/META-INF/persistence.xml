@@ -15,6 +15,7 @@
     <class>br.com.atus.modelo.TipoTratamento</class>
     <class>br.com.atus.modelo.Nacionalidade</class>
     <class>br.com.atus.modelo.Profissao</class>
+    <class>br.com.atus.modelo.Advogado</class>
     <properties>
       <property name="hibernate.connection.username" value=""/>
       <property name="hibernate.connection.driver_class" value=""/>

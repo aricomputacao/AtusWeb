@@ -49,14 +49,14 @@ public class ProfissaoMB extends BeanGenerico<Profissao> implements Serializable
         listaProfissaos = new ArrayList<>();
     }
     
-     public void salvar() {
+    public void salvar() {
         try {
             controller.atualizar(profissao);
             init();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
 
         } catch (Exception ex) {
-            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS), ex, "RamoJudiciario");
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS), ex, "Profissao");
             Logger.getLogger(ProfissaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -71,7 +71,7 @@ public class ProfissaoMB extends BeanGenerico<Profissao> implements Serializable
             }
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
-            Logger.getLogger(EspecieEventoMB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProfissaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

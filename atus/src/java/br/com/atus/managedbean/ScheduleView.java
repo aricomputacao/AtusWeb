@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.atus.managedbean;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import javax.annotation.PostConstruct;
@@ -22,66 +22,68 @@ import org.primefaces.model.ScheduleModel;
  */
 @ManagedBean
 @ViewScoped
-public class ScheduleView {
-       private ScheduleModel eventModel;
-     
-  private ScheduleModel lazyEventModel;
+public class ScheduleView implements Serializable{
+
+    private ScheduleModel eventModel;
+
+    private ScheduleModel lazyEventModel;
     private ScheduleEvent event = new DefaultScheduleEvent();
- 
+
     @PostConstruct
     public void init() {
         eventModel = new DefaultScheduleModel();
         eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", new Date(), new Date()));
         eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
-       
-               
+
     }
+
     private Calendar today() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 0, 0, 0);
- 
+
         return calendar;
     }
-    
+
     private Date today1Pm() {
         Calendar t = (Calendar) today().clone();
         t.set(Calendar.AM_PM, Calendar.PM);
         t.set(Calendar.HOUR, 1);
-         
+
         return t.getTime();
     }
-     
+
     private Date theDayAfter3Pm() {
         Calendar t = (Calendar) today().clone();
-        t.set(Calendar.DATE, t.get(Calendar.DATE) + 2);     
+        t.set(Calendar.DATE, t.get(Calendar.DATE) + 2);
         t.set(Calendar.AM_PM, Calendar.PM);
         t.set(Calendar.HOUR, 3);
-         
+
         return t.getTime();
     }
- 
+
     private Date today6Pm() {
-        Calendar t = (Calendar) today().clone(); 
+        Calendar t = (Calendar) today().clone();
         t.set(Calendar.AM_PM, Calendar.PM);
         t.set(Calendar.HOUR, 6);
-         
+
         return t.getTime();
     }
-     private Date previousDay8Pm() {
+
+    private Date previousDay8Pm() {
         Calendar t = (Calendar) today().clone();
         t.set(Calendar.AM_PM, Calendar.PM);
         t.set(Calendar.DATE, t.get(Calendar.DATE) - 1);
         t.set(Calendar.HOUR, 8);
-         
+
         return t.getTime();
     }
-     
+
     private Date previousDay11Pm() {
         Calendar t = (Calendar) today().clone();
         t.set(Calendar.AM_PM, Calendar.PM);
         t.set(Calendar.DATE, t.get(Calendar.DATE) - 1);
         t.set(Calendar.HOUR, 11);
-         
+
         return t.getTime();
     }
 
@@ -100,6 +102,5 @@ public class ScheduleView {
     public void setEvent(ScheduleEvent event) {
         this.event = event;
     }
-    
-    
+
 }

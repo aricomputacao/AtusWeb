@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +31,7 @@ import org.primefaces.model.UploadedFile;
 
 /**
  *
- * @author gilmario
+ * @author gilmario 
  */
 @Stateless
 public class PecaController extends Controller<Peca, Long> implements Serializable {
@@ -59,7 +60,7 @@ public class PecaController extends Controller<Peca, Long> implements Serializab
         return new DefaultStreamedContent(new FileInputStream(f), "docx", p.getArquivo());
     }
 
-    public StreamedContent getModeloDownload(Peca peca, Object entidade) throws PecaFileException, FileNotFoundException, Docx4JException, IllegalArgumentException, IllegalAccessException {
+    public StreamedContent getModeloDownload(Peca peca, Object entidade) throws PecaFileException, FileNotFoundException, Docx4JException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         InputStream stream = getDownload(peca).getStream();
         return DocumentoConverter.converterArquivo(stream, entidade, peca);
     }
