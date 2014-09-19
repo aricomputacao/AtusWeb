@@ -14,17 +14,20 @@
     <composite:implementation >
         <h:form id="#{cc.attrs.id_frm}"   prependId="false">
 
-
+            <p:blockUI block="@form" trigger="tabV:linkImpre"    >
+                <p:graphicImage library="imagens" name="carregar.gif"/>
+            </p:blockUI>
             <p:tabView id="tabV" style="min-height: 380px" >
                 <p:tab title="Geral" >
-                    <p:commandLink  styleClass="printFicha" title="Imprimir" style="float: right"/>
+                    <p:commandLink  id="linkImpre" value="Imprimir" styleClass="printFicha" oncomplete="popup('/atus/RelatorioServlet.pdf');" actionListener="#{clienteMB.imprimirFicha(clienteMB.cliente)}" title="Imprimir" />
+                    <h:outputText value="|" style="float: right"/>
+                    <p:commandLink  id="linkEdi" value="Editar" styleClass="editFicha"  actionListener="#{navegacaoMB.redirecionar(navegacao['cad.cliente'],'cliente',clienteMB.cliente)}" title="Editar" />
                     <h:panelGrid>
                         <h:outputText style="font-weight: bolder;font-size: 15px" value="#{clienteMB.cliente.tipoTratamento.abreviacao} #{clienteMB.cliente.pessoa.nome}"/>
                         <h:outputText  value="#{clienteMB.cliente.estadoCivil} / #{clienteMB.cliente.nacionalidade.nome}"/>
                     </h:panelGrid>
                     <p:separator/>
                     <h:panelGrid>
-
                         <h:panelGrid columns="2" rendered="#{clienteMB.cliente.pessoa.tipoPessoa == 'PF'}">
                             <p:outputLabel   style="font-weight: bolder;" value="DATA NASCIMENTO:" />
                             <h:outputText   value="#{clienteMB.cliente.pessoa.dataNascimento}" >

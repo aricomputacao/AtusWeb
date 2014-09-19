@@ -22,13 +22,6 @@
 					</textElement>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement uuid="d2996a50-d703-4227-baac-c61a0e4eb266" x="411" y="4" width="92" height="13"/>
-					<textElement verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
-				</textField>
 				<line>
 					<reportElement uuid="92f3db99-feb7-4589-bf56-2c9c98e8c9d2" x="0" y="44" width="555" height="1"/>
 					<graphicElement>

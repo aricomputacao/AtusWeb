@@ -52,11 +52,11 @@
                     </p:column>
 
 
-                    <p:column headerText="Ação" width="3%" style="text-align: center">
+                    <p:column headerText="Ação" width="5%" style="text-align: center">
                         <composite:renderFacet name="btnAcaoCliente" />
-                        <p:commandButton actionListener="#{clienteMB.setarCliente(t)}" styleClass="btnConCliente"  update=":fic" oncomplete="PF('dialogFicha').show()"  id="btnInfo" value="" />
-
-                        <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderBtnEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.cliente'],'cliente',t)}" />
+                        <p:commandButton actionListener="#{clienteMB.setarCliente(t)}" style="width: 22px;height: 22px" title="Informações"  update=":fic" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
+                            <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderBtnEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.cliente'],'cliente',t)}" />
+                        
 
                     </p:column>
 

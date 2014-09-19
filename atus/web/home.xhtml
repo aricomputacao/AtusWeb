@@ -5,20 +5,23 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
-                    
+
                 xmlns:util="http://java.sun.com/jsf/composite/util">
 
     <ui:define name="corpo">
         <h:panelGrid columns="3"  width="100%" cellspacing="10">
             <p:panel id="pnlPro"  styleClass="painelAgendas"  header="Processos" >
-              
+
             </p:panel>
             <p:panel id="pnlEve"  styleClass="painelAgendas"  header="Eventos" >
 
 
             </p:panel>
-            <p:panel id="pnlAge"  styleClass="painelAgendas"  header="Agenda" >
+            <p:panel id="pnlAge"  styleClass="painelAgendas"   header="Agenda" >
+                <p:schedule id="schedule" styleClass="painelAgendas"  value="#{scheduleView.eventModel}" draggable="false"  widgetVar="myschedule"/>
 
+
+               
 
             </p:panel>
         </h:panelGrid>

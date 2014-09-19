@@ -173,6 +173,15 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
         return TipoPessoa.PF;
     }
 
+    public void imprimirFicha(Cliente c) {
+        List<Cliente> list = new ArrayList<>();
+        list.add(c);
+        Map<String, Object> m = new HashMap<>();
+        byte[] rel = new AssistentedeRelatorio().relatorioemByte(list, m, "WEB-INF/relatorios/rel_ficha_cliente.jasper", "Ficha de Cadastro do Cliente");
+        RelatorioSession.setBytesRelatorioInSession(rel);
+
+    }
+
     public void imprimir() {
         if (!listaClientes.isEmpty()) {
             Map<String, Object> m = new HashMap<>();

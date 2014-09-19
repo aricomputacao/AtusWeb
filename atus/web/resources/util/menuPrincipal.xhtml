@@ -15,7 +15,6 @@
             <p:menubar styleClass="menu"   >
                 <p:menuitem styleClass="item" value="Início" actionListener="#{navegacaoMB.index()}"  />
                 <p:submenu   styleClass="subMenu" style="font-weight: bolder"  label="Cadastro" >
-                    <p:menuitem value="Cliente" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.cliente'])}" immediate="true"/>
                     <p:menuitem value="Juizo Tribunal" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.juizo_tribunal'])}" immediate="true"/>
                     <p:menuitem value="Peças" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.peca'])}" immediate="true"/>
                     <p:menuitem value="Materia" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.materia'])}" immediate="true"/>
@@ -26,10 +25,13 @@
                     <p:menuitem value="Tipo Tratamento" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.tipo_tratamento'])}" immediate="true"/>
 
                 </p:submenu>
-                <p:submenu  label="Processos" styleClass="subMenu" >
+                <p:submenu  label="Pessoa" styleClass="subMenu" >
+                    <p:menuitem value="Clientes" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.cliente'])}" immediate="true"/>
+                    <p:menuitem value="Advogados" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.cliente'])}" immediate="true"/>
+                    <p:menuitem value="Colaboradores" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.cliente'])}" immediate="true"/>
 
                 </p:submenu>
-                <p:menuitem styleClass="item"  value="Pessoa" />
+                <p:menuitem styleClass="item"  value="Processo" />
                 <p:menuitem styleClass="item" value="Agenda"/>
                 <p:menuitem styleClass="item" value="Relatórios"/>
                 <p:menuitem styleClass="item" value="Segurança"/>
