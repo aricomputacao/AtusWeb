@@ -11,6 +11,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -42,7 +44,7 @@ public class DocumentoConverter {
      * @throws java.lang.IllegalAccessException
      * @throws java.io.FileNotFoundException
      */
-    public static StreamedContent converterArquivo(InputStream stream, Object entidade, Peca peca) throws Docx4JException, IllegalArgumentException, IllegalAccessException, FileNotFoundException {
+    public static StreamedContent converterArquivo(InputStream stream, Object entidade, Peca peca) throws Docx4JException, IllegalArgumentException, IllegalAccessException, FileNotFoundException, InvocationTargetException {
         WordprocessingMLPackage wordMLPackage;
         wordMLPackage = WordprocessingMLPackage.load(stream);
         MainDocumentPart arquivoBase = wordMLPackage.getMainDocumentPart();
@@ -50,12 +52,17 @@ public class DocumentoConverter {
         WordprocessingMLPackage destino = WordprocessingMLPackage.createPackage();
         for (Object valor : linhas) {
             String texto = valor.toString();
+            System.out.println(texto);
             Matcher matcher = RegexUtil.getMatcher(PARAMETROS_PADRAO, texto);
             if (matcher.find()) {
                 //Troca aqui o valor parametro do texto pelo valor do objeto
                 for (Field campo : getListaCampos(entidade.getClass())) {
-                    if (texto.contains("${" + campo + "}")) {
-                        texto = texto.replaceAll("\\$\\{" + campo + "\\}", campo.get(entidade).toString());
+                    String nomeCampo = campo.getName();
+                    if (texto.contains("${" + nomeCampo + "}")) {
+                        String valorzz = getMetodo(nomeCampo, entidade.getClass()).invoke(entidade).toString();
+                        texto = texto.replaceAll("\\$\\{" + nomeCampo + "\\}", valorzz);
+                        System.out.println(valorzz);
+                        System.out.println(nomeCampo);
                     }
                 }
             }
@@ -63,7 +70,7 @@ public class DocumentoConverter {
             destino.getMainDocumentPart().addParagraphOfText(texto);
         }
 
-        File file = new File("temp");
+        File file = new File("temp.txt");
         destino.save(file);
         StreamedContent context = new DefaultStreamedContent(new FileInputStream(file), "docx", peca.getArquivo());
         return context;
@@ -104,6 +111,15 @@ public class DocumentoConverter {
             campos.add(field);
         }
         return campos;
+    }
+
+    private static Method getMetodo(String nomeCampo, Class classe) {
+        for (Method m : classe.getDeclaredMethods()) {
+            if (m.getName().toLowerCase().equals("get" + nomeCampo)) {
+                return m;
+            }
+        }
+        return null;
     }
 
 }

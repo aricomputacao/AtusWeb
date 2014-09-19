@@ -109,9 +109,19 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
         return null;
     }
 
+    public StreamedContent downloadModelo(Peca p) {
+        try {
+            return controller.getModeloDownload(p, p);
+        } catch (Exception e) {
+            MenssagemUtil.addMessageErro(e);
+        }
+        return null;
+    }
+
     public void salvar() {
         try {
             controller.salvar(peca, file);
+            init();
             MenssagemUtil.addMessageInfo("Registro salvo");
         } catch (Exception e) {
             MenssagemUtil.addMessageErro("Erro ao salvar.");
@@ -159,8 +169,13 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
 
     public void uploadArquivo(FileUploadEvent event) {
         try {
-            file = event.getFile();
-            MenssagemUtil.addMessageInfo("Arquivo enviado com sucesso!" + file.getFileName());
+            if (controller.validaArquivoDocx(event.getFile(), peca.getSubgrupo())) {
+                file = event.getFile();
+                MenssagemUtil.addMessageInfo("Arquivo enviado com sucesso!" + file.getFileName());
+            } else {
+                MenssagemUtil.addMessageWarn("Arquivo Invalido. Possue tags Invalidas.");
+            }
+
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro("Erro ao fazer upload do arquivo", ex, this.getClass().getName());
         }
