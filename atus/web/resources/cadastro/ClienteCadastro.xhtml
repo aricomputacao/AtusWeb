@@ -7,167 +7,28 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:composite="http://java.sun.com/jsf/composite"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro">
 
     <composite:interface id="interCon">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
     </composite:interface>
     <composite:implementation  >
         <p:fieldset id="fieldCad"    legend="Cadastro" styleClass="painelCadastros">
-
-            <p:tabView effect="fade" prependId="false" styleClass="painelCadastros" id="tabView" >
-                <p:tab title="Pessoa Física"   >
-                    <h:panelGrid columns="5" id="grdDadIni"  >
-                        <h:panelGrid >
-                            <h:panelGrid columns="2" >
-                                <p:outputLabel value="Tipo" for="tp"/>
-                                <p:message for="tp"/>
-                            </h:panelGrid>
-                            <p:selectOneMenu id="tp" effect="fade" style="width: 150px"  value="#{clienteMB.cliente.pessoa.tipoPessoa}" required="true"   >
-                                <f:selectItem itemValue="#{clienteMB.pessoaFisica()}" itemLabel="#{clienteMB.pessoaFisica()}" />
-                            </p:selectOneMenu>
-                        </h:panelGrid>
-                        <h:panelGrid id="grdTpTrat" >
-                            <h:panelGrid columns="2" >
-                                <p:outputLabel value="Tratamento" for="trat"/>
-                                <p:message for="trat"/>
-                            </h:panelGrid>
-                            <h:panelGrid columns="2">
-                                <p:selectOneMenu id="trat" effect="fade" style="width: 150px" converter="#{indexConverter}" value="#{clienteMB.cliente.tipoTratamento}" required="true"   >
-                                    <f:selectItems value="#{tipoTratamentoMB.listaTipoTratamentos}" var="tra" itemLabel="#{tra.nome}" itemValue="#{tra}"/>
-                                </p:selectOneMenu>
-                                <p:commandButton onclick="PF('dialogoTratamento').show()" immediate="true" icon="ui-icon-circle-plus"/>
-                            </h:panelGrid>
-                        </h:panelGrid>
-                        <h:panelGrid id="griPrin3">
-                            <h:panelGrid columns="2" id="grd03">
-                                <p:outputLabel value="Nome" for="nome"/>
-                                <p:message for="nome"/>
-                            </h:panelGrid>
-                            <p:inputText value="#{clienteMB.cliente.pessoa.nome}"  id="nome" size="58" required="true" requiredMessage="#{mensagens['require']}"/>
-                        </h:panelGrid>
-                        <h:panelGrid >
-                            <h:panelGrid columns="2" >
-                                <p:outputLabel value="Sexo" for="sex"/>
-                                <p:message for="sex"/>
-                            </h:panelGrid>
-                            <p:selectOneMenu id="sex" effect="fade" style="width: 150px" value="#{clienteMB.cliente.pessoa.sexo}" required="true"   >
-                                <f:selectItems value="#{clienteMB.listaSexo()}" var="se" itemLabel="#{se}" />
-                            </p:selectOneMenu>
-                        </h:panelGrid>
-                        <h:panelGrid id="grdTrab"  >
-                            <comp:input_button nome_dialog="PF('dialogProf')" nome_label="Profissão" value_input="#{clienteMB.cliente.profissao.nome}" form_to_update=":frm_pag" input_size="20" />
-                        </h:panelGrid>
-                    </h:panelGrid>
-                    <h:panelGrid columns="7"   >
-                        <h:panelGrid >
-                            <h:panelGrid columns="2" >
-                                <p:outputLabel value="Estado Civil" for="est"/>
-                                <p:message for="est"/>
-                            </h:panelGrid>
-                            <p:selectOneMenu id="est" style="width: 150px" effect="fade" value="#{clienteMB.cliente.estadoCivil}" required="true"   >
-                                <f:selectItems value="#{clienteMB.listaEstadoCivil()}" var="es" itemLabel="#{es}" />
-                            </p:selectOneMenu>
-                        </h:panelGrid>
-                        <h:panelGrid >
-                            <h:panelGrid columns="2" >
-                                <p:outputLabel value="Nacionalidade" for="nac"/>
-                                <p:message for="nac"/>
-                            </h:panelGrid>
-                            <h:panelGrid columns="2">
-                                <p:selectOneMenu id="nac" style="width: 150px" effect="fade" value="#{clienteMB.cliente.nacionalidade}" converter="#{indexConverter}" required="true"   >
-                                    <f:selectItems value="#{clienteMB.listaNacionalidades}" var="na" itemLabel="#{na.nome}" itemValue="#{na}" />
-                                </p:selectOneMenu>
-                                <p:commandButton onclick="PF('dialogoNacionalidade').show()" immediate="true" icon="ui-icon-circle-plus"/>
-
-                            </h:panelGrid>
-                        </h:panelGrid>
-                        <h:panelGrid >
-                            <comp:inputTextCalendar nomeLabel="Data Nasc." size="15" valorData="#{clienteMB.cliente.pessoa.dataNascimento}"/>
-                        </h:panelGrid>
-                        <h:panelGrid >
-                            <h:panelGrid columns="2" >
-                                <p:outputLabel value="CPF" for="cpf"/>
-                                <p:message for="cpf"/>
-                            </h:panelGrid>
-                            <p:inputMask id="cpf" mask="999.999.999-99" size="15"  validator="#{clienteMB.validate}" value="#{clienteMB.cliente.cpfCpnj}" required="true" />
-
-                        </h:panelGrid>
-                        <h:panelGrid >
-                            <comp:inputText nomeLabel="RG" size="17" value="#{clienteMB.cliente.rg}" idInputTex="rg"/>
-                        </h:panelGrid>
-                        <h:panelGrid >
-                            <comp:inputText nomeLabel="Órgão Emissos" size="18" value="#{clienteMB.cliente.orgaoEmissor}" idInputTex="rg"/>
-                        </h:panelGrid>
-                        <h:panelGrid >
-                            <comp:inputText nomeLabel="PIS/PASEP" size="20" value="#{clienteMB.cliente.orgaoEmissor}" idInputTex="rg"/>
-                        </h:panelGrid>
-                    </h:panelGrid>
-                    <h:panelGrid columns="8" id="grdEnd">
-                        <h:panelGrid columns="2" >
-                            <h:panelGrid>
-                                <h:outputLabel value="CEP"/> 
-                                <p:inputMask mask="99999-999"   size="10"  value="#{clienteMB.cliente.pessoa.cep}" id="cep"/>
-                            </h:panelGrid>
-                            <p:commandButton style="margin-top: 19px" styleClass="btnCorreio" value="" title="Consultar CEP" immediate="true" type="button" onclick="PF('dialogCep').show();" />
-                        </h:panelGrid>
-                        <h:panelGrid >
-                            <h:panelGrid columns="2" >
-                                <p:outputLabel value="UF" for="uf"/>
-                                <p:message for="uf"/>
-                            </h:panelGrid>
-                            <p:selectOneMenu id="uf" style="width: 50px" effect="fade" value="#{clienteMB.uf}"    converter="#{indexConverter}" required="true"   >
-                                <f:selectItem itemLabel="UF" noSelectionOption="#{true}"/>
-                                <f:selectItems value="#{clienteMB.listaUnidadeFederativas}" var="u" itemLabel="#{u.abreviacao}" itemValue="#{u}"  />
-                                <p:ajax update="grdCid" listener="#{clienteMB.listarCidade()}" />
-                            </p:selectOneMenu>
-                        </h:panelGrid>
-                        <h:panelGrid  id="grdCid" >
-                            <h:panelGrid columns="2" >
-                                <p:outputLabel value="Cidade" for="ci"/>
-                                <p:message for="ci"/>
-                            </h:panelGrid>
-                            <p:selectOneMenu id="ci" style="width: 150px" effect="fade" value="#{clienteMB.cliente.pessoa.cidade}" converter="#{indexConverter}" required="true"   >
-                                <f:selectItems value="#{clienteMB.listaCidades}" var="c" itemLabel="#{c.nome}" itemValue="#{c}" />
-                            </p:selectOneMenu>
-                        </h:panelGrid>
-                        <h:panelGrid >
-                            <comp:inputText nomeLabel="Logradouro" size="22" value="#{clienteMB.cliente.pessoa.logradouro}" idInputTex="log"/>
-                        </h:panelGrid>
-                        <h:panelGrid >
-                            <comp:inputText nomeLabel="Bairro" size="20" value="#{clienteMB.cliente.pessoa.bairro}" idInputTex="bai"/>
-                        </h:panelGrid>
-                        <h:panelGrid >
-                            <comp:inputText nomeLabel="Número" size="4" value="#{clienteMB.cliente.pessoa.numero}" idInputTex="num"/>
-                        </h:panelGrid>
-                        <h:panelGrid >
-                            <comp:inputText nomeLabel="Complemento" size="18" value="#{clienteMB.cliente.pessoa.complemento}" idInputTex="com"/>
-                        </h:panelGrid>
-                        <h:panelGrid >
-                            <comp:inputText nomeLabel="Telefone" size="20" value="#{clienteMB.cliente.pessoa.telefone}" idInputTex="tel"/>
-                        </h:panelGrid>
-                    </h:panelGrid>
-
-                    <h:panelGrid columns="5">
-                        <h:panelGrid >
-                            <comp:inputText nomeLabel="Celular" size="20" value="#{clienteMB.cliente.pessoa.celular}" idInputTex="tel"/>
-                        </h:panelGrid>
-                        <h:panelGrid >
-                            <comp:inputText nomeLabel="Email" size="45" value="#{clienteMB.cliente.pessoa.email}" idInputTex="ema"/>
-                        </h:panelGrid>
-                    </h:panelGrid>
-                    <h:panelGrid>
-                        <h:panelGrid >
-                            <comp:inputTextArea nomeLabel="Informações Adicionais" coluna="130" linha="10" value="#{clienteMB.cliente.observacao}" idInputTex="obs"/>
-                        </h:panelGrid>
-
-                    </h:panelGrid>
-                </p:tab>
-                <p:tab title="Pessoa Juridica" >
-                </p:tab>
-
-            </p:tabView>
-
+            <h:panelGrid  styleClass="cabecalho" style="font-weight: bolder"  >
+                <h:panelGrid columns="2" >
+                    <p:outputLabel value="Tipo Pessoa" for="tp"/>
+                    <p:message for="tp"/>
+                </h:panelGrid>
+                <p:selectOneRadio id="tp"  style="width: 150px"  value="#{clienteMB.cliente.pessoa.tipoPessoa}" required="true"   >
+                    <f:selectItems value="#{clienteMB.listaTipoPessoa()}" var="tp" itemLabel="#{tp}" />
+                    <p:ajax event="change" update="@form" listener="#{clienteMB.setarPF()}"/>
+                </p:selectOneRadio>
+            </h:panelGrid>
+            <h:panelGrid >
+                <cadastro:PessoaJuridicaCadastro id="compPj" rendered="#{clienteMB.renderPF() == 2}"/>
+                <cadastro:PessoaFisicaCadastro id="compPf" rendered="#{clienteMB.renderPF() == 1}"/>
+            </h:panelGrid>
         </p:fieldset>
     </composite:implementation>
 </ui:composition>

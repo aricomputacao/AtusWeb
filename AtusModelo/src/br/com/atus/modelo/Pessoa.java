@@ -51,7 +51,7 @@ public class Pessoa implements Serializable{
     private TipoPessoa tipoPessoa;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "pes_sexo", nullable = false)
+    @Column(name = "pes_sexo")
     private Sexo sexo;
 
     @ManyToOne

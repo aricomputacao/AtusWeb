@@ -74,6 +74,7 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
     private Cliente cliente;
     private UnidadeFederativa uf;
     private String cep;
+    public int pf; //0-->null;1-->pf;-->2pj
 
     public ClienteMB() {
         super(Cliente.class);
@@ -85,11 +86,19 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
             cliente = (Cliente) navegacaoMB.getRegistroMapa("cliente", new Cliente());
             if (cliente.getId() == null) {
                 cliente.setPessoa(new Pessoa());
+                pf=1;
+                cliente.getPessoa().setTipoPessoa(TipoPessoa.PF);
             } else {
                 uf = cliente.getPessoa().getCidade().getUnidadeFederativa();
                 listaCidades = cidadeController.listaPorUf(uf);
+                if (cliente.getPessoa().getTipoPessoa().equals(TipoPessoa.PF)) {
+                    pf = 1;
+                } else {
+                    pf = 2;
+                }
 
             }
+
             uf = new UnidadeFederativa();
             listaClientes = new ArrayList<>();
 
@@ -118,13 +127,13 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
         try {
             if ((DocumetoUtil.CPF(doc) == false) && (DocumetoUtil.validaCNPJ(doc) == false)) {
                 ((UIInput) uic).setValid(false);
-                MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("documento_invalido",MenssagemUtil.MENSAGENS ));
+                MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("documento_invalido", MenssagemUtil.MENSAGENS));
                 return;
             }
 
             if (controller.buscarPorDocumento(doc).getId() != null) {
                 ((UIInput) uic).setValid(false);
-                MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("documento_registrado",MenssagemUtil.MENSAGENS));
+                MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("documento_registrado", MenssagemUtil.MENSAGENS));
 
             }
         } catch (Exception e) {
@@ -184,16 +193,31 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
         listaCidades = cidadeController.listaPorUf(uf);
     }
 
-    public void setarPJ() {
-        cliente.getPessoa().setTipoPessoa(TipoPessoa.PJ);
-    }
-
-    public void setarPF() {
-        cliente.getPessoa().setTipoPessoa(TipoPessoa.PF);
-    }
+  
 
     public TipoPessoa pessoaFisica() {
         return TipoPessoa.PF;
+    }
+
+    public TipoPessoa pessoaJuridica() {
+        return TipoPessoa.PJ;
+    }
+
+    public TipoPessoa[] listaTipoPessoa() {
+        return TipoPessoa.values();
+    }
+
+    public int renderPF() {
+        return pf;
+    }
+    
+    public void setarPF() {
+        if (cliente.getPessoa().getTipoPessoa().equals(TipoPessoa.PF)) {
+            pf=1;
+        } else {
+            pf=2;
+        }
+        
     }
 
     public void imprimirFicha(Cliente c) {

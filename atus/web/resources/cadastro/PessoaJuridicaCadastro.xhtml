@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:util="http://java.sun.com/jsf/composite/util">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+    </composite:interface>
+    <composite:implementation  >
+
+        <h:panelGrid columns="2"   >
+            <h:panelGrid >
+                <comp:inputTextCalendar nomeLabel="Data Criação." size="15" valorData="#{clienteMB.cliente.pessoa.dataNascimento}"/>
+            </h:panelGrid>
+            <h:panelGrid >
+                <h:panelGrid columns="2" >
+                    <p:outputLabel value="CNPJ" for="cnpj"/>
+                    <p:message for="cnpj"/>
+                </h:panelGrid>
+                <p:inputMask id="cnpj" mask="99.999.999/9999-99" size="19"  validator="#{clienteMB.validate}" value="#{clienteMB.cliente.cpfCpnj}" required="true" />
+
+            </h:panelGrid>
+        </h:panelGrid>
+            <util:compEndereco id="comEnd"/>
+
+            <h:panelGrid columns="5" >
+                <h:panelGrid >
+                    <comp:inputText nomeLabel="Celular" size="20" value="#{clienteMB.cliente.pessoa.celular}" idInputTex="tel"/>
+                </h:panelGrid>
+                <h:panelGrid >
+                    <comp:inputText nomeLabel="Email" size="47" value="#{clienteMB.cliente.pessoa.email}" idInputTex="ema"/>
+                </h:panelGrid>
+            </h:panelGrid>
+            <h:panelGrid rendered="#{clienteMB.renderPF() == 1 or clienteMB.renderPF() == 2}">
+                <h:panelGrid >
+                    <comp:inputTextArea nomeLabel="Informações Adicionais" coluna="138" linha="10" value="#{clienteMB.cliente.observacao}" idInputTex="obs"/>
+                </h:panelGrid>
+
+            </h:panelGrid>
+
+
+    </composite:implementation>
+</ui:composition>
+
+
+
+

@@ -44,8 +44,7 @@ public class Cliente implements Serializable {
     private String cpfCpnj;
     @Column(name = "cli_rg", length = 20)
     private String rg;
-    @Column(name = "cli_rg_org_emissor", length = 20)
-    private String orgaoEmissor;
+    
     @Column(name = "cli_pis_pasep", length = 30)
     private String pisPasep;
   
@@ -68,6 +67,10 @@ public class Cliente implements Serializable {
 
     @Column(name = "cli_observacao", length = 1024)
     private String observacao;
+    
+    @ManyToOne
+    @JoinColumn(name = "ore_id",referencedColumnName = "ore_id")
+    private OrgaoEmissor orgaoEmissor;
 
     public String getObservacao() {
         return observacao;
@@ -101,6 +104,14 @@ public class Cliente implements Serializable {
     public void setEstadoCivil(EstadoCivil estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
+
+    public OrgaoEmissor getOrgaoEmissor() {
+        return orgaoEmissor;
+    }
+
+    public void setOrgaoEmissor(OrgaoEmissor orgaoEmissor) {
+        this.orgaoEmissor = orgaoEmissor;
+    }
     
     
 
@@ -120,14 +131,7 @@ public class Cliente implements Serializable {
         this.rg = rg;
     }
 
-    public String getOrgaoEmissor() {
-        return orgaoEmissor;
-    }
-
-    public void setOrgaoEmissor(String orgaoEmissor) {
-        this.orgaoEmissor = orgaoEmissor;
-    }
-
+ 
     public String getPisPasep() {
         return pisPasep;
     }

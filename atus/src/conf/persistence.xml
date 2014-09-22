@@ -17,6 +17,9 @@
     <class>br.com.atus.modelo.TipoTratamento</class>
     <class>br.com.atus.modelo.Nacionalidade</class>
     <class>br.com.atus.modelo.Profissao</class>
+    <class>br.com.atus.modelo.Advogado</class>
+    <class>br.com.atus.modelo.Agenda</class>
+    <class>br.com.atus.modelo.OrgaoEmissor</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!--<property name="hibernate.show_sql" value="true"/>-->
