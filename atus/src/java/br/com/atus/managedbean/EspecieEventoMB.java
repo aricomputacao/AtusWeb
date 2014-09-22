@@ -45,8 +45,12 @@ public class EspecieEventoMB extends BeanGenerico<EspecieEvento> implements Seri
 
     @PostConstruct
     public void init() {
-        listaEspecieEventos = new ArrayList<>();
-        especieEvento = (EspecieEvento) navegacaoMB.getRegistroMapa("especie_evento", new EspecieEvento());
+        try {
+            listaEspecieEventos = controller.listarTodos("nome");
+            especieEvento = (EspecieEvento) navegacaoMB.getRegistroMapa("especie_evento", new EspecieEvento());
+        } catch (Exception ex) {
+            Logger.getLogger(EspecieEventoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void salvar() {

@@ -50,7 +50,7 @@
                             <comp:outputText value="#{t.nome}"/>
                         </p:column>
                         <p:column headerText="Ação" width="5%" style="text-align: center">
-                            <p:commandButton  actionListener="#{clienteMB.setarProf(t)}" icon="ui-icon-check" oncomplete="PF('dialogProf').hide()" update=":frm_pag:cadFrm:tabView:grdTrab"  />
+                            <p:commandButton  actionListener="#{clienteMB.setarProf(t)}" icon="ui-icon-check" oncomplete="PF('dialogProf').hide()"  update=":frm_pag:cadFrm:compCad:tabView:grdTrab"/>
                         </p:column>
                     </p:dataTable>
                 </p:fieldset>

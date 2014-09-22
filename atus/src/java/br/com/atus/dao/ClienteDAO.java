@@ -9,6 +9,7 @@ package br.com.atus.dao;
 import br.com.atus.modelo.Cliente;
 import java.io.Serializable;
 import javax.ejb.Stateless;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -19,6 +20,17 @@ public class ClienteDAO extends DAO<Cliente, Long> implements Serializable{
 
     public ClienteDAO() {
         super(Cliente.class);
+    }
+
+    public Cliente buscarPorDocumento(String doc) {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT c from Cliente c WHERE c.cpfCpnj = :doc", Cliente.class);
+        q.setParameter("doc", doc);
+        if (q.getResultList().isEmpty()) {
+            return new Cliente();
+        } else {
+            return (Cliente) q.getSingleResult();
+        }
     }
     
     

@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.validator.constraints.br.CPF;
 
 /**
  *
@@ -38,6 +39,7 @@ public class Cliente implements Serializable {
     private Long id;
     @Embedded
     private Pessoa pessoa;
+
     @Column(name = "cli_documento", length = 20)
     private String cpfCpnj;
     @Column(name = "cli_rg", length = 20)

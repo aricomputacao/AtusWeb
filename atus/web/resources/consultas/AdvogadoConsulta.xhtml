@@ -30,10 +30,10 @@
                     <h:panelGrid id="grdConsulta3">
                         <p:spacer width="15"/>
                         <h:panelGrid columns="2" id="btnConRamo">
-                            <p:blockUI block="@form" trigger="btnCon"    >
+                            <p:blockUI block="@form"  trigger="btnCon2:btn"  >
                                 <p:graphicImage library="imagens" name="carregar.gif"/>
                             </p:blockUI>
-                            <comp:commandButton_consulta id="btnCon" acao_butao="#{advogadoMB.listar()}"  componente_to_update="@form" />
+                            <comp:commandButton_consulta  id="btnCon2"  acao_butao="#{advogadoMB.listar()}"  componente_to_update="@form" />
                         </h:panelGrid>
                     </h:panelGrid>
                 </h:panelGrid>

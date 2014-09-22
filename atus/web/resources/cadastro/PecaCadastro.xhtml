@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+    </composite:interface>
+    <composite:implementation  >
+        <p:fieldset id="fieldCad"  legend="Cadastro" style="font-weight: bold;text-align: left">
+            <h:panelGrid>
+                <h:panelGrid id="griPrin3">
+                    <h:panelGrid columns="2" id="grd03">
+                        <p:outputLabel value="Descrição" for="desc"/>
+                        <p:message for="desc"/>
+                    </h:panelGrid>
+                    <p:inputText value="#{pecaMB.peca.descricao}" size="50" id="desc" required="true" requiredMessage="#{mensagens['require']}"/>
+                </h:panelGrid>
+                <h:panelGrid id="griPrin4">
+                    <h:panelGrid columns="2" id="grd04">
+                        <p:outputLabel value="Subgrupo" for="sub"/>
+                        <p:message for="sub"/>
+                    </h:panelGrid>
+                    <p:selectOneMenu value="#{pecaMB.peca.subgrupo}" id="sub" required="true" requiredMessage="#{mensagens['require']}" style="width: 200px;">
+                        <f:selectItem itemValue="" itemLabel=""/>
+                        <f:selectItem itemValue="br.com.atus.modelo.Peca" itemLabel="Peca"/>
+                        <p:ajax event="change" update="sub"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                <h:panelGrid id="file">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Arquivo" for="arq"/>
+                        <p:message for="arq"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="3">
+                        <p:inputText value="#{pecaMB.file.fileName}" readonly="true" rendered="#{pecaMB.file != null}" id="arq" size="30"/>
+                        <p:fileUpload mode="advanced" fileUploadListener="#{pecaMB.uploadArquivo}" uploadLabel="Upload" allowTypes="/(\.|\/)(docx)$/" update="file" rendered="#{pecaMB.file == null}"/>
+                        <p:commandButton value="Excluir arquivo" actionListener="#{pecaMB.excluirArquivo()}" update="file" rendered="#{pecaMB.file != null}" icon="ui-icon-trash" immediate="true"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </h:panelGrid>
+        </p:fieldset>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

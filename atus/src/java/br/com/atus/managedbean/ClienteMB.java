@@ -23,6 +23,7 @@ import br.com.atus.modelo.Profissao;
 import br.com.atus.modelo.TipoTratamento;
 import br.com.atus.modelo.UnidadeFederativa;
 import br.com.atus.util.AssistentedeRelatorio;
+import br.com.atus.util.DocumetoUtil;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
 import java.io.Serializable;
@@ -37,6 +38,8 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -110,6 +113,26 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
 
     }
 
+    public void validate(FacesContext fc, UIComponent uic, Object value) {
+        String doc = value.toString().replaceAll("[^0-9]", "");
+        try {
+            if ((DocumetoUtil.CPF(doc) == false) && (DocumetoUtil.validaCNPJ(doc) == false)) {
+                ((UIInput) uic).setValid(false);
+                MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("documento_invalido",MenssagemUtil.MENSAGENS ));
+                return;
+            }
+
+            if (controller.buscarPorDocumento(doc).getId() != null) {
+                ((UIInput) uic).setValid(false);
+                MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("documento_registrado",MenssagemUtil.MENSAGENS));
+
+            }
+        } catch (Exception e) {
+            MenssagemUtil.addMessageErro(e);
+        }
+
+    }
+
     public void setarProf(Profissao p) {
         cliente.setProfissao(p);
     }
@@ -133,9 +156,9 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaClientes = controller.listarTodos("nome");
+                listaClientes = controller.listarTodos("pessoa.nome");
             } else {
-                listaClientes = controller.listarLike("nome", getValorBusca());
+                listaClientes = controller.listarLike("pessoa.nome", getValorBusca());
 
             }
         } catch (Exception ex) {

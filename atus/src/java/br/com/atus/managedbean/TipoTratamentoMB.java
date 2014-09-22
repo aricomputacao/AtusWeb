@@ -3,10 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.atus.managedbean;
 
-import br.com.atus.controller.TipoContratoController;
 import br.com.atus.controller.TipoTratamentoController;
 import br.com.atus.modelo.TipoTratamento;
 import br.com.atus.util.MenssagemUtil;
@@ -25,23 +23,29 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class TipoTratamentoMB extends BeanGenerico<TipoTratamento> implements Serializable{
+public class TipoTratamentoMB extends BeanGenerico<TipoTratamento> implements Serializable {
 
+    
     @EJB
     private TipoTratamentoController controller;
     private TipoTratamento tipoTratamento;
     private List<TipoTratamento> listaTipoTratamentos;
-    
+
     public TipoTratamentoMB() {
         super(TipoTratamento.class);
     }
-    
+
     @PostConstruct
-    public void init(){
-        tipoTratamento = new TipoTratamento();
+    public void init() {
+        try {
+            tipoTratamento = new TipoTratamento();
+            listaTipoTratamentos = controller.listarTodos("nome");
+        } catch (Exception ex) {
+            Logger.getLogger(TipoTratamentoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
-      public void salvar() {
+
+    public void salvar() {
         try {
             controller.salvarouAtualizar(tipoTratamento);
             init();
@@ -82,7 +86,5 @@ public class TipoTratamentoMB extends BeanGenerico<TipoTratamento> implements Se
     public void setListaTipoTratamentos(List<TipoTratamento> listaTipoTratamentos) {
         this.listaTipoTratamentos = listaTipoTratamentos;
     }
-    
-    
-    
+
 }

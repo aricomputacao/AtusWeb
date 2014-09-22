@@ -6,8 +6,8 @@
 
 package br.com.atus.controller;
 
-import br.com.atus.dao.ClienteDAO;
-import br.com.atus.modelo.Cliente;
+import br.com.atus.dao.AgendaDAO;
+import br.com.atus.modelo.Agenda;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -15,23 +15,18 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author ari
+ * @author Ari
  */
 @Stateless
-public class ClienteController extends Controller<Cliente, Long> implements Serializable{
+public class AgendaController extends Controller<Agenda, Long> implements Serializable{
 
     @EJB
-    private ClienteDAO dao;
+    private AgendaDAO dao;
     
     @PostConstruct
     @Override
     protected void inicializaDAO() {
         setDAO(dao);
     }
-
-    public Cliente buscarPorDocumento(String doc) {
-       return dao.buscarPorDocumento(doc);
-    }
-    
     
 }

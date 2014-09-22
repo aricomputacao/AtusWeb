@@ -7,46 +7,15 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:comp="http://java.sun.com/jsf/composite/comp"
                 xmlns:cons="http://java.sun.com/jsf/composite/consultas"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro">
 
     <ui:define name="corpo">
         <h:form id="frm_pag">
 
             <comp:menuPanel id="menuPanel" acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.peca'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.peca'])}" acao_imprimir="#{pecaMB.imprimir()}" acao_limpar="#{pecaMB.init()}" acao_salvar="#{pecaMB.salvar()}"/>
             <comp:panel_cadastro id="cadFrm" cabecalho_grid="Cadastro de Peças" id_form="frm_pag">
-                <p:fieldset id="fieldCad" rendered="#{navegacaoMB.renderPainelCadastro}" legend="Cadastro" style="font-weight: bold">
-                    <h:panelGrid>
-                        <h:panelGrid id="griPrin3">
-                            <h:panelGrid columns="2" id="grd03">
-                                <p:outputLabel value="Descrição" for="desc"/>
-                                <p:message for="desc"/>
-                            </h:panelGrid>
-                            <p:inputText value="#{pecaMB.peca.descricao}" size="50" id="desc" required="true" requiredMessage="#{mensagens['require']}"/>
-                        </h:panelGrid>
-                        <h:panelGrid id="griPrin4">
-                            <h:panelGrid columns="2" id="grd04">
-                                <p:outputLabel value="Subgrupo" for="sub"/>
-                                <p:message for="sub"/>
-                            </h:panelGrid>
-                            <p:selectOneMenu value="#{pecaMB.peca.subgrupo}" id="sub" required="true" requiredMessage="#{mensagens['require']}" style="width: 200px;">
-                                <f:selectItem itemValue="" itemLabel=""/>
-                                <f:selectItem itemValue="br.com.atus.modelo.Peca" itemLabel="Peca"/>
-                                <p:ajax event="change" update="sub"/>
-                            </p:selectOneMenu>
-                        </h:panelGrid>
-                        <h:panelGrid id="file">
-                            <h:panelGrid columns="2">
-                                <p:outputLabel value="Arquivo" for="arq"/>
-                                <p:message for="arq"/>
-                            </h:panelGrid>
-                            <h:panelGrid columns="3">
-                                <p:inputText value="#{pecaMB.file.fileName}" readonly="true" rendered="#{pecaMB.file != null}" id="arq" size="30"/>
-                                <p:fileUpload mode="advanced" fileUploadListener="#{pecaMB.uploadArquivo}" uploadLabel="Upload" allowTypes="/(\.|\/)(docx)$/" update="file" rendered="#{pecaMB.file == null}"/>
-                                <p:commandButton value="Excluir arquivo" actionListener="#{pecaMB.excluirArquivo()}" update="file" rendered="#{pecaMB.file != null}" icon="ui-icon-trash" immediate="true"/>
-                            </h:panelGrid>
-                        </h:panelGrid>
-                    </h:panelGrid>
-                </p:fieldset>
+                <cadastro:PecaCadastro rendered="#{navegacaoMB.renderPainelCadastro}"/>
 
                 <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}">
                     <cons:PecaConsulta/>

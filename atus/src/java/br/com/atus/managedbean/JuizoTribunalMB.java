@@ -56,7 +56,7 @@ public class JuizoTribunalMB extends BeanGenerico<JuizoTribunal> implements Seri
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS));
-            Logger.getLogger(MateriaMB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JuizoTribunalMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -70,7 +70,7 @@ public class JuizoTribunalMB extends BeanGenerico<JuizoTribunal> implements Seri
             }
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
-            Logger.getLogger(MateriaMB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JuizoTribunalMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -83,7 +83,7 @@ public class JuizoTribunalMB extends BeanGenerico<JuizoTribunal> implements Seri
 
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("excluir.falha", MenssagemUtil.MENSAGENS));
-            Logger.getLogger(MateriaMB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JuizoTribunalMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

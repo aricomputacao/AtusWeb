@@ -47,7 +47,7 @@
                      <p:column headerText="Ação" width="6%" style="text-align: center">
                         <ui:insert name="acaoJuizoTribunal" >
                             <comp:commandButton_editar id="btnEditaRamo"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.juizo_tribunal'],'juizo_tribunal',t)}" />
-                            <comp:commandButton_excluir acao_butao="#{juizoTribunalMB.excluir(t)}" classe="Materia" form_to_update="@form"/>
+                            <comp:commandButton_excluir acao_butao="#{juizoTribunalMB.excluir(t)}" classe="Juizo e Tribunal" form_to_update="@form"/>
                         </ui:insert>
                     </p:column>
                 </p:dataTable>

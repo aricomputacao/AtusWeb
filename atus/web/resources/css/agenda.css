@@ -1,0 +1,59 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20/09/2014, 04:29:17
+    Author     : Ari
+*/
+
+.audiencia .fc-event-inner{
+    background: #258dc8 !important     ; /* Old browsers */
+    background: -moz-linear-gradient(top,  #258dc8 0%, #258dc8 100%) !important; /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#258dc8), color-stop(100%,#258dc8)) !important; /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #258dc8 0%,#258dc8 100%) !important; /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #258dc8 0%,#258dc8 100%) !important; /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #258dc8 0%,#258dc8 100%) !important; /* IE10+ */
+    background: linear-gradient(to bottom,  #258dc8 0%,#258dc8 100%) !important; /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#258dc8', endColorstr='#258dc8',GradientType=0 ) !important; /* IE6-9 */
+
+}
+
+.pericia .fc-event-inner{
+    background: #d5cea6 !important; /* Old browsers */
+    background: -moz-linear-gradient(top,  #d5cea6 0%, #c9c190 40%, #b7ad70 100%) !important; /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d5cea6), color-stop(40%,#c9c190), color-stop(100%,#b7ad70)) !important; /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #d5cea6 0%,#c9c190 40%,#b7ad70 100%) !important; /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #d5cea6 0%,#c9c190 40%,#b7ad70 100%) !important; /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #d5cea6 0%,#c9c190 40%,#b7ad70 100%) !important; /* IE10+ */
+    background: linear-gradient(to bottom,  #d5cea6 0%,#c9c190 40%,#b7ad70 100%) !important; /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d5cea6', endColorstr='#b7ad70',GradientType=0 ) !important; /* IE6-9 */
+
+}
+
+.sessao .fc-event-inner{
+    background: #003399 !important;
+}
+
+.carga .fc-event-inner{
+    background: #003399 !important;
+}
+
+.requerimento .fc-event-inner{
+    background: #003399 !important;
+}
+
+.publicacao .fc-event-skin{
+    background: #003399 !important;
+}
+
+.outro .fc-event-skin{
+    background: #003399 !important;
+}
+
+
+
+
+
+

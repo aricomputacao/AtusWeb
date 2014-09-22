@@ -325,7 +325,7 @@ ui-layout-unit{
     text-decoration: none;
     float: right;
     margin-right: 5px;
-    
+
 
 }
 .ui-column-title{
@@ -353,9 +353,16 @@ ui-layout-unit{
     height: 24px;
     background-color: wheat;
 }
+.btnSalvarDialog{
+    margin-left: 13px;
+    margin-bottom: 10px;
+    background: url("../resources/imagens/salvar.png") ! important; 
+    width: 32px;
+    height: 32px;
 
-/*
-Style Class                                Applies
+}
+
+/*Style Class                                Applies
 .ui-layout                                   Main wrapper container element
 .ui-layout-doc                             Layout container
 .ui-layout-unit                             Each layout unit container

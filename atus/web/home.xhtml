@@ -6,28 +6,112 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
 
-                xmlns:util="http://java.sun.com/jsf/composite/util">
+                xmlns:util="http://java.sun.com/jsf/composite/util"
+                xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="corpo">
-        <h:panelGrid columns="3"  width="100%" cellspacing="10">
-            <p:panel id="pnlPro"  styleClass="painelAgendas"  header="Processos" >
+        <p:tabView dynamic="true" prependId="false" id="tabV">
+            <p:tab title="Processos" >
+                <p:panel styleClass="painelAgendas">
+                    
+                </p:panel>
+            </p:tab>
+            <p:tab title="Agenda" >
+                <h:form id="frm_home" prependId="false" styleClass="painelAgendas">
+                    <p:messages id="mensagens" showDetail="true" />
+                    <p:schedule widgetVar="meucalendario" tooltip="true" style="width: 50%" 
+                                value="#{agendaMB.eventModel}" id="sch" >
 
-            </p:panel>
-            <p:panel id="pnlEve"  styleClass="painelAgendas"  header="Eventos" >
+                        <!-- eventos -->
+                        <p:ajax event="dateSelect" listener="#{agendaMB.quandoNovo}" 
+                                oncomplete="PF('caixaDialogo').show()" update=":frmDialog:eventDetails" />  
+                        <p:ajax event="eventSelect" listener="#{agendaMB.quandoSelecionado}" 
+                                oncomplete="PF('caixaDialogo').show()"  update=":frmDialog:eventDetails"  />  
+                        <p:ajax event="eventMove" listener="#{agendaMB.quandoMovido}" 
+                                update="mensagens" oncomplete="PF('meucalendario').update()" />  
+                        <p:ajax event="eventResize" listener="#{agendaMB.quandoRedimensionado}" 
+                                update="mensagens" oncomplete="PF('meucalendario').update()"/>  
+
+                    </p:schedule>
 
 
-            </p:panel>
-            <p:panel id="pnlAge"  styleClass="painelAgendas"   header="Agenda" >
-                <p:schedule id="schedule" styleClass="painelAgendas"  value="#{scheduleView.eventModel}" draggable="false"  widgetVar="myschedule"/>
+                </h:form>
+
+            </p:tab>
+        </p:tabView>
 
 
-               
-
-            </p:panel>
-        </h:panelGrid>
     </ui:define>
-    <ui:define name="dialogs">
+    <ui:define name="dialogs" id="uiDialog">
+        <h:form prependId="false" id="frmDialog" >
+            <p:dialog widgetVar="caixaDialogo" id="dialogCaixa"
+                      header="Evento"  width="800"
+                      resizable="false"
+                      showEffect="clip" hideEffect="clip">  
 
+                <p:outputPanel 
+                    id="eventDetails">
+
+                    <h:panelGrid columns="2">  
+
+                        <h:outputLabel for="tipo" value="Tipo:" /> 
+                        <h:selectOneMenu 
+                            id="tipo" value="#{agendaMB.agenda.especieEvento}"
+                            converter="#{indexConverter}">
+                            <f:selectItems value="#{especieEventoMB.listaEspecieEventos}" var="es" itemLabel="#{es.nome}" itemValue="#{es}"/>
+                        </h:selectOneMenu>
+
+                        <h:outputLabel for="tit" value="Titulo:" /> 
+                        <p:inputText 
+                            id="tit" 
+                            size="60"
+                            maxlength="60"
+                            required="true"
+                            value="#{agendaMB.agenda.titulo}" />  
+
+                        <h:outputLabel for="descricao" value="Descrição:" /> 
+                        <p:inputTextarea 
+                            id="descricao" 
+                            rows="5"
+                            cols="60"
+                            maxlength="1024"
+                            required="true"
+                            value="#{agendaMB.agenda.descricao}" />  
+
+                        <h:outputLabel for="inicio" value="Início:" />  
+                        <p:calendar id="inicio" 
+                                    showButtonPanel="true"
+                                    required="true"
+                                    value="#{agendaMB.agenda.dataInicio}" 
+                                    pattern="dd/MM/yyyy HH:mm"/>
+
+                        <h:outputLabel for="fim" value="Fim:" />  
+                        <p:calendar id="fim" 
+                                    showButtonPanel="true"
+                                    required="true"
+                                    value="#{agendaMB.agenda.dataFim}" 
+                                    pattern="dd/MM/yyyy HH:mm"/>
+
+                        <h:outputLabel for="diaTodo" value="Dia todo?:" />  
+                        <h:selectBooleanCheckbox 
+                            id="diaTodo"
+                            value="#{agendaMB.agenda.diaTodo}" />  
+
+                    </h:panelGrid>  
+
+                    <p:separator/>
+
+                    <p:commandButton
+                        value="Salvar"
+                        actionListener="#{agendaMB.salvar()}"
+                        oncomplete="PF('meucalendario').update();PF('caixaDialogo').hide();"
+                        update=":tabV:frm_home:mensagens" 
+                        style="float: right"/>  
+
+                </p:outputPanel>
+
+            </p:dialog>  
+        </h:form>
 
     </ui:define>
 </ui:composition>
