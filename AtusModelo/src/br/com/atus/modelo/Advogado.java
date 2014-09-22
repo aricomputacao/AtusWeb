@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -32,7 +33,7 @@ public class Advogado implements Serializable {
     @NotBlank
     @Column(name = "adv_nome", nullable = false, unique = true)
     private String nome;
-    @NotBlank
+    @NotNull
     @Column(name = "adv_oab", nullable = false, unique = true)
     private Integer oab;
     @ManyToOne

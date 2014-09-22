@@ -6,6 +6,7 @@
 package br.com.atus.modelo;
 
 import br.com.atus.enumerated.EstadoCivil;
+import br.com.atus.enumerated.Sexo;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -34,7 +35,7 @@ import org.hibernate.validator.constraints.br.CPF;
 public class Cliente implements Serializable {
 
     @Id
-    @Column(name = "cli_id",nullable = false)
+    @Column(name = "cli_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Embedded
@@ -44,33 +45,44 @@ public class Cliente implements Serializable {
     private String cpfCpnj;
     @Column(name = "cli_rg", length = 20)
     private String rg;
-    
+
     @Column(name = "cli_pis_pasep", length = 30)
     private String pisPasep;
-  
+
     @ManyToOne
-    @JoinColumn(name = "tit_id",referencedColumnName = "tit_id")
+    @JoinColumn(name = "tit_id", referencedColumnName = "tit_id")
     private TipoTratamento tipoTratamento;
-   
+
     @ManyToOne
-    @JoinColumn(name = "nac_id",referencedColumnName = "nac_id")
+    @JoinColumn(name = "nac_id", referencedColumnName = "nac_id")
     private Nacionalidade nacionalidade;
- 
+
     @ManyToOne
-    @JoinColumn(name = "pro_id",referencedColumnName = "pro_id")
+    @JoinColumn(name = "pro_id", referencedColumnName = "pro_id")
     private Profissao profissao;
-    
-   
+
     @Column(name = "cli_estado_civil")
     @Enumerated(EnumType.STRING)
     private EstadoCivil estadoCivil;
 
     @Column(name = "cli_observacao", length = 1024)
     private String observacao;
-    
+
     @ManyToOne
-    @JoinColumn(name = "ore_id",referencedColumnName = "ore_id")
+    @JoinColumn(name = "ore_id", referencedColumnName = "ore_id")
     private OrgaoEmissor orgaoEmissor;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "cli_sexo")
+    private Sexo sexo;
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
+    }
 
     public String getObservacao() {
         return observacao;
@@ -79,8 +91,7 @@ public class Cliente implements Serializable {
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
-    
-    
+
     public TipoTratamento getTipoTratamento() {
         return tipoTratamento;
     }
@@ -112,8 +123,6 @@ public class Cliente implements Serializable {
     public void setOrgaoEmissor(OrgaoEmissor orgaoEmissor) {
         this.orgaoEmissor = orgaoEmissor;
     }
-    
-    
 
     public String getCpfCpnj() {
         return cpfCpnj;
@@ -131,7 +140,6 @@ public class Cliente implements Serializable {
         this.rg = rg;
     }
 
- 
     public String getPisPasep() {
         return pisPasep;
     }
@@ -139,10 +147,7 @@ public class Cliente implements Serializable {
     public void setPisPasep(String pisPasep) {
         this.pisPasep = pisPasep;
     }
-    
-    
 
-    
     public Long getId() {
         return id;
     }
@@ -167,8 +172,6 @@ public class Cliente implements Serializable {
         this.profissao = profissao;
     }
 
-  
-
     @Override
     public int hashCode() {
         int hash = 7;
@@ -190,6 +193,5 @@ public class Cliente implements Serializable {
         }
         return true;
     }
-    
-    
+
 }

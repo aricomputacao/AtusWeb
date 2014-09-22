@@ -20,6 +20,7 @@
     <class>br.com.atus.modelo.Advogado</class>
     <class>br.com.atus.modelo.Agenda</class>
     <class>br.com.atus.modelo.OrgaoEmissor</class>
+    <class>br.com.atus.modelo.Colaborador</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!--<property name="hibernate.show_sql" value="true"/>-->

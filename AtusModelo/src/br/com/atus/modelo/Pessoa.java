@@ -50,9 +50,7 @@ public class Pessoa implements Serializable{
     @Column(name = "pes_tipo", nullable = false)
     private TipoPessoa tipoPessoa;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "pes_sexo")
-    private Sexo sexo;
+  
 
     @ManyToOne
     @JoinColumn(name = "cid_id", referencedColumnName = "cid_id")
@@ -157,13 +155,7 @@ public class Pessoa implements Serializable{
         this.tipoPessoa = tipoPessoa;
     }
 
-    public Sexo getSexo() {
-        return sexo;
-    }
 
-    public void setSexo(Sexo sexo) {
-        this.sexo = sexo;
-    }
 
     public Cidade getCidade() {
         return cidade;
