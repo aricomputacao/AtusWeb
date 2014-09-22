@@ -2,6 +2,9 @@
 /atus/build
 /atus/dist/
 /Biblioteca
-/modelos/build/
-/modelos/dist/
-/modelos/nbproject/
+/AtusModelos/build/
+/AtusModelos/dist/
+/AtusModelos/nbproject/
+/AtusModelo/dist/
+/AtusModelo/build/
+/atus_avocatus.2014.09.10.backup.tar.gz
