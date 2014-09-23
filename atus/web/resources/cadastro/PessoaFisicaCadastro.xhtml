@@ -41,7 +41,7 @@
                     <p:outputLabel value="Sexo" for="sex"/>
                     <p:message for="sex"/>
                 </h:panelGrid>
-                <p:selectOneMenu id="sex" effect="fade" style="width: 150px" value="#{clienteMB.cliente.pessoa.sexo}" required="true"   >
+                <p:selectOneMenu id="sex" effect="fade" style="width: 150px" value="#{clienteMB.cliente.sexo}" required="true"   >
                     <f:selectItems value="#{clienteMB.listaSexo()}" var="se" itemLabel="#{se}" />
                 </p:selectOneMenu>
             </h:panelGrid>
@@ -104,9 +104,14 @@
                 <comp:inputText nomeLabel="PIS/PASEP" size="20" value="#{clienteMB.cliente.orgaoEmissor}" idInputTex="rg"/>
             </h:panelGrid>
         </h:panelGrid>
-        <util:compEndereco id="comEnd"/>
+        <util:compEndereco id="comEnd" bai="#{clienteMB.cliente.pessoa.bairro}" cep="#{clienteMB.cliente.pessoa.cep}" cid="#{clienteMB.cliente.pessoa.cidade}"
+                           comp="#{clienteMB.cliente.pessoa.complemento}" log="#{clienteMB.cliente.pessoa.logradouro}" uf="#{clienteMB.cliente.pessoa.cidade.unidadeFederativa}" num="#{clienteMB.cliente.pessoa.numero}"/>
+
 
         <h:panelGrid columns="5" >
+            <h:panelGrid >
+                <comp:inputText nomeLabel="Telefone" size="20" value="#{clienteMB.cliente.pessoa.telefone}" idInputTex="tel"/>
+            </h:panelGrid>
             <h:panelGrid >
                 <comp:inputText nomeLabel="Celular" size="20" value="#{clienteMB.cliente.pessoa.celular}" idInputTex="tel"/>
             </h:panelGrid>

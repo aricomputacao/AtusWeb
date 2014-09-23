@@ -12,7 +12,7 @@
                 xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro">
 
     <ui:define name="corpo">
-        <h:form id="frm_pag" prependId="false" >
+        <h:form id="frm_pag" prependId="false"  >
             <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.cliente'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.cliente'])}" acao_imprimir="#{clienteMB.imprimir()}" acao_limpar="#{clienteMB.init()}" acao_salvar="#{clienteMB.salvar()}"/>
             <comp:panel_cadastro id="cadFrm" cabecalho_grid="Clientes" id_form="frm_pag"  >               
 
@@ -38,7 +38,7 @@
             <util:buscaCep id="compCep">
                 <f:facet name="btn" id="btnCep">
                     <p:commandButton value="Fechar" style="float: right" icon="ui-icon-check" onclick="PF('dialogCep').hide()" update=":frm_pag" id="button" partialSubmit="false"
-                                     actionListener="#{clienteMB.encontraCEP(webServiceMB.cep, webServiceMB.estado, webServiceMB.cidade, webServiceMB.tipoLogradouro, webServiceMB.logradouro, webServiceMB.bairro)}"    />
+                                     actionListener="#{unidadeFederativaMB.encontraCEP(webServiceMB.cep, webServiceMB.estado, webServiceMB.cidade, webServiceMB.tipoLogradouro, webServiceMB.logradouro, webServiceMB.bairro,clienteMB.cliente.pessoa)}"    />
                 </f:facet>
             </util:buscaCep>
 

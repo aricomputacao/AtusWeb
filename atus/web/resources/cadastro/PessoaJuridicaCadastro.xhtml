@@ -28,22 +28,26 @@
 
             </h:panelGrid>
         </h:panelGrid>
-            <util:compEndereco id="comEnd"/>
+        <util:compEndereco id="comEnd" bai="#{clienteMB.cliente.pessoa.bairro}" cep="#{clienteMB.cliente.pessoa.cep}" cid="#{clienteMB.cliente.pessoa.cidade}"
+                               comp="#{clienteMB.cliente.pessoa.complemento}" log="#{clienteMB.cliente.pessoa.logradouro}" num="#{clienteMB.cliente.pessoa.numero}"/>
 
-            <h:panelGrid columns="5" >
-                <h:panelGrid >
-                    <comp:inputText nomeLabel="Celular" size="20" value="#{clienteMB.cliente.pessoa.celular}" idInputTex="tel"/>
-                </h:panelGrid>
-                <h:panelGrid >
-                    <comp:inputText nomeLabel="Email" size="47" value="#{clienteMB.cliente.pessoa.email}" idInputTex="ema"/>
-                </h:panelGrid>
+        <h:panelGrid columns="5" >
+            <h:panelGrid >
+                <comp:inputText nomeLabel="Telefone" size="20" value="#{clienteMB.cliente.pessoa.telefone}" idInputTex="tel"/>
             </h:panelGrid>
-            <h:panelGrid rendered="#{clienteMB.renderPF() == 1 or clienteMB.renderPF() == 2}">
-                <h:panelGrid >
-                    <comp:inputTextArea nomeLabel="Informações Adicionais" coluna="138" linha="10" value="#{clienteMB.cliente.observacao}" idInputTex="obs"/>
-                </h:panelGrid>
+            <h:panelGrid >
+                <comp:inputText nomeLabel="Celular" size="20" value="#{clienteMB.cliente.pessoa.celular}" idInputTex="tel"/>
+            </h:panelGrid>
+            <h:panelGrid >
+                <comp:inputText nomeLabel="Email" size="47" value="#{clienteMB.cliente.pessoa.email}" idInputTex="ema"/>
+            </h:panelGrid>
+        </h:panelGrid>
+        <h:panelGrid rendered="#{clienteMB.renderPF() == 1 or clienteMB.renderPF() == 2}">
+            <h:panelGrid >
+                <comp:inputTextArea nomeLabel="Informações Adicionais" coluna="138" linha="10" value="#{clienteMB.cliente.observacao}" idInputTex="obs"/>
+            </h:panelGrid>
 
-            </h:panelGrid>
+        </h:panelGrid>
 
 
     </composite:implementation>

@@ -7,30 +7,67 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:composite="http://java.sun.com/jsf/composite"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:util="http://java.sun.com/jsf/composite/util">
 
     <composite:interface id="interCon">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
     </composite:interface>
     <composite:implementation  >
-        <p:fieldset id="fieldCad" legend="Cadastro" style="text-align: left">
 
-            <h:panelGrid columns="1"  >
-                <h:panelGrid >
-                    <h:panelGrid columns="2" >
-                        <p:outputLabel value="Código" for="cod"/>
-                        <p:message for="cod"/>
-                    </h:panelGrid>
-                    <p:inputText id="cod" disabled="true" value="#{colaboradorMB.colaborador.id}"  maxlength="4" size="5" required="true" requiredMessage="#{mensagens['require']}" readonly="true"/>
-                </h:panelGrid>
-                <h:panelGrid id="griPrin3">
+        <p:fieldset id="fieldCad" legend="Cadastro" style="text-align: left">
+            <h:panelGrid columns="5" id="grdDadIni"  >
+                <h:panelGrid id="griPrin3" >
                     <h:panelGrid columns="2" id="grd03">
                         <p:outputLabel value="Nome" for="nome"/>
                         <p:message for="nome"/>
                     </h:panelGrid>
-                    <p:inputText value="#{colaboradorMB.colaborador.pessoa.nome}"  id="nome" size="50" required="true" requiredMessage="#{mensagens['require']}"/>
+                    <p:inputText value="#{colaboradorMB.colaborador.pessoa.nome}"  id="nome" size="58" required="true" requiredMessage="#{mensagens['require']}"/>
+                </h:panelGrid>
+                <h:panelGrid>
+                    <h:panelGrid columns="2" >
+                        <p:outputLabel value="Sexo" for="sex"/>
+                        <p:message for="sex"/>
+                    </h:panelGrid>
+                    <p:selectOneMenu id="sex" effect="fade" style="width: 150px" value="#{colaboradorMB.colaborador.sexo}" required="true"   >
+                        <f:selectItems value="#{colaboradorMB.listaSexo()}" var="se" itemLabel="#{se}" />
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                <h:panelGrid >
+                    <comp:inputTextCalendar nomeLabel="Data Nasc." size="12" valorData="#{colaboradorMB.colaborador.pessoa.dataNascimento}"/>
+                </h:panelGrid>
+                <h:panelGrid>
+                    <h:panelGrid columns="2" >
+                        <p:outputLabel value="Participação" for="par"/>
+                        <p:message for="par"/>
+                    </h:panelGrid>
+                    <p:inputText value="#{colaboradorMB.colaborador.pessoa.nome}"  id="par" size="8"  styleClass="edtMoeda" onfocus="mascaraPercentInputs();" required="true" requiredMessage="#{mensagens['require']}">
+                        <f:convertNumber type="percent" />
+                    </p:inputText>
                 </h:panelGrid>
             </h:panelGrid>
+            <util:compEndereco id="comEnd" bai="#{colaboradorMB.colaborador.pessoa.bairro}" cep="#{colaboradorMB.colaborador.pessoa.cep}" cid="#{colaboradorMB.colaborador.pessoa.cidade}"
+                               comp="#{colaboradorMB.colaborador.pessoa.complemento}" log="#{colaboradorMB.colaborador.pessoa.logradouro}" num="#{colaboradorMB.colaborador.pessoa.numero}"/>
+            <h:panelGrid columns="5" >
+                <h:panelGrid >
+                    <comp:inputText nomeLabel="Telefone" size="20" value="#{colaboradorMB.colaborador.pessoa.telefone}" idInputTex="tel"/>
+                </h:panelGrid>
+                <h:panelGrid >
+                    <comp:inputText nomeLabel="Celular" size="20" value="#{colaboradorMB.colaborador.pessoa.celular}" idInputTex="tel"/>
+                </h:panelGrid>
+                <h:panelGrid >
+                    <comp:inputText nomeLabel="Email" size="47" value="#{colaboradorMB.colaborador.pessoa.email}" idInputTex="ema"/>
+                </h:panelGrid>
+            </h:panelGrid>
+            <h:panelGrid columns="2" >
+                <h:panelGrid >
+                    <comp:inputTextArea nomeLabel="Dados Bancarios" coluna="45" linha="10" value="#{colaboradorMB.colaborador.dadosBancarios}" idInputTex="dad"/>
+                </h:panelGrid>
+                <h:panelGrid >
+                    <comp:inputTextArea nomeLabel="Observações" coluna="47" linha="10" value="#{colaboradorMB.colaborador.observacao}" idInputTex="obs"/>
+                </h:panelGrid>
+             </h:panelGrid>
+
         </p:fieldset>
     </composite:implementation>
 </ui:composition>

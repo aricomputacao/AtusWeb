@@ -7,6 +7,7 @@
 package br.com.atus.managedbean;
 
 import br.com.atus.controller.ColaboradorController;
+import br.com.atus.enumerated.Sexo;
 import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Pessoa;
 import br.com.atus.util.AssistentedeRelatorio;
@@ -102,6 +103,10 @@ public class ColaboradorMB extends BeanGenerico<Colaborador> implements Serializ
 
     }
 
+    public Sexo[] listaSexo() {
+        return Sexo.values();
+    }
+    
     public List<Colaborador> getListaColaboradors() {
         return listaColaboradors;
     }

@@ -9,15 +9,25 @@
                 xmlns:comp="http://java.sun.com/jsf/composite/comp"
                 xmlns:f="http://java.sun.com/jsf/core">
     <composite:interface>
+        <composite:attribute name="cep" required="true" />
+
+        <composite:attribute name="uf" required="true"/>
+
+        <composite:attribute name="cid" required="true"/>
+        <composite:attribute name="log" required="true"/>
+        <composite:attribute name="bai" required="true"/>
+        <composite:attribute name="num" required="true"/>
+        <composite:attribute name="comp" required="true"/>
+        <composite:attribute name="idGrd" default="grdEnd"/>
 
         <composite:attribute name="idGrd" default="grdEnd"/>
     </composite:interface>
     <composite:implementation id="compo">
-        <h:panelGrid columns="8" id="#{cc.attrs.idGrd}" >
+        <h:panelGrid columns="8" id="#{cc.attrs.idGrd}"  >
             <h:panelGrid columns="2" >
                 <h:panelGrid>
                     <h:outputLabel value="CEP"/> 
-                    <p:inputMask mask="99999-999"   size="10"  value="#{clienteMB.cliente.pessoa.cep}" id="cep"/>
+                    <p:inputMask mask="99999-999"   size="10"  value="#{cc.attrs.cep}" id="cep"/>
                 </h:panelGrid>
                 <p:commandButton style="margin-top: 19px" styleClass="btnCorreio" value="" title="Consultar CEP" immediate="true" type="button" onclick="PF('dialogCep').show();" />
             </h:panelGrid>
@@ -26,10 +36,10 @@
                     <p:outputLabel value="UF" for="uf"/>
                     <p:message for="uf"/>
                 </h:panelGrid>
-                <p:selectOneMenu id="uf" style="width: 50px" effect="fade" value="#{clienteMB.uf}"    converter="#{indexConverter}" required="true"   >
+                <p:selectOneMenu id="uf" style="width: 50px" effect="fade" value="#{cc.attrs.uf}"    converter="#{indexConverter}" required="true"   >
                     <f:selectItem itemLabel="UF" noSelectionOption="#{true}"/>
-                    <f:selectItems value="#{clienteMB.listaUnidadeFederativas}" var="u" itemLabel="#{u.abreviacao}" itemValue="#{u}"  />
-                    <p:ajax update="grdCid" listener="#{clienteMB.listarCidade()}" />
+                    <f:selectItems value="#{unidadeFederativaMB.listaUnidadeFederativas}" var="u" itemLabel="#{u.abreviacao}" itemValue="#{u}"  />
+                    <p:ajax update="grdCid" listener="#{unidadeFederativaMB.listarCidadeUf()}" />
                 </p:selectOneMenu>
             </h:panelGrid>
             <h:panelGrid  id="grdCid" >
@@ -37,27 +47,23 @@
                     <p:outputLabel value="Cidade" for="ci"/>
                     <p:message for="ci"/>
                 </h:panelGrid>
-                <p:selectOneMenu id="ci" style="width: 150px" effect="fade" value="#{clienteMB.cliente.pessoa.cidade}" converter="#{indexConverter}" required="true"   >
-                    <f:selectItems value="#{clienteMB.listaCidades}" var="c" itemLabel="#{c.nome}" itemValue="#{c}" />
+                <p:selectOneMenu id="ci" style="width: 150px" effect="fade" value="#{cc.attrs.cid}" converter="#{indexConverter}" required="true"   >
+                    <f:selectItems value="#{unidadeFederativaMB.listaCidades}" var="c" itemLabel="#{c.nome}" itemValue="#{c}" />
                 </p:selectOneMenu>
             </h:panelGrid>
             <h:panelGrid >
-                <comp:inputText nomeLabel="Logradouro" size="22" value="#{clienteMB.cliente.pessoa.logradouro}" idInputTex="log"/>
+                <comp:inputText nomeLabel="Logradouro" size="22" value="#{cc.attrs.log}" idInputTex="log"/>
             </h:panelGrid>
             <h:panelGrid >
-                <comp:inputText nomeLabel="Bairro" size="20" value="#{clienteMB.cliente.pessoa.bairro}" idInputTex="bai"/>
+                <comp:inputText nomeLabel="Bairro" size="20" value="#{cc.attrs.bai}" idInputTex="bai"/>
             </h:panelGrid>
             <h:panelGrid >
-                <comp:inputText nomeLabel="Número" size="4" value="#{clienteMB.cliente.pessoa.numero}" idInputTex="num"/>
+                <comp:inputText nomeLabel="Número" size="4" value="#{cc.attrs.num}" idInputTex="num"/>
             </h:panelGrid>
             <h:panelGrid >
-                <comp:inputText nomeLabel="Complemento" size="26" value="#{clienteMB.cliente.pessoa.complemento}" idInputTex="com"/>
-            </h:panelGrid>
-            <h:panelGrid >
-                <comp:inputText nomeLabel="Telefone" size="20" value="#{clienteMB.cliente.pessoa.telefone}" idInputTex="tel"/>
+                <comp:inputText nomeLabel="Complemento" size="26" value="#{cc.attrs.comp}" idInputTex="com"/>
             </h:panelGrid>
         </h:panelGrid>
-
     </composite:implementation>
 </ui:composition>
 

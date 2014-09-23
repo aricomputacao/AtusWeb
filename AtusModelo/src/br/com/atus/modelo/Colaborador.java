@@ -54,6 +54,18 @@ public class Colaborador implements Serializable {
     
     @Column(name = "col_dados_bancarios",length = 1024)
     private String dadosBancarios;
+    @Column(name = "col_observacao",length = 1024)
+    private String observacao;
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+    
+    
 
     public Long getId() {
         return id;

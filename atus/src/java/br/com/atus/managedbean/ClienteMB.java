@@ -112,15 +112,7 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
         }
     }
 
-    public void encontraCEP(String cep, String ufe, String cid, String tpLog, String log, String bai) {
-        cliente.getPessoa().setCep(cep);
-        uf = unidadeFederativaController.buscaAbreviacao(ufe.trim());
-        listaCidades = cidadeController.listaPorUf(uf);
-        cliente.getPessoa().setCidade(cidadeController.buscarUfNome(uf, cid));
-        cliente.getPessoa().setLogradouro(tpLog.concat(" ".concat(log)));
-        cliente.getPessoa().setBairro(bai);
-
-    }
+   
 
     public void validate(FacesContext fc, UIComponent uic, Object value) {
         String doc = value.toString().replaceAll("[^0-9]", "");

@@ -17,6 +17,8 @@
     <class>br.com.atus.modelo.Profissao</class>
     <class>br.com.atus.modelo.Advogado</class>
     <class>br.com.atus.modelo.Agenda</class>
+    <class>br.com.atus.modelo.Colaborador</class>
+    <class>br.com.atus.modelo.OrgaoEmissor</class>
     <properties>
       <property name="hibernate.connection.username" value=""/>
       <property name="hibernate.connection.driver_class" value=""/>
