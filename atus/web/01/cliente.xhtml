@@ -45,15 +45,7 @@
         </p:dialog>
         <p:dialog  position="top" width="1000"  header="Consulta de Profissões" id="prf" modal="true" widgetVar="dialogProf">
             <h:form prependId="false">
-                <cons:ProfissaoConsulta id="compProf">
-                    <f:facet name="btnSelecionaProfissao">
-                        <p:commandButton  actionListener="#{clienteMB.setarProf(t)}" icon="ui-icon-check" oncomplete="PF('dialogProf').hide()"  update=":frm_pag:cadFrm:compCad:compPf">
-                            <f:setPropertyActionListener target="#{clienteMB.profissao}" value="#{t}" />
-
-                        </p:commandButton>
-                    </f:facet>
-
-                </cons:ProfissaoConsulta>
+                <cons:ProfissaoConsulta id="compProf"/>
             </h:form>
         </p:dialog>
         <p:dialog  position="top" width="600" height="400"  header="Ficha de Cliente" id="fic" modal="true" widgetVar="dialogFicha">

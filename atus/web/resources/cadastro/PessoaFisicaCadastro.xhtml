@@ -50,7 +50,7 @@
                     <p:outputLabel value="Profissão" for="input_componente"/>
                     <h:panelGrid columns="2">
                         <p:inputText value="#{clienteMB.cliente.profissao.nome}" id="input_componente" required="true" readonly="true" size="15"/>
-                        <p:commandButton icon="ui-icon-search"  onclick="PF('dialogProf').show()" immediate="true" update="@form"/>
+                        <p:commandButton icon="ui-icon-search"  onclick="PF('dialogProf').show()"  immediate="true" update=":frm_pag:cadFrm:compCad:compPf:input_componente"/>
                     </h:panelGrid>
                 </h:panelGrid>
             </h:panelGrid>

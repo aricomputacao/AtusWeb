@@ -11,7 +11,7 @@
 
     <composite:interface id="interCon">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
-        <composite:facet name="btnSelecionaProfissao"/>
+       
 
     </composite:interface>
     <composite:implementation  >
@@ -49,9 +49,9 @@
                             <comp:outputText value="#{t.nome}"/>
                         </p:column>
                         <p:column headerText="Ação" width="5%" style="text-align: center">
-                            <composite:renderFacet name="btnSelecionaProfissao" >
-                            </composite:renderFacet>
-                           
+                            <p:commandButton value="te" oncomplete="PF('dialogProf').hide()" immediate="true"  update=":frm_pag:cadFrm:compCad:compPf:input_componente"  actionListener="#{clienteMB.setarProf(t)}"/>
+                              
+                            
                         </p:column>
                     </p:dataTable>
                 </p:fieldset>
