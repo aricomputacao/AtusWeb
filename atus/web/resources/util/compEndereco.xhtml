@@ -19,11 +19,15 @@
         <composite:attribute name="num" required="true"/>
         <composite:attribute name="comp" required="true"/>
         <composite:attribute name="idGrd" default="grdEnd"/>
+        <composite:attribute name="id" default="frmBusca"/>
+        <composite:attribute name="listaCidade" required="true" />
+        <composite:attribute name="acao_listar_cidade" required="true"  method-signature="java.lang.Void action()"/>
 
-        <composite:attribute name="idGrd" default="grdEnd"/>
+
+
     </composite:interface>
     <composite:implementation id="compo">
-        <h:panelGrid columns="8" id="#{cc.attrs.idGrd}"  >
+        <h:panelGrid columns="8" id="grdEnd" >
             <h:panelGrid columns="2" >
                 <h:panelGrid>
                     <h:outputLabel value="CEP"/> 
@@ -36,10 +40,9 @@
                     <p:outputLabel value="UF" for="uf"/>
                     <p:message for="uf"/>
                 </h:panelGrid>
-                <p:selectOneMenu id="uf" style="width: 50px" effect="fade" value="#{cc.attrs.uf}"    converter="#{indexConverter}" required="true"   >
-                    <f:selectItem itemLabel="UF" noSelectionOption="#{true}"/>
-                    <f:selectItems value="#{unidadeFederativaMB.listaUnidadeFederativas}" var="u" itemLabel="#{u.abreviacao}" itemValue="#{u}"  />
-                    <p:ajax update="grdCid" listener="#{unidadeFederativaMB.listarCidadeUf()}" />
+                <p:selectOneMenu id="uf"   style="width: 50px" effect="fade" value="#{cc.attrs.uf}"    converter="#{indexConverter}" required="true"   >
+                    <f:selectItems value="#{unidadeFederativaMB.listaUnidadeFederativas}"  var="u" itemLabel="#{u.abreviacao}" itemValue="#{u}"  />
+                    <p:ajax update="grdCid"  listener="#{cc.attrs.acao_listar_cidade}" />
                 </p:selectOneMenu>
             </h:panelGrid>
             <h:panelGrid  id="grdCid" >
@@ -48,7 +51,7 @@
                     <p:message for="ci"/>
                 </h:panelGrid>
                 <p:selectOneMenu id="ci" style="width: 150px" effect="fade" value="#{cc.attrs.cid}" converter="#{indexConverter}" required="true"   >
-                    <f:selectItems value="#{unidadeFederativaMB.listaCidades}" var="c" itemLabel="#{c.nome}" itemValue="#{c}" />
+                    <f:selectItems value="#{cc.attrs.listaCidade}" var="c" itemLabel="#{c.nome}" itemValue="#{c}" />
                 </p:selectOneMenu>
             </h:panelGrid>
             <h:panelGrid >
@@ -63,7 +66,9 @@
             <h:panelGrid >
                 <comp:inputText nomeLabel="Complemento" size="26" value="#{cc.attrs.comp}" idInputTex="com"/>
             </h:panelGrid>
+
         </h:panelGrid>
+
     </composite:implementation>
 </ui:composition>
 

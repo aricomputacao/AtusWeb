@@ -44,13 +44,14 @@ public class UnidadeFederativaMB extends BeanGenerico<UnidadeFederativa> impleme
         try {
             federativa = new UnidadeFederativa();
             listaUnidadeFederativas = controller.listarTodos("nome");
+            listaCidades = cidadeController.listarTodos("nome");
         } catch (Exception ex) {
             Logger.getLogger(UnidadeFederativaMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void listarCidadeUf() {
-        listaCidades = cidadeController.listaPorUf(federativa);
+    public void listarCidadeUf(UnidadeFederativa uf) {
+        listaCidades = cidadeController.listaPorUf(uf);
     }
 
     public void setarCidadeEstado(Pessoa p){
@@ -65,11 +66,10 @@ public class UnidadeFederativaMB extends BeanGenerico<UnidadeFederativa> impleme
         }
     }
     
-    public void encontraCEP(String cep, String ufe, String cid, String tpLog, String log, String bai, Pessoa p) {
+    public void encontraCEP(String cep, String ufe, String cid, String tpLog, String log, String bai, Pessoa p,UnidadeFederativa uf) {
         p.setCep(cep);
-        federativa = controller.buscaAbreviacao(ufe.trim());
-        listaCidades = cidadeController.listaPorUf(federativa);
-        p.setCidade(cidadeController.buscarUfNome(federativa, cid));
+        uf = controller.buscaAbreviacao(ufe.trim());
+        p.setCidade(cidadeController.buscarUfNome(uf, cid));
         p.setLogradouro(tpLog.concat(" ".concat(log)));
         p.setBairro(bai);
 

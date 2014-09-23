@@ -26,7 +26,7 @@
                             <comp:commandButton_consulta id="btnCon" acao_butao="#{clienteMB.listar()}"  componente_to_update="@form" />
                         </h:panelGrid>
                     </f:facet>
-                    
+
                 </cons:ClienteConsulta>
             </comp:panel_cadastro>
 
@@ -38,13 +38,23 @@
             <util:buscaCep id="compCep">
                 <f:facet name="btn" id="btnCep">
                     <p:commandButton value="Fechar" style="float: right" icon="ui-icon-check" onclick="PF('dialogCep').hide()" update=":frm_pag" id="button" partialSubmit="false"
-                                     actionListener="#{unidadeFederativaMB.encontraCEP(webServiceMB.cep, webServiceMB.estado, webServiceMB.cidade, webServiceMB.tipoLogradouro, webServiceMB.logradouro, webServiceMB.bairro,clienteMB.cliente.pessoa)}"    />
+                                     actionListener="#{unidadeFederativaMB.encontraCEP(webServiceMB.cep, webServiceMB.estado, webServiceMB.cidade, webServiceMB.tipoLogradouro, webServiceMB.logradouro, webServiceMB.bairro,clienteMB.cliente.pessoa,clienteMB.uf)}"    />
                 </f:facet>
             </util:buscaCep>
 
         </p:dialog>
         <p:dialog  position="top" width="1000"  header="Consulta de Profissões" id="prf" modal="true" widgetVar="dialogProf">
-            <cons:ProfissaoConsulta id="compProf"/>
+            <h:form prependId="false">
+                <cons:ProfissaoConsulta id="compProf">
+                    <f:facet name="btnSelecionaProfissao">
+                        <p:commandButton  actionListener="#{clienteMB.setarProf(t)}" icon="ui-icon-check" oncomplete="PF('dialogProf').hide()"  update=":frm_pag:cadFrm:compCad:compPf">
+                            <f:setPropertyActionListener target="#{clienteMB.profissao}" value="#{t}" />
+
+                        </p:commandButton>
+                    </f:facet>
+
+                </cons:ProfissaoConsulta>
+            </h:form>
         </p:dialog>
         <p:dialog  position="top" width="600" height="400"  header="Ficha de Cliente" id="fic" modal="true" widgetVar="dialogFicha">
             <util:dadosCliente/>
@@ -61,7 +71,7 @@
                 <cadastro:TipoTratamentoCadastro rendered="false"/>
             </h:form>
         </p:dialog>
-         <p:dialog  position="top" width="600" height="400" styleClass="painelPadrao"  header="Cadastro de Órgão Emissor" id="cadOre" modal="true" widgetVar="dialogoOrgaoEmissor">
+        <p:dialog  position="top" width="600" height="400" styleClass="painelPadrao"  header="Cadastro de Órgão Emissor" id="cadOre" modal="true" widgetVar="dialogoOrgaoEmissor">
             <h:form prependId="false" id="frmDialogOrgEmi">
                 <util:menuCadDialogo frm_update=":frm_pag:cadFrm:compCad:compPf:grdOrgEmissor" acao_remoteCommand="#{orgaoEmissorMB.listar()}" acao_salvar="#{orgaoEmissorMB.salvar()}"  />
                 <cadastro:OrgaoEmissorCadastro/>

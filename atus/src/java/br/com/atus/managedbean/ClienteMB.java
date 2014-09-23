@@ -73,6 +73,7 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
     private List<Profissao> listaProfissaos;
     private Cliente cliente;
     private UnidadeFederativa uf;
+    private Profissao profissao;
     private String cep;
     public int pf; //0-->null;1-->pf;-->2pj
 
@@ -83,12 +84,21 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
     @PostConstruct
     public void init() {
         try {
+            uf = new UnidadeFederativa();
+            listaClientes = new ArrayList<>();
+            listaNacionalidades = nacionalidadeController.listarTodos("nome");
+            listaTratamentos = tipoTratamentoController.listarTodos("nome");
+            listaProfissaos = profissaoController.listarTodos("nome");
+            listaUnidadeFederativas = unidadeFederativaController.listarTodos("nome");
+            listaCidades = cidadeController.listarTodos("nome");
             cliente = (Cliente) navegacaoMB.getRegistroMapa("cliente", new Cliente());
+            profissao = new Profissao();
             if (cliente.getId() == null) {
                 cliente.setPessoa(new Pessoa());
-                pf=1;
+                pf = 1;
                 cliente.getPessoa().setTipoPessoa(TipoPessoa.PF);
             } else {
+                
                 uf = cliente.getPessoa().getCidade().getUnidadeFederativa();
                 listaCidades = cidadeController.listaPorUf(uf);
                 if (cliente.getPessoa().getTipoPessoa().equals(TipoPessoa.PF)) {
@@ -99,20 +109,10 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
 
             }
 
-            uf = new UnidadeFederativa();
-            listaClientes = new ArrayList<>();
-
-            listaNacionalidades = nacionalidadeController.listarTodos("nome");
-            listaTratamentos = tipoTratamentoController.listarTodos("nome");
-            listaProfissaos = profissaoController.listarTodos("nome");
-            listaUnidadeFederativas = unidadeFederativaController.listarTodos("nome");
-
         } catch (Exception ex) {
             Logger.getLogger(ClienteMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-   
 
     public void validate(FacesContext fc, UIComponent uic, Object value) {
         String doc = value.toString().replaceAll("[^0-9]", "");
@@ -185,8 +185,6 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
         listaCidades = cidadeController.listaPorUf(uf);
     }
 
-  
-
     public TipoPessoa pessoaFisica() {
         return TipoPessoa.PF;
     }
@@ -202,14 +200,14 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
     public int renderPF() {
         return pf;
     }
-    
+
     public void setarPF() {
         if (cliente.getPessoa().getTipoPessoa().equals(TipoPessoa.PF)) {
-            pf=1;
+            pf = 1;
         } else {
-            pf=2;
+            pf = 2;
         }
-        
+
     }
 
     public void imprimirFicha(Cliente c) {
@@ -308,6 +306,14 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public Profissao getProfissao() {
+        return profissao;
+    }
+
+    public void setProfissao(Profissao profissao) {
+        this.profissao = profissao;
     }
 
 }

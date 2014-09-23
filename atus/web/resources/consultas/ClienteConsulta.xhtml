@@ -55,9 +55,7 @@
                     <p:column headerText="Ação" width="5%" style="text-align: center">
                         <composite:renderFacet name="btnAcaoCliente" />
                         <p:commandButton actionListener="#{clienteMB.setarCliente(t)}" style="width: 22px;height: 22px" title="Informações"  update=":fic" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
-                        <p:commandButton actionListener="#{navegacaoMB.redirecionar(navegacao['cad.cliente'],'cliente',t)}" icon="ui-icon-pencil"/>
-                        <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderBtnEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.cliente'],'cliente',t)}" >
-                        </comp:commandButton_editar>
+                        <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderBtnEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.cliente'],'cliente',t)}" />
                     </p:column>
 
                 </p:dataTable>
