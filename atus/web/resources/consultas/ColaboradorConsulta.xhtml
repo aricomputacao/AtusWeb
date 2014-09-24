@@ -14,6 +14,10 @@
         <composite:facet   name="btnConCola" />
         <composite:attribute name="renderExcluir" default="true"/>
         <composite:attribute name="renderEditar" default="true"/>
+        <composite:attribute name="renderSelecionar" default="false"/>
+        <composite:attribute name="valorSelecionado" />
+        <composite:attribute name="nomeDialog" />
+        <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
 
     </composite:interface>
     <composite:implementation  >
@@ -47,8 +51,8 @@
                     <p:column headerText="Participação">
                         <comp:outputText value="#{t.participacao}" tipo="p"/>
                     </p:column>
-                       <p:column headerText="Dados Banco">
-                           <comp:outputText value="#{t.dadosBancarios}"/>
+                    <p:column headerText="Dados Banco">
+                        <comp:outputText value="#{t.dadosBancarios}"/>
                     </p:column>
                     <p:column headerText="Contatos">
                         <comp:outputText value="#{t.pessoa.email},#{t.pessoa.celular},#{t.pessoa.telefone}"/>
@@ -62,6 +66,8 @@
                         <ui:insert name="acaoOrgao" >
                             <comp:commandButton_editar id="btnEdita" rendered="#{cc.attrs.renderEditar}" acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.colaborador'],'colaborador',t)}" />
                             <comp:commandButton_excluir acao_butao="#{colaboradorMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Colaborador" form_to_update="@form"/>
+                            <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
+
                         </ui:insert>
                     </p:column>
 

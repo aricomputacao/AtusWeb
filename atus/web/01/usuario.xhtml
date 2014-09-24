@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:cons="http://java.sun.com/jsf/composite/consultas"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro">
+
+    <ui:define name="corpo">
+        <h:form id="frm_pag" prependId="false" >
+
+            <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.usuario'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.usuario'])}" acao_imprimir="#{navegacaoMB.index()}" acao_limpar="#{usuarioMB.init()}" acao_salvar="#{usuarioMB.salvar()}"/>
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Usuário" id_form="frm_ram"  >
+                <h:panelGrid width="100%" id="grdComAdv" rendered="#{navegacaoMB.renderPainelCadastro}"  >
+                    <cadastro:UsuarioCadastro id="comAdv"/>
+                </h:panelGrid>       
+                <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}"> 
+                    <cons:AdvogadoConsulta/>
+                </h:panelGrid>
+            </comp:panel_cadastro>
+        </h:form>
+
+    </ui:define>
+    <ui:define name="dialogs">
+        <p:dialog showEffect="fade" position="top"   header="Consulta de Advogados" id="adv" modal="true" hideEffect="fade" widgetVar="dialogAdv">
+            <h:form>
+                <cons:AdvogadoConsulta nomeDialog="dialogAdv" renderEditar="false" renderExcluir="false" renderSelecionar="true" 
+                                       valorSelecionado="#{usuarioMB.advogado}" update_form=":frm_pag:cadFrm:comAdv:input_componente"/>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="top"   header="Consulta de Colaboradores" id="col" modal="true" hideEffect="fade" widgetVar="dialogCola">
+            <h:form id="frmDiaCola">
+                <cons:ColaboradorConsulta id="compConCola"  nomeDialog="dialogCola" renderEditar="false" renderExcluir="false" renderSelecionar="true" 
+                                           valorSelecionado="#{usuarioMB.colaborador}" update_form=":frm_pag:cadFrm:comAdv:input_componente_col">
+                      <f:facet name="btnConCola">
+                            <comp:commandButton_consulta acao_butao="#{colaboradorMB.listar()}" componente_to_update=":frmDiaCola:compConCola:tabela"/>
+                        </f:facet>
+                   
+                </cons:ColaboradorConsulta>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>
+

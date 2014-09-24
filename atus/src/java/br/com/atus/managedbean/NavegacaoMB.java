@@ -5,6 +5,7 @@
  */
 package br.com.atus.managedbean;
 
+import br.com.atus.modelo.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -36,6 +37,7 @@ public class NavegacaoMB implements Serializable {
     private boolean imprimir;
     private boolean limpar;
     //-----------------------------------------------------------//
+    private Usuario usuarioLogado;
 
     /**
      * Variaveis para renderizas consultar ou cadastro true = cadastro false =
@@ -276,6 +278,14 @@ public class NavegacaoMB implements Serializable {
 
     public void setRenderPainelCadastro(boolean renderPainelCadastro) {
         this.renderPainelCadastro = renderPainelCadastro;
+    }
+
+    public Usuario getUsuarioLogado() {
+        return usuarioLogado;
+    }
+
+    public void setUsuarioLogado(Usuario usuarioLogado) {
+        this.usuarioLogado = usuarioLogado;
     }
     
     

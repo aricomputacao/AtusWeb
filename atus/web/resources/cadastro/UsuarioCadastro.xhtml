@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+    </composite:interface>
+    <composite:implementation  >
+        <p:fieldset id="fieldCad"  legend="Cadastro" style="text-align: left">
+
+            <h:panelGrid columns="1"  >
+                <h:panelGrid columns="2"> 
+                    <h:panelGrid>
+                        <h:panelGrid columns="2" >
+                            <p:outputLabel value="Perfil" for="per"/>
+                            <p:message for="per"/>
+                        </h:panelGrid>
+                        <p:selectOneMenu id="per" effect="fade" style="width: 150px" value="#{usuarioMB.usuario.perfil}" required="true"   >
+                            <f:selectItems value="#{usuarioMB.listaPerfis()}" var="se" itemLabel="#{se}" />
+                            <p:ajax listener="#{usuarioMB.renderGrd()}" event="change"  update=":frm_pag"   />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <h:panelGrid id="grdAdv"   >
+                        <h:panelGrid rendered="#{usuarioMB.renderAdvogado}">
+                            <p:outputLabel value="Advogado" for="input_componente"/>
+                            <h:panelGrid columns="2">
+                                <p:inputText value="#{usuarioMB.advogado.nome}" id="input_componente" required="true" readonly="true" size="20"/>
+                                <p:commandButton icon="ui-icon-search"  onclick="PF('dialogAdv').show()"  immediate="true" update=":frm_pag:cadFrm:comAdv:input_componente"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                        <h:panelGrid rendered="#{usuarioMB.renderColaborador}">
+                            <p:outputLabel value="Colaborador" for="input_componente_col"/>
+                            <h:panelGrid columns="2">
+                                <p:inputText value="#{usuarioMB.colaborador.pessoa.nome}" id="input_componente_col" required="true" readonly="true" size="20"/>
+                                <p:commandButton icon="ui-icon-search"  onclick="PF('dialogCola').show()"  immediate="true" update=":frm_pag:cadFrm:comAdv:input_componente_col"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                        <h:panelGrid rendered="#{usuarioMB.renderCliente}">
+                            <p:outputLabel value="Cliente" for="input_componente_cli"/>
+                            <h:panelGrid columns="2">
+                                <p:inputText value="#{usuarioMB.advogado.nome}" id="input_componente_cli" required="true" readonly="true" size="20"/>
+                                <p:commandButton icon="ui-icon-search"  onclick="PF('dialogCli').show()"  immediate="true" update=":frm_pag:cadFrm:comAdv:input_componente"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:panelGrid>
+
+                <h:panelGrid id="griPrin3">
+                    <h:panelGrid columns="2" id="grd03">
+                        <p:outputLabel value="Login" for="nome"/>
+                        <p:message for="nome"/>
+                    </h:panelGrid>
+                    <p:inputText value="#{usuarioMB.usuario.login}"   id="nome" size="48" required="true" requiredMessage="#{mensagens['require']}"/>
+                </h:panelGrid>
+                <h:panelGrid >
+                    <h:panelGrid columns="2" >
+                        <p:outputLabel value="Ativo" for="atv"/>
+                        <p:message for="atv"/>
+                    </h:panelGrid>
+                    <p:selectOneRadio id="atv" value="#{usuarioMB.usuario.ativo}"   plain="true">
+                        <f:selectItem itemValue="#{true}"   itemLabel="Sim" />
+                        <f:selectItem itemValue="#{false}" itemLabel="Não" />
+                    </p:selectOneRadio>  
+                </h:panelGrid>
+            </h:panelGrid>
+        </p:fieldset>
+    </composite:implementation>
+</ui:composition>
+
+
+
+
