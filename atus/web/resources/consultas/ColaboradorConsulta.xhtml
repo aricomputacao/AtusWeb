@@ -11,50 +11,58 @@
 
     <composite:interface id="interCon">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
-        <composite:facet name="btnConsultaCliente"/>
-        <composite:facet name="btnAcaoCliente"/>
-        <composite:attribute name="renderBtnEditar" default="true" shortDescription="renderizar o btn editar" />
-
+        <composite:facet   name="btnConCola" />
+        <composite:attribute name="renderExcluir" default="true"/>
+        <composite:attribute name="renderEditar" default="true"/>
 
     </composite:interface>
     <composite:implementation  >
-
         <h:panelGrid  width="100%" id="rtt" >
             <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" style="font-weight: bold">
                 <h:panelGrid id="grdConsulta" columns="4">
                     <h:panelGrid id="grdConsulta1">
                         <p:outputLabel value="Campo"/>
-                        <p:selectOneMenu value="#{clienteMB.campoBusca}" styleClass="lista">
+                        <p:selectOneMenu value="#{colaboradorMB.campoBusca}" styleClass="lista">
                             <f:selectItem itemLabel="Nome" itemValue="nome" />
                         </p:selectOneMenu>
                     </h:panelGrid>
                     <h:panelGrid id="grdConsulta2">
                         <p:outputLabel value="Buscar por"/>
-                        <p:inputText value="#{clienteMB.valorBusca}" />
+                        <p:inputText value="#{colaboradorMB.valorBusca}" />
                     </h:panelGrid>
                     <h:panelGrid id="grdConsulta3">
                         <p:spacer width="15"/>
-                        <composite:renderFacet name="btnConsultaCliente" />
-
+                        <h:panelGrid columns="2">
+                            <composite:renderFacet name="btnConCola"/>
+                        </h:panelGrid>
                     </h:panelGrid>
                 </h:panelGrid>
-                <p:dataTable value="#{clienteMB.listaClientes}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10" 
+                <p:dataTable value="#{colaboradorMB.listaColaboradors}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
-                    <p:column headerText="Nome/Razão Social" width="30%" sortBy="#{t.pessoa.nome}">
+
+                    <p:column headerText="Nome" sortBy="#{t.pessoa.nome}">
                         <comp:outputText value="#{t.pessoa.nome}"/>
                     </p:column>
-                    <p:column headerText="Formas de Contato" width="10%" >
-                        <comp:outputText value="#{t.pessoa.email}  #{t.pessoa.telefone}  #{t.pessoa.celular}"/>
+                    <p:column headerText="Participação">
+                        <comp:outputText value="#{t.participacao}" tipo="p"/>
                     </p:column>
-                    <p:column headerText="Cidade/UF" width="15%" >
-                        <comp:outputText value="#{t.pessoa.cidade.nome}-#{t.pessoa.cidade.unidadeFederativa.abreviacao}"/>
+                       <p:column headerText="Dados Banco">
+                           <comp:outputText value="#{t.dadosBancarios}"/>
+                    </p:column>
+                    <p:column headerText="Contatos">
+                        <comp:outputText value="#{t.pessoa.email},#{t.pessoa.celular},#{t.pessoa.telefone}"/>
+                    </p:column>
+                    <p:column headerText="Cidade">
+                        <comp:outputText value="#{t.pessoa.cidade.nome}\\#{t.pessoa.cidade.unidadeFederativa.abreviacao}"/>
                     </p:column>
 
 
-                    <p:column headerText="Ação" width="5%" style="text-align: center">
-                        <p:commandButton actionListener="#{clienteMB.setarCliente(t)}" style="width: 22px;height: 22px" title="Informações"  update=":fic" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
-                        <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderBtnEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.cliente'],'cliente',t)}" />
+                    <p:column headerText="Ação" width="6%" style="text-align: center">
+                        <ui:insert name="acaoOrgao" >
+                            <comp:commandButton_editar id="btnEdita" rendered="#{cc.attrs.renderEditar}" acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.colaborador'],'colaborador',t)}" />
+                            <comp:commandButton_excluir acao_butao="#{colaboradorMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Colaborador" form_to_update="@form"/>
+                        </ui:insert>
                     </p:column>
 
                 </p:dataTable>

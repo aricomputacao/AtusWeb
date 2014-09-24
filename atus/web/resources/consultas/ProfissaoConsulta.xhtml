@@ -11,7 +11,6 @@
 
     <composite:interface id="interCon">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
-       
 
     </composite:interface>
     <composite:implementation  >
@@ -49,9 +48,7 @@
                             <comp:outputText value="#{t.nome}"/>
                         </p:column>
                         <p:column headerText="Ação" width="5%" style="text-align: center">
-                            <p:commandButton value="te" oncomplete="PF('dialogProf').hide()" immediate="true"  update=":frm_pag:cadFrm:compCad:compPf:input_componente"  actionListener="#{clienteMB.setarProf(t)}"/>
-                              
-                            
+                            <comp:button_acao_selecionar alvo="#{clienteMB.cliente.profissao}" componente_to_update=":frm_pag:cadFrm:compCad:compPf:input_componente" nome_dialog="dialogProf" valor="#{t}" />
                         </p:column>
                     </p:dataTable>
                 </p:fieldset>

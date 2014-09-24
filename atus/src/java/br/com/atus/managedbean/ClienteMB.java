@@ -98,7 +98,7 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
                 pf = 1;
                 cliente.getPessoa().setTipoPessoa(TipoPessoa.PF);
             } else {
-                
+
                 uf = cliente.getPessoa().getCidade().getUnidadeFederativa();
                 listaCidades = cidadeController.listaPorUf(uf);
                 if (cliente.getPessoa().getTipoPessoa().equals(TipoPessoa.PF)) {
@@ -123,11 +123,15 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
                 return;
             }
 
-            if (controller.buscarPorDocumento(doc).getId() != null) {
-                ((UIInput) uic).setValid(false);
-                MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("documento_registrado", MenssagemUtil.MENSAGENS));
+            //so entra se for cadastro se for edição não
+            if (cliente.getId() == null) {
+                if (controller.buscarPorDocumento(doc).getId() != null) {
+                    ((UIInput) uic).setValid(false);
+                    MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("documento_registrado", MenssagemUtil.MENSAGENS));
 
+                }
             }
+
         } catch (Exception e) {
             MenssagemUtil.addMessageErro(e);
         }

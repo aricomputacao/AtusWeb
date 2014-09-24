@@ -22,7 +22,7 @@
         <composite:attribute name="id" default="frmBusca"/>
         <composite:attribute name="listaCidade" required="true" />
         <composite:attribute name="acao_listar_cidade" required="true"  method-signature="java.lang.Void action()"/>
-
+        <composite:attribute name="updateCidade" default="@form"/>
 
 
     </composite:interface>
@@ -41,8 +41,9 @@
                     <p:message for="uf"/>
                 </h:panelGrid>
                 <p:selectOneMenu id="uf"   style="width: 50px" effect="fade" value="#{cc.attrs.uf}"    converter="#{indexConverter}" required="true"   >
+                    <f:selectItem itemLabel="UF" noSelectionOption="#{true}" />
                     <f:selectItems value="#{unidadeFederativaMB.listaUnidadeFederativas}"  var="u" itemLabel="#{u.abreviacao}" itemValue="#{u}"  />
-                    <p:ajax update="grdCid"  listener="#{cc.attrs.acao_listar_cidade}" />
+                    <p:ajax update="#{cc.attrs.updateCidade}"  listener="#{cc.attrs.acao_listar_cidade}" />
                 </p:selectOneMenu>
             </h:panelGrid>
             <h:panelGrid  id="grdCid" >
@@ -51,6 +52,7 @@
                     <p:message for="ci"/>
                 </h:panelGrid>
                 <p:selectOneMenu id="ci" style="width: 150px" effect="fade" value="#{cc.attrs.cid}" converter="#{indexConverter}" required="true"   >
+                    <f:selectItem itemLabel="Selecione" noSelectionOption="#{true}" />
                     <f:selectItems value="#{cc.attrs.listaCidade}" var="c" itemLabel="#{c.nome}" itemValue="#{c}" />
                 </p:selectOneMenu>
             </h:panelGrid>

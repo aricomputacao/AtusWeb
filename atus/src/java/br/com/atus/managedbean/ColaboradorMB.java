@@ -9,6 +9,7 @@ import br.com.atus.controller.CidadeController;
 import br.com.atus.controller.ColaboradorController;
 import br.com.atus.controller.UnidadeFederativaController;
 import br.com.atus.enumerated.Sexo;
+import br.com.atus.enumerated.TipoPessoa;
 import br.com.atus.modelo.Cidade;
 import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Pessoa;
@@ -59,10 +60,12 @@ public class ColaboradorMB extends BeanGenerico<Colaborador> implements Serializ
             listaCidades = new ArrayList<>();
             uf = new UnidadeFederativa();
             listaCidades = cidadeController.listarTodos("nome");
-            colaborador = (Colaborador) navegacaoMB.getRegistroMapa("colaborardor", new Colaborador());
+            colaborador = (Colaborador) navegacaoMB.getRegistroMapa("colaborador", new Colaborador());
             if (colaborador.getId() == null) {
                 colaborador.setPessoa(new Pessoa());
-                
+                colaborador.getPessoa().setTipoPessoa(TipoPessoa.PF);
+                colaborador.getPessoa().getCidade().setUnidadeFederativa(new UnidadeFederativa());
+
             } else {
                 uf = colaborador.getPessoa().getCidade().getUnidadeFederativa();
             }
@@ -110,9 +113,10 @@ public class ColaboradorMB extends BeanGenerico<Colaborador> implements Serializ
         }
     }
 
-    public void listarCidadesUf(){
+    public void listarCidadesUf() {
         listaCidades = cidadeController.listaPorUf(uf);
     }
+
     public void imprimir() {
         if (!listaColaboradors.isEmpty()) {
             Map<String, Object> m = new HashMap<>();

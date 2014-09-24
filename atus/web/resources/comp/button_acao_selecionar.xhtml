@@ -14,7 +14,7 @@
         <composite:attribute name="alvo"  required="true" shortDescription="propriedade a receber o novo objeto"/>
     </composite:interface>
     <composite:implementation >
-        <p:commandButton title="#{cc.attrs.valor}" immediate="true" oncomplete="#{cc.attrs.nome_dialog}.hide();" icon="ui-icon-circle-check" style="width: 20px;height: 20px;" update="#{cc.attrs.componente_to_update}">
+        <p:commandButton title="Selecionar" immediate="true" oncomplete="PF('#{cc.attrs.nome_dialog}').hide();" icon="ui-icon-circle-check" style="width: 20px;height: 20px;" update="#{cc.attrs.componente_to_update}">
             <f:setPropertyActionListener target="#{cc.attrs.alvo}" value="#{cc.attrs.valor}"/>
         </p:commandButton>
     </composite:implementation>

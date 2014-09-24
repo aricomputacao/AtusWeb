@@ -28,8 +28,10 @@
 
             </h:panelGrid>
         </h:panelGrid>
-       <util:compEndereco id="comEnd" bai="#{clienteMB.cliente.pessoa.bairro}" cep="#{clienteMB.cliente.pessoa.cep}" cid="#{clienteMB.cliente.pessoa.cidade}" acao_listar_cidade="#{clienteMB.listarCidade()}" listaCidade="#{clienteMB.listaCidades}"
-                           comp="#{clienteMB.cliente.pessoa.complemento}" log="#{clienteMB.cliente.pessoa.logradouro}" uf="#{clienteMB.uf}" num="#{clienteMB.cliente.pessoa.numero}"/>
+     <util:compEndereco id="comEnd" bai="#{clienteMB.cliente.pessoa.bairro}" cep="#{clienteMB.cliente.pessoa.cep}" cid="#{clienteMB.cliente.pessoa.cidade}" acao_listar_cidade="#{clienteMB.listarCidade()}" listaCidade="#{clienteMB.listaCidades}"
+                           comp="#{clienteMB.cliente.pessoa.complemento}" log="#{clienteMB.cliente.pessoa.logradouro}" uf="#{clienteMB.uf}" updateCidade="@form:cadFrm:compCad:compPj:comEnd:grdCid" num="#{clienteMB.cliente.pessoa.numero}"/>
+
+
 
 
         <h:panelGrid columns="5" >

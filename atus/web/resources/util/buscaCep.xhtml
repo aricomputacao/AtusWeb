@@ -10,42 +10,52 @@
 
         <composite:attribute name="id" default="frmBusca"/>
         <composite:facet name="btn"/>
+        <composite:attribute name="pessoa" required="true"/>
+        <composite:attribute name="uf" required="true"/>
+        <composite:attribute name="update" required="true"/>
+
+
+
     </composite:interface>
     <composite:implementation id="compo">
         <h:form id="frmBusca">
+            <p:blockUI block="frmBusca" trigger="btnBuscCep,btnFecCep">
+                <p:graphicImage library="imagens" name="carregar.gif"/>
 
-                <h:panelGrid id="pnCEP" columns="3" style="margin-left: 87px" >
-                    <h:outputLabel value="CEP: " style="font-weight:bold; padding-right: 5px; float: right;"/>
-                    <p:inputMask mask="99999-999" value="#{webServiceMB.cep}" />
+            </p:blockUI>
+            <h:panelGrid id="pnCEP" columns="3" style="margin-left: 87px" >
+                <h:outputLabel value="CEP: " style="font-weight:bold; padding-right: 5px; float: right;"/>
+                <p:inputMask mask="99999-999" value="#{webServiceMB.cep}" />
 
-                    <p:commandButton value="Pesquisar" icon="ui-icon-search"
-                                     actionListener="#{webServiceMB.encontraCEP()}"   update="pnResultado" />
-                </h:panelGrid>
+                <p:commandButton value="Pesquisar" id="btnBuscCep" icon="ui-icon-search"
+                                 actionListener="#{webServiceMB.encontraCEP()}"   update="pnResultado" />
+            </h:panelGrid>
 
-                <h:panelGrid id="pnResultado" columns="2">
-                    <h:outputLabel value="UF: "
-                                   style="font-weight:bold; padding-right: 5px; float: right;" />
-                    <p:inputText size="5" value="#{webServiceMB.estado}" />
+            <h:panelGrid id="pnResultado" columns="2">
+                <h:outputLabel value="UF: "
+                               style="font-weight:bold; padding-right: 5px; float: right;" />
+                <p:inputText size="5" value="#{webServiceMB.estado}" />
 
-                    <h:outputLabel value="Tipo Logradouro: "
-                                   style="font-weight:bold; padding-right: 5px; float: right;" />
-                    <p:inputText size="50"
-                                 value="#{webServiceMB.tipoLogradouro}" />
-                    <h:outputLabel value="Logradouro: "
-                                   style="font-weight:bold; padding-right: 5px; float: right;" />
-                    <p:inputText size="50"
-                                 value="#{webServiceMB.logradouro}" />
+                <h:outputLabel value="Tipo Logradouro: "
+                               style="font-weight:bold; padding-right: 5px; float: right;" />
+                <p:inputText size="50"
+                             value="#{webServiceMB.tipoLogradouro}" />
+                <h:outputLabel value="Logradouro: "
+                               style="font-weight:bold; padding-right: 5px; float: right;" />
+                <p:inputText size="50"
+                             value="#{webServiceMB.logradouro}" />
 
-                    <h:outputLabel value="Cidade: "
-                                   style="font-weight:bold; padding-right: 5px; float: right;" />
-                    <p:inputText size="50" value="#{webServiceMB.cidade}" />
+                <h:outputLabel value="Cidade: "
+                               style="font-weight:bold; padding-right: 5px; float: right;" />
+                <p:inputText size="50" value="#{webServiceMB.cidade}" />
 
-                    <h:outputLabel value="Bairro: "
-                                   style="font-weight:bold; padding-right: 5px; float: right;" />
-                    <p:inputText size="25" value="#{webServiceMB.bairro}" />
-                </h:panelGrid>
-            <composite:renderFacet name="btn" />
-               
+                <h:outputLabel value="Bairro: "
+                               style="font-weight:bold; padding-right: 5px; float: right;" />
+                <p:inputText size="25" value="#{webServiceMB.bairro}" />
+            </h:panelGrid>
+            <p:commandButton value="Fechar" style="float: right" icon="ui-icon-check" onclick="PF('dialogCep').hide()" update="#{cc.attrs.update}" id="btnFecCep" partialSubmit="false"
+                             actionListener="#{unidadeFederativaMB.encontraCEP(webServiceMB.cep, webServiceMB.estado, webServiceMB.cidade, webServiceMB.tipoLogradouro, webServiceMB.logradouro, webServiceMB.bairro,cc.attrs.pessoa,cc.attrs.uf)}"    />
+
         </h:form>
 
     </composite:implementation>
