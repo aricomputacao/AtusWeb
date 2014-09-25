@@ -31,13 +31,21 @@ public class UsuarioController extends Controller<Usuario, Long> implements Seri
 
     public void alterarSenha(Usuario u, String senhaAtual, String novaSenha, String confirmeSenha) throws Exception {
         CriptografiaSenha cs = new CriptografiaSenha();
-        if (u.getSenha().equals(cs.criptografarSenha(senhaAtual))) {
+        senhaAtual = cs.criptografarSenha(senhaAtual);
+        if (u.getSenha().equals(senhaAtual)) {
             if (novaSenha.equals(confirmeSenha)) {
-                u.setSenha(novaSenha);
+                u.setSenha(cs.criptografarSenha(novaSenha));
                 dao.atualizar(u);
+            } else {
+                throw new Exception("Senha não confere!");
             }
+        } else {
+            throw new Exception("Senha não confere!");
         }
+    }
 
+    public Usuario usuarioLogin(String remoteUser) {
+        return dao.usuarioLogin(remoteUser);
     }
 
 }

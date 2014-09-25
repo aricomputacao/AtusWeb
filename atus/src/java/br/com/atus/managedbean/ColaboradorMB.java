@@ -64,7 +64,7 @@ public class ColaboradorMB extends BeanGenerico<Colaborador> implements Serializ
             if (colaborador.getId() == null) {
                 colaborador.setPessoa(new Pessoa());
                 colaborador.getPessoa().setTipoPessoa(TipoPessoa.PF);
-                colaborador.getPessoa().getCidade().setUnidadeFederativa(new UnidadeFederativa());
+//                colaborador.getPessoa().getCidade().setUnidadeFederativa(new UnidadeFederativa());
 
             } else {
                 uf = colaborador.getPessoa().getCidade().getUnidadeFederativa();

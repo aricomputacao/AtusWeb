@@ -16,12 +16,8 @@
         <link rel="icon" type="image/png" href="../resources/imagens/ico.ico" />
         <h:outputStylesheet library="css" name="default.css"/>
         <h:outputStylesheet library="css" name="agenda.css"/>
-
         <h:outputScript name="calendario_pt_BR.js" library="js" />
-        <h:outputScript library="js" name="navegacao.js" />
-         
-
-
+        <h:outputScript library="js" name="navegacao.js" />      
         <title>#{label['nome.sistema']}</title>
     </h:head>
     <h:body styleClass="boby">
@@ -31,11 +27,11 @@
                     <h:form id="frmCabecalho">
                         <p:graphicImage  url="/resources/imagens/logo-cab.png" style="float: left;margin-top: 3px"   />
                         <div style="float: right;margin-top: 20px;margin-right: 100px;">
-                            <p>Bem Vindo, <strong>Usuário <span> <p:graphicImage width="15" height="15"   library="imagens" name="usr.png" /></span></strong></p>
+                            <p  >Bem Vindo,<h:outputText rendered="#{navegacaoMB.usuarioLogado.perfil == 'ADVOGADO'}"> #{navegacaoMB.usuarioLogado.login}</h:outputText> <span> <p:graphicImage width="15" height="15"   library="imagens" name="usr.png" /></span></p>
                             <h:panelGrid columns="6">
                                 <h:link class="link"  value="Contas e Configurações" hreflang="#" />
                                 <h:outputLabel style="color: #505050 " value="|"/>
-                                <h:link  class="link" value="Ajuda" hreflang="#" />
+                                <p:commandLink styleClass="link" value="Alterar Senha" onclick="PF('dialogAltSen').show()"  />
                                 <h:outputLabel style="color: #505050 " value="|"/>
                                 <h:commandLink class="link" value="Sair"  actionListener="#{navegacaoMB.logout()}" />
                             </h:panelGrid>
@@ -52,12 +48,16 @@
 
 
                 </div>
+
             </p:layoutUnit>
 
 
         </p:layout>
+        <p:dialog showEffect="fade" position="top"   id="altSen" modal="true" hideEffect="fade" widgetVar="dialogAltSen">
+                <util:alterarSenha/>
+            </p:dialog>
         <ui:insert name="dialogs">
-
+            
         </ui:insert>
         <ui:insert name="confirme">
             <p:confirmDialog global="true" >

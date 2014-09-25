@@ -40,7 +40,7 @@
                     <p:outputLabel value="UF" for="uf"/>
                     <p:message for="uf"/>
                 </h:panelGrid>
-                <p:selectOneMenu id="uf"   style="width: 50px" effect="fade" value="#{cc.attrs.uf}"    converter="#{indexConverter}" required="true"   >
+                <p:selectOneMenu id="uf"   style="width: 50px" effect="fade" value="#{cc.attrs.uf}"    converter="#{indexConverter}" >
                     <f:selectItem itemLabel="UF" noSelectionOption="#{true}" />
                     <f:selectItems value="#{unidadeFederativaMB.listaUnidadeFederativas}"  var="u" itemLabel="#{u.abreviacao}" itemValue="#{u}"  />
                     <p:ajax update="#{cc.attrs.updateCidade}"  listener="#{cc.attrs.acao_listar_cidade}" />

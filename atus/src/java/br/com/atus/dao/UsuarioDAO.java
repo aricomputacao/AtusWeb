@@ -20,5 +20,11 @@ public class UsuarioDAO extends DAO<Usuario, Long> implements Serializable{
     public UsuarioDAO() {
         super(Usuario.class);
     }
+
+    public Usuario usuarioLogin(String remoteUser) {
+       return  (Usuario) getEm().createQuery("SELECT u FROM Usuario u  WHERE u.login = :log")
+               .setParameter("log", remoteUser)
+               .getSingleResult();
+    }
     
 }

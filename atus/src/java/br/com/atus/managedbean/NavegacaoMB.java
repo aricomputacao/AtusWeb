@@ -5,6 +5,14 @@
  */
 package br.com.atus.managedbean;
 
+import br.com.atus.controller.AdvogadoController;
+import br.com.atus.controller.ClienteController;
+import br.com.atus.controller.ColaboradorController;
+import br.com.atus.controller.UsuarioController;
+import br.com.atus.enumerated.Perfil;
+import br.com.atus.modelo.Advogado;
+import br.com.atus.modelo.Cliente;
+import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
@@ -14,8 +22,12 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -27,9 +39,17 @@ import javax.servlet.http.HttpSession;
 @SessionScoped
 public class NavegacaoMB implements Serializable {
 
+    @EJB
+    private UsuarioController usuarioController;
+    @EJB
+    private AdvogadoController advogadoController;
+    @EJB
+    private ClienteController clienteController;
+    @EJB
+    private ColaboradorController colaboradorController;
     private final Map<String, Object> map;
     private String pagina;
-    private String mnemonicoSistema;
+
     //-----variaveis para controlar os btn do menu do panel-------//
     private boolean novo;
     private boolean consultar;
@@ -38,10 +58,35 @@ public class NavegacaoMB implements Serializable {
     private boolean limpar;
     //-----------------------------------------------------------//
     private Usuario usuarioLogado;
+    private Advogado advogado;
+    private Cliente cliente;
+    private Colaborador colaborador;
+
+    @Inject
+    private void init() {
+        try {
+
+            FacesContext context = FacesContext.getCurrentInstance();
+            ExternalContext external = context.getExternalContext();
+            usuarioLogado = usuarioController.usuarioLogin(external.getRemoteUser());
+            if (usuarioLogado.getPerfil().equals(Perfil.ADVOGADO)) {
+                advogado = advogadoController.carregar(usuarioLogado.getReferencia().intValue());
+
+            }
+            if (usuarioLogado.getPerfil().equals(Perfil.CLIENTE)) {
+                cliente = clienteController.carregar(usuarioLogado.getReferencia());
+            }
+            if (usuarioLogado.getPerfil().equals(Perfil.COLABORADOR)) {
+                colaborador = colaboradorController.carregar(usuarioLogado.getReferencia());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(NavegacaoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * Variaveis para renderizas consultar ou cadastro true = cadastro false =
- consultar
+     * consultar
      */
     private boolean renderPainelCadastro;
 
@@ -95,7 +140,7 @@ public class NavegacaoMB implements Serializable {
     /**
      * Retorna a mensagem do bundle
      *
-     * 
+     *
      * @param messageId
      * @param arquivo
      * @return
@@ -111,7 +156,7 @@ public class NavegacaoMB implements Serializable {
         }
         return msg;
     }
-    
+
     /**
      * Esse método redireciona para uma página especifica
      *
@@ -287,6 +332,29 @@ public class NavegacaoMB implements Serializable {
     public void setUsuarioLogado(Usuario usuarioLogado) {
         this.usuarioLogado = usuarioLogado;
     }
-    
-    
+
+    public Advogado getAdvogado() {
+        return advogado;
+    }
+
+    public void setAdvogado(Advogado advogado) {
+        this.advogado = advogado;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Colaborador getColaborador() {
+        return colaborador;
+    }
+
+    public void setColaborador(Colaborador colaborador) {
+        this.colaborador = colaborador;
+    }
+
 }

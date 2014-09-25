@@ -67,6 +67,7 @@ public class UsuarioMB extends BeanGenerico<Usuario> implements Serializable {
     private Advogado advogado;
     private Colaborador colaborador;
     private Cliente cliente;
+    
 
     @PostConstruct
     public void init() {
@@ -108,9 +109,9 @@ public class UsuarioMB extends BeanGenerico<Usuario> implements Serializable {
         try {
             Usuario u = navegacaoMB.getUsuarioLogado();
             controller.alterarSenha(u, senhaAtual, novaSenha, confirmeSenha);
-            MenssagemUtil.addMessageInfo("Senha altera!");
+            MenssagemUtil.addMessageInfo("Senha alterada com sucesso!");
         } catch (Exception ex) {
-            MenssagemUtil.addMessageErro("Erro ao alterar senha", ex, this.getClass().getName());
+            MenssagemUtil.addMessageErro(ex.getMessage(), ex, this.getClass().getName());
         } finally {
             novaSenha = "";
             confirmeSenha = "";
