@@ -38,7 +38,6 @@
             <h:panelGrid >
                 <h:panelGrid columns="2" >
                     <p:outputLabel value="UF" for="uf"/>
-                    <p:message for="uf"/>
                 </h:panelGrid>
                 <p:selectOneMenu id="uf"   style="width: 50px" effect="fade" value="#{cc.attrs.uf}"    converter="#{indexConverter}" >
                     <f:selectItem itemLabel="UF" noSelectionOption="#{true}" />
@@ -49,7 +48,6 @@
             <h:panelGrid  id="grdCid" >
                 <h:panelGrid columns="2" >
                     <p:outputLabel value="Cidade" for="ci"/>
-                    <p:message for="ci"/>
                 </h:panelGrid>
                 <p:selectOneMenu id="ci" style="width: 150px" effect="fade" value="#{cc.attrs.cid}" converter="#{indexConverter}" required="true"   >
                     <f:selectItem itemLabel="Selecione" noSelectionOption="#{true}" />

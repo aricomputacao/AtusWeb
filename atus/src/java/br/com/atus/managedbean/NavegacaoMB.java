@@ -170,6 +170,9 @@ public class NavegacaoMB implements Serializable {
                 case ("cad"):
                     modulo = "01";
                     break;
+                case ("pro"):
+                    modulo = "02";
+                    break;
 
             }
             //renderiza atela de cadastro
@@ -192,6 +195,9 @@ public class NavegacaoMB implements Serializable {
             switch (pag.substring(0, 3)) {
                 case ("cad"):
                     modulo = "01";
+                    break;
+                case ("pro"):
+                    modulo = "02";
                     break;
 
             }
