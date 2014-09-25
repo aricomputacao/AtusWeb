@@ -27,7 +27,7 @@
                     <h:form id="frmCabecalho">
                         <p:graphicImage  url="/resources/imagens/logo-cab.png" style="float: left;margin-top: 3px"   />
                         <div style="float: right;margin-top: 20px;margin-right: 100px;">
-                            <p  >Bem Vindo,<h:outputText rendered="#{navegacaoMB.usuarioLogado.perfil == 'ADVOGADO'}"> #{navegacaoMB.usuarioLogado.login}</h:outputText> <span> <p:graphicImage width="15" height="15"   library="imagens" name="usr.png" /></span></p>
+                            <p  >Bem Vindo,<strong>#{navegacaoMB.usuarioLogado.login}</strong> <span> <p:graphicImage width="15" height="15"   library="imagens" name="usr.png" /></span></p>
                             <h:panelGrid columns="6">
                                 <h:link class="link"  value="Contas e Configurações" hreflang="#" />
                                 <h:outputLabel style="color: #505050 " value="|"/>

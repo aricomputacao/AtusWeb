@@ -24,39 +24,36 @@
                 <h:panelGrid id="grdConsulta" columns="4">
                     <h:panelGrid id="grdConsulta1">
                         <p:outputLabel value="Campo"/>
-                        <p:selectOneMenu value="#{usuarioMB.campoBusca}" styleClass="lista">
+                        <p:selectOneMenu value="#{enderecamentoMB.campoBusca}" styleClass="lista">
                             <f:selectItem itemLabel="Nome" itemValue="nome" />
                         </p:selectOneMenu>
                     </h:panelGrid>
                     <h:panelGrid id="grdConsulta2">
                         <p:outputLabel value="Buscar por"/>
-                        <p:inputText value="#{usuarioMB.valorBusca}" />
+                        <p:inputText value="#{enderecamentoMB.valorBusca}" />
                     </h:panelGrid>
                     <h:panelGrid id="grdConsulta3">
                         <p:spacer width="15"/>
                         <h:panelGrid columns="2">
-                            <comp:commandButton_consulta id="btnCon" acao_butao="#{usuarioMB.listar()}"  componente_to_update="@form" />
+                            <comp:commandButton_consulta id="btnCon" acao_butao="#{enderecamentoMB.listar()}"  componente_to_update="@form" />
                         </h:panelGrid>
                     </h:panelGrid>
                 </h:panelGrid>
-                <p:dataTable value="#{usuarioMB.listaUsuarios}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
+                <p:dataTable value="#{enderecamentoMB.listaEnderecamentos}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
 
-                    <p:column headerText="Nome" sortBy="#{t.login}">
-                        <comp:outputText value="#{t.login}"/>
+                    <p:column headerText="Nome" width="5%" sortBy="#{t.nome}">
+                        <comp:outputText value="#{t.nome}"/>
                     </p:column>
-                    <p:column headerText="Perfil"  width="10%" sortBy="#{t.perfil}" >
-                        <comp:outputText value="#{t.perfil}"/>
+                    <p:column headerText="Descrição"   >
+                        <comp:outputText tipo="n" value="#{t.descricao}"/>
                     </p:column>
-                    <p:column headerText="Ativo"  width="10%"  >
-                        <comp:outputText value="Sim" rendered="#{t.ativo}"/>
-                        <comp:outputText value="Não" rendered="#{not t.ativo}"/>
-                    </p:column>
+                   
 
                     <p:column headerText="Ação" width="6%" style="text-align: center">
-                        <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.usuario'],'usuario',t)}" />
-                        <comp:commandButton_excluir acao_butao="#{usuarioMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Usuário" form_to_update="@form"/>
+                        <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['pro.enderecamento'],'enderecamento',t)}" />
+                        <comp:commandButton_excluir acao_butao="#{enderecamentoMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Endereçãmento" form_to_update="@form"/>
                         <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
                     </p:column>
 
