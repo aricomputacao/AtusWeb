@@ -33,7 +33,10 @@
 
 
                 </p:submenu>
-                <p:menuitem styleClass="item" value="Atendimento" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.atendimento'])}" immediate="true"/>
+                <p:submenu  label="Atendimento" styleClass="subMenu" >
+                    <p:menuitem styleClass="item" value="Cadastrar" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.atendimento'])}" immediate="true"/>
+                    <p:menuitem styleClass="item" value="Visualizar" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.acompanhar_atendimento'])}" immediate="true"/>
+                </p:submenu>
 
                 <p:submenu label="Processo" styleClass="subMenu">
                     <p:menuitem value="Fases" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.fase'])}" immediate="true"/>

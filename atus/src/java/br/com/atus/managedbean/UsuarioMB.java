@@ -64,17 +64,22 @@ public class UsuarioMB extends BeanGenerico<Usuario> implements Serializable {
     private boolean renderEstagiario;
     private boolean renderColaborador;
     private boolean renderAdmin;
+    private boolean renderNome;
     private Advogado advogado;
     private Colaborador colaborador;
     private Cliente cliente;
-    
 
     @PostConstruct
     public void init() {
         try {
             cs = new CriptografiaSenha();
             advogado = new Advogado();
-
+            renderCliente = false;
+            renderAdvogado = false;
+            renderAdmin = true;
+            renderColaborador = false;
+            renderEstagiario = false;
+            renderNome = true;
             usuario = (Usuario) navegacaoMB.getRegistroMapa("usuario", new Usuario());
             if (usuario.getId() == null) {
                 usuario.setSenha(cs.criptografarSenha("123456"));
@@ -121,14 +126,26 @@ public class UsuarioMB extends BeanGenerico<Usuario> implements Serializable {
 
     public void salvar() {
         try {
-            if (renderAdvogado) {
-                usuario.setReferencia(advogado.getId().longValue());
+            if (usuario.getId() == null) {
+
+                if (renderAdvogado) {
+                    usuario.setReferencia(advogado.getId().longValue());
+                    usuario.setNome(advogado.getNome());
+                }
+                if (renderColaborador) {
+                    usuario.setReferencia(colaborador.getId());
+                    usuario.setNome(colaborador.getPessoa().getNome());
+                }
+                if (renderCliente) {
+                    usuario.setReferencia(cliente.getId());
+                    usuario.setNome(cliente.getPessoa().getNome());
+                }
             }
             controller.salvarouAtualizar(usuario);
             init();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
         } catch (Exception ex) {
-            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS), ex, "TipoContrato");
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS), ex, "Usuario");
             Logger.getLogger(UsuarioMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -172,6 +189,7 @@ public class UsuarioMB extends BeanGenerico<Usuario> implements Serializable {
             renderAdmin = true;
             renderColaborador = false;
             renderEstagiario = false;
+            renderNome = true;
         }
         if (usuario.getPerfil().equals(Perfil.ADVOGADO)) {
             renderCliente = false;
@@ -179,6 +197,8 @@ public class UsuarioMB extends BeanGenerico<Usuario> implements Serializable {
             renderAdmin = false;
             renderColaborador = false;
             renderEstagiario = false;
+            renderNome = false;
+
         }
         if (usuario.getPerfil().equals(Perfil.CLIENTE)) {
             renderCliente = true;
@@ -186,6 +206,8 @@ public class UsuarioMB extends BeanGenerico<Usuario> implements Serializable {
             renderAdmin = false;
             renderColaborador = false;
             renderEstagiario = false;
+            renderNome = false;
+
         }
         if (usuario.getPerfil().equals(Perfil.COLABORADOR)) {
             renderCliente = false;
@@ -193,6 +215,8 @@ public class UsuarioMB extends BeanGenerico<Usuario> implements Serializable {
             renderAdmin = false;
             renderColaborador = true;
             renderEstagiario = false;
+            renderNome = false;
+
         }
         if (usuario.getPerfil().equals(Perfil.ESTAGIÁRIO)) {
             renderCliente = false;
@@ -200,6 +224,8 @@ public class UsuarioMB extends BeanGenerico<Usuario> implements Serializable {
             renderAdmin = false;
             renderColaborador = false;
             renderEstagiario = true;
+            renderNome = true;
+
         }
     }
 
@@ -322,6 +348,14 @@ public class UsuarioMB extends BeanGenerico<Usuario> implements Serializable {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public boolean isRenderNome() {
+        return renderNome;
+    }
+
+    public void setRenderNome(boolean renderNome) {
+        this.renderNome = renderNome;
     }
 
 }

@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.validator.constraints.Email;
 
 /**
  *
@@ -54,13 +55,16 @@ public class Atendimento implements Serializable {
 
     @Column(name = "ate_assunto", length = 1024)
     private String assunto;
+    
+    @Column(name = "ate_despacho", length = 1024)
+    private String despacho;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "ate_dt_entrada", nullable = false)
     private Date dataAbertura;
     
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "ate_dt_saida", nullable = false)
+    @Column(name = "ate_dt_saida")
     private Date dataSaida;
     
     @Column(name = "ate_desistencia")
@@ -69,7 +73,30 @@ public class Atendimento implements Serializable {
     
     @Column(name = "ate_desistencia_motivo", length = 1024)
     private String desistenciaMotivo;
+    
+    @Email
+    @Column(name = "ate_visi_email")
+    private String email;
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDespacho() {
+        return despacho;
+    }
+
+    public void setDespacho(String despacho) {
+        this.despacho = despacho;
+    }
+
+    
+    
+    
     public Long getId() {
         return id;
     }

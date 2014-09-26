@@ -8,7 +8,9 @@ package br.com.atus.controller;
 
 import br.com.atus.dao.AtendimentoDAO;
 import br.com.atus.modelo.Atendimento;
+import br.com.atus.modelo.Usuario;
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -28,5 +30,15 @@ public class AtendimentoController extends Controller<Atendimento, Long> impleme
     protected void inicializaDAO() {
         setDAO(dao);
     }
+
+    public List<Atendimento> listarAtendFrente() {
+        return dao.listarAtendFrente();
+    }
+
+    public List<Atendimento> listarAtendFundo(Usuario usuarioLogado) {
+       return dao.listarAtendFundo(usuarioLogado);
+    }
+
+   
     
 }

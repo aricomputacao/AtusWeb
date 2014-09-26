@@ -10,7 +10,7 @@
 
     <composite:interface>
         <composite:attribute name="value" required="true" />
-        <composite:attribute name="tipo"  default="t" shortDescription="Valores validos (t - texto) - (d - data) - (c - dinheiro) - (p - porcentagem) - (n - number)" />
+        <composite:attribute name="tipo"  default="t" shortDescription="Valores validos (t - texto) - (d - data) - (dt - dateTime)  - (c - dinheiro) - (p - porcentagem) - (n - number)" />
 
     </composite:interface>
     <composite:implementation>
@@ -20,6 +20,12 @@
         <ui:fragment rendered="#{cc.attrs.tipo == 'd'}">
             <h:outputText value="#{cc.attrs.value}"  >
                 <f:convertDateTime  pattern="dd/MM/yyyy"/>
+            </h:outputText>
+        </ui:fragment>
+        
+         <ui:fragment rendered="#{cc.attrs.tipo == 'dt'}">
+            <h:outputText value="#{cc.attrs.value}"  >
+                <f:convertDateTime  pattern="dd/MM/yyyy HH:mm"/>
             </h:outputText>
         </ui:fragment>
 

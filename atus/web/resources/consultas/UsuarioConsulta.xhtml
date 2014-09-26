@@ -43,8 +43,11 @@
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
 
-                    <p:column headerText="Nome" sortBy="#{t.login}">
+                    <p:column headerText="Login" sortBy="#{t.login}">
                         <comp:outputText value="#{t.login}"/>
+                    </p:column>
+                    <p:column headerText="Nome" >
+                        <comp:outputText value="#{t.nome}"/>
                     </p:column>
                     <p:column headerText="Perfil"  width="10%" sortBy="#{t.perfil}" >
                         <comp:outputText value="#{t.perfil}"/>

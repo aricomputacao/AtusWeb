@@ -290,6 +290,16 @@ ui-layout-unit{
     width: 16px;
     height: 16px;
 }
+.ui-button-icon-left.ui-icon.ui-c.ui-icon-circle-check{
+    background: url("../resources/imagens/selecionar.png") ! important; 
+    width: 16px;
+    height: 16px;
+}
+.ui-button-icon-left.ui-icon.ui-c.ui-icon-close{
+    background: url("../resources/imagens/close.png") ! important; 
+    width: 16px;
+    height: 16px;
+}
 .ui-button-icon-left.ui-icon.ui-c.ui-icon-info{
     background: url("../resources/imagens/info.png") ! important; 
     width: 16px;

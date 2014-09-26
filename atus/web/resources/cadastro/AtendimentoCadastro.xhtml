@@ -15,24 +15,27 @@
     </composite:interface>
     <composite:implementation id="int2" >
         <p:fieldset id="fieldCad"  legend="Cadastro" style="text-align: left">
-
-            <h:panelGrid id="grdUsr"  >
+            <h:panelGrid id="grdUsr"  columns="2" >
                 <h:panelGrid >
                     <p:outputLabel  value="Usuário" for="input_componente"/>
                     <h:panelGrid columns="2">
-                        <p:inputText value="#{atendimentoMB.atendimento.usuarioAtendimento.login}" id="input_componente" required="true" readonly="true" size="41"/>
+                        <p:inputText value="#{atendimentoMB.atendimento.usuarioAtendimento.login}" id="input_componente" required="true" readonly="true" size="20"/>
                         <p:commandButton  icon="ui-icon-search"  onclick="PF('dialogUsr').show()"  immediate="true" />
                     </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGrid  >
+                    <p:outputLabel value="Visitante" for="nome"/>
+                    <p:inputText value="#{atendimentoMB.atendimento.visitante}"  id="nome" size="41" required="true" requiredMessage="#{mensagens['require']}"/>
                 </h:panelGrid>
             </h:panelGrid>
             <h:panelGrid columns="2">
                 <h:panelGrid  >
-                    <p:outputLabel value="Visitante" for="nome"/>
-                    <p:inputText value="#{atendimentoMB.atendimento.visitante}"  id="nome" size="46" required="true" requiredMessage="#{mensagens['require']}"/>
+                    <p:outputLabel value="Email" for="email"/>
+                    <p:inputText value="#{atendimentoMB.atendimento.email}"  id="email" size="46" />
                 </h:panelGrid>
                 <h:panelGrid>
                     <p:outputLabel value="Telefone" for="pra"/>
-                    <p:inputMask mask="(99)9999-9999" value="#{atendimentoMB.atendimento.telefone}"   id="pra" size="20" onkeypress="return soNumero()"  required="true" requiredMessage="#{mensagens['require']}"/>
+                    <p:inputMask mask="(99)9999-9999" value="#{atendimentoMB.atendimento.telefone}"   id="pra" size="20" onkeypress="return soNumero()"   />
                 </h:panelGrid>
             </h:panelGrid>
             <h:panelGrid>

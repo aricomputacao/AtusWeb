@@ -52,6 +52,8 @@ public class Usuario implements Serializable{
     @Enumerated(EnumType.STRING)
     @Column(name = "usr_perfil",nullable = false)
     private Perfil perfil;
+    @Column(name = "usr_nome")
+    private String nome;
 
     @Override
     public int hashCode() {
@@ -73,6 +75,14 @@ public class Usuario implements Serializable{
             return false;
         }
         return true;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     
