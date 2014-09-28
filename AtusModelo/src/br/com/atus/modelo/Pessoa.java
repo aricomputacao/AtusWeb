@@ -5,7 +5,6 @@
  */
 package br.com.atus.modelo;
 
-import br.com.atus.enumerated.Sexo;
 import br.com.atus.enumerated.TipoPessoa;
 import java.io.Serializable;
 import java.util.Date;
@@ -17,8 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -28,7 +25,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author Ari
  */
 @Embeddable
-public class Pessoa implements Serializable{
+public class Pessoa implements Serializable {
 
     // Email da pessoa
     @Email
@@ -49,8 +46,6 @@ public class Pessoa implements Serializable{
     @Enumerated(EnumType.STRING)
     @Column(name = "pes_tipo", nullable = false)
     private TipoPessoa tipoPessoa;
-
-  
 
     @ManyToOne
     @JoinColumn(name = "cid_id", referencedColumnName = "cid_id")
@@ -154,8 +149,6 @@ public class Pessoa implements Serializable{
     public void setTipoPessoa(TipoPessoa tipoPessoa) {
         this.tipoPessoa = tipoPessoa;
     }
-
-
 
     public Cidade getCidade() {
         return cidade;

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.atus.modelo;
 
 import java.io.Serializable;
@@ -19,7 +18,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
-import static org.hibernate.envers.RelationTargetAuditMode.NOT_AUDITED;
+import org.hibernate.envers.NotAudited;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -27,22 +26,23 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author ari
  */
 @Entity
-@Table(name = "fase",schema = "processo")
+@Table(name = "fase", schema = "processo")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Audited
-public class Fase implements Serializable{
+public class Fase implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "fas_id",nullable = false)
+    @Column(name = "fas_id", nullable = false)
     private Long id;
     @NotBlank
-    @Column(name = "fas_nome",nullable = false)
+    @Column(name = "fas_nome", nullable = false)
     private String nome;
     @Column(name = "fas_prazo")
     private int prazo;
-    @Audited(targetAuditMode = NOT_AUDITED)
+    @NotAudited
     @ManyToOne
-    @JoinColumn(name = "usr_id",referencedColumnName = "usr_id")
+    @JoinColumn(name = "usr_id", referencedColumnName = "usr_id")
     private Usuario usuario;
 
     public Long getId() {
@@ -99,9 +99,4 @@ public class Fase implements Serializable{
         return true;
     }
 
-  
-    
-    
-    
-    
 }

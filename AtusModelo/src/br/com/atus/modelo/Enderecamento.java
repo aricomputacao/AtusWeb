@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.atus.modelo;
 
 import java.io.Serializable;
@@ -23,19 +22,20 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author ari
  */
 @Entity
-@Table(name = "enderecamento",schema = "processo")
+@Table(name = "enderecamento", schema = "processo")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-public class Enderecamento implements Serializable{
+public class Enderecamento implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "end_id",nullable = false)
+    @Column(name = "end_id", nullable = false)
     private Long id;
-    
+
     @NotBlank
-    @Column(name = "end_nome",unique = true,nullable = false)
+    @Column(name = "end_nome", unique = true, nullable = false)
     private String nome;
-    
-    @Column(name = "end_descricao",length = 1024)
+
+    @Column(name = "end_descricao", length = 1024)
     private String descricao;
 
     public Long getId() {
@@ -78,11 +78,7 @@ public class Enderecamento implements Serializable{
             return false;
         }
         final Enderecamento other = (Enderecamento) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
-    
-    
+
 }
