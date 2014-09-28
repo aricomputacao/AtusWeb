@@ -6,14 +6,17 @@
 package br.com.atus.managedbean;
 
 import br.com.atus.controller.PecaController;
+import br.com.atus.exceptions.PecaFileException;
 import br.com.atus.modelo.Peca;
-import br.com.atus.util.ArquivoUtil;
 import br.com.atus.util.MenssagemUtil;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
@@ -21,8 +24,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
@@ -103,7 +106,7 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
     public StreamedContent download(Peca p) {
         try {
             return controller.getDownload(p);
-        } catch (Exception e) {
+        } catch (PecaFileException | FileNotFoundException e) {
             MenssagemUtil.addMessageErro(e);
         }
         return null;
@@ -112,7 +115,7 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
     public StreamedContent downloadModelo(Peca p) {
         try {
             return controller.getModeloDownload(p, p);
-        } catch (Exception e) {
+        } catch (PecaFileException | FileNotFoundException | Docx4JException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
             MenssagemUtil.addMessageErro(e);
         }
         return null;
@@ -120,51 +123,18 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
 
     public void salvar() {
         try {
-            controller.salvar(peca, file);
+            if (peca.getId() == null) {
+
+                controller.salvar(peca, file);
+            } else {
+                controller.atualizar(peca, file);
+
+            }
             init();
             MenssagemUtil.addMessageInfo("Registro salvo");
         } catch (Exception e) {
             MenssagemUtil.addMessageErro("Erro ao salvar.");
         }
-    }
-
-    public static void main(String[] args) {
-        File f = new File("/home/gilmario/arquivo.docx");
-
-        try {
-//            Pattern pattern = Pattern.compile("\\$\\{\\w+}");
-
-//            WordprocessingMLPackage wordMLPackage;
-//            wordMLPackage = WordprocessingMLPackage.load(f);
-//            MainDocumentPart main = wordMLPackage.getMainDocumentPart();
-//            List<Object> lista = main.getContent();
-//            for (Object lista1 : lista) {
-//                Matcher matcher = pattern.matcher(lista1.toString());
-//                String parte1 = lista1.toString().replaceAll("\\$\\{\\w+\\}", "");
-//                String patre2 = lista1.toString().replaceAll(lista1.toString(), parte1);
-//                if (patre2.length() > 0) {
-//                    System.out.println(patre2);
-//                    System.out.println(lista1);
-//                }
-//
-//            }
-//            wordMLPackage.save(new java.io.File("/home/gilmario/teste" + ".docx"));
-            String valor = "texto qualquer ${parametro}";
-            Pattern pattern = Pattern.compile("\\$\\{\\w+}");
-            String[] palavras = valor.split(" ");
-            for (String palavra : palavras) {
-                Matcher matcher = pattern.matcher(palavra);
-                if (matcher.find()) {
-                    System.out.println("Substituir " + palavra + " por text " + palavra.replaceAll(pattern.pattern(), "teste"));
-                }
-            }
-
-//            System.out.println(valor.replaceAll(pattern.pattern(), ""));
-//            System.out.println(pattern);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
     public void uploadArquivo(FileUploadEvent event) {
@@ -181,28 +151,17 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
         }
     }
 
-    private void buscarArquivodDownload(Peca p) {
-        //try {
-        //arquivosDownload = controller.geraListaDownload(p);
-        //} catch (FileNotFoundException e) {
-        //MenssagemUtil.addMessageErro(e);
-        //arquivosDownload = new ArrayList<>();
-        //}
+    public List<String> getCamposClasse() {
+        try {
+            if (peca.getSubgrupo() != null && !peca.getSubgrupo().equals("")) {
+
+                return controller.getListaTags(peca.getSubgrupo());
+            }
+            return new ArrayList<>();
+        } catch (ClassNotFoundException ex) {
+            return new ArrayList<>();
+//            Logger.getLogger(PecaMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    //public List<StreamedContent> getArquivosDownload() {
-    //return arquivosDownload;
-    //}
-    //public void setArquivosDownload(List<StreamedContent> arquivosDownload) {
-    //  this.arquivosDownload = arquivosDownload;
-    //}
-    //public void removeArquivo(StreamedContent streamedContent) {
-//        try {
-//            arquivosDownload.remove(streamedContent);
-//            ArquivoUtil.excluirAquivo(requisicaoPublicacao.getId() + "-" + requisicaoPublicacao.getEmissor().getDocumento() + "-" + String.format("%td-%tm-%tY", requisicaoPublicacao.getDataRequisicao(), requisicaoPublicacao.getDataRequisicao(), requisicaoPublicacao.getDataRequisicao()), streamedContent.getName());
-//            MenssagemUtil.addMessageInfo("Arquivo removido");
-//        } catch (Exception e) {
-//            MenssagemUtil.addMessageErro("Erro ao remover arquivo", e, this.getClass().getName());
-//        }
-//    }
 }

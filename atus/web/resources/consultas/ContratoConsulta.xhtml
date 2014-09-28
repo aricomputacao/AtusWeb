@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+    </composite:interface>
+    <composite:implementation  >
+        <h:panelGrid  width="100%" id="rtt" >
+            <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" style="font-weight: bold">
+                <h:panelGrid id="grdConsulta" columns="4">
+                    <h:panelGrid id="grdConsulta1">
+                        <p:outputLabel value="Campo"/>
+                        <p:selectOneMenu value="#{contratoMB.campoBusca}" styleClass="lista">
+                            <f:selectItem itemLabel="Referencia" itemValue="referencia" />
+                            <f:selectItem itemLabel="Conteúdo" itemValue="conteudo" />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <h:panelGrid id="grdConsulta2">
+                        <p:outputLabel value="Buscar por"/>
+                        <p:inputText value="#{contratoMB.valorBusca}" />
+                    </h:panelGrid>
+                    <h:panelGrid id="grdConsulta3">
+                        <p:spacer width="15"/>
+                        <h:panelGrid columns="2">
+                            <ui:insert name="consultaPeca" id="grdConsulta55" >
+                                <comp:commandButton_consulta id="btnCon" acao_butao="#{contratoMB.listar()}"  componente_to_update="@form" />
+                            </ui:insert>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <p:dataTable value="#{contratoMB.listaContratos}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                    <p:column headerText="Código" width="60" sortBy="#{t.id}">
+                        <comp:outputText value="#{t.id}"/>
+                    </p:column>
+                    <p:column headerText="Descrição" sortBy="#{t.referencia}">
+                        <comp:outputText value="#{t.referencia}"/>
+                    </p:column>
+                    <p:column headerText="Ação" width="6%" style="text-align: center">
+                        <ui:insert name="acaoContrato" >
+                            <p:commandButton title="Detalhes" immediate="true" update=":infoContratoForm" icon="ui-icon-info" onclick="PF('dialogInfo').show();" style="width: 20px;height: 20px;">
+                                <f:setPropertyActionListener value="#{t}" target="#{contratoMB.contrato}"/>
+                            </p:commandButton>
+                            <comp:commandButton_editar id="btnEditaContrato"  acao_butao="#{navegacaoMB.redirecionar(navegacao['pro.contrato'],'contrato',t)}" />
+                            <comp:commandButton_excluir acao_butao="#{contratoMB.excluir(t)}" classe="Contrato" form_to_update="@form"/>
+                        </ui:insert>
+                    </p:column>
+
+                </p:dataTable>
+            </p:fieldset>
+
+        </h:panelGrid>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

@@ -25,7 +25,7 @@
 
 }
 .link:hover{
-    text-decoration: underline; 
+    text-decoration: underline;
     color: black !important;
 
 }
@@ -245,34 +245,34 @@ ui-layout-unit{
 /*Icones menu*/
 
 .ui-menuitem-icon.ui-icon.ui-icon-disk{
-    background: url("../resources/imagens/salvar.png") ! important; 
+    background: url("../resources/imagens/salvar.png") ! important;
     width: 32px;
     height: 32px;
     margin: 5px;
 }
 .ui-menuitem-icon.ui-icon.ui-icon-circle-plus{
-    background: url("../resources/imagens/novo.png") ! important; 
+    background: url("../resources/imagens/novo.png") ! important;
     width: 32px;
     height: 32px;
     margin: 5px;
 
 }
 .ui-menuitem-icon.ui-icon.ui-icon-search{
-    background: url("../resources/imagens/consulta.png") ! important; 
+    background: url("../resources/imagens/consulta.png") ! important;
     width: 32px;
     height: 32px;
     margin: 5px;
 
 }
 .ui-menuitem-icon.ui-icon.ui-icon-print{
-    background: url("../resources/imagens/print.png") ! important; 
+    background: url("../resources/imagens/print.png") ! important;
     width: 32px;
     height: 32px;
     margin: 5px;
 
 }
 .ui-menuitem-icon.ui-icon.ui-icon-arrowrefresh-1-e{
-    background: url("../resources/imagens/limpar.png") ! important; 
+    background: url("../resources/imagens/limpar.png") ! important;
     width: 32px;
     height: 32px;
     margin: 5px;
@@ -281,27 +281,27 @@ ui-layout-unit{
 
 /*-----------------------------------------------------------------------*/
 .ui-button-icon-left.ui-icon.ui-c.ui-icon-pencil{
-    background: url("../resources/imagens/update.png") ! important; 
+    background: url("../resources/imagens/update.png") ! important;
     width: 16px;
     height: 16px;
 }
 .ui-button-icon-left.ui-icon.ui-c.ui-icon-trash{
-    background: url("../resources/imagens/delete.png") ! important; 
+    background: url("../resources/imagens/delete.png") ! important;
     width: 16px;
     height: 16px;
 }
 .ui-button-icon-left.ui-icon.ui-c.ui-icon-circle-check{
-    background: url("../resources/imagens/selecionar.png") ! important; 
+    background: url("../resources/imagens/selecionar.png") ! important;
     width: 16px;
     height: 16px;
 }
 .ui-button-icon-left.ui-icon.ui-c.ui-icon-close{
-    background: url("../resources/imagens/close.png") ! important; 
+    background: url("../resources/imagens/close.png") ! important;
     width: 16px;
     height: 16px;
 }
 .ui-button-icon-left.ui-icon.ui-c.ui-icon-info{
-    background: url("../resources/imagens/info.png") ! important; 
+    background: url("../resources/imagens/info.png") ! important;
     width: 16px;
     height: 16px;
 }
@@ -323,7 +323,7 @@ ui-layout-unit{
 }
 
 .printFicha{
-    /*background: url("../resources/imagens/print.png") ! important;*/ 
+    /*background: url("../resources/imagens/print.png") ! important;*/
     margin-left: 5px;
     text-decoration: none;
     float: right;
@@ -331,7 +331,7 @@ ui-layout-unit{
 
 
 .editFicha{
-    /*background: url("../resources/imagens/print.png") ! important;*/     
+    /*background: url("../resources/imagens/print.png") ! important;*/
     text-decoration: none;
     float: right;
     margin-right: 5px;
@@ -358,7 +358,7 @@ ui-layout-unit{
     font-size: 15px;
 }
 .btnCorreio.ui-button{
-    background: url("../resources/imagens/correio.png") ! important; 
+    background: url("../resources/imagens/correio.png") ! important;
     width: 24px;
     height: 24px;
     background-color: wheat;
@@ -366,10 +366,14 @@ ui-layout-unit{
 .btnSalvarDialog{
     margin-left: 13px;
     margin-bottom: 10px;
-    background: url("../resources/imagens/salvar.png") ! important; 
+    background: url("../resources/imagens/salvar.png") ! important;
     width: 32px;
     height: 32px;
 
+}
+
+.bold{
+    font-weight:  bold;
 }
 
 /*Style Class                                Applies

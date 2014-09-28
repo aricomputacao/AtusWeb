@@ -24,14 +24,13 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
-import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 /**
  *
- * @author gilmario 
+ * @author gilmario
  */
 @Stateless
 public class PecaController extends Controller<Peca, Long> implements Serializable {
@@ -51,6 +50,12 @@ public class PecaController extends Controller<Peca, Long> implements Serializab
         ArquivoUtil.gravaArquivo(t.getId().toString(), file.getFileName(), file.getContents());
     }
 
+    public void atualizar(Peca t, UploadedFile file) throws Exception {
+        t.setArquivo(file.getFileName());
+        super.atualizar(t);
+        ArquivoUtil.gravaArquivo(t.getId().toString(), file.getFileName(), file.getContents());
+    }
+
     public StreamedContent getDownload(Peca p) throws PecaFileException, FileNotFoundException {
         List<File> files = ArquivoUtil.aquivos(p.getId().toString());
         if (files.isEmpty()) {
@@ -63,6 +68,10 @@ public class PecaController extends Controller<Peca, Long> implements Serializab
     public StreamedContent getModeloDownload(Peca peca, Object entidade) throws PecaFileException, FileNotFoundException, Docx4JException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         InputStream stream = getDownload(peca).getStream();
         return DocumentoConverter.converterArquivo(stream, entidade, peca);
+    }
+
+    public List<String> getListaTags(String classe) throws ClassNotFoundException {
+        return DocumentoConverter.getListaTags(Class.forName(classe));
     }
 
     public boolean validaArquivoDocx(UploadedFile f, String grupo) {

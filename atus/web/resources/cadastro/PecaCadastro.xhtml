@@ -27,11 +27,19 @@
                         <p:outputLabel value="Subgrupo" for="sub"/>
                         <p:message for="sub"/>
                     </h:panelGrid>
-                    <p:selectOneMenu value="#{pecaMB.peca.subgrupo}" id="sub" required="true" requiredMessage="#{mensagens['require']}" style="width: 200px;">
-                        <f:selectItem itemValue="" itemLabel=""/>
-                        <f:selectItem itemValue="br.com.atus.modelo.Peca" itemLabel="Peca"/>
-                        <p:ajax event="change" update="sub"/>
-                    </p:selectOneMenu>
+                    <h:panelGrid columns="2">
+                        <p:selectOneMenu value="#{pecaMB.peca.subgrupo}" id="sub" required="true" requiredMessage="#{mensagens['require']}" style="width: 200px;">
+                            <f:selectItem itemValue="" itemLabel=""/>
+
+                            <f:selectItem itemValue="br.com.atus.modelo.Peca" itemLabel="Peca"/>
+                            <p:ajax event="change" update="sub, tags" immediate="true"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGrid id="tags">
+                    <p:dataGrid value="#{pecaMB.camposClasse}" columns="3" var="tag" rows="5" emptyMessage="Nenhum Subgrupo Selecionado">
+                        <h:outputText value="${tag}"/>
+                    </p:dataGrid>
                 </h:panelGrid>
                 <h:panelGrid id="file">
                     <h:panelGrid columns="2">
