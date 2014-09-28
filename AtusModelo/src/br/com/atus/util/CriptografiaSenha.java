@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.atus.util;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -16,13 +16,13 @@ import java.util.logging.Logger;
  *
  * @author ari
  */
-public class CriptografiaSenha {
+public class CriptografiaSenha implements Serializable {
 
     public CriptografiaSenha() {
     }
-    
-    public  String criptografarSenha(String senha){
-         MessageDigest digest;
+
+    public String criptografarSenha(String senha) {
+        MessageDigest digest;
         try {
             digest = MessageDigest.getInstance("MD5");
             digest.update(senha.getBytes());
@@ -33,5 +33,5 @@ public class CriptografiaSenha {
         }
         return senha;
     }
-    
+
 }
