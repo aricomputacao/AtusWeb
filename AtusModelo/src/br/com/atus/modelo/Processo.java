@@ -133,13 +133,7 @@ public class Processo implements Serializable {
         this.numero = numero;
     }
 
-    public Contrato getContrato() {
-        return contrato;
-    }
 
-    public void setContrato(Contrato contrato) {
-        this.contrato = contrato;
-    }
 
     public Date getDataCadastro() {
         return dataCadastro;
@@ -165,13 +159,7 @@ public class Processo implements Serializable {
         this.materia = materia;
     }
 
-    public String getObjeto() {
-        return objeto;
-    }
-
-    public void setObjeto(String objeto) {
-        this.objeto = objeto;
-    }
+   
 
     public JuizoTribunal getJuizoTribunal() {
         return juizoTribunal;
