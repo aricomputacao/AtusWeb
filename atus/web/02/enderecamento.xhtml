@@ -16,7 +16,7 @@
         <h:form id="frm_pag" prependId="false" >
 
             <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['pro.enderecamento'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['pro.enderecamento'])}" acao_imprimir="#{faseMB.imprimir()}" acao_limpar="#{enderecamentoMB.init()}" acao_salvar="#{enderecamentoMB.salvar()}"/>
-            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Colaborador" id_form="frm_pag"  >               
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Endereçamento" id_form="frm_pag"  >               
                 <h:panelGrid width="100%" rendered="#{navegacaoMB.renderPainelCadastro}"  >
                     <cadastro:EnderecamentoCadastro id="compFase"/>
                 </h:panelGrid>       

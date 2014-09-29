@@ -43,8 +43,7 @@ public class Processo implements Serializable {
     @NotNull
     private Enderecamento enderecamento;
     @ManyToOne
-    @JoinColumn(name = "col_id", referencedColumnName = "col_id", nullable = false)
-    @NotNull
+    @JoinColumn(name = "col_id", referencedColumnName = "col_id")
     private Colaborador colaborador;
     @ManyToOne
     @JoinColumn(name = "cli_id", referencedColumnName = "cli_id", nullable = false)
@@ -53,33 +52,38 @@ public class Processo implements Serializable {
     @Column(name = "pro_numero", length = 20)
     @Length(max = 20)
     private String numero;
+    
     @ManyToOne
-    @JoinColumn(name = "con_id", referencedColumnName = "con_id", nullable = false)
+    @JoinColumn(name = "tpc_id", referencedColumnName = "tpc_id", nullable = false)
     @NotNull
-    private Contrato contrato;
+    private TipoContrato tipoContrato;
+    
     @NotNull
     @Column(name = "pro_dataCadastro", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataCadastro;
     @ManyToOne
-    @JoinColumn(name = "usr_id", referencedColumnName = "usr_id", nullable = false)
-    @NotNull
+    @JoinColumn(name = "usr_id", referencedColumnName = "usr_id")
     private Usuario usuarioCadastro;
     @ManyToOne
     @JoinColumn(name = "mat_id", referencedColumnName = "mat_id", nullable = false)
     @NotNull
     private Materia materia;
-    @Length(max = 100)
-    @Column(name = "pro_objeto", nullable = false, length = 100)
-    @NotBlank
-    private String objeto;
+    
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "obp_id",referencedColumnName = "obp_id",nullable = false)
+    private ObjetoProcesso objetoProcesso;
+    
     @ManyToOne
     @JoinColumn(name = "jut_id", referencedColumnName = "jut_id", nullable = false)
     @NotNull
     private JuizoTribunal juizoTribunal;
+    
     @Column(name = "pro_valor", nullable = false)
     @NotNull
     private BigDecimal valor;
+    
     @ManyToOne
     @JoinColumn(name = "adv_id", referencedColumnName = "adv_id", nullable = false)
     @NotNull
