@@ -8,20 +8,25 @@ package br.com.atus.modelo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -38,17 +43,24 @@ public class Processo implements Serializable {
     @Column(name = "pro_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+   
     @ManyToOne
     @JoinColumn(name = "end_id", referencedColumnName = "end_id", nullable = false)
     @NotNull
     private Enderecamento enderecamento;
+   
     @ManyToOne
     @JoinColumn(name = "col_id", referencedColumnName = "col_id")
     private Colaborador colaborador;
-    @ManyToOne
-    @JoinColumn(name = "cli_id", referencedColumnName = "cli_id", nullable = false)
-    @NotNull
-    private Cliente cliente;
+    
+    @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
+    private List<Adversario> adversarios;
+    
+    @OneToMany( fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
+    private List<ParteInteressada> parteInteressadas;
+    
     @Column(name = "pro_numero", length = 20)
     @Length(max = 20)
     private String numero;
@@ -58,13 +70,20 @@ public class Processo implements Serializable {
     @NotNull
     private TipoContrato tipoContrato;
     
+    @ManyToOne
+    @JoinColumn(name = "fas_id", referencedColumnName = "fas_id", nullable = false)
     @NotNull
-    @Column(name = "pro_dataCadastro", nullable = false)
+    private Fase fase;
+    
+    @NotNull
+    @Column(name = "pro_data_cadastro", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataCadastro;
+   
     @ManyToOne
     @JoinColumn(name = "usr_id", referencedColumnName = "usr_id")
     private Usuario usuarioCadastro;
+   
     @ManyToOne
     @JoinColumn(name = "mat_id", referencedColumnName = "mat_id", nullable = false)
     @NotNull
@@ -88,6 +107,7 @@ public class Processo implements Serializable {
     @JoinColumn(name = "adv_id", referencedColumnName = "adv_id", nullable = false)
     @NotNull
     private Advogado advogado;
+   
     @Length(max = 100000)
     @Column(name = "pro_observacoes", nullable = false, length = 100000)
     @NotBlank
@@ -117,13 +137,7 @@ public class Processo implements Serializable {
         this.colaborador = colaborador;
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
 
     public String getNumero() {
         return numero;
@@ -193,6 +207,48 @@ public class Processo implements Serializable {
         this.observacoes = observacoes;
     }
 
+    public List<Adversario> getAdversarios() {
+        return adversarios;
+    }
+
+    public void setAdversarios(List<Adversario> adversarios) {
+        this.adversarios = adversarios;
+    }
+
+    public List<ParteInteressada> getParteInteressadas() {
+        return parteInteressadas;
+    }
+
+    public void setParteInteressadas(List<ParteInteressada> parteInteressadas) {
+        this.parteInteressadas = parteInteressadas;
+    }
+
+    public TipoContrato getTipoContrato() {
+        return tipoContrato;
+    }
+
+    public void setTipoContrato(TipoContrato tipoContrato) {
+        this.tipoContrato = tipoContrato;
+    }
+
+    public ObjetoProcesso getObjetoProcesso() {
+        return objetoProcesso;
+    }
+
+    public void setObjetoProcesso(ObjetoProcesso objetoProcesso) {
+        this.objetoProcesso = objetoProcesso;
+    }
+
+    public Fase getFase() {
+        return fase;
+    }
+
+    public void setFase(Fase fase) {
+        this.fase = fase;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;

@@ -12,32 +12,35 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
  * @author ari
  */
 @Entity
-@Table(name = "objeto_processo", schema = "processo")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ObjetoProcesso implements Serializable {
+@Table(name = "parte_interessada", schema = "processo")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class ParteInteressada implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "obp_id", nullable = false)
+    @Column(name = "pai_id", nullable = false)
     private Long id;
 
-    @NotNull
-    @Column(name = "obp_nome", nullable = false)
-    private String nome;
+    @ManyToOne
+    @JoinColumn(name = "cli_id", referencedColumnName = "cli_id", nullable = false)
+    private Cliente cliente;
 
-    @NotNull
-    @Column(name = "obp_descricao", nullable = false, length = 1024)
-    private String descricao;
+    @NotEmpty
+    @Column(name = "pai_representante", nullable = false)
+    private String representante;
 
     public Long getId() {
         return id;
@@ -47,26 +50,26 @@ public class ObjetoProcesso implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getRepresentante() {
+        return representante;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setRepresentante(String representante) {
+        this.representante = representante;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 41 * hash + Objects.hashCode(this.id);
+        int hash = 5;
+        hash = 43 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -78,7 +81,7 @@ public class ObjetoProcesso implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ObjetoProcesso other = (ObjetoProcesso) obj;
+        final ParteInteressada other = (ParteInteressada) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

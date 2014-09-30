@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:util="http://java.sun.com/jsf/composite/util">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+    </composite:interface>
+    <composite:implementation  >
+        <p:fieldset id="fieldCad" legend="Cadastro" style="font-weight: bold">
+            <p:tabView id="tbView">
+                <p:tab id="tabDadosGer" title="Dados Gerais">
+                    <h:panelGrid columns="2" >
+                        <h:panelGrid columns="2"   >
+                            <h:panelGrid>
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Endereçamento" for="trat"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="trat" effect="fade" style="width: 250px" converter="#{indexConverter}" value="#{processoMB.processo.enderecamento}" required="true"   >
+                                        <f:selectItems value="#{enderecamentoMB.listaEnderecamentos}" var="end" itemLabel="#{end.nome}" itemValue="#{end}"/>
+                                    </p:selectOneMenu>
+                                    <p:commandButton onclick="PF('dialogoEnderecamento').show()" immediate="true" icon="ui-icon-circle-plus"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid>
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Colaborador" for="col"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="col" effect="fade" style="width: 250px" converter="#{indexConverter}" value="#{processoMB.processo.colaborador}" required="true"   >
+                                        <f:selectItems value="#{colaboradorMB.listaColaboradors}" var="col" itemLabel="#{col.pessoa.nome}" itemValue="#{col}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid >
+                                <comp:inputText nomeLabel="Número" size="15" value="#{processoMB.processo.numero}"/>
+                            </h:panelGrid>
+                            <h:panelGrid>
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Tipo de Contrato" for="tip"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="tip" effect="fade" style="width: 250px" converter="#{indexConverter}" value="#{processoMB.processo.tipoContrato}" required="true"   >
+                                        <f:selectItems value="#{tipoContratoMB.listaTipoContrados}" var="tp" itemLabel="#{tp.nome}" itemValue="#{tp}"/>
+                                    </p:selectOneMenu>
+                                    <p:commandButton onclick="PF('dialogoTipoContrato').show()" immediate="true" icon="ui-icon-circle-plus"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid >
+                                <comp:inputTextCalendar nomeLabel="Data Cadastro" size="15" valorData="#{processoMB.processo.dataCadastro}"/>
+                            </h:panelGrid>                     
+                            <h:panelGrid>
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Fase" for="fas"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="fas" effect="fade" style="width: 250px" converter="#{indexConverter}" value="#{processoMB.processo.fase}" required="true"   >
+                                        <f:selectItems value="#{faseMB.listaFases}" var="fas" itemLabel="#{fas.nome} - #{fas.usuario.nome}" itemValue="#{fas}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid>
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Materia" for="mat"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="mat" effect="fade" style="width: 250px" converter="#{indexConverter}" value="#{processoMB.processo.materia}" required="true"   >
+                                        <f:selectItems value="#{materiaMB.listaMaterias}" var="mat" itemLabel="#{mat.nome}" itemValue="#{mat}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid id="grdObj"  >
+                                <h:panelGrid>
+                                    <p:outputLabel value="Objeto" for="input_componente"/>
+                                    <h:panelGrid columns="3">
+                                        <p:inputText value="#{processoMB.processo.objetoProcesso}" id="input_componente" required="true" readonly="true" size="27"/>
+                                        <p:commandButton icon="ui-icon-search"  onclick="PF('dialogObjProc').show()"  immediate="true" update=":frm_pag"/>
+                                        <p:commandButton onclick="PF('dialogoEnderecamento').show()" immediate="true" icon="ui-icon-circle-plus"/>
+
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid>
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Juizo" for="juz"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="juz" effect="fade" style="width: 250px" converter="#{indexConverter}" value="#{processoMB.processo.juizoTribunal}" required="true"   >
+                                        <f:selectItems value="#{juizoTribunalMB.listaJuizoTribunals}" var="juz" itemLabel="#{juz.nome}" itemValue="#{juz}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid>
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Advogado" for="adv"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="adv" effect="fade" style="width: 250px" converter="#{indexConverter}" value="#{processoMB.processo.advogado}" required="true"   >
+                                        <f:selectItems value="#{advogadoMB.listaAdvogados}" var="ad" itemLabel="#{ad.nome}" itemValue="#{ad}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid>
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Valor" for="var"/>
+                                    <p:message for="var"/>
+                                </h:panelGrid>
+                                <p:inputText value="#{processoMB.processo.valor}"  id="var" size="7" converter="#{converterBigDecimal}"  styleClass="edtMoeda" onfocus="mascaraPercentInputs();" required="true" requiredMessage="#{mensagens['require']}">
+                                </p:inputText>
+                            </h:panelGrid>
+                            <comp:inputTextArea nomeLabel="Observações" value="#{processoMB.processo.observacoes}" coluna="50" linha="5" require="true" />
+                        </h:panelGrid>
+                    </h:panelGrid>
+
+                </p:tab>
+                <p:tab id="tabFatos" title="Dos Fatos">
+
+                </p:tab>
+                <p:tab id="tabProvas" title="Das Provas">
+
+                </p:tab>
+                <p:tab id="tabDadProces" title="Dados Processuais">
+
+                </p:tab>
+                <p:tab id="tabMov" title="Movimentações">
+
+                </p:tab>
+                <p:tab id="tabEvent" title="Eventos">
+
+                </p:tab>
+                <p:tab id="tabCus" title="Custos e Despesas">
+
+                </p:tab>
+            </p:tabView>
+
+
+
+        </p:fieldset>
+    </composite:implementation>
+</ui:composition>
+
+
+
+
