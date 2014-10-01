@@ -44,8 +44,12 @@ public class TipoContratoMB extends BeanGenerico<TipoContratoMB> implements Seri
 
     @PostConstruct
     public void init() {
-        tipoContrado = (TipoContrato) navegacaoMB.getRegistroMapa("tipo_contrato", new TipoContrato());
-        listaTipoContrados = new ArrayList<>();
+        try {
+            tipoContrado = (TipoContrato) navegacaoMB.getRegistroMapa("tipo_contrato", new TipoContrato());
+            listaTipoContrados = controller.listarTodos("nome");
+        } catch (Exception ex) {
+            Logger.getLogger(TipoContratoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void salvar() {

@@ -44,8 +44,12 @@ public class FaseMB extends BeanGenerico<Fase> implements Serializable {
 
     @PostConstruct
     public void init() {
-        fase = (Fase) navegacaoMB.getRegistroMapa("fase", new Fase());
-        listaFases = new ArrayList<>();
+        try {
+            fase = (Fase) navegacaoMB.getRegistroMapa("fase", new Fase());
+            listaFases = controller.listarTodos("nome");
+        } catch (Exception ex) {
+            Logger.getLogger(FaseMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void salvar() {

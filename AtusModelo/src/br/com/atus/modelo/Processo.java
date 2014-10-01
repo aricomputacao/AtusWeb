@@ -43,76 +43,223 @@ public class Processo implements Serializable {
     @Column(name = "pro_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-   
+
     @ManyToOne
     @JoinColumn(name = "end_id", referencedColumnName = "end_id", nullable = false)
     @NotNull
     private Enderecamento enderecamento;
-   
+
     @ManyToOne
     @JoinColumn(name = "col_id", referencedColumnName = "col_id")
     private Colaborador colaborador;
-    
+
     @OneToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
     private List<Adversario> adversarios;
-    
-    @OneToMany( fetch = FetchType.EAGER)
+
+    @OneToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
     private List<ParteInteressada> parteInteressadas;
-    
+
     @Column(name = "pro_numero", length = 20)
     @Length(max = 20)
     private String numero;
-    
+
     @ManyToOne
     @JoinColumn(name = "tpc_id", referencedColumnName = "tpc_id", nullable = false)
     @NotNull
     private TipoContrato tipoContrato;
-    
+
     @ManyToOne
     @JoinColumn(name = "fas_id", referencedColumnName = "fas_id", nullable = false)
     @NotNull
     private Fase fase;
-    
+
     @NotNull
     @Column(name = "pro_data_cadastro", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataCadastro;
-   
+
     @ManyToOne
     @JoinColumn(name = "usr_id", referencedColumnName = "usr_id")
     private Usuario usuarioCadastro;
-   
+
     @ManyToOne
     @JoinColumn(name = "mat_id", referencedColumnName = "mat_id", nullable = false)
     @NotNull
     private Materia materia;
-    
+
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "obp_id",referencedColumnName = "obp_id",nullable = false)
+    @JoinColumn(name = "obp_id", referencedColumnName = "obp_id", nullable = false)
     private ObjetoProcesso objetoProcesso;
-    
+
     @ManyToOne
     @JoinColumn(name = "jut_id", referencedColumnName = "jut_id", nullable = false)
     @NotNull
     private JuizoTribunal juizoTribunal;
-    
+
     @Column(name = "pro_valor", nullable = false)
     @NotNull
     private BigDecimal valor;
-    
+
     @ManyToOne
     @JoinColumn(name = "adv_id", referencedColumnName = "adv_id", nullable = false)
     @NotNull
     private Advogado advogado;
-   
+
     @Length(max = 100000)
     @Column(name = "pro_observacoes", nullable = false, length = 100000)
     @NotBlank
     private String observacoes;
 
+    @Length(max = 100000)
+    @Column(name = "pro_fatos", nullable = false, length = 100000)
+    @NotBlank
+    private String fatos;
+
+    @Length(max = 100000)
+    @Column(name = "pro_provas", nullable = false, length = 100000)
+    @NotBlank
+    private String provas;
+
+    @Length(max = 100000)
+    @Column(name = "pro_informacao_reservada", nullable = false, length = 100000)
+    @NotBlank
+    private String informacaoReservada;
+
+    @Column(name = "pro_nb_indeferido")
+    private int nbIndeferido;
+
+    @Column(name = "pro_nb_deferido")
+    private int nbDeferido;
+
+    @Column(name = "pro_der")
+    @Temporal(TemporalType.DATE)
+    private Date der;
+
+    @Column(name = "pro_dcb")
+    @Temporal(TemporalType.DATE)
+    private Date dcb;
+
+    @Column(name = "pro_dib")
+    @Temporal(TemporalType.DATE)
+    private Date dib;
+    
+    @Column(name = "pro_dip")
+    @Temporal(TemporalType.DATE)
+    private Date dip;
+    
+    @Length(max = 100000)
+    @Column(name = "pro_motivo_indeferimento", length = 100000)
+    private String motivoIndeferimento;
+
+    @Length(max = 100000)
+    @Column(name = "pro_incapacidade", length = 100000)
+    private String incapacidade;
+
+    @Length(max = 100000)
+    @Column(name = "pro_dependente", length = 100000)
+    private String dependente;
+
+    public String getFatos() {
+        return fatos;
+    }
+
+    public void setFatos(String fatos) {
+        this.fatos = fatos;
+    }
+
+    public String getProvas() {
+        return provas;
+    }
+
+    public void setProvas(String provas) {
+        this.provas = provas;
+    }
+
+    public String getInformacaoReservada() {
+        return informacaoReservada;
+    }
+
+    public void setInformacaoReservada(String informacaoReservada) {
+        this.informacaoReservada = informacaoReservada;
+    }
+
+    public int getNbIndeferido() {
+        return nbIndeferido;
+    }
+
+    public void setNbIndeferido(int nbIndeferido) {
+        this.nbIndeferido = nbIndeferido;
+    }
+
+    public int getNbDeferido() {
+        return nbDeferido;
+    }
+
+    public void setNbDeferido(int nbDeferido) {
+        this.nbDeferido = nbDeferido;
+    }
+
+    public Date getDer() {
+        return der;
+    }
+
+    public void setDer(Date der) {
+        this.der = der;
+    }
+
+    public Date getDcb() {
+        return dcb;
+    }
+
+    public void setDcb(Date dcb) {
+        this.dcb = dcb;
+    }
+
+    public Date getDib() {
+        return dib;
+    }
+
+    public void setDib(Date dib) {
+        this.dib = dib;
+    }
+
+    public Date getDip() {
+        return dip;
+    }
+
+    public void setDip(Date dip) {
+        this.dip = dip;
+    }
+
+    public String getMotivoIndeferimento() {
+        return motivoIndeferimento;
+    }
+
+    public void setMotivoIndeferimento(String motivoIndeferimento) {
+        this.motivoIndeferimento = motivoIndeferimento;
+    }
+
+    public String getIncapacidade() {
+        return incapacidade;
+    }
+
+    public void setIncapacidade(String incapacidade) {
+        this.incapacidade = incapacidade;
+    }
+
+    public String getDependente() {
+        return dependente;
+    }
+
+    public void setDependente(String dependente) {
+        this.dependente = dependente;
+    }
+
+    
+    
     public Long getId() {
         return id;
     }
@@ -137,8 +284,6 @@ public class Processo implements Serializable {
         this.colaborador = colaborador;
     }
 
-
-
     public String getNumero() {
         return numero;
     }
@@ -146,8 +291,6 @@ public class Processo implements Serializable {
     public void setNumero(String numero) {
         this.numero = numero;
     }
-
-
 
     public Date getDataCadastro() {
         return dataCadastro;
@@ -172,8 +315,6 @@ public class Processo implements Serializable {
     public void setMateria(Materia materia) {
         this.materia = materia;
     }
-
-   
 
     public JuizoTribunal getJuizoTribunal() {
         return juizoTribunal;
@@ -247,8 +388,6 @@ public class Processo implements Serializable {
         this.fase = fase;
     }
 
-    
-    
     @Override
     public int hashCode() {
         int hash = 7;

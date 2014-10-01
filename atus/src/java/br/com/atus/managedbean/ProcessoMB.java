@@ -7,6 +7,7 @@
 package br.com.atus.managedbean;
 
 import br.com.atus.controller.ProcessoController;
+import br.com.atus.modelo.ParteInteressada;
 import br.com.atus.modelo.Processo;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
@@ -37,6 +38,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable{
     @EJB
     private ProcessoController controller;
     private Processo processo;
+    private ParteInteressada parteInteressada;
     private List<Processo> listaProcessos;
     private int i;
     
@@ -121,6 +123,14 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable{
 
     public void setI(int i) {
         this.i = i;
+    }
+
+    public ParteInteressada getParteInteressada() {
+        return parteInteressada;
+    }
+
+    public void setParteInteressada(ParteInteressada parteInteressada) {
+        this.parteInteressada = parteInteressada;
     }
     
     

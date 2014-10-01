@@ -7,7 +7,6 @@ package br.com.atus.managedbean;
 
 import br.com.atus.controller.MateriaController;
 import br.com.atus.modelo.Materia;
-import br.com.atus.modelo.Orgao;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
@@ -45,8 +44,12 @@ public class MateriaMB extends BeanGenerico<Materia> implements Serializable {
 
     @PostConstruct
     public void init() {
-        materia = (Materia) navegacaoMB.getRegistroMapa("materia", new Materia());
-        listaMaterias = new ArrayList<>();
+        try {
+            materia = (Materia) navegacaoMB.getRegistroMapa("materia", new Materia());
+            listaMaterias = controller.listarTodos("nome");
+        } catch (Exception ex) {
+            Logger.getLogger(MateriaMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void salvar() {

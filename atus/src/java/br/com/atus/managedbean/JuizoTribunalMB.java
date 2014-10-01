@@ -44,8 +44,12 @@ public class JuizoTribunalMB extends BeanGenerico<JuizoTribunal> implements Seri
 
     @PostConstruct
     public void init() {
-        juizoTribunal = (JuizoTribunal) navegacaoMB.getRegistroMapa("juizo_tribunal", new JuizoTribunal());
-        listaJuizoTribunals = new ArrayList<>();
+        try {
+            juizoTribunal = (JuizoTribunal) navegacaoMB.getRegistroMapa("juizo_tribunal", new JuizoTribunal());
+            listaJuizoTribunals = controller.listarTodos("nome");
+        } catch (Exception ex) {
+            Logger.getLogger(JuizoTribunalMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     
