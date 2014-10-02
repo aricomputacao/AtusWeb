@@ -12,12 +12,16 @@
     <composite:interface id="interCon">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
         <composite:facet name="btnConsultaCliente"/>
-        <composite:facet name="btnAcaoCliente"/>
         <composite:attribute name="renderBtnEditar" default="true" shortDescription="renderizar o btn editar" />
+        <composite:attribute name="renderSelecionar" default="false"/>
+        <composite:attribute name="renderInfo" default="true"/>
+        <composite:attribute name="valorSelecionado" />
+        <composite:attribute name="nomeDialog" />
+        <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
 
 
     </composite:interface>
-    <composite:implementation  >
+    <composite:implementation id="compConCli" >
 
         <h:panelGrid  width="100%" id="rtt" >
             <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" style="font-weight: bold">
@@ -38,7 +42,7 @@
 
                     </h:panelGrid>
                 </h:panelGrid>
-                <p:dataTable value="#{clienteMB.listaClientes}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10" 
+                <p:dataTable value="#{clienteMB.listaClientes}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10" 
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
                     <p:column headerText="Nome/Razão Social" width="30%" sortBy="#{t.pessoa.nome}">
@@ -53,8 +57,10 @@
 
 
                     <p:column headerText="Ação" width="5%" style="text-align: center">
-                        <p:commandButton actionListener="#{clienteMB.setarCliente(t)}" style="width: 22px;height: 22px" title="Informações"  update=":fic" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
+                        <p:commandButton actionListener="#{clienteMB.setarCliente(t)}" style="width: 22px;height: 22px" rendered="#{cc.attrs.renderInfo}" title="Informações"  update=":fic" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
                         <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderBtnEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.cliente'],'cliente',t)}" />
+                        <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
+
                     </p:column>
 
                 </p:dataTable>

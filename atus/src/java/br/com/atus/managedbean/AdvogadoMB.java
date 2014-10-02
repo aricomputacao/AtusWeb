@@ -52,7 +52,7 @@ public class AdvogadoMB extends BeanGenerico<Advogado> implements Serializable{
     public void init(){
         try {
             advogado = (Advogado) navegacaoMB.getRegistroMapa("advogado", new Advogado());
-            listaAdvogados = new ArrayList<>();
+            listaAdvogados = controller.listarTodos("pessoa.nome");
             listaUnidadeFederativas = unidadeFederativaController.listarTodos("nome");
         } catch (Exception ex) {
             Logger.getLogger(AdvogadoMB.class.getName()).log(Level.SEVERE, null, ex);

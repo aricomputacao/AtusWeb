@@ -11,8 +11,7 @@
 
     <composite:interface id="interCon">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
-        <composite:attribute name="renderExcluir" default="true"/>
-        <composite:attribute name="renderEditar" default="true"/>
+   
         <composite:attribute name="renderSelecionar" default="false"/>
         <composite:attribute name="valorSelecionado" />
         <composite:attribute name="nomeDialog" />
@@ -21,50 +20,42 @@
     </composite:interface>
     <composite:implementation  >
 
-        <h:panelGrid  width="100%" id="rtt" >
+        <h:panelGrid  width="100%"  >
             <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" style="font-weight: bold">
                 <h:panelGrid id="grdConsulta" columns="4">
                     <h:panelGrid id="grdConsulta1">
                         <p:outputLabel value="Campo"/>
-                        <p:selectOneMenu value="#{advogadoMB.campoBusca}" styleClass="lista">
+                        <p:selectOneMenu value="#{objetoProcessoMB.campoBusca}" styleClass="lista">
                             <f:selectItem itemLabel="Nome" itemValue="nome" />
                         </p:selectOneMenu>
                     </h:panelGrid>
-                    <h:panelGrid id="grdConsulta2">
+                    <h:panelGrid >
                         <p:outputLabel value="Buscar por"/>
-                        <p:inputText value="#{advogadoMB.valorBusca}" />
+                        <p:inputText value="#{objetoProcessoMB.valorBusca}" />
                     </h:panelGrid>
-                    <h:panelGrid id="grdConsulta3">
+                    <h:panelGrid >
                         <p:spacer width="15"/>
                         <h:panelGrid columns="2" id="btnConRamo">
                             <p:blockUI block="@form"  trigger="btnCon2:btn"  >
                                 <p:graphicImage library="imagens" name="carregar.gif"/>
                             </p:blockUI>
-                            <comp:commandButton_consulta  id="btnCon2"  acao_butao="#{advogadoMB.listar()}"  componente_to_update="@form" />
+                            <comp:commandButton_consulta  id="btnCon2"  acao_butao="#{objetoProcessoMB.listar()}"  componente_to_update="@form" />
                         </h:panelGrid>
                     </h:panelGrid>
                 </h:panelGrid>
-                <p:dataTable value="#{advogadoMB.listaAdvogados}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
+                <p:dataTable value="#{objetoProcessoMB.listaObjetoProcessos}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
 
                     <p:column headerText="Nome" sortBy="#{t.nome}">
                         <comp:outputText value="#{t.nome}"/>
                     </p:column>
-                    <p:column headerText="OAB" >
-                        <comp:outputText value="#{t.oab}"/>
+                    <p:column headerText="Descrição" >
+                        <comp:outputText value="#{t.descricao}"/>
                     </p:column>
-                    <p:column headerText="Estado" >
-                        <comp:outputText value="#{t.uf.nome}"/>
-                    </p:column>
-
-
                     <p:column headerText="Ação" width="6%" style="text-align: center">
-                        <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.advogado'],'advogado',t)}" />
-                        <comp:commandButton_excluir acao_butao="#{advogadoMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Advogado" form_to_update="@form"/>
                         <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
                     </p:column>
-
                 </p:dataTable>
             </p:fieldset>
 

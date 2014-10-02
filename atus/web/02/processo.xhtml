@@ -30,11 +30,38 @@
 
     </ui:define>
     <ui:define name="dialogs">
-
-        <p:dialog showEffect="fade" position="top"   header="Consulta de Usuário" id="adv" modal="true" hideEffect="fade" widgetVar="dialogUsr">
+        <p:dialog showEffect="fade" position="top"   header="Cadastro de Tipo de Contrato" id="tpCo" modal="true" hideEffect="fade" widgetVar="dialogoTipoContrato">
             <h:form>
-                <cons:UsuarioConsulta nomeDialog="dialogUsr" renderEditar="false" renderExcluir="false" renderSelecionar="true" update_form=":frm_pag:cadFrm:compFase:input_componente" 
-                                      valorSelecionado="#{faseMB.fase.usuario}"/>
+                <util:menuCadDialogo id="menDialog" frm_update=":frm_pag:cadFrm:compProce:tbView:grdTipCon" acao_remoteCommand="#{tipoContratoMB.listar()}" acao_salvar="#{tipoContratoMB.salvar()}"  />
+                <cadastro:TipoContratoCadastro/>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="top"   header="Cadastro de Endereçamento" id="adv" modal="true" hideEffect="fade" widgetVar="dialogoEnderecamento">
+            <h:form>
+                <util:menuCadDialogo id="menDialog" frm_update=":frm_pag:cadFrm:compProce:tbView:grdEndere" acao_remoteCommand="#{enderecamentoMB.listar()}" acao_salvar="#{enderecamentoMB.salvar()}"  />
+                <cadastro:EnderecamentoCadastro />
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="top"   header="Cadastro de Objeto" id="cadObj" modal="true" hideEffect="fade" widgetVar="dialogoCadObjeto">
+            <h:form>
+                <util:menuCadDialogo id="menDialog" frm_update=":frm_pag:cadFrm:compProce:tbView:grdEndere" acao_remoteCommand="#{objetoProcessoMB.listar()}" acao_salvar="#{objetoProcessoMB.salvar()}"  />
+                <cadastro:ObjetoCadastro/>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="top"   header="Consulta de Objeto" id="conObj" modal="true" hideEffect="fade" widgetVar="dialogoConObjeto">
+            <h:form>
+                <cons:ObjetoProcessoConsulta nomeDialog="dialogoConObjeto" update_form=":frm_pag:cadFrm:compProce:tbView:grdObj" valorSelecionado="#{processoMB.processo.objetoProcesso}" />
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="top"   header="Consulta de Pessoas" id="conPesInt" modal="true" hideEffect="fade" widgetVar="dialogoConIntere">
+            <h:form id="frmConInt" prependId="false">
+                <cons:ClienteConsulta renderBtnEditar="false" id="tblInt" renderSelecionar="true" renderInfo="false"  nomeDialog="dialogoConIntere" update_form=":frm_pag:cadFrm:compProce:tbView:input_componente_int" valorSelecionado="#{processoMB.parteInteressada.cliente}" >
+                   <f:facet name="btnConsultaCliente">
+                            <h:panelGrid columns="2" id="btnConRamo">                               
+                                <comp:commandButton_consulta id="btnCon" acao_butao="#{clienteMB.listar()}"  componente_to_update="@form:tblInt:fieldCon" />
+                            </h:panelGrid>
+                        </f:facet>
+                </cons:ClienteConsulta>
             </h:form>
         </p:dialog>
     </ui:define>

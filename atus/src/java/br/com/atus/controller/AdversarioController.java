@@ -9,6 +9,7 @@ package br.com.atus.controller;
 import br.com.atus.dao.AdversarioDAO;
 import br.com.atus.modelo.Adversario;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -22,6 +23,7 @@ public class AdversarioController extends Controller<Adversario, Long> implement
     @EJB
     private AdversarioDAO dao;
     
+    @PostConstruct
     @Override
     protected void inicializaDAO() {
         setDAO(dao);

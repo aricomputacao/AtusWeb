@@ -9,6 +9,7 @@ package br.com.atus.controller;
 import br.com.atus.dao.ParteInteressadaDAO;
 import br.com.atus.modelo.ParteInteressada;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -22,6 +23,7 @@ public class ParteInteressadaController extends Controller<ParteInteressada, Lon
     @EJB
     private ParteInteressadaDAO dao;
     
+    @PostConstruct
     @Override
     protected void inicializaDAO() {
         setDAO(dao);
