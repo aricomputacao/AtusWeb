@@ -56,12 +56,23 @@
         <p:dialog showEffect="fade" position="top"   header="Consulta de Pessoas" id="conPesInt" modal="true" hideEffect="fade" widgetVar="dialogoConIntere">
             <h:form id="frmConInt" prependId="false">
                 <cons:ClienteConsulta renderBtnEditar="false" id="tblInt" renderSelecionar="true" renderInfo="false"  nomeDialog="dialogoConIntere" update_form=":frm_pag:cadFrm:compProce:tbView:input_componente_int" valorSelecionado="#{processoMB.parteInteressada.cliente}" >
-                   <f:facet name="btnConsultaCliente">
-                            <h:panelGrid columns="2" id="btnConRamo">                               
-                                <comp:commandButton_consulta id="btnCon" acao_butao="#{clienteMB.listar()}"  componente_to_update="@form:tblInt:fieldCon" />
-                            </h:panelGrid>
-                        </f:facet>
+                    <f:facet name="btnConsultaCliente">
+                        <h:panelGrid columns="2" id="btnConRamo">                               
+                            <comp:commandButton_consulta id="btnCon" acao_butao="#{clienteMB.listar()}"  componente_to_update="@form:tblInt:fieldCon" />
+                        </h:panelGrid>
+                    </f:facet>
                 </cons:ClienteConsulta>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="top"   header="Consulta de Pessoas" id="conPesAdv" modal="true" hideEffect="fade" widgetVar="dialogoConAdv">
+            <h:form id="frmConAdv" prependId="false">
+                <cons:AdversarioConsulta renderBtnEditar="false" id="tblAdv" renderSelecionar="true" renderInfo="false"  nomeDialog="dialogoConAdv" update_form=":frm_pag:cadFrm:compProce:tbView:input_componente_adv" valorSelecionado="#{processoMB.adversario.cliente}" >
+                    <f:facet name="btnConsultaCliente">
+                        <h:panelGrid columns="2" >               
+                            <comp:commandButton_consulta id="btnCon" acao_butao="#{clienteMB.listar()}"  componente_to_update="@form:tblAdv:fieldCon" />
+                        </h:panelGrid>
+                    </f:facet>
+                </cons:AdversarioConsulta>
             </h:form>
         </p:dialog>
     </ui:define>
