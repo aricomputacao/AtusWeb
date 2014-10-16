@@ -26,7 +26,6 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "parte_interessada", schema = "processo")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ParteInteressada implements Serializable {
 
     @Id

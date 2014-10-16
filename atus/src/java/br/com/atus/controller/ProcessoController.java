@@ -9,6 +9,7 @@ package br.com.atus.controller;
 import br.com.atus.dao.ProcessoDAO;
 import br.com.atus.modelo.Processo;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Startup;
 import javax.ejb.Stateless;
@@ -23,6 +24,7 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
     @EJB
     private ProcessoDAO dao;
     
+    @PostConstruct
     @Override
     protected void inicializaDAO() {
         setDAO(dao);

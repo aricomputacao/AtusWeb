@@ -168,7 +168,7 @@
                                     <p:commandButton style="margin-top: 23px" value="Adicionar"  actionListener="#{processoMB.addAdversario()}"  update=":frm_pag:cadFrm:compProce:tbView:tabelaAdv" icon="ui-icon-circle-plus"  />
                                 </h:panelGrid>
                             </h:panelGrid>
-                            <p:dataTable value="#{processoMB.processo.parteInteressadas}" id="tabelaAdv" paginatorAlwaysVisible="false" paginator="true" var="t2" rows="10"
+                             <p:dataTable value="#{processoMB.processo.adversarios}" id="tabelaAdv" paginatorAlwaysVisible="false" paginator="true" var="t2" rows="10"
                                          rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                                          rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
 
