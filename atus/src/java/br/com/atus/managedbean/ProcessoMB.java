@@ -65,7 +65,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     public void addInteressado() {
         try {
-            interessadaController.salvarouAtualizar(parteInteressada);
+//            interessadaController.salvarouAtualizar(parteInteressada);
             processo.getParteInteressadas().add(parteInteressada);
             parteInteressada = new ParteInteressada();
         } catch (Exception ex) {
@@ -75,7 +75,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     public  void addAdversario(){
         try {
-            adversarioController.salvarouAtualizar(adversario);
+//            adversarioController.salvarouAtualizar(adversario);
             processo.getAdversarios().add(adversario);
             adversario = new Adversario();
         } catch (Exception ex) {
@@ -85,6 +85,12 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     }
     public void salvar() {
         try {
+            for (Adversario adv : processo.getAdversarios()) {
+                adversarioController.salvar(adv);
+            }
+            for (ParteInteressada pi : processo.getParteInteressadas()) {
+                interessadaController.salvar(pi);
+            }
             controller.salvarouAtualizar(processo);
             init();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));

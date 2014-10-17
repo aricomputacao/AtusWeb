@@ -36,16 +36,17 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 @Entity
 @Table(name = "processo", schema = "processo")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Processo implements Serializable {
-
+  //Adicionr cliente
+    //filho conjuge falecido
+    //nb deferido string
     @Id
     @Column(name = "pro_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "end_id", referencedColumnName = "end_id", nullable = false)
+    @JoinColumn(name = "end_id", referencedColumnName = "end_id")
     @NotNull
     private Enderecamento enderecamento;
 
@@ -61,22 +62,22 @@ public class Processo implements Serializable {
     @Fetch(FetchMode.SELECT)
     private List<ParteInteressada> parteInteressadas;
 
-    @Column(name = "pro_numero", length = 20)
-    @Length(max = 20)
+    @Column(name = "pro_numero", length = 80)
+    @Length(max = 80)
     private String numero;
 
     @ManyToOne
-    @JoinColumn(name = "tpc_id", referencedColumnName = "tpc_id", nullable = false)
+    @JoinColumn(name = "tpc_id", referencedColumnName = "tpc_id")
     @NotNull
     private TipoContrato tipoContrato;
 
     @ManyToOne
-    @JoinColumn(name = "fas_id", referencedColumnName = "fas_id", nullable = false)
+    @JoinColumn(name = "fas_id", referencedColumnName = "fas_id")
     @NotNull
     private Fase fase;
 
     @NotNull
-    @Column(name = "pro_data_cadastro", nullable = false)
+    @Column(name = "pro_data_cadastro")
     @Temporal(TemporalType.DATE)
     private Date dataCadastro;
 
@@ -85,46 +86,45 @@ public class Processo implements Serializable {
     private Usuario usuarioCadastro;
 
     @ManyToOne
-    @JoinColumn(name = "mat_id", referencedColumnName = "mat_id", nullable = false)
+    @JoinColumn(name = "mat_id", referencedColumnName = "mat_id")
     @NotNull
     private Materia materia;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "obp_id", referencedColumnName = "obp_id", nullable = false)
-    private ObjetoProcesso objetoProcesso;
+    @Column(name = "pro_objeto",length = 1024)
+    private String objetoProcesso;
 
     @ManyToOne
-    @JoinColumn(name = "jut_id", referencedColumnName = "jut_id", nullable = false)
+    @JoinColumn(name = "jut_id", referencedColumnName = "jut_id")
     @NotNull
     private JuizoTribunal juizoTribunal;
 
-    @Column(name = "pro_valor", nullable = false)
+    @Column(name = "pro_valor")
     @NotNull
     private BigDecimal valor;
 
     @ManyToOne
-    @JoinColumn(name = "adv_id", referencedColumnName = "adv_id", nullable = false)
+    @JoinColumn(name = "adv_id", referencedColumnName = "adv_id")
     @NotNull
     private Advogado advogado;
 
     @Length(max = 100000)
-    @Column(name = "pro_observacoes", nullable = false, length = 100000)
+    @Column(name = "pro_observacoes", length = 100000)
     @NotBlank
     private String observacoes;
 
     @Length(max = 100000)
-    @Column(name = "pro_fatos", nullable = false, length = 100000)
+    @Column(name = "pro_fatos",  length = 100000)
     @NotBlank
     private String fatos;
 
     @Length(max = 100000)
-    @Column(name = "pro_provas", nullable = false, length = 100000)
+    @Column(name = "pro_provas", length = 100000)
     @NotBlank
     private String provas;
 
     @Length(max = 100000)
-    @Column(name = "pro_informacao_reservada", nullable = false, length = 100000)
+    @Column(name = "pro_informacao_reservada",  length = 100000)
     @NotBlank
     private String informacaoReservada;
 
@@ -372,13 +372,15 @@ public class Processo implements Serializable {
         this.tipoContrato = tipoContrato;
     }
 
-    public ObjetoProcesso getObjetoProcesso() {
+    public String getObjetoProcesso() {
         return objetoProcesso;
     }
 
-    public void setObjetoProcesso(ObjetoProcesso objetoProcesso) {
+    public void setObjetoProcesso(String objetoProcesso) {
         this.objetoProcesso = objetoProcesso;
     }
+
+  
 
     public Fase getFase() {
         return fase;
