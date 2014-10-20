@@ -16,14 +16,18 @@
         <h:outputScript name="maskMoney.js" library="js" />
         <h:outputScript name="edtMoeda.js"  library="js"/>
         <h:form id="frm_pag" prependId="false" >
-
+           
             <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['pro.processo'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['pro.processo'])}" acao_imprimir="#{faseMB.imprimir()}" acao_limpar="#{processoMB.init()}" acao_salvar="#{processoMB.salvar()}"/>
             <comp:panel_cadastro id="cadFrm" cabecalho_grid="Processo" id_form="frm_pag"  >               
                 <h:panelGrid width="100%" rendered="#{navegacaoMB.renderPainelCadastro}"  >
                     <cadastro:ProcessoCadastro id="compProce"/>
                 </h:panelGrid>       
                 <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}"> 
-                    <cons:FaseConsulta/>
+                    <cons:ProcessoConsulta id="compProceConsu">
+                        <f:facet name="btnConsultaProcesso">
+                            <comp:commandButton_consulta id="btnCon" acao_butao="#{processoMB.listar()}" componente_to_update=":frm_pag:cadFrm:compProceConsu:tabela"/>
+                        </f:facet>
+                    </cons:ProcessoConsulta>
                 </h:panelGrid>
             </comp:panel_cadastro>
         </h:form>
@@ -50,7 +54,6 @@
         </p:dialog>
         <p:dialog showEffect="fade" position="top"   header="Consulta de Objeto" id="conObj" modal="true" hideEffect="fade" widgetVar="dialogoConObjeto">
             <h:form>
-                <cons:ObjetoProcessoConsulta nomeDialog="dialogoConObjeto" update_form=":frm_pag:cadFrm:compProce:tbView:grdObj" valorSelecionado="#{processoMB.processo.objetoProcesso}" />
             </h:form>
         </p:dialog>
         <p:dialog showEffect="fade" position="top"   header="Consulta de Pessoas" id="conPesInt" modal="true" hideEffect="fade" widgetVar="dialogoConIntere">

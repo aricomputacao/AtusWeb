@@ -54,6 +54,10 @@ public class Processo implements Serializable {
     @JoinColumn(name = "col_id", referencedColumnName = "col_id")
     private Colaborador colaborador;
 
+    @ManyToOne
+    @JoinColumn(name = "cli_id", referencedColumnName = "cli_id")
+    private Cliente cliente;
+    
     @OneToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
     private List<Adversario> adversarios;
@@ -129,10 +133,10 @@ public class Processo implements Serializable {
     private String informacaoReservada;
 
     @Column(name = "pro_nb_indeferido")
-    private int nbIndeferido;
+    private String nbIndeferido;
 
     @Column(name = "pro_nb_deferido")
-    private int nbDeferido;
+    private String nbDeferido;
 
     @Column(name = "pro_der")
     @Temporal(TemporalType.DATE)
@@ -186,25 +190,36 @@ public class Processo implements Serializable {
         this.informacaoReservada = informacaoReservada;
     }
 
-    public int getNbIndeferido() {
+    public String getNbIndeferido() {
         return nbIndeferido;
     }
 
-    public void setNbIndeferido(int nbIndeferido) {
+    public void setNbIndeferido(String nbIndeferido) {
         this.nbIndeferido = nbIndeferido;
     }
 
-    public int getNbDeferido() {
+    public String getNbDeferido() {
         return nbDeferido;
     }
 
-    public void setNbDeferido(int nbDeferido) {
+    public void setNbDeferido(String nbDeferido) {
         this.nbDeferido = nbDeferido;
     }
+
+   
 
     public Date getDer() {
         return der;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
 
     public void setDer(Date der) {
         this.der = der;

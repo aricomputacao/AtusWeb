@@ -65,7 +65,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     public void addInteressado() {
         try {
-//            interessadaController.salvarouAtualizar(parteInteressada);
+            interessadaController.salvar(parteInteressada);
             processo.getParteInteressadas().add(parteInteressada);
             parteInteressada = new ParteInteressada();
         } catch (Exception ex) {
@@ -75,7 +75,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     public  void addAdversario(){
         try {
-//            adversarioController.salvarouAtualizar(adversario);
+            adversarioController.salvar(adversario);
             processo.getAdversarios().add(adversario);
             adversario = new Adversario();
         } catch (Exception ex) {
@@ -85,12 +85,8 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     }
     public void salvar() {
         try {
-            for (Adversario adv : processo.getAdversarios()) {
-                adversarioController.salvar(adv);
-            }
-            for (ParteInteressada pi : processo.getParteInteressadas()) {
-                interessadaController.salvar(pi);
-            }
+            //setar cliente como o primeiro cliente da lista da parte interessada
+            processo.setCliente(processo.getParteInteressadas().get(0).getCliente());
             controller.salvarouAtualizar(processo);
             init();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
@@ -104,9 +100,9 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaProcessos = controller.listarTodos("nome");
+                listaProcessos = controller.listarTodos("numero");
             } else {
-                listaProcessos = controller.listarLike("nome", getValorBusca());
+                listaProcessos = controller.listarLike("numero", getValorBusca());
 
             }
         } catch (Exception ex) {

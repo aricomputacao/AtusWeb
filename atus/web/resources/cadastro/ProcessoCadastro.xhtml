@@ -78,15 +78,10 @@
                                 </h:panelGrid>
                             </h:panelGrid>
                             <h:panelGrid id="grdObj"  >
-                                <h:panelGrid >
+                                <h:panelGrid >                                   
+                                    <p:outputLabel value="Objeto" for="input_componente_obj"/>
                                     <h:panelGrid columns="3">
-                                        <p:outputLabel value="Objeto" for="input_componente_obj"/>
-                                        <p:commandButton icon="ui-icon-search"  style="margin-left: 120px" onclick="PF('dialogoConObjeto').show()" title="Selecionar"  immediate="true" update=":frm_pag"/>
-                                        <p:commandButton onclick="PF('dialogoCadObjeto').show()" immediate="true" icon="ui-icon-circle-plus" title="Adicionar"/>
-                                    </h:panelGrid>
-
-                                    <h:panelGrid columns="3">
-                                        <p:inputTextarea rows="5" cols="30" value="#{processoMB.processo.objetoProcesso.descricao}" id="input_componente_obj" required="true" />
+                                        <p:inputTextarea rows="5" cols="30" value="#{processoMB.processo.objetoProcesso }" id="input_componente_obj" required="true" />
                                     </h:panelGrid>
                                 </h:panelGrid>
                             </h:panelGrid>
@@ -154,7 +149,7 @@
                 </p:tab>
                 <p:tab id="tabAdversario" title="Adversário">
                     <h:panelGrid id="grdIntAdv" >
-                         <p:panel style="text-align: center" header="Adversário">
+                        <p:panel style="text-align: center" header="Adversário">
                             <h:panelGrid   >
                                 <h:panelGrid>
                                     <p:outputLabel value="Interessado" for="input_componente_adv"/>
@@ -168,7 +163,7 @@
                                     <p:commandButton style="margin-top: 23px" value="Adicionar"  actionListener="#{processoMB.addAdversario()}"  update=":frm_pag:cadFrm:compProce:tbView:tabelaAdv" icon="ui-icon-circle-plus"  />
                                 </h:panelGrid>
                             </h:panelGrid>
-                             <p:dataTable value="#{processoMB.processo.adversarios}" id="tabelaAdv" paginatorAlwaysVisible="false" paginator="true" var="t2" rows="10"
+                            <p:dataTable value="#{processoMB.processo.adversarios}" id="tabelaAdv" paginatorAlwaysVisible="false" paginator="true" var="t2" rows="10"
                                          rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                                          rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
 
@@ -200,35 +195,52 @@
 
                 </p:tab>
                 <p:tab id="tabDadProces" title="Dados Processuais">
-                    <h:panelGrid>
-                        <p:outputLabel value="NB Indeferido" for="nb"/>
-                        <p:inputText id="nb" onkeypress="return soNumero()" value="#{processoMB.processo.nbIndeferido}" />
+                    <h:panelGrid columns="3">
+                        <h:panelGrid>
+                            <p:outputLabel value="NB Indeferido" for="nb"/>
+                            <p:inputText id="nb" onkeypress="return soNumero()" value="#{processoMB.processo.nbIndeferido}" />
+                        </h:panelGrid>
+                        <h:panelGrid>
+                            <comp:inputTextCalendar nomeLabel="DER" size="15" valorData="#{processoMB.processo.der}" />
+                        </h:panelGrid>
+
                     </h:panelGrid>
-                    <h:panelGrid>
-                        <comp:inputTextCalendar nomeLabel="DER" size="15" valorData="#{processoMB.processo.der}" />
+                    <h:panelGrid columns="3">
+                        <h:panelGrid>
+                            <comp:inputTextArea nomeLabel="Motivo Indeferimento/Cessação" value="#{processoMB.processo.motivoIndeferimento}" coluna="50" linha="5"/>
+                        </h:panelGrid>
+                        <h:panelGrid>
+                            <comp:inputTextArea nomeLabel="Incapacidade/Causa da Morte" value="#{processoMB.processo.incapacidade}" coluna="50" linha="5"/>
+                        </h:panelGrid>
+
                     </h:panelGrid>
-                    <h:panelGrid>
-                        <comp:inputTextArea nomeLabel="Motivo Indeferimento/Cessação" value="#{processoMB.processo.motivoIndeferimento}" coluna="50" linha="5"/>
+                    <h:panelGrid columns="2">
+                        <h:panelGrid>
+                            <comp:inputTextArea nomeLabel="Filho/Cônjuge/Falecido" value="#{processoMB.processo.dependente}" coluna="50" linha="5"/>
+                        </h:panelGrid>
+                        <h:panelGrid>
+
+                            <h:panelGrid columns="2"> 
+                                <h:panelGrid>
+                                    <p:outputLabel value="NB Deferido" />
+                                    <p:inputText  onkeypress="return soNumero()"  value="#{processoMB.processo.nbDeferido}" />
+                                </h:panelGrid>
+                                <h:panelGrid>
+                                    <comp:inputTextCalendar nomeLabel="DCB" size="15" valorData="#{processoMB.processo.dcb}" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2"> 
+                                <h:panelGrid>
+                                    <comp:inputTextCalendar nomeLabel="DIB" size="15" valorData="#{processoMB.processo.dib}" />
+                                </h:panelGrid>
+                                <h:panelGrid>
+                                    <comp:inputTextCalendar nomeLabel="DIP" size="15" valorData="#{processoMB.processo.dip}" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+                        </h:panelGrid>
+
                     </h:panelGrid>
-                    <h:panelGrid>
-                        <comp:inputTextArea nomeLabel="Incapacidade/Causa da Morte" value="#{processoMB.processo.incapacidade}" coluna="50" linha="5"/>
-                    </h:panelGrid>
-                    <h:panelGrid>
-                        <comp:inputTextArea nomeLabel="Filho/Cônjuge/Falecido" value="#{processoMB.processo.dependente}" coluna="50" linha="5"/>
-                    </h:panelGrid>
-                    <h:panelGrid>
-                        <p:outputLabel value="NB Deferido" />
-                        <p:inputText  onkeypress="return soNumero()"  value="#{processoMB.processo.nbDeferido}" />
-                    </h:panelGrid>
-                    <h:panelGrid>
-                        <comp:inputTextCalendar nomeLabel="DCB" size="15" valorData="#{processoMB.processo.dcb}" />
-                    </h:panelGrid>
-                    <h:panelGrid>
-                        <comp:inputTextCalendar nomeLabel="DCB" size="15" valorData="#{processoMB.processo.dib}" />
-                    </h:panelGrid>
-                    <h:panelGrid>
-                        <comp:inputTextCalendar nomeLabel="DCB" size="15" valorData="#{processoMB.processo.dip}" />
-                    </h:panelGrid>
+
                 </p:tab>
                 <p:tab id="tabMov" title="Movimentações">
 
