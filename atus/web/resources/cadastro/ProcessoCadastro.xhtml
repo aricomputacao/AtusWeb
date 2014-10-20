@@ -8,7 +8,8 @@
                 xmlns:composite="http://java.sun.com/jsf/composite"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:comp="http://java.sun.com/jsf/composite/comp"
-                xmlns:util="http://java.sun.com/jsf/composite/util">
+                xmlns:util="http://java.sun.com/jsf/composite/util"
+                xmlns:consultas="http://java.sun.com/jsf/composite/consultas">
 
     <composite:interface id="interCon">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
@@ -246,7 +247,27 @@
 
                 </p:tab>
                 <p:tab id="tabEvent" title="Eventos">
+                    <p:dataTable value="#{processoMB.listaEventos}" id="tabelaEven" paginatorAlwaysVisible="false"  paginator="true" var="ev" rows="10" 
+                                 rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                 rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                        <p:column headerText="Nome" width="10%" sortBy="#{t.nome}">
+                            <comp:outputText value="#{ev.nome}"/>
+                        </p:column>
+                        <p:column headerText="Tipo" width="10%" >
+                            <comp:outputText value="#{ev.especieEvento.nome}"/>
+                        </p:column>
+                        <p:column headerText="Descrição" width="30%" >
+                            <comp:outputText value="#{ev.observacao}"/>
+                        </p:column>
+                        <p:column headerText="Participante" width="10%" >
+                            <comp:outputText value="#{t.usuario.nome}"/>
+                        </p:column>
+                        <p:column headerText="Data" width="5%" >
+                            <comp:outputText tipo="d" value="#{ev.data}"/>
+                        </p:column>
 
+
+                    </p:dataTable>
                 </p:tab>
                 <p:tab id="tabCus" title="Custos e Despesas">
                     <h:panelGrid>

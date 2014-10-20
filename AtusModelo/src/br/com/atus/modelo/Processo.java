@@ -36,6 +36,7 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 @Entity
 @Table(name = "processo", schema = "processo")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Processo implements Serializable {
   //Adicionr cliente
     //filho conjuge falecido

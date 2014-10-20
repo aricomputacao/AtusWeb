@@ -53,6 +53,11 @@ public class Evento implements Serializable {
     @JoinColumn(name = "ese_id",referencedColumnName = "ese_id",nullable = false)
     private EspecieEvento especieEvento;
     
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "pro_id",referencedColumnName = "pro_id",nullable = false)
+    private Processo processo;
+    
     @NotBlank
     @Column(name = "eve_nome",nullable = false)
     private String nome;
@@ -110,6 +115,16 @@ public class Evento implements Serializable {
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
+
+    public Processo getProcesso() {
+        return processo;
+    }
+
+    public void setProcesso(Processo processo) {
+        this.processo = processo;
+    }
+    
+    
 
     @Override
     public int hashCode() {

@@ -6,9 +6,11 @@
 package br.com.atus.managedbean;
 
 import br.com.atus.controller.AdversarioController;
+import br.com.atus.controller.EventoController;
 import br.com.atus.controller.ParteInteressadaController;
 import br.com.atus.controller.ProcessoController;
 import br.com.atus.modelo.Adversario;
+import br.com.atus.modelo.Evento;
 import br.com.atus.modelo.ParteInteressada;
 import br.com.atus.modelo.Processo;
 import br.com.atus.util.AssistentedeRelatorio;
@@ -43,10 +45,13 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     private ParteInteressadaController interessadaController;
     @EJB
     private AdversarioController adversarioController;
+    @EJB
+    private EventoController eventoController;
     private Processo processo;
     private Adversario adversario;
     private ParteInteressada parteInteressada;
     private List<Processo> listaProcessos;
+    private List<Evento> listaEventos;
     private int i;
 
     @PostConstruct
@@ -56,6 +61,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             processo.setAdversarios(new ArrayList<Adversario>());
             processo.setParteInteressadas(new ArrayList<ParteInteressada>());
         } else {
+            listaEventos = eventoController.listarPorProcessos(processo);
         }
         adversario = new Adversario();
         parteInteressada = new ParteInteressada();
@@ -175,6 +181,14 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     public void setAdversario(Adversario adversario) {
         this.adversario = adversario;
+    }
+
+    public List<Evento> getListaEventos() {
+        return listaEventos;
+    }
+
+    public void setListaEventos(List<Evento> listaEventos) {
+        this.listaEventos = listaEventos;
     }
 
 }
