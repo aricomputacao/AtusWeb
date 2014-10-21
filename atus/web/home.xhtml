@@ -7,15 +7,19 @@
                 xmlns:h="http://java.sun.com/jsf/html"
 
                 xmlns:util="http://java.sun.com/jsf/composite/util"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro"
+                xmlns:consultas="http://java.sun.com/jsf/composite/consultas"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
 
     <ui:define name="corpo">
-        <p:tabView dynamic="true" prependId="false" id="tabV">
+        <p:tabView dynamic="true" style="margin-top: 10px" prependId="false" id="tabV">
             <p:tab title="Processos" >
                 <p:panel styleClass="painelAgendas">
-                    
+
                 </p:panel>
             </p:tab>
+
             <p:tab title="Agenda" >
                 <h:form id="frm_home" prependId="false" styleClass="painelAgendas">
                     <p:messages id="mensagens" showDetail="true" />
@@ -33,10 +37,18 @@
                                 update="mensagens" oncomplete="PF('meucalendario').update()"/>  
 
                     </p:schedule>
-
-
                 </h:form>
-
+            </p:tab>
+            <p:tab title="Eventos" >
+                <h:form id="frmDialogCadProce">
+                    <p:panel styleClass="painelAgendas">
+                        <consultas:EventoConsulta renderInfo="true" dialogInfo="dialogProc" dialogUpdade=":frmDialogProce" >
+                            <f:facet name="btnConsultaEvento">
+                                <comp:commandButton_consulta acao_butao="#{eventoMB.listarPorPeriodo()}" componente_to_update="@form"  />
+                            </f:facet>
+                        </consultas:EventoConsulta>
+                    </p:panel>
+                </h:form>
             </p:tab>
         </p:tabView>
 
@@ -112,8 +124,13 @@
 
             </p:dialog>  
         </h:form>
-       
+        <p:dialog showEffect="fade" position="top"   header="Processos" id="adv" modal="true" hideEffect="fade" widgetVar="dialogProc">
+            <h:form id="frmDialogProce">
+                <cadastro:ProcessoCadastro />
+            </h:form>
+        </p:dialog>
 
     </ui:define>
+
 </ui:composition>
 

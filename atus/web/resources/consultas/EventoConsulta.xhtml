@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+        <composite:facet name="btnConsultaCliente"/>
+        <composite:attribute name="renderBtnEditar" default="true" shortDescription="renderizar o btn editar" />
+        <composite:attribute name="renderSelecionar" default="false"/>
+        <composite:attribute name="renderInfo" default="false"/>
+        <composite:attribute name="dialogInfo" default="dialogCadProc"/>
+        <composite:attribute name="dialogUpdade" default=":frmDialogCadProce:compCadPro:tbView"/>
+        <composite:attribute name="valorSelecionado" />
+        <composite:attribute name="nomeDialog" />
+        <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
+
+
+    </composite:interface>
+    <composite:implementation id="compConCli" >
+
+        <h:panelGrid  width="100%" id="rtt" >
+            <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" style="font-weight: bold">
+                <h:panelGrid columns="3">
+
+                    <h:panelGrid id="grdConsulta" columns="4">
+                        <h:panelGrid columns="3">
+                            <p:focus for="dtIni"/>
+                            <comp:inputTextCalendar id="dtIni" nomeLabel="Data Inicial" valorData="#{eventoMB.dataInicial}" require="true"/>
+                            <comp:inputTextCalendar nomeLabel="Data Final" valorData="#{eventoMB.dataFinal}" require="true"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid >
+
+                        <p:spacer width="15"/>
+                        <composite:renderFacet name="btnConsultaEvento" />
+                    </h:panelGrid>
+                </h:panelGrid>
+                <p:dataTable value="#{eventoMB.listaEventos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10" 
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                    <p:column headerText="Nome" width="10%" sortBy="#{t.nome}">
+                        <comp:outputText value="#{t.nome}"/>
+                    </p:column>
+                    <p:column headerText="Tipo" width="10%" >
+                        <comp:outputText value="#{t.especieEvento.nome}"/>
+                    </p:column>
+                    <p:column headerText="Processo" width="10%" >
+                        <comp:outputText value="#{t.processo.numero}"/>
+                    </p:column>
+                    <p:column headerText="Descrição" width="10%" >
+                        <comp:outputText value="#{t.observacao}"/>
+                    </p:column>
+                    <p:column headerText="Participante" sortBy="#{t.usuario.nome}" width="10%" >
+                        <comp:outputText value="#{t.usuario.nome}"/>
+                    </p:column>
+                    <p:column headerText="Data" width="5%" >
+                        <comp:outputText tipo="d" value="#{t.data}"/>
+                    </p:column>
+                    <p:column headerText="Ação" width="5%" style="text-align: center">
+                        <p:commandButton  style="width: 22px;height: 22px" actionListener="#{processoMB.setarProcesso(t.processo)}" update="#{cc.attrs.dialogUpdade}"  rendered="#{cc.attrs.renderInfo}" title="Informações" oncomplete="PF('#{cc.attrs.dialogInfo}').show()"  id="btnInfo" icon="ui-icon-info" />
+                        <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderBtnEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['pro.evento'],'evento',t)}" />
+                        <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
+                        <comp:commandButton_excluir acao_butao="#{eventoMB.excluir(t)}" classe="Evento" form_to_update="@form"/>
+                    </p:column>
+
+                </p:dataTable>
+            </p:fieldset>
+
+        </h:panelGrid>
+
+    </composite:implementation>
+</ui:composition>
+
+
+
+

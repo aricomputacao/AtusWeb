@@ -6,9 +6,15 @@
 package br.com.atus.managedbean;
 
 import br.com.atus.controller.AdversarioController;
+import br.com.atus.controller.EventoController;
+import br.com.atus.controller.MovimentacaoController;
 import br.com.atus.controller.ParteInteressadaController;
 import br.com.atus.controller.ProcessoController;
 import br.com.atus.modelo.Adversario;
+import br.com.atus.modelo.Cliente;
+import br.com.atus.modelo.Evento;
+import br.com.atus.modelo.Fase;
+import br.com.atus.modelo.Movimentacao;
 import br.com.atus.modelo.ParteInteressada;
 import br.com.atus.modelo.Processo;
 import br.com.atus.util.AssistentedeRelatorio;
@@ -26,6 +32,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import org.jfree.data.time.MovingAverage;
 
 /**
  *
@@ -43,10 +50,17 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     private ParteInteressadaController interessadaController;
     @EJB
     private AdversarioController adversarioController;
+    @EJB
+    private EventoController eventoController;
+    @EJB
+    private MovimentacaoController movimentacaoController;
     private Processo processo;
     private Adversario adversario;
     private ParteInteressada parteInteressada;
+    private Fase fase;
+    private List<Movimentacao> listaMovimentacaos;
     private List<Processo> listaProcessos;
+    private List<Evento> listaEventos;
     private int i;
 
     @PostConstruct
@@ -56,6 +70,9 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             processo.setAdversarios(new ArrayList<Adversario>());
             processo.setParteInteressadas(new ArrayList<ParteInteressada>());
         } else {
+            listaMovimentacaos = movimentacaoController.listarPorProcesso(processo);
+            listaEventos = eventoController.listarPorProcessos(processo);
+            fase = processo.getFase();
         }
         adversario = new Adversario();
         parteInteressada = new ParteInteressada();
@@ -73,7 +90,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         }
     }
 
-    public  void addAdversario(){
+    public void addAdversario() {
         try {
             adversarioController.salvar(adversario);
             processo.getAdversarios().add(adversario);
@@ -83,10 +100,11 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         }
 
     }
+
     public void salvar() {
         try {
             //setar cliente como o primeiro cliente da lista da parte interessada
-            processo.setCliente(processo.getParteInteressadas().get(0).getCliente());
+            setarCliente(processo.getParteInteressadas().get(0).getCliente());
             controller.salvarouAtualizar(processo);
             init();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
@@ -94,6 +112,18 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS), ex, "Advogado");
             Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Metodo para registrar o cliente do processo pegando o primeiro da lista
+     * de interassados
+     *
+     * @param c
+     */
+    private void setarCliente(Cliente c) {
+        if (c == null) {
+            processo.setCliente(c);
         }
     }
 
@@ -122,6 +152,11 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("excluir.falha", MenssagemUtil.MENSAGENS));
             Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void setarProcesso(Processo p) {
+        processo = p;
+        listaEventos = eventoController.listarPorProcessos(processo);
     }
 
     public void imprimir() {
@@ -175,6 +210,14 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     public void setAdversario(Adversario adversario) {
         this.adversario = adversario;
+    }
+
+    public List<Evento> getListaEventos() {
+        return listaEventos;
+    }
+
+    public void setListaEventos(List<Evento> listaEventos) {
+        this.listaEventos = listaEventos;
     }
 
 }

@@ -8,13 +8,16 @@
                 xmlns:composite="http://java.sun.com/jsf/composite"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:comp="http://java.sun.com/jsf/composite/comp"
-                xmlns:util="http://java.sun.com/jsf/composite/util">
+                xmlns:util="http://java.sun.com/jsf/composite/util"
+                xmlns:consultas="http://java.sun.com/jsf/composite/consultas">
 
     <composite:interface id="interCon">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+        <composite:attribute  name="legend" default="Cadastro" shortDescription="Cabeçalho do fieldset" />
+
     </composite:interface>
     <composite:implementation  >
-        <p:fieldset id="fieldCad" legend="Cadastro" style="font-weight: bold">
+        <p:fieldset id="fieldCad" legend="#{cc.attrs.legend}"  style="font-weight: bold">
             <p:tabView id="tbView" dynamic="true" >
                 <p:tab id="tabDadosGer" title="Dados Gerais">
                     <h:panelGrid columns="2" >
@@ -41,7 +44,7 @@
                                 </h:panelGrid>
                             </h:panelGrid>
                             <h:panelGrid >
-                                <comp:inputText nomeLabel="Número" size="15" value="#{processoMB.processo.numero}"/>
+                                <comp:inputText nomeLabel="Número" size="20" value="#{processoMB.processo.numero}"/>
                             </h:panelGrid>
                             <h:panelGrid id="grdTipCon">
                                 <h:panelGrid columns="2" >
@@ -152,7 +155,7 @@
                         <p:panel style="text-align: center" header="Adversário">
                             <h:panelGrid   >
                                 <h:panelGrid>
-                                    <p:outputLabel value="Interessado" for="input_componente_adv"/>
+                                    <p:outputLabel value="Adversário" for="input_componente_adv"/>
                                     <h:panelGrid columns="3">
                                         <p:inputText value="#{processoMB.adversario.cliente.pessoa.nome}" id="input_componente_adv" required="true" readonly="true" size="27"/>
                                         <p:commandButton icon="ui-icon-search"  onclick="PF('dialogoConAdv').show()"  immediate="true"/>
@@ -246,7 +249,27 @@
 
                 </p:tab>
                 <p:tab id="tabEvent" title="Eventos">
+                    <p:dataTable value="#{processoMB.listaEventos}" id="tabelaEven" paginatorAlwaysVisible="false"  paginator="true" var="ev" rows="10" 
+                                 rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                 rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                        <p:column headerText="Nome" width="10%" sortBy="#{t.nome}">
+                            <comp:outputText value="#{ev.nome}"/>
+                        </p:column>
+                        <p:column headerText="Tipo" width="10%" >
+                            <comp:outputText value="#{ev.especieEvento.nome}"/>
+                        </p:column>
+                        <p:column headerText="Descrição" width="30%" >
+                            <comp:outputText value="#{ev.observacao}"/>
+                        </p:column>
+                        <p:column headerText="Participante" width="10%" >
+                            <comp:outputText value="#{t.usuario.nome}"/>
+                        </p:column>
+                        <p:column headerText="Data" width="5%" >
+                            <comp:outputText tipo="d" value="#{ev.data}"/>
+                        </p:column>
 
+
+                    </p:dataTable>
                 </p:tab>
                 <p:tab id="tabCus" title="Custos e Despesas">
                     <h:panelGrid>

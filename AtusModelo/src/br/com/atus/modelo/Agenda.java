@@ -62,6 +62,20 @@ public class Agenda implements Serializable {
     @ManyToOne
     @JoinColumn(name = "ese_id", referencedColumnName = "ese_id", nullable = false)
     private EspecieEvento especieEvento;
+    
+    @ManyToOne
+    @JoinColumn(name = "eve_id", referencedColumnName = "eve_id")
+    private Evento evento;
+
+    public Evento getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+    
+    
 
     public String getTitulo() {
         return titulo;

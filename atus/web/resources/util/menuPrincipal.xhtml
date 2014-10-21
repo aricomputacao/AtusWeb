@@ -38,7 +38,11 @@
                     <p:menuitem value="Endereçamentos" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.enderecamento'])}" immediate="true"/>
                     <p:menuitem value="Processos" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.processo'])}" immediate="true"/>
                 </p:submenu>
-                <p:menuitem styleClass="item" value="Agenda"/>
+                <p:submenu label="Agenda" styleClass="subMenu">
+                    <p:menuitem value="Eventos" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.evento'])}" immediate="true"/>
+
+                </p:submenu>
+
                 <p:menuitem styleClass="item" value="Relatórios"/>
                 <p:menuitem styleClass="item" value="Segurança"/>
                 <p:submenu label="Segurança" styleClass="subMenu">
