@@ -23,6 +23,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
@@ -40,7 +42,6 @@ public class Processo implements Serializable {
     //Adicionr cliente
     //filho conjuge falecido
     //nb deferido string
-
     @Id
     @Column(name = "pro_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
