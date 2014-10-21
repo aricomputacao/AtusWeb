@@ -10,6 +10,7 @@ import br.com.atus.dao.EventoDAO;
 import br.com.atus.modelo.Evento;
 import br.com.atus.modelo.Processo;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -33,6 +34,10 @@ public class EventoController extends Controller<Evento, Long> implements Serial
 
     public List<Evento> listarPorProcessos(Processo processo) {
         return dao.listarPorProcesso(processo);
+    }
+
+    public List<Evento> listarPorPeriodo(Date dataInicial, Date dataFinal) {
+      return dao.listarPorPeriodo(dataInicial,dataFinal);
     }
     
 }

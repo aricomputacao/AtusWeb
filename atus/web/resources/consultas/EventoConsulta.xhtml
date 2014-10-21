@@ -14,6 +14,8 @@
         <composite:facet name="btnConsultaCliente"/>
         <composite:attribute name="renderBtnEditar" default="true" shortDescription="renderizar o btn editar" />
         <composite:attribute name="renderSelecionar" default="false"/>
+                <composite:attribute name="renderInfo" default="false"/>
+
         <composite:attribute name="valorSelecionado" />
         <composite:attribute name="nomeDialog" />
         <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
@@ -24,16 +26,18 @@
 
         <h:panelGrid  width="100%" id="rtt" >
             <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" style="font-weight: bold">
-                <h:panelGrid id="grdConsulta" columns="4">
-                     <h:panelGrid>
-                            <p:outputLabel value="Processo" for="input_componente"/>
-                            <h:panelGrid columns="3">
-                                <p:inputText value="#{eventoMB.evento.processo.numero}" id="input_componente" required="true" readonly="true" size="34"/>
-                                <p:commandButton icon="ui-icon-search"  onclick="PF('dialogProc').show()"  immediate="true"/>
-                            </h:panelGrid>
+                <h:panelGrid columns="3">
+
+                    <h:panelGrid id="grdConsulta" columns="4">
+                        <h:panelGrid columns="3">
+                            <p:focus for="dtIni"/>
+                            <comp:inputTextCalendar id="dtIni" nomeLabel="Data Inicial" valorData="#{eventoMB.dataInicial}" require="true"/>
+                            <comp:inputTextCalendar nomeLabel="Data Final" valorData="#{eventoMB.dataFinal}" require="true"/>
+
                         </h:panelGrid>
+                    </h:panelGrid>
                     <h:panelGrid >
-                       
+
                         <p:spacer width="15"/>
                         <composite:renderFacet name="btnConsultaEvento" />
                     </h:panelGrid>
@@ -47,21 +51,23 @@
                     <p:column headerText="Tipo" width="10%" >
                         <comp:outputText value="#{t.especieEvento.nome}"/>
                     </p:column>
-                    <p:column headerText="Descrição" width="30%" >
+                    <p:column headerText="Processo" width="10%" >
+                        <comp:outputText value="#{t.processo.numero}"/>
+                    </p:column>
+                    <p:column headerText="Descrição" width="10%" >
                         <comp:outputText value="#{t.observacao}"/>
                     </p:column>
-                     <p:column headerText="Participante" width="10%" >
-                         <comp:outputText value="#{t.usuario.nome}"/>
+                    <p:column headerText="Participante" width="10%" >
+                        <comp:outputText value="#{t.usuario.nome}"/>
                     </p:column>
                     <p:column headerText="Data" width="5%" >
                         <comp:outputText tipo="d" value="#{t.data}"/>
                     </p:column>
                     <p:column headerText="Ação" width="5%" style="text-align: center">
-
+                        <p:commandButton  style="width: 22px;height: 22px" rendered="#{cc.attrs.renderInfo}" title="Informações" oncomplete="PF('dialogProc').show()"  id="btnInfo" icon="ui-icon-info" />
                         <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderBtnEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['pro.evento'],'evento',t)}" />
                         <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
                         <comp:commandButton_excluir acao_butao="#{eventoMB.excluir(t)}" classe="Evento" form_to_update="@form"/>
-
                     </p:column>
 
                 </p:dataTable>

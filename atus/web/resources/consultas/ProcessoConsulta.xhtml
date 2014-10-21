@@ -56,7 +56,7 @@
 
 
                     <p:column headerText="Ação" width="5%" style="text-align: center">
-                        <comp:commandButton_editar id="btnEditaProc"  acao_butao="#{navegacaoMB.redirecionar(navegacao['pro.processo'],'processo',t)}" />
+                        <comp:commandButton_editar id="btnEditaProc" rendered="#{cc.attrs.renderBtnEditar}" acao_butao="#{navegacaoMB.redirecionar(navegacao['pro.processo'],'processo',t)}" />
                         <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
 
                     </p:column>

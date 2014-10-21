@@ -9,6 +9,7 @@ import br.com.atus.modelo.Evento;
 import br.com.atus.modelo.Processo;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
@@ -28,6 +29,18 @@ public class EventoDAO extends DAO<Evento, Long> implements Serializable {
         TypedQuery<Evento> tq;
         tq = getEm().createQuery("SELECT e FROM Evento e WHERE e.processo = :pro ORDER BY e.data", Evento.class);
         tq.setParameter("pro", processo);
+        if (tq.getResultList().isEmpty()) {
+            return new ArrayList<>();
+        } else {
+            return tq.getResultList();
+        }
+    }
+
+    public List<Evento> listarPorPeriodo(Date dataInicial, Date dataFinal) {
+        TypedQuery<Evento> tq;
+        tq = getEm().createQuery("SELECT e FROM Evento e WHERE e.data BETWEEN :dtIni and :dtFim ORDER BY e.data", Evento.class);
+        tq.setParameter("dtIni", dataInicial);
+        tq.setParameter("dtFim", dataFinal);
         if (tq.getResultList().isEmpty()) {
             return new ArrayList<>();
         } else {

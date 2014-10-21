@@ -13,6 +13,7 @@ import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,10 +39,11 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
     private EventoController controller;
     @EJB
     private AgendaController agendaController;
-    private Agenda agenda;
     private Evento evento;
     private List<Agenda> listaAgendas;
     private List<Evento> listaEventos;
+    private Date dataInicial;
+    private Date dataFinal;
 
     public EventoMB() {
         super(Evento.class);
@@ -50,7 +52,8 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
     @PostConstruct
     public void init() {
         evento = (Evento) navegacaoMB.getRegistroMapa("evento", new Evento());
-
+        dataFinal = new Date();
+        dataInicial = new Date();
     }
 
     public void salvar() {
@@ -70,8 +73,8 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
         }
     }
 
-    public void listarPorProcesso() {
-        listaEventos = controller.listarPorProcessos(evento.getProcesso());
+    public void listarPorPeriodo() {
+        listaEventos = controller.listarPorPeriodo(dataInicial,dataFinal);
         if (listaEventos.isEmpty()) {
             MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
@@ -137,6 +140,22 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
 
     public void setListaEventos(List<Evento> listaEventos) {
         this.listaEventos = listaEventos;
+    }
+
+    public Date getDataInicial() {
+        return dataInicial;
+    }
+
+    public void setDataInicial(Date dataInicial) {
+        this.dataInicial = dataInicial;
+    }
+
+    public Date getDataFinal() {
+        return dataFinal;
+    }
+
+    public void setDataFinal(Date dataFinal) {
+        this.dataFinal = dataFinal;
     }
 
 }

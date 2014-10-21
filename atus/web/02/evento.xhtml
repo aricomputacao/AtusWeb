@@ -20,9 +20,9 @@
                     <cadastro:EventoCadastro id="compEvento"/>
                 </h:panelGrid>       
                 <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}"> 
-                    <cons:EventoConsulta id="compConEvento">
+                    <cons:EventoConsulta id="compConEvento" renderInfo="true">
                         <f:facet name="btnConsultaEvento">
-                            <comp:commandButton_consulta acao_butao="#{eventoMB.listarPorProcesso()}" componente_to_update="@form"  />
+                            <comp:commandButton_consulta acao_butao="#{eventoMB.listarPorPeriodo()}" componente_to_update="@form"  />
                         </f:facet>
                     </cons:EventoConsulta>
                 </h:panelGrid>
@@ -31,21 +31,16 @@
 
     </ui:define>
     <ui:define name="dialogs">
-        <p:dialog showEffect="fade" position="top"   header="Consulta de Processos" id="adv" modal="true" hideEffect="fade" widgetVar="dialogProc">
+        <p:dialog showEffect="fade" position="top"   header="Processos" id="adv" modal="true" hideEffect="fade" widgetVar="dialogProc">
             <h:form id="frmDialogProce">
-                <cons:ProcessoConsulta nomeDialog="dialogProc" renderBtnEditar="false"  id="conProce" renderSelecionar="true" update_form=":frm_pag:cadFrm:compEvento:input_componente,:frm_pag:cadFrm:compConEvento:input_componente" 
-                                       valorSelecionado="#{eventoMB.evento.processo}">
-                    <f:facet name="btnConsultaProcesso">
-                        <comp:commandButton_consulta id="btnCon" acao_butao="#{processoMB.listar()}" componente_to_update=":frmDialogProce"/>
-                    </f:facet>
-                </cons:ProcessoConsulta>
+                <cadastro:ProcessoCadastro />
             </h:form>
         </p:dialog>
         <p:dialog showEffect="fade" position="top"   header="Consulta de Usuários" modal="true" hideEffect="fade" widgetVar="dialogUsr">
             <h:form id="frmDialogUsr">
-                <cons:UsuarioConsulta nomeDialog="dialogUsr" renderEditar="false"  id="conProce" renderSelecionar="true" update_form=":frm_pag:cadFrm:compEvento:input_componente_usr" 
+                <cons:UsuarioConsulta nomeDialog="dialogUsr" renderExcluir="false" renderEditar="false"  id="conProce" renderSelecionar="true" update_form=":frm_pag:cadFrm:compEvento:input_componente_usr" 
                                       valorSelecionado="#{eventoMB.evento.usuario}">                   
-                    <comp:commandButton_consulta  acao_butao="#{eventoMB.listar()}" componente_to_update=":frmDialogUsr"/>
+                    <comp:commandButton_consulta  acao_butao="#{eventoMB.listar()}"  componente_to_update=":frmDialogUsr"/>
                 </cons:UsuarioConsulta>
             </h:form>
         </p:dialog>
