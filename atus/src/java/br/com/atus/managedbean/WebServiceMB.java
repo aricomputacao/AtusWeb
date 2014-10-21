@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.atus.managedbean;
 
 import br.com.atus.controller.CEPWebService;
@@ -11,7 +10,6 @@ import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -20,22 +18,22 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @RequestScoped
-public class WebServiceMB implements Serializable{
-     
-   private static final long serialVersionUID = 1L;
- 
+public class WebServiceMB implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private String cep = null;
- 
+
     private String tipoLogradouro;
     private String logradouro;
     private String estado;
     private String cidade;
     private String bairro;
- 
+
     public void encontraCEP() {
-        
+
         CEPWebService cepWebService = new CEPWebService(getCep());
- 
+
         if (cepWebService.getResultado() == 1) {
             setTipoLogradouro(cepWebService.getTipoLogradouro());
             setLogradouro(cepWebService.getLogradouro());
@@ -43,7 +41,7 @@ public class WebServiceMB implements Serializable{
             setCidade(cepWebService.getCidade());
             setBairro(cepWebService.getBairro());
         } else {
- 
+
             FacesContext.getCurrentInstance().addMessage(
                     null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -99,6 +97,5 @@ public class WebServiceMB implements Serializable{
     public void setBairro(String bairro) {
         this.bairro = bairro;
     }
-    
-    
+
 }

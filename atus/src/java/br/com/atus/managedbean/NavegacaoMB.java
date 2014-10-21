@@ -165,13 +165,15 @@ public class NavegacaoMB implements Serializable {
     public void redirecionarCadastro(String pag) {
         try {
             String modulo = "";
-
             switch (pag.substring(0, 3)) {
                 case ("cad"):
                     modulo = "01";
                     break;
                 case ("pro"):
                     modulo = "02";
+                    break;
+                case ("seg"):
+                    modulo = "03";
                     break;
 
             }
@@ -198,6 +200,9 @@ public class NavegacaoMB implements Serializable {
                     break;
                 case ("pro"):
                     modulo = "02";
+                    break;
+                case ("seg"):
+                    modulo = "03";
                     break;
 
             }

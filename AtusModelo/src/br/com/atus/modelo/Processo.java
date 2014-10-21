@@ -23,8 +23,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
@@ -37,9 +35,11 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name = "processo", schema = "processo")
 public class Processo implements Serializable {
-  //Adicionr cliente
+
+    //Adicionr cliente
     //filho conjuge falecido
     //nb deferido string
+
     @Id
     @Column(name = "pro_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,7 +57,7 @@ public class Processo implements Serializable {
     @ManyToOne
     @JoinColumn(name = "cli_id", referencedColumnName = "cli_id")
     private Cliente cliente;
-    
+
     @OneToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
     private List<Adversario> adversarios;
@@ -95,7 +95,7 @@ public class Processo implements Serializable {
     private Materia materia;
 
     @NotNull
-    @Column(name = "pro_objeto",length = 1024)
+    @Column(name = "pro_objeto", length = 1024)
     private String objetoProcesso;
 
     @ManyToOne
@@ -118,7 +118,7 @@ public class Processo implements Serializable {
     private String observacoes;
 
     @Length(max = 100000)
-    @Column(name = "pro_fatos",  length = 100000)
+    @Column(name = "pro_fatos", length = 100000)
     @NotBlank
     private String fatos;
 
@@ -128,7 +128,7 @@ public class Processo implements Serializable {
     private String provas;
 
     @Length(max = 100000)
-    @Column(name = "pro_informacao_reservada",  length = 100000)
+    @Column(name = "pro_informacao_reservada", length = 100000)
     @NotBlank
     private String informacaoReservada;
 
@@ -149,11 +149,11 @@ public class Processo implements Serializable {
     @Column(name = "pro_dib")
     @Temporal(TemporalType.DATE)
     private Date dib;
-    
+
     @Column(name = "pro_dip")
     @Temporal(TemporalType.DATE)
     private Date dip;
-    
+
     @Length(max = 100000)
     @Column(name = "pro_motivo_indeferimento", length = 100000)
     private String motivoIndeferimento;
@@ -206,8 +206,6 @@ public class Processo implements Serializable {
         this.nbDeferido = nbDeferido;
     }
 
-   
-
     public Date getDer() {
         return der;
     }
@@ -219,7 +217,6 @@ public class Processo implements Serializable {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
 
     public void setDer(Date der) {
         this.der = der;
@@ -273,8 +270,6 @@ public class Processo implements Serializable {
         this.dependente = dependente;
     }
 
-    
-    
     public Long getId() {
         return id;
     }
@@ -394,8 +389,6 @@ public class Processo implements Serializable {
     public void setObjetoProcesso(String objetoProcesso) {
         this.objetoProcesso = objetoProcesso;
     }
-
-  
 
     public Fase getFase() {
         return fase;

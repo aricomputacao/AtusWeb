@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.atus.modelo;
 
 import br.com.atus.enumerated.Perfil;
@@ -17,7 +16,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -29,28 +27,29 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author ari
  */
 @Entity
-@Table(name = "usuario",schema = "cadastro")
+@Table(name = "usuario", schema = "cadastro")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Usuario implements Serializable{
+public class Usuario implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "usr_id",nullable = false)
+    @Column(name = "usr_id", nullable = false)
     private Long id;
     @NotBlank
     @Length(min = 4)
-    @Column(name = "usr_login",nullable = false,unique = true)
+    @Column(name = "usr_login", nullable = false, unique = true)
     private String login;
     @NotBlank
     @Length(min = 6)
-    @Column(name = "usr_senha",nullable = false)
+    @Column(name = "usr_senha", nullable = false)
     private String senha;
     @NotNull
-    @Column(name = "usr_Ativo",nullable = false,columnDefinition = "boolean default true")
+    @Column(name = "usr_Ativo", nullable = false, columnDefinition = "boolean default true")
     private boolean ativo;
     @Column(name = "usr_referencia")
     private Long referencia;
     @Enumerated(EnumType.STRING)
-    @Column(name = "usr_perfil",nullable = false)
+    @Column(name = "usr_perfil", nullable = false)
     private Perfil perfil;
     @Column(name = "usr_nome")
     private String nome;
@@ -85,8 +84,6 @@ public class Usuario implements Serializable{
         this.nome = nome;
     }
 
-    
-    
     public Long getId() {
         return id;
     }
@@ -134,8 +131,5 @@ public class Usuario implements Serializable{
     public void setPerfil(Perfil perfil) {
         this.perfil = perfil;
     }
-    
-    
-    
-    
+
 }

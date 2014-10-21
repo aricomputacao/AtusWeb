@@ -4,10 +4,15 @@
  */
 package br.com.atus.dao;
 
+import br.com.atus.modelo.Modulo;
+import br.com.atus.modelo.Permissao;
+import br.com.atus.modelo.Tarefa;
+import br.com.atus.modelo.Usuario;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  * Classe do Projeto guardiao - Criado em 11/04/2013 -
@@ -58,10 +63,10 @@ public abstract class DAO<T, PK extends Serializable> implements Serializable {
         return em.createQuery("FROM " + getEntityClass().getName() + " order by :ordem")
                 .setParameter("ordem", ordem).getResultList();
     }
-    
-     public List<T> listarLike(String nomeCampo,String valor) throws Exception {
-        return em.createQuery("FROM " + getEntityClass().getName() + " where UPPER("+nomeCampo+") like :vl")
-                .setParameter("vl", "%"+valor.toUpperCase()+"%").getResultList();
+
+    public List<T> listarLike(String nomeCampo, String valor) throws Exception {
+        return em.createQuery("FROM " + getEntityClass().getName() + " where UPPER(" + nomeCampo + ") like :vl")
+                .setParameter("vl", "%" + valor.toUpperCase() + "%").getResultList();
     }
 
     // Usar somente para classes de Auditoria
@@ -96,5 +101,24 @@ public abstract class DAO<T, PK extends Serializable> implements Serializable {
 //    }
     protected Class getEntityClass() {
         return entityClass;
+    }
+
+    public List<Permissao> listar(Usuario usuario, Modulo modulo, Tarefa tarefa) {
+        String sql = "SELECT p FROM Permissao p WHERE p.usuario =:u";
+        if (tarefa != null) {
+            sql += " AND p.tarefa =:t ";
+        }
+        if (modulo != null) {
+            sql += " AND p.tarefa.modulo =:m ";
+        }
+        Query q = getEm().createQuery(sql);
+        q.setParameter("u", usuario);
+        if (tarefa != null) {
+            q.setParameter("t", tarefa);
+        }
+        if (modulo != null) {
+            q.setParameter("m", modulo);
+        }
+        return q.getResultList();
     }
 }

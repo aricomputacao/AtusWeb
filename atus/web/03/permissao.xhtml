@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:consultas="http://java.sun.com/jsf/composite/consultas"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="corpo">
+        <h:form id="frm_permissao">
+            <p:panel header="Registro Permissões de Acesso">
+                <p:panel header="Selecione um Usuário" rendered="#{permissaoMB.usuario == null}">
+                    <consultas:UsuarioConsulta valorSelecionado="#{permissaoMB.usuario}" update_form="@form"  renderEditar="false" renderExcluir="false" renderSelecionar="true"/>
+                </p:panel>
+                <p:panel header="Permissões" rendered="#{permissaoMB.usuario != null}">
+                    <h:panelGrid columns="4">
+                        <h:outputText value="Nome: #{permissaoMB.usuario.nome}"/>
+                        <h:outputText value="Perfil: #{permissaoMB.usuario.perfil}"/>
+                        <h:outputText value="Login: #{permissaoMB.usuario.login}"/>
+                        <h:outputText value="Ativo: #{permissaoMB.usuario.ativo}"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="4">
+                        <p:commandButton value="Incluir Permissão" icon="ui-icon-plus" onclick="PF('dialogInfo').show();"/>
+                    </h:panelGrid>
+                    <p:dataTable value="#{permissaoMB.permissoes}" var="p" emptyMessage="Nenhuma permissão" paginatorAlwaysVisible="false" paginator="true">
+                        <p:column headerText="Tarefa">
+                            <h:outputText value="#{p.tarefa.nome}"/>
+                        </p:column>
+                        <p:column headerText="Modulo">
+                            <h:outputText value="#{p.tarefa.modulo.nome}"/>
+                        </p:column>
+                        <p:column headerText="Consultar">
+                            <h:outputText value="#{p.consultar}"/>
+                        </p:column>
+                        <p:column headerText="Editar">
+                            <h:outputText value="#{p.editar}"/>
+                        </p:column>
+                        <p:column headerText="Incluir">
+                            <h:outputText value="#{p.incluir}"/>
+                        </p:column>
+                        <p:column headerText="Excluir">
+                            <h:outputText value="#{p.excluir}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </p:panel>
+        </h:form>
+    </ui:define>
+    <ui:define name="dialogs">
+        <p:dialog id="info" widgetVar="dialogInfo" width="800" height="400" position="top">
+            <h:form id="frm">
+                <h:panelGrid>
+                    <h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Módulo" for="modulo"/>
+                            <p:messages for="modulo"/>
+                        </h:panelGrid>
+                        <p:selectOneMenu value="#{permissaoMB.modulo}" required="true" converter="#{indexConverter}" id="modulo">
+                            <f:selectItem itemValue="#{null}" itemLabel=""/>
+                            <f:selectItems value="#{permissaoMB.listaModulos}" itemLabel="#{m.nome}" itemValue="#{m}" var="m"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Tarefa" for="tarefa"/>
+                            <p:messages for="tarefa"/>
+                        </h:panelGrid>
+                        <p:selectOneMenu value="#{permissaoMB.permissao.tarefa}" required="true" converter="#{indexConverter}" id="tarefa">
+                            <f:selectItem itemValue="#{null}" itemLabel=""/>
+                            <f:selectItems value="#{permissaoMB.listaTarefas}" itemLabel="#{t.nome}" itemValue="#{t}" var="t"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+</ui:composition>
+
