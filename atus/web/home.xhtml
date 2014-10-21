@@ -40,9 +40,9 @@
                 </h:form>
             </p:tab>
             <p:tab title="Eventos" >
-                <h:form>
+                <h:form id="frmDialogCadProce">
                     <p:panel styleClass="painelAgendas">
-                        <consultas:EventoConsulta renderInfo="true">
+                        <consultas:EventoConsulta renderInfo="true" dialogInfo="dialogProc" dialogUpdade=":frmDialogProce" >
                             <f:facet name="btnConsultaEvento">
                                 <comp:commandButton_consulta acao_butao="#{eventoMB.listarPorPeriodo()}" componente_to_update="@form"  />
                             </f:facet>

@@ -31,6 +31,7 @@
     <class>br.com.atus.modelo.ParteInteressada</class>
     <class>br.com.atus.modelo.Processo</class>
     <class>br.com.atus.modelo.Evento</class>
+    <class>br.com.atus.modelo.Movimentacao</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!--<property name="hibernate.show_sql" value="true"/>-->

@@ -31,17 +31,33 @@
 
     </ui:define>
     <ui:define name="dialogs">
-        <p:dialog showEffect="fade" position="top"   header="Processos" id="adv" modal="true" hideEffect="fade" widgetVar="dialogProc">
+        <p:dialog showEffect="fade" position="top"   header="Consulta de Processos" id="adv" modal="true" hideEffect="fade" widgetVar="dialogProc">
             <h:form id="frmDialogProce">
-                <cadastro:ProcessoCadastro />
+                <p:blockUI block="@form" trigger=":frmDialogProce:conProce:btnCon:btn">
+                    <p:graphicImage library="imagens" name="carregar.gif"/>
+                </p:blockUI>
+                <cons:ProcessoConsulta nomeDialog="dialogProc" renderBtnEditar="false"  id="conProce" renderSelecionar="true" update_form=":frm_pag:cadFrm:compEvento:input_componente" 
+                                       valorSelecionado="#{eventoMB.evento.processo}">
+                    <f:facet name="btnConsultaProcesso">
+                        <comp:commandButton_consulta id="btnCon" acao_butao="#{processoMB.listar()}" componente_to_update=":frmDialogProce"/>
+                    </f:facet>
+                </cons:ProcessoConsulta>
             </h:form>
         </p:dialog>
         <p:dialog showEffect="fade" position="top"   header="Consulta de Usuários" modal="true" hideEffect="fade" widgetVar="dialogUsr">
             <h:form id="frmDialogUsr">
+               <p:blockUI block="@form" trigger=":frmDialogUsr:conProce:btnCon:btn">
+                    <p:graphicImage library="imagens" name="carregar.gif"/>
+                </p:blockUI>
                 <cons:UsuarioConsulta nomeDialog="dialogUsr" renderExcluir="false" renderEditar="false"  id="conProce" renderSelecionar="true" update_form=":frm_pag:cadFrm:compEvento:input_componente_usr" 
                                       valorSelecionado="#{eventoMB.evento.usuario}">                   
                     <comp:commandButton_consulta  acao_butao="#{eventoMB.listar()}"  componente_to_update=":frmDialogUsr"/>
                 </cons:UsuarioConsulta>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="top"     modal="true" hideEffect="fade" widgetVar="dialogCadProc">
+            <h:form id="frmDialogCadProce">
+                <cadastro:ProcessoCadastro id="compCadPro" legend="Dados do Processo" />
             </h:form>
         </p:dialog>
     </ui:define>
