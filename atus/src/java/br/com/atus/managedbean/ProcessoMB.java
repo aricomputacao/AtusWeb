@@ -54,6 +54,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     private EventoController eventoController;
     @EJB
     private MovimentacaoController movimentacaoController;
+   
     private Processo processo;
     private Adversario adversario;
     private ParteInteressada parteInteressada;
@@ -69,6 +70,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         if (processo.getId() == null) {
             processo.setAdversarios(new ArrayList<Adversario>());
             processo.setParteInteressadas(new ArrayList<ParteInteressada>());
+            fase = new Fase();
         } else {
             listaMovimentacaos = movimentacaoController.listarPorProcesso(processo);
             listaEventos = eventoController.listarPorProcessos(processo);
@@ -105,6 +107,8 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         try {
             //setar cliente como o primeiro cliente da lista da parte interessada
             setarCliente(processo.getParteInteressadas().get(0).getCliente());
+            //Adiciona movimentação caso a fase mude
+            movimentacaoController.addMovimentacao(processo, fase);
             controller.salvarouAtualizar(processo);
             init();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
@@ -122,7 +126,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
      * @param c
      */
     private void setarCliente(Cliente c) {
-        if (c == null) {
+        if (c != null) {
             processo.setCliente(c);
         }
     }
@@ -157,6 +161,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     public void setarProcesso(Processo p) {
         processo = p;
         listaEventos = eventoController.listarPorProcessos(processo);
+        listaMovimentacaos = movimentacaoController.listarPorProcesso(processo);
     }
 
     public void imprimir() {
@@ -218,6 +223,14 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     public void setListaEventos(List<Evento> listaEventos) {
         this.listaEventos = listaEventos;
+    }
+
+    public List<Movimentacao> getListaMovimentacaos() {
+        return listaMovimentacaos;
+    }
+
+    public void setListaMovimentacaos(List<Movimentacao> listaMovimentacaos) {
+        this.listaMovimentacaos = listaMovimentacaos;
     }
 
 }
