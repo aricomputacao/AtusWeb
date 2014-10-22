@@ -22,7 +22,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  *
- * @author ari
+ * @author Ari
  */
 @Entity
 @Table(schema = "processo", name = "movimentacao")
@@ -37,14 +37,13 @@ public class Movimentacao implements Serializable {
     @Column(name = "mov_data", nullable = false)
     private Date dataMovimentacao;
     
-    @NotNull
     @ManyToOne
-    @JoinColumn(name ="fas_id",columnDefinition = "fas_antiga",referencedColumnName = "fas_id",nullable = false )
+    @JoinColumn(name ="fas_antiga",referencedColumnName = "fas_id")
     private Fase faseAntiga;
     
     @NotNull
     @ManyToOne
-    @JoinColumn(name ="fas_id",columnDefinition = "fas_nova",referencedColumnName = "fas_id",nullable = false )
+    @JoinColumn(name ="fas_nova",referencedColumnName = "fas_id",nullable = false )
     private Fase faseNova;
     
     @NotNull
@@ -94,8 +93,8 @@ public class Movimentacao implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 31 * hash + Objects.hashCode(this.id);
+        int hash = 7;
+        hash = 17 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -113,8 +112,5 @@ public class Movimentacao implements Serializable {
         }
         return true;
     }
-    
-    
-    
 
 }

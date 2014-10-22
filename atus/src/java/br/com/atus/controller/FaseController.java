@@ -9,6 +9,7 @@ package br.com.atus.controller;
 import br.com.atus.dao.FaseDAO;
 import br.com.atus.modelo.Fase;
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -27,6 +28,10 @@ public class FaseController extends Controller<Fase, Long> implements Serializab
     @Override
     protected void inicializaDAO() {
         setDAO(dao);
+    }
+
+    public List<Fase> listarTodosOrderNome() {
+        return dao.listarTodosOrderNome();
     }
     
     
