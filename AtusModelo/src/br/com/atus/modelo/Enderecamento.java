@@ -5,6 +5,7 @@
  */
 package br.com.atus.modelo;
 
+import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -33,9 +34,11 @@ public class Enderecamento implements Serializable {
 
     @NotBlank
     @Column(name = "end_nome", unique = true, nullable = false)
+    @PecaColetor
     private String nome;
 
     @Column(name = "end_descricao", length = 1024)
+    @PecaColetor
     private String descricao;
 
     public Long getId() {

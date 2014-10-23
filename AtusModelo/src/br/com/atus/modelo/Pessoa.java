@@ -6,6 +6,7 @@
 package br.com.atus.modelo;
 
 import br.com.atus.enumerated.TipoPessoa;
+import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -30,17 +31,21 @@ public class Pessoa implements Serializable {
     // Email da pessoa
     @Email
     @Column(name = "pes_email")
+    @PecaColetor
     private String email;
     // Nome da pessoa
     @NotBlank
     @Column(name = "pes_nome", length = 255, nullable = false)
     @Length(min = 3)
+    @PecaColetor
     private String nome;
 
     @Column(name = "pes_telefone")
+    @PecaColetor
     private String telefone;
 
     @Column(name = "pes_celular")
+    @PecaColetor
     private String celular;
 
     @Enumerated(EnumType.STRING)
@@ -49,25 +54,32 @@ public class Pessoa implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "cid_id", referencedColumnName = "cid_id")
+    @PecaColetor(isEntidade = true)
     private Cidade cidade;
 
     @Column(name = "end_cep")
+    @PecaColetor
     private String cep;
 
     @Column(name = "end_logradouro")
+    @PecaColetor
     private String logradouro;
 
     @Column(name = "end_bairro")
+    @PecaColetor
     private String bairro;
 
     @Column(name = "end_numero")
+    @PecaColetor
     private String numero;
 
     @Column(name = "end_complemento")
+    @PecaColetor
     private String complemento;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "pes_data_nascimento")
+    @PecaColetor
     private Date dataNascimento;
 
     public String getCelular() {

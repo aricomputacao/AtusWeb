@@ -7,6 +7,7 @@ package br.com.atus.modelo;
 
 import br.com.atus.enumerated.EstadoCivil;
 import br.com.atus.enumerated.Sexo;
+import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -37,14 +38,18 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Embedded
+    @PecaColetor(isEntidade = true)
     private Pessoa pessoa;
 
     @Column(name = "cli_documento", length = 20)
+    @PecaColetor
     private String cpfCpnj;
     @Column(name = "cli_rg", length = 20)
+    @PecaColetor
     private String rg;
 
     @Column(name = "cli_pis_pasep", length = 30)
+    @PecaColetor
     private String pisPasep;
 
     @ManyToOne
@@ -53,6 +58,7 @@ public class Cliente implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "nac_id", referencedColumnName = "nac_id")
+    @PecaColetor(isEntidade = true)
     private Nacionalidade nacionalidade;
 
     @ManyToOne

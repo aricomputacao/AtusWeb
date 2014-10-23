@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.atus.modelo;
 
+import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -23,15 +23,17 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author Ari
  */
 @Entity
-@Table(name = "materias",schema = "cadastro")
+@Table(name = "materias", schema = "cadastro")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Materia implements Serializable{
+public class Materia implements Serializable {
+
     @Id
-    @Column(name = "mat_id",nullable = false)
+    @Column(name = "mat_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotBlank
-    @Column(name = "mat_nome",nullable = false,unique = true)
+    @Column(name = "mat_nome", nullable = false, unique = true)
+    @PecaColetor
     private String nome;
 
     public Integer getId() {
@@ -71,6 +73,5 @@ public class Materia implements Serializable{
         }
         return true;
     }
-    
-    
+
 }

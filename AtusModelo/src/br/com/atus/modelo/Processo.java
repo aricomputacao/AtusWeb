@@ -5,6 +5,7 @@
  */
 package br.com.atus.modelo;
 
+import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -50,122 +51,150 @@ public class Processo implements Serializable {
     @ManyToOne
     @JoinColumn(name = "end_id", referencedColumnName = "end_id")
     @NotNull
+    @PecaColetor(isEntidade = true)
     private Enderecamento enderecamento;
 
     @ManyToOne
     @JoinColumn(name = "col_id", referencedColumnName = "col_id")
+    @PecaColetor(isEntidade = true)
     private Colaborador colaborador;
 
     @ManyToOne
     @JoinColumn(name = "cli_id", referencedColumnName = "cli_id")
+    @PecaColetor(isEntidade = true)
     private Cliente cliente;
 
     @OneToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
+    @PecaColetor(isLista = true)
     private List<Adversario> adversarios;
 
     @OneToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
+    @PecaColetor
     private List<ParteInteressada> parteInteressadas;
 
     @Column(name = "pro_numero", length = 80)
     @Length(max = 80)
+    @PecaColetor
     private String numero;
 
     @ManyToOne
     @JoinColumn(name = "tpc_id", referencedColumnName = "tpc_id")
     @NotNull
+    @PecaColetor(isEntidade = true)
     private TipoContrato tipoContrato;
 
     @ManyToOne
     @JoinColumn(name = "fas_id", referencedColumnName = "fas_id")
     @NotNull
+    @PecaColetor(isEntidade = true)
     private Fase fase;
 
     @NotNull
     @Column(name = "pro_data_cadastro")
     @Temporal(TemporalType.DATE)
+    @PecaColetor
     private Date dataCadastro;
 
     @ManyToOne
     @JoinColumn(name = "usr_id", referencedColumnName = "usr_id")
+    @PecaColetor(isEntidade = true)
     private Usuario usuarioCadastro;
 
     @ManyToOne
     @JoinColumn(name = "mat_id", referencedColumnName = "mat_id")
     @NotNull
+    @PecaColetor(isEntidade = true)
     private Materia materia;
 
     @NotNull
     @Column(name = "pro_objeto", length = 1024)
+    @PecaColetor
     private String objetoProcesso;
 
     @ManyToOne
     @JoinColumn(name = "jut_id", referencedColumnName = "jut_id")
     @NotNull
+    @PecaColetor(isEntidade = true)
     private JuizoTribunal juizoTribunal;
 
     @Column(name = "pro_valor")
     @NotNull
+    @PecaColetor
     private BigDecimal valor;
 
     @ManyToOne
     @JoinColumn(name = "adv_id", referencedColumnName = "adv_id")
     @NotNull
+    @PecaColetor(isEntidade = true)
     private Advogado advogado;
 
     @Length(max = 100000)
     @Column(name = "pro_observacoes", length = 100000)
     @NotBlank
+    @PecaColetor
     private String observacoes;
 
     @Length(max = 100000)
     @Column(name = "pro_fatos", length = 100000)
     @NotBlank
+    @PecaColetor
     private String fatos;
 
     @Length(max = 100000)
     @Column(name = "pro_provas", length = 100000)
     @NotBlank
+    @PecaColetor
     private String provas;
 
     @Length(max = 100000)
     @Column(name = "pro_informacao_reservada", length = 100000)
     @NotBlank
+    @PecaColetor
     private String informacaoReservada;
 
     @Column(name = "pro_nb_indeferido")
+    @PecaColetor
     private String nbIndeferido;
 
     @Column(name = "pro_nb_deferido")
+    @PecaColetor
     private String nbDeferido;
 
     @Column(name = "pro_der")
     @Temporal(TemporalType.DATE)
+    @PecaColetor
     private Date der;
 
     @Column(name = "pro_dcb")
     @Temporal(TemporalType.DATE)
+    @PecaColetor
     private Date dcb;
 
     @Column(name = "pro_dib")
     @Temporal(TemporalType.DATE)
+    @PecaColetor
     private Date dib;
 
     @Column(name = "pro_dip")
     @Temporal(TemporalType.DATE)
+    @PecaColetor
     private Date dip;
 
     @Length(max = 100000)
     @Column(name = "pro_motivo_indeferimento", length = 100000)
+    @PecaColetor
     private String motivoIndeferimento;
 
     @Length(max = 100000)
     @Column(name = "pro_incapacidade", length = 100000)
+    @PecaColetor
     private String incapacidade;
 
     @Length(max = 100000)
     @Column(name = "pro_dependente", length = 100000)
+    @PecaColetor
     private String dependente;
 
     public String getFatos() {

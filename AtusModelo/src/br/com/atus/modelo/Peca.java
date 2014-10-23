@@ -5,6 +5,7 @@
  */
 package br.com.atus.modelo;
 
+import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -31,12 +32,14 @@ public class Peca implements Serializable {
     private Long id;
     @NotBlank
     @Column(name = "pec_descricao", nullable = false, unique = true)
+    @PecaColetor
     private String descricao;
     @NotBlank
     @Column(name = "pec_arquivo", nullable = false)
     private String arquivo;
     @NotBlank
     @Column(name = "pec_subgrupo", nullable = false)
+    @PecaColetor
     private String subgrupo;
 
     public Long getId() {

@@ -5,6 +5,7 @@
  */
 package br.com.atus.modelo;
 
+import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -37,8 +38,10 @@ public class Fase implements Serializable {
     private Long id;
     @NotBlank
     @Column(name = "fas_nome", nullable = false)
+    @PecaColetor
     private String nome;
     @Column(name = "fas_prazo")
+    @PecaColetor
     private int prazo;
     @NotAudited
     @ManyToOne

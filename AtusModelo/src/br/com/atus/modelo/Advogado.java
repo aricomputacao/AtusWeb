@@ -5,6 +5,7 @@
  */
 package br.com.atus.modelo;
 
+import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -32,12 +33,15 @@ public class Advogado implements Serializable {
     private Integer id;
     @NotBlank
     @Column(name = "adv_nome", nullable = false, unique = true)
+    @PecaColetor
     private String nome;
     @NotNull
     @Column(name = "adv_oab", nullable = false, unique = true)
+    @PecaColetor
     private Integer oab;
     @ManyToOne
-    @JoinColumn(name = "und_fed_id",referencedColumnName = "und_fed_id",nullable = false)
+    @JoinColumn(name = "und_fed_id", referencedColumnName = "und_fed_id", nullable = false)
+    @PecaColetor(isEntidade = true)
     private UnidadeFederativa uf;
 
     public Integer getId() {
@@ -93,8 +97,5 @@ public class Advogado implements Serializable {
         }
         return true;
     }
-    
-    
-    
 
 }

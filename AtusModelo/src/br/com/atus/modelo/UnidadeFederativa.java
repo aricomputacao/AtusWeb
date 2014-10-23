@@ -4,6 +4,7 @@
  */
 package br.com.atus.modelo;
 
+import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -27,8 +28,10 @@ public class UnidadeFederativa implements Serializable {
     @Column(name = "und_fed_id", nullable = false)
     private Integer id;
     @Column(name = "und_fed_nome")
+    @PecaColetor
     private String nome;
     @Column(name = "und_fed_abreviacao", unique = true)
+    @PecaColetor
     private String abreviacao;
 
     public Integer getId() {
