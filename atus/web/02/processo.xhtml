@@ -25,7 +25,7 @@
                     <cadastro:ProcessoCadastro id="compProce"/>
                 </h:panelGrid>       
                 <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}"> 
-                    <cons:ProcessoConsulta id="compProceConsu">
+                    <cons:ProcessoConsulta id="compProceConsu" dialogInfo="dialogCadProc" dialogUpdade=":frmDialogCadProce:compCadPro:fieldCad" >
                         <f:facet name="btnConsultaProcesso">
                             <comp:commandButton_consulta id="btnCon" acao_butao="#{processoMB.listar()}" componente_to_update=":frm_pag:cadFrm:compProceConsu:tabela"/>
                         </f:facet>
@@ -78,6 +78,11 @@
                         </h:panelGrid>
                     </f:facet>
                 </cons:AdversarioConsulta>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="top"  id="dialogCadPro"   modal="true" hideEffect="fade" widgetVar="dialogCadProc">
+            <h:form id="frmDialogCadProce">
+                <cadastro:ProcessoCadastro id="compCadPro" legend="Dados do Processo" />
             </h:form>
         </p:dialog>
     </ui:define>
