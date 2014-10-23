@@ -19,7 +19,7 @@
     <composite:implementation  >
         <p:fieldset id="fieldCad" legend="#{cc.attrs.legend}"  >
             
-            <h:outputText rendered="#{processoMB.processo.cliente.pessoa.nome != null}" style="font-size:20px;font-weight: bold" value="&rsaquo;&rsaquo;#{processoMB.processo.cliente.pessoa.nome}"/>
+            <h:outputText rendered="#{processoMB.processo.id != null}" style="font-size:20px;font-weight: bold" value="&rsaquo;&rsaquo;#{processoMB.processo.cliente.pessoa.nome}"/>
             <p:tabView id="tbView" dynamic="true" >
                 <p:tab id="tabDadosGer" title="Dados Gerais">
                     <h:panelGrid columns="2" >
@@ -249,7 +249,7 @@
 
                 </p:tab>
                 <p:tab id="tabMov" title="Movimentações">
-
+                    <consultas:MovimentacaoConsulta />
                 </p:tab>
                 <p:tab id="tabEvent" title="Eventos">
                     <p:dataTable value="#{processoMB.listaEventos}" id="tabelaEven" paginatorAlwaysVisible="false"  paginator="true" var="ev" rows="10" 
