@@ -65,16 +65,16 @@ public class PecaController extends Controller<Peca, Long> implements Serializab
         return new DefaultStreamedContent(new FileInputStream(f), "docx", p.getArquivo());
     }
 
-    public StreamedContent getModeloDownload(Peca peca, Object entidade) throws PecaFileException, FileNotFoundException, Docx4JException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    public StreamedContent getModeloDownload(Peca peca, Object entidade) throws PecaFileException, FileNotFoundException, Docx4JException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, NoSuchFieldException, ClassNotFoundException {
         InputStream stream = getDownload(peca).getStream();
         return DocumentoConverter.converterArquivo(stream, entidade, peca);
     }
 
-    public List<String> getListaTags(String classe) throws ClassNotFoundException {
+    public List<String> getListaTags(String classe) throws ClassNotFoundException, NoSuchFieldException {
         return DocumentoConverter.getListaTags(Class.forName(classe));
     }
 
-    public boolean validaArquivoDocx(UploadedFile f, String grupo) {
+    public boolean validaArquivoDocx(UploadedFile f, String grupo) throws NoSuchFieldException {
         try {
             return DocumentoConverter.validarArquivo(f.getInputstream(), Class.forName(grupo));
         } catch (IOException | ClassNotFoundException | Docx4JException ex) {

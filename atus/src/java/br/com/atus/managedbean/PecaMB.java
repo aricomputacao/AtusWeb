@@ -9,16 +9,11 @@ import br.com.atus.controller.PecaController;
 import br.com.atus.exceptions.PecaFileException;
 import br.com.atus.modelo.Peca;
 import br.com.atus.util.MenssagemUtil;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -115,7 +110,7 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
     public StreamedContent downloadModelo(Peca p) {
         try {
             return controller.getModeloDownload(p, p);
-        } catch (PecaFileException | FileNotFoundException | Docx4JException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+        } catch (PecaFileException | FileNotFoundException | Docx4JException | IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchFieldException | ClassNotFoundException e) {
             MenssagemUtil.addMessageErro(e);
         }
         return null;
@@ -128,7 +123,6 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
                 controller.salvar(peca, file);
             } else {
                 controller.atualizar(peca, file);
-
             }
             init();
             MenssagemUtil.addMessageInfo("Registro salvo");
@@ -152,16 +146,14 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
     }
 
     public List<String> getCamposClasse() {
-        try {
-            if (peca.getSubgrupo() != null && !peca.getSubgrupo().equals("")) {
-
+        if (peca.getSubgrupo() != null && !peca.getSubgrupo().equals("")) {
+            try {
                 return controller.getListaTags(peca.getSubgrupo());
+            } catch (ClassNotFoundException | NoSuchFieldException ex) {
+                return new ArrayList<>();
             }
-            return new ArrayList<>();
-        } catch (ClassNotFoundException ex) {
-            return new ArrayList<>();
-//            Logger.getLogger(PecaMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return new ArrayList<>();
     }
 
 }

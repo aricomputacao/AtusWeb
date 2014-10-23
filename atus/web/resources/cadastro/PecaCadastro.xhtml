@@ -38,8 +38,10 @@
                     </h:panelGrid>
                 </h:panelGrid>
                 <h:panelGrid id="tags">
-                    <p:dataGrid value="#{pecaMB.camposClasse}" columns="3" var="tag" rows="5" emptyMessage="Nenhum Subgrupo Selecionado">
-                        <h:outputText value="${tag}"/>
+                    <p:dataGrid value="#{pecaMB.camposClasse}" var="tag" emptyMessage="Nenhum Subgrupo Selecionado" columns="4">
+                        <p:column>
+                            <h:outputText value="#{tag}"/>
+                        </p:column>
                     </p:dataGrid>
                 </h:panelGrid>
                 <h:panelGrid id="file">

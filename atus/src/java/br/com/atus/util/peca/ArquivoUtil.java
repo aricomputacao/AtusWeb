@@ -20,11 +20,12 @@ import org.primefaces.model.UploadedFile;
  */
 public class ArquivoUtil {
 
-    public static final String PATH_FILES = "pecas\\documentos";
+    public static final String SEPARADOR = System.getProperty("file.separator");
+    public static final String PATH_FILES = "pecas" + SEPARADOR + "documentos";
 
     // Listar os arquivos de uma pasta
     public static List<File> aquivos(String pasta) {
-        String relativo = diretorioRelativo() + "\\" + pasta;
+        String relativo = diretorioRelativo() + SEPARADOR + pasta;
         File f = new File(relativo);
         if (f.exists()) {
             return Arrays.asList(f.listFiles());
@@ -35,14 +36,14 @@ public class ArquivoUtil {
 
     // Pasta relativa onde deve ficar os arquivos do sistema
     public static void gravaArquivo(String local, String nome, byte[] conteudo) throws IOException, Exception {
-        File pastaGeral = new File(diretorioRelativo() + "\\" + local);
+        File pastaGeral = new File(diretorioRelativo() + SEPARADOR + local);
         if (!pastaGeral.exists()) {
             if (!pastaGeral.mkdirs()) {
                 throw new Exception("Erro ao cria pasta relativa");
             }
         }
 
-        try (FileOutputStream writer = new FileOutputStream(pastaGeral + "\\" + nome)) {
+        try (FileOutputStream writer = new FileOutputStream(pastaGeral + SEPARADOR + nome)) {
             writer.write(conteudo);
             writer.flush();
         }
@@ -51,20 +52,20 @@ public class ArquivoUtil {
     public static void uploadArquivo(FileUploadEvent event, String pasta) throws IOException, Exception {
         String relativo = diretorioRelativo();
         UploadedFile f = event.getFile();
-        ArquivoUtil.gravaArquivo(relativo + "\\" + pasta, f.getFileName(), f.getContents());
+        ArquivoUtil.gravaArquivo(relativo + SEPARADOR + pasta, f.getFileName(), f.getContents());
     }
 
     public static String diretorioRelativo() {
-        String localAbs = new AssistentedeRelatorio().getDiretorioReal("\\");
-        String relativo = localAbs.substring(0, localAbs.lastIndexOf("\\"));
-        relativo = relativo.substring(0, relativo.lastIndexOf("\\"));
-        relativo = relativo.substring(0, relativo.lastIndexOf("\\"));
-        return relativo + "\\" + PATH_FILES;
+        String localAbs = new AssistentedeRelatorio().getDiretorioReal(SEPARADOR);
+        String relativo = localAbs.substring(0, localAbs.lastIndexOf(SEPARADOR));
+        relativo = relativo.substring(0, relativo.lastIndexOf(SEPARADOR));
+        relativo = relativo.substring(0, relativo.lastIndexOf(SEPARADOR));
+        return relativo + SEPARADOR + PATH_FILES;
 
     }
 
     public static void excluirAquivo(String path, String nomeFile) {
-        File file = new File(diretorioRelativo() + "\\" + path + "\\" + nomeFile);
+        File file = new File(diretorioRelativo() + SEPARADOR + path + SEPARADOR + nomeFile);
         file.delete();
     }
 }
