@@ -3,9 +3,10 @@
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="img" class="java.lang.String"/>
 	<parameter name="relatorio" class="java.lang.String"/>
+	<parameter name="img" class="java.lang.String"/>
 	<parameter name="img1" class="java.lang.String"/>
+	<parameter name="imgAt" class="java.lang.String"/>
 	<noData>
 		<band height="65">
 			<frame>
@@ -17,35 +18,21 @@
 					<bottomPen lineWidth="1.0" lineColor="#010101"/>
 					<rightPen lineWidth="1.0" lineColor="#010101"/>
 				</box>
+				<image>
+					<reportElement uuid="55c1f925-2fd6-46d7-bea4-94bc71635ac0" x="0" y="2" width="64" height="57"/>
+					<imageExpression><![CDATA[$P{img}]]></imageExpression>
+				</image>
+				<image>
+					<reportElement uuid="3a5d7aa3-4c2d-4907-ab84-392f4a7cadda" x="64" y="4" width="100" height="39"/>
+					<imageExpression><![CDATA[$P{imgAt}]]></imageExpression>
+				</image>
 				<textField>
-					<reportElement uuid="d7ca42c7-7454-4c89-a2ae-2196bf22d719" x="90" y="43" width="369" height="20" backcolor="#000000"/>
+					<reportElement uuid="eecb8a42-3e8d-4dbc-95a5-0b0ca7b33aa1" x="69" y="41" width="298" height="20" backcolor="#000000"/>
 					<textElement>
 						<font size="14" isItalic="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{relatorio}]]></textFieldExpression>
 				</textField>
-				<image>
-					<reportElement uuid="55f03c54-d753-4578-a3b4-a7f1e13dffc3" x="557" y="5" width="240" height="58"/>
-					<imageExpression><![CDATA[$P{img}]]></imageExpression>
-				</image>
-				<image>
-					<reportElement uuid="8184ef83-0e26-4e6a-a411-3555073383d3" x="1" y="2" width="89" height="61"/>
-					<imageExpression><![CDATA[$P{img1}]]></imageExpression>
-				</image>
-				<staticText>
-					<reportElement uuid="713a6140-3463-4db3-a378-4c86b11d866f" x="90" y="2" width="81" height="24" forecolor="#333333" backcolor="#000000"/>
-					<textElement verticalAlignment="Bottom">
-						<font fontName="SansSerif" size="16" isBold="true" isItalic="true"/>
-					</textElement>
-					<text><![CDATA[SIAFI]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="ff68bce4-6251-46fa-93ab-3a3b0f1af217" x="90" y="27" width="369" height="18" forecolor="#333333" backcolor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font fontName="SansSerif" size="12" isBold="true" isItalic="true"/>
-					</textElement>
-					<text><![CDATA[Sistema de Administração Financeira]]></text>
-				</staticText>
 			</frame>
 		</band>
 	</noData>

@@ -43,13 +43,13 @@
                     </h:panelGrid>
                 </h:panelGrid>
                 <p:dataTable value="#{processoMB.listaProcessos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10" 
-                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                             rowStyleClass="#{not processoMB.processoAtrasado(t)?(empty rowIx or rowIx mod 2 ne 0 ? 'linha-atrasada-even-row' : 'linha-atrasada-odd-row'):(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
                     <p:column headerText="Número" width="10%" sortBy="#{t.numero}">
                         <comp:outputText value="#{t.numero}"/>
                     </p:column>
-                    <p:column headerText="Cliente/Contatos" sortBy="#{t.cliente.pessoa.nome}" width="30%" >
-                        <comp:outputText value="#{t.cliente.pessoa.nome}  #{t.cliente.pessoa.telefone}  #{t.cliente.pessoa.celular}"/>
+                    <p:column headerText="Cliente|Contatos" sortBy="#{t.cliente.pessoa.nome}" width="30%" >
+                        <comp:outputText value="#{t.cliente.pessoa.nome} | #{t.cliente.pessoa.telefone}  #{t.cliente.pessoa.celular}"/>
                     </p:column>
                     <p:column headerText="Fase" width="10%" >
                         <comp:outputText value="#{t.fase.nome} -- #{t.fase.usuario.nome}"/>

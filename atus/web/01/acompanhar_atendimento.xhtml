@@ -18,10 +18,10 @@
             <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.atendimento'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.atendimento'])}" acao_imprimir="#{atendimentoMB.imprimir()}" acao_limpar="#{atendimentoMB.init()}" acao_salvar="#{atendimentoMB.salvar()}"/>
             <comp:panel_cadastro id="cadFrm" cabecalho_grid="Colaborador" id_form="frm_pag"  >               
                 <h:panelGrid width="100%"   >
-                    <cons:AtendimentoConsulta acao_consultar="#{atendimentoMB.listar()}" lista="#{atendimentoMB.listaAtendimentosFundo}" id="atendConsFundo"/>
+                    <cons:AtendimentoConsulta acao_consultar="#{atendimentoMB.listar()}" nome="Atendimento Fundo" lista="#{atendimentoMB.listaAtendimentosFundo}" id="atendConsFundo"/>
                 </h:panelGrid>       
                 <h:panelGrid > 
-                    <cons:AtendimentoConsulta acao_consultar="#{atendimentoMB.listar()}" lista="#{atendimentoMB.listaAtendimentosFrente}" id="atendConsFrente"/>
+                    <cons:AtendimentoConsulta acao_consultar="#{atendimentoMB.listar()}" nome="Atendimento Frente" lista="#{atendimentoMB.listaAtendimentosFrente}" id="atendConsFrente"/>
                 </h:panelGrid>
             </comp:panel_cadastro>
         </h:form>

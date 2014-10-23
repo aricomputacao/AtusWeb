@@ -341,13 +341,22 @@ ui-layout-unit{
 .ui-column-title{
     font-weight: bold;
 }
+/*linhas da tabela*/
 .ui-datatable .ui-datatable-data .even-row td{
     background-color: #f2f2f2;
 }
 
-
 .ui-datatable .ui-datatable-data .odd-row td{
     background-color: white;
+}
+.ui-datatable .ui-datatable-data .linha-atrasada-even-row td{
+    color:red;
+    background-color:#ffe990;
+}
+.ui-datatable .ui-datatable-data .linha-atrasada-odd-row td{
+   
+     color:red;
+    background-color:#ffe990;
 }
 
 .ui-state-default.ui-corner-top{

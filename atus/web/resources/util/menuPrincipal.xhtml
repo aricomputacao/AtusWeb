@@ -30,8 +30,8 @@
                     <p:menuitem value="Usuários" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.usuario'])}" immediate="true"/>
                 </p:submenu>
                 <p:submenu  label="Atendimento" styleClass="subMenu" >
-                    <p:menuitem styleClass="item" value="Cadastrar" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.atendimento'])}" immediate="true"/>
-                    <p:menuitem styleClass="item" value="Visualizar" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.acompanhar_atendimento'])}" immediate="true"/>
+                    <p:menuitem styleClass="item" value="Atendimento" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.atendimento'])}" immediate="true"/>
+                    <p:menuitem styleClass="item" value="Acompanhar" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.acompanhar_atendimento'])}" immediate="true"/>
                 </p:submenu>
                 <p:submenu label="Processo" styleClass="subMenu">
                     <p:menuitem value="Fases" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.fase'])}" immediate="true"/>
@@ -44,7 +44,6 @@
                 </p:submenu>
 
                 <p:menuitem styleClass="item" value="Relatórios"/>
-                <p:menuitem styleClass="item" value="Segurança"/>
                 <p:submenu label="Segurança" styleClass="subMenu">
                     <p:menuitem value="Módulo" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['seg.modulo'])}" immediate="true"/>
                     <p:menuitem value="Tarefa" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['seg.tarefa'])}" immediate="true"/>

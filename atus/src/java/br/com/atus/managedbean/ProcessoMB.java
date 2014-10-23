@@ -22,6 +22,8 @@ import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +56,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     private EventoController eventoController;
     @EJB
     private MovimentacaoController movimentacaoController;
-   
+
     private Processo processo;
     private Adversario adversario;
     private ParteInteressada parteInteressada;
@@ -120,6 +122,33 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     }
 
     /**
+     * Retorna se o proecesso está atrasado
+     *
+     * @param p
+     * @return
+     */
+    public boolean processoAtrasado(Processo p) {
+        if (p.getId() != null) {
+            listaMovimentacaos = movimentacaoController.listarPorProcesso(p);
+
+        }
+
+        if (p.getFase() != null && listaMovimentacaos.size() > 0) {
+            Calendar dataAtual = Calendar.getInstance();
+            dataAtual.setTime(new Date());
+
+            Calendar prazoFase = Calendar.getInstance();
+            prazoFase.setTime(listaMovimentacaos.get(listaMovimentacaos.size()-1).getDataMovimentacao());
+            prazoFase.add(Calendar.DAY_OF_MONTH, p.getFase().getPrazo());
+
+            return dataAtual.before(prazoFase);
+        } else {
+            return true;
+        }
+
+    }
+
+    /**
      * Metodo para registrar o cliente do processo pegando o primeiro da lista
      * de interassados
      *
@@ -167,7 +196,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     public void imprimir() {
         if (!listaProcessos.isEmpty()) {
             Map<String, Object> m = new HashMap<>();
-            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaProcessos, m, "WEB-INF/relatorios/rel_especie_eventos.jasper", "Relatório de Especies de Eventos");
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaProcessos, m, "WEB-INF/relatorios/rel_especie_eventos.jasper", "Relatório de Processos");
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
 

@@ -22,7 +22,7 @@
                     <cadastro:AtendimentoCadastro id="compAten"/>
                 </h:panelGrid>       
                 <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}"> 
-                    <cons:AtendimentoConsulta acao_consultar="#{atendimentoMB.listar()}" lista="#{atendimentoMB.listaAtendimentos}" id="atendCons"/>
+                    <cons:AtendimentoConsulta acao_consultar="#{atendimentoMB.listar()}" renderAtenderr="false" lista="#{atendimentoMB.listaAtendimentos}" id="atendCons"/>
                 </h:panelGrid>
             </comp:panel_cadastro>
         </h:form>

@@ -13,6 +13,7 @@ import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +55,7 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
         evento = (Evento) navegacaoMB.getRegistroMapa("evento", new Evento());
         dataFinal = new Date();
         dataInicial = new Date();
+        listaEventos = new ArrayList<>();
     }
 
     public void salvar() {
@@ -112,7 +114,7 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
     public void imprimir() {
         if (!listaEventos.isEmpty()) {
             Map<String, Object> m = new HashMap<>();
-            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaEventos, m, "WEB-INF/relatorios/rel_especie_eventos.jasper", "Relatório de Especies de Eventos");
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaEventos, m, "WEB-INF/relatorios/rel_eventos.jasper", "Relatório de Eventos");
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
 

@@ -63,9 +63,9 @@
 
 
                     <p:column headerText="Ação" width="6%" style="text-align: center">
-                        <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.advogado'],'advogado',t)}" />
-                        <comp:commandButton_excluir acao_butao="#{advogadoMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Advogado" form_to_update="@form"/>
-                        <p:commandButton title="Atender" update=":frmAtend:atendi:fieldAtend" onclick="PF('dialogAtend').show();" icon="ui-icon-circle-check" style="width: 20px;height: 20px;" >
+                        <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.atendimento'],'atendimento',t)}" />
+                        <comp:commandButton_excluir acao_butao="#{advogadoMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Atendimento" form_to_update="@form"/>
+                        <p:commandButton title="Atender" update=":frmAtend:atendi:fieldAtend" onclick="PF('dialogAtend').show();" rendered="#{cc.attrs.renderAtenderr}" icon="ui-icon-circle-check" style="width: 20px;height: 20px;" >
                             <f:setPropertyActionListener target="#{atendimentoMB.atendimento}" value="#{t}"/>
                         </p:commandButton>
                         <p:commandButton  title="Cancelar" icon="ui-icon-close" update=":frmAtend:atendi:fieldAtend" onclick="PF('dialogCanAtend').show();" style="width: 20px;height: 20px;" >
