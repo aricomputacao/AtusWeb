@@ -15,6 +15,9 @@ import br.com.atus.modelo.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -48,6 +51,15 @@ public class PermissaoMB extends BeanGenerico<Permissao> implements Serializable
         listaTarefas = new ArrayList<>();
     }
 
+    @PostConstruct
+    private void init() {
+        try {
+            listaModulos = moduloController.listarTodos("nome");
+        } catch (Exception ex) {
+            Logger.getLogger(PermissaoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void salvar(Permissao p) throws Exception {
         if (p.getId() == null) {
             controller.salvar(p);
@@ -62,6 +74,9 @@ public class PermissaoMB extends BeanGenerico<Permissao> implements Serializable
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public void inicializaUsuario() {
         permissoes = controller.listar(usuario, modulo, tarefa);
     }
 
@@ -99,6 +114,22 @@ public class PermissaoMB extends BeanGenerico<Permissao> implements Serializable
 
     public void atualizaListaTarefas() {
         listaTarefas = tarefaController.listar(modulo);
+    }
+
+    public List<Modulo> getListaModulos() {
+        return listaModulos;
+    }
+
+    public void setListaModulos(List<Modulo> listaModulos) {
+        this.listaModulos = listaModulos;
+    }
+
+    public List<Tarefa> getListaTarefas() {
+        return listaTarefas;
+    }
+
+    public void setListaTarefas(List<Tarefa> listaTarefas) {
+        this.listaTarefas = listaTarefas;
     }
 
 }

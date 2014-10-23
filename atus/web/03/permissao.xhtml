@@ -22,7 +22,7 @@
                         <h:outputText value="Ativo: #{permissaoMB.usuario.ativo}"/>
                     </h:panelGrid>
                     <h:panelGrid columns="4">
-                        <p:commandButton value="Incluir Permissão" icon="ui-icon-plus" onclick="PF('dialogInfo').show();"/>
+                        <p:commandButton value="Incluir Permissão" icon="ui-icon-plus" onclick="PF('dialogInfo').show();" update=":frm"/>
                     </h:panelGrid>
                     <p:dataTable value="#{permissaoMB.permissoes}" var="p" emptyMessage="Nenhuma permissão" paginatorAlwaysVisible="false" paginator="true">
                         <p:column headerText="Tarefa">
@@ -51,23 +51,25 @@
     <ui:define name="dialogs">
         <p:dialog id="info" widgetVar="dialogInfo" width="800" height="400" position="top">
             <h:form id="frm">
-                <h:panelGrid>
-                    <h:panelGrid>
+                <h:panelGrid columns="2" id="x">
+                    <h:panelGrid id="x2">
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Módulo" for="modulo"/>
                             <p:messages for="modulo"/>
                         </h:panelGrid>
-                        <p:selectOneMenu value="#{permissaoMB.modulo}" required="true" converter="#{indexConverter}" id="modulo">
+                        <p:selectOneMenu value="#{permissaoMB.modulo}" converter="#{indexConverter}" id="modulo" style="width: 200px;">
                             <f:selectItem itemValue="#{null}" itemLabel=""/>
                             <f:selectItems value="#{permissaoMB.listaModulos}" itemLabel="#{m.nome}" itemValue="#{m}" var="m"/>
+                            <p:ajax listener="#{permissaoMB.atualizaListaTarefas()}" update=":frm" event="change" process="@this" async="true"/>
                         </p:selectOneMenu>
                     </h:panelGrid>
-                    <h:panelGrid>
-                        <h:panelGrid columns="2">
+                    <p:commandButton value="TESTE" actionListener="#{permissaoMB.atualizaListaTarefas()}" update="tarefa" immediate="true"/>
+                    <h:panelGrid id="tarefa">
+                        <h:panelGrid columns="2" id="x3">
                             <p:outputLabel value="Tarefa" for="tarefa"/>
                             <p:messages for="tarefa"/>
                         </h:panelGrid>
-                        <p:selectOneMenu value="#{permissaoMB.permissao.tarefa}" required="true" converter="#{indexConverter}" id="tarefa">
+                        <p:selectOneMenu value="#{permissaoMB.permissao.tarefa}" converter="#{indexConverter}" style="width: 200px;" id="x4">
                             <f:selectItem itemValue="#{null}" itemLabel=""/>
                             <f:selectItems value="#{permissaoMB.listaTarefas}" itemLabel="#{t.nome}" itemValue="#{t}" var="t"/>
                         </p:selectOneMenu>

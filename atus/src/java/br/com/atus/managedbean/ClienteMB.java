@@ -23,7 +23,7 @@ import br.com.atus.modelo.Profissao;
 import br.com.atus.modelo.TipoTratamento;
 import br.com.atus.modelo.UnidadeFederativa;
 import br.com.atus.util.AssistentedeRelatorio;
-import br.com.atus.util.DocumetoUtil;
+import br.com.atus.util.peca.DocumetoUtil;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
 import java.io.Serializable;

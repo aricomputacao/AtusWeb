@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.atus.util;
+package br.com.atus.util.peca;
 
 import br.com.atus.modelo.Peca;
+import br.com.atus.util.RegexUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -146,7 +147,16 @@ public class DocumentoConverter {
 
     private static List<Field> getListaCampos(Class classe) {
         List<Field> campos = new ArrayList<>();
-        campos.addAll(Arrays.asList(classe.getDeclaredFields()));
+        for (Field field : classe.getDeclaredFields()) {
+            try {
+                PecaColetor p = (PecaColetor) field.getAnnotation(PecaColetor.class);
+                if (p != null) {
+                    campos.add(field);
+                }
+            } catch (NullPointerException n) {
+                // Se nãp possue
+            }
+        }
         return campos;
     }
 
