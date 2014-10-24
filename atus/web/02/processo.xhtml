@@ -88,6 +88,11 @@
                 <cadastro:ProcessoCadastro id="compCadPro" legend="Dados do Processo" />
             </h:form>
         </p:dialog>
+        <p:dialog showEffect="fade" position="top"  id="dialogPrintDoc"   modal="true" hideEffect="fade" widgetVar="dialogPrintDoc">
+            <h:form id="frmDialogPrintDoc">
+                <acao:ImprimirDocumentos />
+            </h:form>
+        </p:dialog>
     </ui:define>
 
 </ui:composition>

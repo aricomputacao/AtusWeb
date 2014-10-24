@@ -91,8 +91,8 @@
                     <p:outputLabel for="orgEmi" value="Órgão Emissor" />
                 </h:panelGrid>
                 <h:panelGrid columns="2">
-                    <p:selectOneMenu id="orgEmi" value="#{clienteMB.cliente.orgaoEmissor}" required="true"  style="width: 169px" effect="fade" converter="#{indexConverter}" >
-                        <f:selectItems value="#{orgaoEmissorMB.listaOrgaoEmissors}" var="ore" itemLabel="#{ore.abreviacao}" itemValue="#{ore}"/>
+                    <p:selectOneMenu id="orgEmi" value="#{clienteMB.cliente.orgaoEmissor}" required="true"  style="width: 169px" effect="fade" converter="#{orgaoEmissorConverter}" >
+                        <f:selectItems value="#{orgaoEmissorMB.listaOrgaoEmissors}" var="ore" itemLabel="#{ore.abreviacao}"  itemValue="#{ore}"/>
                     </p:selectOneMenu>
                     <p:commandButton onclick="PF('dialogoOrgaoEmissor').show()" title="Add" immediate="true" icon="ui-icon-circle-plus"/>
 
