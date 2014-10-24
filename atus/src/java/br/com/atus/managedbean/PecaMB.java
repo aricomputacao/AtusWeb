@@ -19,8 +19,6 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -48,6 +46,7 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
     private UploadedFile file;
     private Peca peca;
     private GrupoPeca grupo;
+    private SubGrupoPeca subGrupo;
     @Inject
     private NavegacaoMB navegacaoMB;
     private List<Peca> listaPecas;
@@ -118,6 +117,14 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
         }
     }
 
+    public void atualizaListaPecas() {
+        if (subGrupo != null) {
+            listaPecas = controller.listar(subGrupo);
+        } else {
+            listaPecas = new ArrayList<>();
+        }
+    }
+
     public void excluir(Peca p) {
 
     }
@@ -130,15 +137,6 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
         try {
             return controller.getDownload(p);
         } catch (PecaFileException | FileNotFoundException e) {
-            MenssagemUtil.addMessageErro(e);
-        }
-        return null;
-    }
-
-    public StreamedContent downloadModelo(Peca p) {
-        try {
-            return controller.getModeloDownload(p, p);
-        } catch (PecaFileException | FileNotFoundException | Docx4JException | IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchFieldException | ClassNotFoundException e) {
             MenssagemUtil.addMessageErro(e);
         }
         return null;
@@ -203,6 +201,14 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
 
     public void setGrupo(GrupoPeca grupo) {
         this.grupo = grupo;
+    }
+
+    public SubGrupoPeca getSubGrupo() {
+        return subGrupo;
+    }
+
+    public void setSubGrupo(SubGrupoPeca subGrupo) {
+        this.subGrupo = subGrupo;
     }
 
 }

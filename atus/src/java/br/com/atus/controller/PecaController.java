@@ -8,6 +8,7 @@ package br.com.atus.controller;
 import br.com.atus.dao.PecaDAO;
 import br.com.atus.exceptions.PecaFileException;
 import br.com.atus.modelo.Peca;
+import br.com.atus.modelo.SubGrupoPeca;
 import br.com.atus.util.peca.ArquivoUtil;
 import br.com.atus.util.peca.DocumentoConverter;
 import java.io.File;
@@ -42,6 +43,10 @@ public class PecaController extends Controller<Peca, Long> implements Serializab
     @PostConstruct
     protected void inicializaDAO() {
         setDAO(dao);
+    }
+
+    public List<Peca> listar(SubGrupoPeca sgp) {
+        return dao.listar(sgp);
     }
 
     public void salvar(Peca t, UploadedFile file) throws Exception {

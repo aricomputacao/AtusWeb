@@ -34,7 +34,7 @@ import org.primefaces.model.StreamedContent;
  */
 public class DocumentoConverter {
 
-    public static final String PARAMETROS_PADRAO = "\\$\\{\\w+\\}";
+    public static final String PARAMETROS_PADRAO = "\\$\\{\\w+.\\w+\\}";
     public static final String STRING_ESQUERDA = "\\$\\{";
     public static final String STRING_DIREITA = "\\}";
     public static final String PARTE_ESQUERDA = "${";
@@ -99,7 +99,7 @@ public class DocumentoConverter {
             if (matcher.find()) {
                 //Troca aqui o valor parametro do texto pelo valor do objeto
                 for (String campo : getListaCampos(entidade.getClass(), "")) {
-                    if (texto.contains(campo)) {
+                    if (texto.contains(PARTE_ESQUERDA + campo + PARTE_DIREITA)) {
                         Object valor = executaMetodo(campo, entidade);
                         if (valor instanceof List) {
                             for (Object o : (List) valor) {

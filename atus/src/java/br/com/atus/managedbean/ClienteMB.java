@@ -122,7 +122,6 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
                 MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("documento_invalido", MenssagemUtil.MENSAGENS));
                 return;
             }
-
             //so entra se for cadastro se for edição não
             if (cliente.getId() == null) {
                 if (controller.buscarPorDocumento(doc).getId() != null) {

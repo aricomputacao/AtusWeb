@@ -44,8 +44,11 @@
                     <p:column headerText="Descrição" sortBy="#{t.descricao}">
                         <comp:outputText value="#{t.descricao}"/>
                     </p:column>
-                    <p:column headerText="SubGrupo" sortBy="#{t.subgrupo}">
-                        <comp:outputText value="#{t.subgrupo}"/>
+                    <p:column headerText="Grupo" sortBy="#{t.subgrupo.grupoPeca.nome}">
+                        <comp:outputText value="#{t.subgrupo.grupoPeca.nome}"/>
+                    </p:column>
+                    <p:column headerText="SubGrupo" sortBy="#{t.subgrupo.nome}">
+                        <comp:outputText value="#{t.subgrupo.nome}"/>
                     </p:column>
                     <p:column headerText="Arquivo" sortBy="#{t.arquivo}">
                         <comp:outputText value="#{t.arquivo}"/>

@@ -6,7 +6,9 @@
 package br.com.atus.dao;
 
 import br.com.atus.modelo.Peca;
+import br.com.atus.modelo.SubGrupoPeca;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.Stateless;
 
 /**
@@ -18,6 +20,10 @@ public class PecaDAO extends DAO<Peca, Long> implements Serializable {
 
     public PecaDAO() {
         super(Peca.class);
+    }
+
+    public List<Peca> listar(SubGrupoPeca sgp) {
+        return getEm().createQuery("SELECT p FROM Peca p WHERE p.subgrupo=:s ").setParameter("s", sgp).getResultList();
     }
 
 }
