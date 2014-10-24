@@ -18,12 +18,16 @@
             <h:outputText rendered="#{processoMB.processo.id != null}" style="font-weight: bold;font-size: 15px" value="&rsaquo;&rsaquo;Processo: #{processoMB.processo.numero}"/>
             <br/>
             <p:separator/>
-            <h:panelGrid style="margin-top: 15px">
-                <p:commandButton value="Protocolo" style="width: 32px;height: 32px"/>
+            <h:panelGrid style="margin-top: 15px" columns="3" cellspacing="5">
+
+                <p:commandButton value="Dossiê" style="width: 100px;height: 100px;font-weight: bold"/>
+                <p:commandButton value="Protocolo" style="width: 100px;height: 100px;font-weight: bold"/>
+                <p:commandButton value="Protocolo" style="width: 100px;height: 100px;font-weight: bold"/>
+                <p:commandButton value="Protocolo" style="width: 100px;height: 100px;font-weight: bold"/>
+                <p:commandButton value="Protocolo" style="width: 100px;height: 100px;font-weight: bold"/>
+
             </h:panelGrid>
-            <h:panelGrid columns="2">
-                <comp:inputTextArea coluna="47" nomeLabel="Motivo" linha="10" value="#{processoMB.movimentacao.motivo}" require="false" /> 
-            </h:panelGrid>
+
 
         </p:fieldset>
 
