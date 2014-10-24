@@ -17,8 +17,7 @@
 
     </composite:interface>
     <composite:implementation  >
-        <p:fieldset id="fieldCad" legend="#{cc.attrs.legend}"  >
-            
+        <p:fieldset id="fieldCad" legend="#{cc.attrs.legend}"  >            
             <h:outputText rendered="#{processoMB.processo.id != null}" style="font-size:20px;font-weight: bold" value="&rsaquo;&rsaquo;#{processoMB.processo.cliente.pessoa.nome}"/>
             <p:tabView id="tbView" dynamic="true" >
                 <p:tab id="tabDadosGer" title="Dados Gerais">
@@ -87,7 +86,7 @@
                                 <h:panelGrid >                                   
                                     <p:outputLabel value="Objeto" for="input_componente_obj"/>
                                     <h:panelGrid columns="3">
-                                        <p:inputTextarea rows="5" cols="30" value="#{processoMB.processo.objetoProcesso }" id="input_componente_obj" required="true" />
+                                        <p:inputTextarea rows="5" cols="30" value="#{processoMB.processo.objetoProcesso }" id="input_componente_obj"  />
                                     </h:panelGrid>
                                 </h:panelGrid>
                             </h:panelGrid>
@@ -112,7 +111,7 @@
                                 </h:panelGrid>
                             </h:panelGrid>
 
-                            <comp:inputTextArea nomeLabel="Observações" value="#{processoMB.processo.observacoes}" coluna="50" linha="5" require="true" />
+                            <comp:inputTextArea nomeLabel="Observações" value="#{processoMB.processo.observacoes}" coluna="50" linha="5"  />
                         </h:panelGrid>
 
 
@@ -127,12 +126,12 @@
                                 <h:panelGrid>
                                     <p:outputLabel value="Interessado" for="input_componente_int"/>
                                     <h:panelGrid columns="3">
-                                        <p:inputText value="#{processoMB.parteInteressada.cliente.pessoa.nome}" id="input_componente_int" required="true" readonly="true" size="27"/>
+                                        <p:inputText value="#{processoMB.parteInteressada.cliente.pessoa.nome}" id="input_componente_int" readonly="true" size="27"/>
                                         <p:commandButton icon="ui-icon-search"  onclick="PF('dialogoConIntere').show()"  immediate="true"/>
                                     </h:panelGrid>
                                 </h:panelGrid>
                                 <h:panelGrid columns="2">
-                                    <comp:inputText nomeLabel="Representante" value="#{processoMB.parteInteressada.representante}" size="30" />
+                                    <comp:inputText require="false" nomeLabel="Representante" value="#{processoMB.parteInteressada.representante}" size="30" />
                                     <p:commandButton style="margin-top: 23px" value="Adicionar"  actionListener="#{processoMB.addInteressado()}"  update=":frm_pag:cadFrm:compProce:tbView:tabela" icon="ui-icon-circle-plus"  />
                                 </h:panelGrid>
                             </h:panelGrid>
@@ -160,12 +159,12 @@
                                 <h:panelGrid>
                                     <p:outputLabel value="Adversário" for="input_componente_adv"/>
                                     <h:panelGrid columns="3">
-                                        <p:inputText value="#{processoMB.adversario.cliente.pessoa.nome}" id="input_componente_adv" required="true" readonly="true" size="27"/>
+                                        <p:inputText value="#{processoMB.adversario.cliente.pessoa.nome}" id="input_componente_adv"  readonly="true" size="27"/>
                                         <p:commandButton icon="ui-icon-search"  onclick="PF('dialogoConAdv').show()"  immediate="true"/>
                                     </h:panelGrid>
                                 </h:panelGrid>
                                 <h:panelGrid columns="2">
-                                    <comp:inputText nomeLabel="Representante" value="#{processoMB.adversario.representante}" size="30" />
+                                    <comp:inputText nomeLabel="Representante" require="false" value="#{processoMB.adversario.representante}" size="30" />
                                     <p:commandButton style="margin-top: 23px" value="Adicionar"  actionListener="#{processoMB.addAdversario()}"  update=":frm_pag:cadFrm:compProce:tbView:tabelaAdv" icon="ui-icon-circle-plus"  />
                                 </h:panelGrid>
                             </h:panelGrid>
@@ -187,7 +186,7 @@
                     </h:panelGrid>
                 </p:tab>
                 <p:tab id="tabFatos" title="Dos Fatos">
-                    <comp:inputTextArea nomeLabel="Dos Fatos" value="#{processoMB.processo.fatos}" coluna="100" linha="20"  />
+                    <comp:inputTextArea  nomeLabel="Dos Fatos" value="#{processoMB.processo.fatos}" coluna="100" linha="20"  />
 
                 </p:tab>
                 <p:tab id="tabProvas" title="Das Provas">

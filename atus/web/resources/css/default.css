@@ -257,6 +257,8 @@ ui-layout-unit{
     margin: 5px;
 
 }
+
+
 .ui-menuitem-icon.ui-icon.ui-icon-search{
     background: url("../resources/imagens/consulta.png") ! important;
     width: 32px;
@@ -280,6 +282,13 @@ ui-layout-unit{
 }
 
 /*-----------------------------------------------------------------------*/
+.ui-button-icon-left.ui-icon.ui-c.ui-icon-carat-1-e{
+    background: url("../resources/imagens/export.png") ! important;
+    width: 16px;
+    height: 16px;
+
+}
+
 .ui-button-icon-left.ui-icon.ui-c.ui-icon-pencil{
     background: url("../resources/imagens/update.png") ! important;
     width: 16px;
@@ -341,14 +350,29 @@ ui-layout-unit{
 .ui-column-title{
     font-weight: bold;
 }
+/*linhas da tabela*/
 .ui-datatable .ui-datatable-data .even-row td{
     background-color: #f2f2f2;
 }
 
-
 .ui-datatable .ui-datatable-data .odd-row td{
     background-color: white;
 }
+.ui-datatable .ui-datatable-data .linha-atrasada-even-row td{
+    color:red;
+    background-color: #f2f2f2;
+
+    /*background-color:#ffe990;*/
+}
+.ui-datatable .ui-datatable-data .linha-atrasada-odd-row td{
+
+    color:red;
+    background-color: white;
+    
+    /*background-color:#ffe990;*/
+}
+/*------------------------------------------------------------*/
+
 
 .ui-state-default.ui-corner-top{
     font-weight: bolder;

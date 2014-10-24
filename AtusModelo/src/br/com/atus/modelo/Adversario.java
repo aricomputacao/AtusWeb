@@ -24,6 +24,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "adversario", schema = "processo")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Adversario implements Serializable {
 
     @Id
@@ -36,7 +37,7 @@ public class Adversario implements Serializable {
     @PecaColetor(isEntidade = true)
     private Cliente cliente;
 
-    @NotEmpty
+ 
     @Column(name = "adv_representante", nullable = false)
     @PecaColetor
     private String representante;
