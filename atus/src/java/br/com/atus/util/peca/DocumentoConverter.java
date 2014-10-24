@@ -35,8 +35,10 @@ import org.primefaces.model.StreamedContent;
 public class DocumentoConverter {
 
     public static final String PARAMETROS_PADRAO = "\\$\\{\\w+\\}";
-    public static final String STRING_ESQUERDA = "${";
-    public static final String STRING_DIREITA = "}";
+    public static final String STRING_ESQUERDA = "\\$\\{";
+    public static final String STRING_DIREITA = "\\}";
+    public static final String PARTE_ESQUERDA = "${";
+    public static final String PARTE_DIREITA = "}";
 
     /**
      * Converter o arquivo preenchendo com os valores do objeto que são iguais
@@ -96,7 +98,7 @@ public class DocumentoConverter {
             System.out.println("linha " + texto + " ");
             if (matcher.find()) {
                 //Troca aqui o valor parametro do texto pelo valor do objeto
-                for (String campo : getListaTags(entidade.getClass())) {
+                for (String campo : getListaCampos(entidade.getClass(), "")) {
                     if (texto.contains(campo)) {
                         Object valor = executaMetodo(campo, entidade);
                         if (valor instanceof List) {
@@ -104,7 +106,7 @@ public class DocumentoConverter {
                                 System.out.println(o);
                             }
                         }
-                        texto = texto.replaceAll(campo, valor.toString());
+                        texto = texto.replaceAll(STRING_ESQUERDA + campo + STRING_DIREITA, valor.toString());
                         textElement.setValue(texto);
                         System.out.println(campo + " foi substituido por " + valor);
                     }
@@ -171,7 +173,7 @@ public class DocumentoConverter {
     public static List<String> getListaTags(Class classe) throws NoSuchFieldException, ClassNotFoundException {
         List<String> campos = new ArrayList<>();
         for (String campo : getListaCampos(classe, "")) {
-            campos.add(STRING_ESQUERDA + campo + STRING_DIREITA);
+            campos.add(PARTE_ESQUERDA + campo + PARTE_DIREITA);
         }
         return campos;
     }

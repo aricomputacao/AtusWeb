@@ -5,15 +5,22 @@
  */
 package br.com.atus.managedbean;
 
+import br.com.atus.controller.GrupoPecaController;
 import br.com.atus.controller.PecaController;
+import br.com.atus.controller.SubGrupoPecaController;
 import br.com.atus.exceptions.PecaFileException;
+import br.com.atus.modelo.GrupoPeca;
 import br.com.atus.modelo.Peca;
+import br.com.atus.modelo.Processo;
+import br.com.atus.modelo.SubGrupoPeca;
 import br.com.atus.util.MenssagemUtil;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -34,17 +41,30 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
 
     @EJB
     private PecaController controller;
+    @EJB
+    private SubGrupoPecaController subGrupoPecaController;
+    @EJB
+    private GrupoPecaController grupoPecaController;
     private UploadedFile file;
     private Peca peca;
+    private GrupoPeca grupo;
     @Inject
     private NavegacaoMB navegacaoMB;
     private List<Peca> listaPecas;
+    private List<SubGrupoPeca> listaSubGrupoPecas;
+    private List<GrupoPeca> listaGrupoPecas;
 
     @PostConstruct
     public void init() {
         listaPecas = new ArrayList<>();
         peca = (Peca) navegacaoMB.getRegistroMapa("peca", new Peca());
+        listaSubGrupoPecas = new ArrayList<>();
         file = null;
+        try {
+            listaGrupoPecas = grupoPecaController.listarTodos("nome");
+        } catch (Exception ex) {
+            listaGrupoPecas = new ArrayList<>();
+        }
     }
 
     public PecaMB() {
@@ -87,6 +107,14 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
             }
         } catch (Exception e) {
             MenssagemUtil.addMessageErro(e);
+        }
+    }
+
+    public void atualizaListaSubGrupos() {
+        if (grupo != null) {
+            listaSubGrupoPecas = subGrupoPecaController.listar(grupo);
+        } else {
+            listaSubGrupoPecas = new ArrayList<>();
         }
     }
 
@@ -133,7 +161,7 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
 
     public void uploadArquivo(FileUploadEvent event) {
         try {
-            if (controller.validaArquivoDocx(event.getFile(), peca.getSubgrupo())) {
+            if (controller.validaArquivoDocx(event.getFile(), Processo.class.getName())) {
                 file = event.getFile();
                 MenssagemUtil.addMessageInfo("Arquivo enviado com sucesso!" + file.getFileName());
             } else {
@@ -146,14 +174,35 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
     }
 
     public List<String> getCamposClasse() {
-        if (peca.getSubgrupo() != null && !peca.getSubgrupo().equals("")) {
-            try {
-                return controller.getListaTags(peca.getSubgrupo());
-            } catch (ClassNotFoundException | NoSuchFieldException ex) {
-                return new ArrayList<>();
-            }
+        try {
+            return controller.getListaTags(Processo.class.getName());
+        } catch (ClassNotFoundException | NoSuchFieldException ex) {
+            return new ArrayList<>();
         }
-        return new ArrayList<>();
+    }
+
+    public List<SubGrupoPeca> getListaSubGrupoPecas() {
+        return listaSubGrupoPecas;
+    }
+
+    public void setListaSubGrupoPecas(List<SubGrupoPeca> listaSubGrupoPecas) {
+        this.listaSubGrupoPecas = listaSubGrupoPecas;
+    }
+
+    public List<GrupoPeca> getListaGrupoPecas() {
+        return listaGrupoPecas;
+    }
+
+    public void setListaGrupoPecas(List<GrupoPeca> listaGrupoPecas) {
+        this.listaGrupoPecas = listaGrupoPecas;
+    }
+
+    public GrupoPeca getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(GrupoPeca grupo) {
+        this.grupo = grupo;
     }
 
 }
