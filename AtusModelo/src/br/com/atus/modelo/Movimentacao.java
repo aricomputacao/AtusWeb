@@ -53,6 +53,32 @@ public class Movimentacao implements Serializable {
     @ManyToOne
     @JoinColumn(name ="pro_id",referencedColumnName = "pro_id",nullable = false )
     private Processo processo;
+    
+    @Column(name = "mov_motivo",length = 1024)
+    private String motivo;
+    
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "usr_id",referencedColumnName = "usr_id",nullable = false)
+    private Usuario usuario;
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    
 
     public Long getId() {
         return id;

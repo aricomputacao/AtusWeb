@@ -56,7 +56,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     private EventoController eventoController;
     @EJB
     private MovimentacaoController movimentacaoController;
-
+    private Movimentacao movimentacao;
     private Processo processo;
     private Adversario adversario;
     private ParteInteressada parteInteressada;
@@ -69,6 +69,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     @PostConstruct
     public void init() {
         processo = (Processo) navegacaoMB.getRegistroMapa("processo", new Processo());
+        movimentacao = new Movimentacao();
         if (processo.getId() == null) {
             processo.setAdversarios(new ArrayList<Adversario>());
             processo.setParteInteressadas(new ArrayList<ParteInteressada>());
@@ -109,14 +110,36 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         try {
             //setar cliente como o primeiro cliente da lista da parte interessada
             setarCliente(processo.getParteInteressadas().get(0).getCliente());
-            //Adiciona movimentação caso a fase mude
-            movimentacaoController.addMovimentacao(processo, fase);
+            processo.setUsuarioCadastro(navegacaoMB.getUsuarioLogado());
             controller.salvarouAtualizar(processo);
             init();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
 
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS), ex, "Advogado");
+            Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Adicionar movimentação
+     */
+    public void addMovimentacao() {
+        try {
+            //Adiciona movimentação caso a fase mude
+            movimentacao.setDataMovimentacao(new Date());
+            movimentacao.setFaseAntiga(processo.getFase());
+            movimentacao.setProcesso(processo);
+            movimentacao.setUsuario(navegacaoMB.getUsuarioLogado());
+            movimentacaoController.salvar(movimentacao);
+            //atualizo fase do processo
+            processo.setFase(movimentacao.getFaseNova());
+            controller.atualizar(processo);
+            processo = new Processo();
+            movimentacao = new Movimentacao();
+            MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
+        } catch (Exception ex) {
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS), ex, "Movimentação");
             Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -138,7 +161,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             dataAtual.setTime(new Date());
 
             Calendar prazoFase = Calendar.getInstance();
-            prazoFase.setTime(listaMovimentacaos.get(listaMovimentacaos.size()-1).getDataMovimentacao());
+            prazoFase.setTime(listaMovimentacaos.get(listaMovimentacaos.size() - 1).getDataMovimentacao());
             prazoFase.add(Calendar.DAY_OF_MONTH, p.getFase().getPrazo());
 
             return dataAtual.before(prazoFase);
@@ -185,6 +208,25 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("excluir.falha", MenssagemUtil.MENSAGENS));
             Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    /**
+     * Metodo utilizado para importar fase atual do projeto
+     */
+    public void utilitarioSetarFase(){
+        try {
+            listaProcessos = controller.listarTodos("id");
+            for (Processo p : listaProcessos) {
+                listaMovimentacaos = movimentacaoController.listarPorProcesso(p);
+                if (!listaMovimentacaos.isEmpty()) {
+                    p.setFase(listaMovimentacaos.get(listaMovimentacaos.size()-1).getFaseNova());
+                    controller.atualizar(p);
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     public void setarProcesso(Processo p) {
@@ -260,6 +302,22 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     public void setListaMovimentacaos(List<Movimentacao> listaMovimentacaos) {
         this.listaMovimentacaos = listaMovimentacaos;
+    }
+
+    public Movimentacao getMovimentacao() {
+        return movimentacao;
+    }
+
+    public void setMovimentacao(Movimentacao movimentacao) {
+        this.movimentacao = movimentacao;
+    }
+
+    public Fase getFase() {
+        return fase;
+    }
+
+    public void setFase(Fase fase) {
+        this.fase = fase;
     }
 
 }

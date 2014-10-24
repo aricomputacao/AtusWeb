@@ -16,7 +16,10 @@
         <p:tabView dynamic="true" style="margin-top: 10px" prependId="false" id="tabV">
             <p:tab title="Processos" >
                 <p:panel styleClass="painelAgendas">
-
+                    <h:form>
+                        <p:blockUI block="@form" trigger="btnim"/>
+                        <p:commandButton immediate="true" rendered="false" id="btnim" value="importar" actionListener="#{processoMB.utilitarioSetarFase()}"/>
+                    </h:form>
                 </p:panel>
             </p:tab>
 

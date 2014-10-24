@@ -49,7 +49,7 @@ public class Processo implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "end_id", referencedColumnName = "end_id")
-    @NotNull
+//    @NotNull
     private Enderecamento enderecamento;
 
     @ManyToOne
@@ -74,15 +74,15 @@ public class Processo implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "tpc_id", referencedColumnName = "tpc_id")
-    @NotNull
+//    @NotNull
     private TipoContrato tipoContrato;
 
     @ManyToOne
     @JoinColumn(name = "fas_id", referencedColumnName = "fas_id")
-    @NotNull
+//    @NotNull
     private Fase fase;
 
-    @NotNull
+//    @NotNull
     @Column(name = "pro_data_cadastro")
     @Temporal(TemporalType.DATE)
     private Date dataCadastro;
@@ -93,45 +93,42 @@ public class Processo implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "mat_id", referencedColumnName = "mat_id")
-    @NotNull
+//    @NotNull
     private Materia materia;
 
-    @NotNull
+//    @NotNull
     @Column(name = "pro_objeto", length = 1024)
     private String objetoProcesso;
 
     @ManyToOne
     @JoinColumn(name = "jut_id", referencedColumnName = "jut_id")
-    @NotNull
+//    @NotNull
     private JuizoTribunal juizoTribunal;
 
     @Column(name = "pro_valor")
-    @NotNull
+//    @NotNull
     private BigDecimal valor;
 
     @ManyToOne
     @JoinColumn(name = "adv_id", referencedColumnName = "adv_id")
-    @NotNull
+//    @NotNull
     private Advogado advogado;
 
     @Length(max = 100000)
     @Column(name = "pro_observacoes", length = 100000)
-    @NotBlank
     private String observacoes;
 
     @Length(max = 100000)
     @Column(name = "pro_fatos", length = 100000)
-    @NotBlank
+//    @NotBlank
     private String fatos;
 
     @Length(max = 100000)
     @Column(name = "pro_provas", length = 100000)
-    @NotBlank
     private String provas;
 
     @Length(max = 100000)
     @Column(name = "pro_informacao_reservada", length = 100000)
-    @NotBlank
     private String informacaoReservada;
 
     @Column(name = "pro_nb_indeferido")

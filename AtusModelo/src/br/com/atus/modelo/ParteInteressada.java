@@ -26,6 +26,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "parte_interessada", schema = "processo")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ParteInteressada implements Serializable {
 
     @Id
@@ -37,7 +38,7 @@ public class ParteInteressada implements Serializable {
     @JoinColumn(name = "cli_id", referencedColumnName = "cli_id", nullable = false)
     private Cliente cliente;
 
-    @NotEmpty
+   
     @Column(name = "pai_representante", nullable = false)
     private String representante;
 

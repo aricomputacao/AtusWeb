@@ -9,7 +9,8 @@
                 xmlns:cons="http://java.sun.com/jsf/composite/consultas"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro"
-                xmlns:util="http://java.sun.com/jsf/composite/util">
+                xmlns:util="http://java.sun.com/jsf/composite/util"
+                xmlns:acao="http://java.sun.com/jsf/composite/acao">
 
     <ui:define name="corpo">
         <h:outputScript name="sonumero.js"  library="js"/>
@@ -25,9 +26,9 @@
                     <cadastro:ProcessoCadastro id="compProce"/>
                 </h:panelGrid>       
                 <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}"> 
-                    <cons:ProcessoConsulta id="compProceConsu" dialogInfo="dialogCadProc" dialogUpdade=":frmDialogCadProce:compCadPro:fieldCad" >
+                    <cons:ProcessoConsulta id="compProceConsu" dialogInfo="dialogCadProc" dialogMovimenUpdate=":frmCadMov" dialogMovimen="dialogoEncProce" renderMovimen="true" dialogUpdade=":frmDialogCadProce:compCadPro:fieldCad" >
                         <f:facet name="btnConsultaProcesso">
-                            <comp:commandButton_consulta id="btnCon" acao_butao="#{processoMB.listar()}" componente_to_update=":frm_pag:cadFrm:compProceConsu:tabela"/>
+                            <comp:commandButton_consulta id="btnCon" acao_butao="#{processoMB.listar()}"  componente_to_update=":frm_pag:cadFrm:compProceConsu:tabela"/>
                         </f:facet>
                     </cons:ProcessoConsulta>
                 </h:panelGrid>
@@ -54,8 +55,10 @@
                 <cadastro:ObjetoCadastro/>
             </h:form>
         </p:dialog>
-        <p:dialog showEffect="fade" position="top"   header="Consulta de Objeto" id="conObj" modal="true" hideEffect="fade" widgetVar="dialogoConObjeto">
-            <h:form>
+        <p:dialog showEffect="fade" position="top"  header="Encaminhar Processo" id="addEnc" modal="true" hideEffect="fade" widgetVar="dialogoEncProce">
+            <h:form id="frmCadMov">
+                <util:menuCadDialogo2 id="menDialog"  frm_update=":frm_pag:cadFrm:compProceConsu:fieldCon"  acao_salvar="#{processoMB.addMovimentacao()}"  />
+                <acao:EncaminharProcesso />
             </h:form>
         </p:dialog>
         <p:dialog showEffect="fade" position="top"   header="Consulta de Pessoas" id="conPesInt" modal="true" hideEffect="fade" widgetVar="dialogoConIntere">
