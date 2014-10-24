@@ -13,7 +13,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotBlank;
@@ -37,10 +40,10 @@ public class Peca implements Serializable {
     @NotBlank
     @Column(name = "pec_arquivo", nullable = false)
     private String arquivo;
-    @NotBlank
-    @Column(name = "pec_subgrupo", nullable = false)
-    @PecaColetor
-    private String subgrupo;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "sub_grp_id", referencedColumnName = "sub_grp_id", nullable = false)
+    private SubGrupoPeca subgrupo;
 
     public Long getId() {
         return id;
@@ -66,11 +69,11 @@ public class Peca implements Serializable {
         this.arquivo = arquivo;
     }
 
-    public String getSubgrupo() {
+    public SubGrupoPeca getSubgrupo() {
         return subgrupo;
     }
 
-    public void setSubgrupo(String subgrupo) {
+    public void setSubgrupo(SubGrupoPeca subgrupo) {
         this.subgrupo = subgrupo;
     }
 

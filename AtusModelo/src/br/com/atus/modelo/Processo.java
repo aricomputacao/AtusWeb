@@ -50,7 +50,6 @@ public class Processo implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "end_id", referencedColumnName = "end_id")
-    @NotNull
     @PecaColetor(isEntidade = true)
     private Enderecamento enderecamento;
 
@@ -81,19 +80,14 @@ public class Processo implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "tpc_id", referencedColumnName = "tpc_id")
-    @NotNull
     @PecaColetor(isEntidade = true)
-//    @NotNull
     private TipoContrato tipoContrato;
 
     @ManyToOne
     @JoinColumn(name = "fas_id", referencedColumnName = "fas_id")
-    @NotNull
     @PecaColetor(isEntidade = true)
-//    @NotNull
     private Fase fase;
 
-//    @NotNull
     @Column(name = "pro_data_cadastro")
     @Temporal(TemporalType.DATE)
     @PecaColetor
@@ -106,53 +100,45 @@ public class Processo implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "mat_id", referencedColumnName = "mat_id")
-    @NotNull
     @PecaColetor(isEntidade = true)
-//    @NotNull
     private Materia materia;
 
-//    @NotNull
-    @Column(name = "pro_objeto", length = 1024)
     @PecaColetor
+    @Column(name = "pro_objeto", length = 1024)
     private String objetoProcesso;
 
     @ManyToOne
     @JoinColumn(name = "jut_id", referencedColumnName = "jut_id")
-    @NotNull
     @PecaColetor(isEntidade = true)
     private JuizoTribunal juizoTribunal;
 
     @Column(name = "pro_valor")
-    @NotNull
     @PecaColetor
-//    @NotNull
-    private JuizoTribunal juizoTribunal;
-
-    @Column(name = "pro_valor")
-//    @NotNull
     private BigDecimal valor;
 
     @ManyToOne
     @JoinColumn(name = "adv_id", referencedColumnName = "adv_id")
+    @PecaColetor(isEntidade = true)
     private Advogado advogado;
 
     @Length(max = 100000)
     @Column(name = "pro_observacoes", length = 100000)
+    @PecaColetor
     private String observacoes;
 
     @Length(max = 100000)
     @Column(name = "pro_fatos", length = 100000)
+    @PecaColetor
     private String fatos;
 
     @Length(max = 100000)
     @Column(name = "pro_provas", length = 100000)
+    @PecaColetor
     private String provas;
 
     @Length(max = 100000)
     @Column(name = "pro_informacao_reservada", length = 100000)
-    @NotNull
-    @PecaColetor(isEntidade = true)
-//    @NotNull
+    @PecaColetor
     private String informacaoReservada;
 
     @Column(name = "pro_nb_indeferido")
@@ -450,4 +436,3 @@ public class Processo implements Serializable {
     }
 
 }
-

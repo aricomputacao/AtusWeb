@@ -16,7 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  *
@@ -37,7 +38,6 @@ public class Adversario implements Serializable {
     @PecaColetor(isEntidade = true)
     private Cliente cliente;
 
- 
     @Column(name = "adv_representante", nullable = false)
     @PecaColetor
     private String representante;
