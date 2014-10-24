@@ -47,7 +47,7 @@
 
                     </h:panelGrid>
                 </h:panelGrid>
-                <p:dataTable value="#{processoMB.listaProcessos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10" 
+                <p:dataTable value="#{processoMB.listaProcessos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10"
                              rowStyleClass="#{not processoMB.processoAtrasado(t)?(empty rowIx or rowIx mod 2 ne 0 ? 'linha-atrasada-even-row' : 'linha-atrasada-odd-row'):(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
                     <p:column headerText="Número" width="10%" sortBy="#{t.numero}">
@@ -59,11 +59,15 @@
                     <p:column headerText="Fase" width="15%" >
                         <comp:outputText value="#{t.fase.nome} -- #{t.fase.usuario.nome}"/>
                     </p:column>
+
                     <p:column headerText="Ação" width="5%" style="text-align: center">
                         <p:commandButton  style="width: 22px;height: 22px" actionListener="#{processoMB.setarProcesso(t)}"  update="#{cc.attrs.dialogUpdade}"  rendered="#{cc.attrs.renderInfo}" title="Informações" oncomplete="PF('#{cc.attrs.dialogInfo}').show()"  id="btnInfo" icon="ui-icon-info" />
                         <comp:commandButton_editar id="btnEditaProc" rendered="#{cc.attrs.renderBtnEditar}" acao_butao="#{navegacaoMB.redirecionar(navegacao['pro.processo'],'processo',t)}" />
                         <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
                         <p:commandButton  style="width: 22px;height: 22px" actionListener="#{processoMB.setarProcesso(t)}"  update="#{cc.attrs.dialogMovimenUpdate}"  rendered="#{cc.attrs.renderMovimen}" title="Encaminhar" oncomplete="PF('#{cc.attrs.dialogMovimen}').show()"  id="btnMov" icon="ui-icon-carat-1-e" />
+                        <p:commandButton  style="width: 22px;height: 22px" title="Gerar Peça" oncomplete="PF('dialogPeca').show()" icon="ui-icon-plusthink" >
+                            <f:setPropertyActionListener value="#{t}" target="#{processoMB.processo}"/>
+                        </p:commandButton>
                         <p:commandButton  style="width: 22px;height: 22px" actionListener="#{processoMB.setarProcesso(t)}"    rendered="#{cc.attrs.renderPrintDoc}" title="Imprimir Documentos" oncomplete="PF('dialogPrintDoc').show()"  id="btnPrintDoc" icon="ui-icon-carat-1-e" />
 
                     </p:column>

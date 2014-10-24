@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.atus.modelo;
 
+import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -23,20 +23,23 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author Ari
  */
 @Entity
-@Table(name = "tipo_contrato",schema = "cadastro")
+@Table(name = "tipo_contrato", schema = "cadastro")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class TipoContrato implements Serializable{
+public class TipoContrato implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tpc_id",nullable = false)
+    @Column(name = "tpc_id", nullable = false)
     private Integer id;
-    
+
     @NotBlank
-    @Column(name = "tpc_nome",nullable = false,unique = true)
+    @Column(name = "tpc_nome", nullable = false, unique = true)
+    @PecaColetor
     private String nome;
-    
+
     @NotBlank
-    @Column(name = "tpc_descricao",nullable = false,length = 1024)
+    @Column(name = "tpc_descricao", nullable = false, length = 1024)
+    @PecaColetor
     private String descricao;
 
     public Integer getId() {
@@ -84,6 +87,5 @@ public class TipoContrato implements Serializable{
         }
         return true;
     }
-    
-    
+
 }

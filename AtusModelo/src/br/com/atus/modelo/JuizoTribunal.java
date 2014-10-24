@@ -5,6 +5,7 @@
  */
 package br.com.atus.modelo;
 
+import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -32,6 +33,7 @@ public class JuizoTribunal implements Serializable {
     private Integer id;
     @NotBlank
     @Column(name = "jut_nome", nullable = false, unique = true)
+    @PecaColetor
     private String nome;
 
     public Integer getId() {

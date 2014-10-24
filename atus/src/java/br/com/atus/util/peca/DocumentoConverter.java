@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.atus.util;
+package br.com.atus.util.peca;
 
 import br.com.atus.modelo.Peca;
+import br.com.atus.util.RegexUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,11 +14,10 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import javax.xml.bind.JAXBElement;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
@@ -34,7 +34,11 @@ import org.primefaces.model.StreamedContent;
  */
 public class DocumentoConverter {
 
-    public static final String PARAMETROS_PADRAO = "\\$\\{\\w+\\}";
+    public static final String PARAMETROS_PADRAO = "\\$\\{\\w+.\\w+\\}";
+    public static final String STRING_ESQUERDA = "\\$\\{";
+    public static final String STRING_DIREITA = "\\}";
+    public static final String PARTE_ESQUERDA = "${";
+    public static final String PARTE_DIREITA = "}";
 
     /**
      * Converter o arquivo preenchendo com os valores do objeto que são iguais
@@ -84,26 +88,27 @@ public class DocumentoConverter {
         return result;
     }
 
-    public static StreamedContent converterArquivo(InputStream stream, Object entidade, Peca peca) throws Docx4JException, IllegalArgumentException, IllegalAccessException, FileNotFoundException, InvocationTargetException {
+    public static StreamedContent converterArquivo(InputStream stream, Object entidade, Peca peca) throws Docx4JException, IllegalArgumentException, IllegalAccessException, FileNotFoundException, InvocationTargetException, NoSuchFieldException, ClassNotFoundException {
         WordprocessingMLPackage template = getTemplate(stream);
         List<Object> linhas = getAllElementFromObject(template.getMainDocumentPart(), Text.class);
         for (Object text : linhas) {
             Text textElement = (Text) text;
             String texto = textElement.getValue();
             Matcher matcher = RegexUtil.getMatcher(PARAMETROS_PADRAO, texto);
-            System.out.println(texto);
+            System.out.println("linha " + texto + " ");
             if (matcher.find()) {
                 //Troca aqui o valor parametro do texto pelo valor do objeto
-                for (Field campo : getListaCampos(entidade.getClass())) {
-                    String nomeCampo = campo.getName();
-
-                    System.out.println(nomeCampo);
-                    if (texto.contains("${" + nomeCampo + "}")) {
-                        String valorzz = getMetodo(nomeCampo, entidade.getClass()).invoke(entidade).toString();
-                        texto = texto.replaceAll("\\$\\{" + nomeCampo + "\\}", valorzz);
+                for (String campo : getListaCampos(entidade.getClass(), "")) {
+                    if (texto.contains(PARTE_ESQUERDA + campo + PARTE_DIREITA)) {
+                        Object valor = executaMetodo(campo, entidade);
+                        if (valor instanceof List) {
+                            for (Object o : (List) valor) {
+                                System.out.println(o);
+                            }
+                        }
+                        texto = texto.replaceAll(STRING_ESQUERDA + campo + STRING_DIREITA, valor.toString());
                         textElement.setValue(texto);
-                        System.out.println(valorzz);
-                        System.out.println(nomeCampo);
+                        System.out.println(campo + " foi substituido por " + valor);
                     }
                 }
             }
@@ -123,7 +128,7 @@ public class DocumentoConverter {
      * @return
      * @throws org.docx4j.openpackaging.exceptions.Docx4JException
      */
-    public static boolean validarArquivo(InputStream stream, Class entidade) throws Docx4JException {
+    public static boolean validarArquivo(InputStream stream, Class entidade) throws Docx4JException, NoSuchFieldException, ClassNotFoundException {
         WordprocessingMLPackage wordMLPackage;
         boolean valido = false;
         wordMLPackage = WordprocessingMLPackage.load(stream);
@@ -134,8 +139,8 @@ public class DocumentoConverter {
             Matcher matcher = RegexUtil.getMatcher(PARAMETROS_PADRAO, texto);
             if (matcher.find()) {
                 // Verifica se o parametro existe na classe
-                for (Field campo : getListaCampos(entidade)) {
-                    if (texto.contains("${" + campo.getName() + "}")) {
+                for (String campo : getListaTags(entidade)) {
+                    if (texto.contains(campo)) {
                         valido = true;
                     }
                 }
@@ -144,16 +149,31 @@ public class DocumentoConverter {
         return valido;
     }
 
-    private static List<Field> getListaCampos(Class classe) {
-        List<Field> campos = new ArrayList<>();
-        campos.addAll(Arrays.asList(classe.getDeclaredFields()));
+    private static List<String> getListaCampos(Class classe, String prefix) throws NoSuchFieldException, ClassNotFoundException {
+        List<String> campos = new ArrayList<>();
+        for (Field field : classe.getDeclaredFields()) {
+            try {
+                PecaColetor p = (PecaColetor) field.getAnnotation(PecaColetor.class);
+                if (p != null) {
+                    if (p.isEntidade()) {
+                        campos.addAll(getListaCampos(field.getType(), prefix + field.getName() + "."));
+                    } else if (p.isLista()) {
+                        campos.addAll(getListaCampos(tipoLista(classe, field.getName()), "Lista" + (prefix + field.getName()).substring(0, 1).toUpperCase() + "."));
+                    } else {
+                        campos.add(prefix + field.getName());
+                    }
+                }
+            } catch (NullPointerException n) {
+                // Se nãp possue não adiciona
+            }
+        }
         return campos;
     }
 
-    public static List<String> getListaTags(Class classe) {
+    public static List<String> getListaTags(Class classe) throws NoSuchFieldException, ClassNotFoundException {
         List<String> campos = new ArrayList<>();
-        for (Field f : classe.getDeclaredFields()) {
-            campos.add("${" + f.getName() + "}");
+        for (String campo : getListaCampos(classe, "")) {
+            campos.add(PARTE_ESQUERDA + campo + PARTE_DIREITA);
         }
         return campos;
     }
@@ -165,6 +185,34 @@ public class DocumentoConverter {
             }
         }
         return null;
+    }
+
+    public static Class tipoLista(Class entidade, String nomeVar) throws NoSuchFieldException, ClassNotFoundException {
+        Field f = entidade.getDeclaredField(nomeVar);
+        Type t = ((ParameterizedType) f.getGenericType()).getActualTypeArguments()[0];
+        return Class.forName(t.toString().replace("class ", ""));
+    }
+
+    // Retorna Uma String vazia no caso de ser nulo
+    private static Object executaMetodo(String campo, Object entidade) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        if (campo.contains(".")) {
+            String[] partes = campo.split("\\.");
+            String c = partes[0];
+            String m = partes[1];
+            if (partes.length > 2) {
+                m = campo.replace(c + ".", "");
+            }
+            Object valor = executaMetodo(c, entidade);
+            return executaMetodo(m, valor);
+        } else {
+            Method metodo = getMetodo(campo, entidade.getClass());
+            if (metodo != null) {
+                Object valor = metodo.invoke(entidade);
+                return valor == null ? "" : valor;
+            } else {
+                return "";
+            }
+        }
     }
 
 }

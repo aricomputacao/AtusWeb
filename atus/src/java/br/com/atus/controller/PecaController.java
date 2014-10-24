@@ -8,8 +8,9 @@ package br.com.atus.controller;
 import br.com.atus.dao.PecaDAO;
 import br.com.atus.exceptions.PecaFileException;
 import br.com.atus.modelo.Peca;
-import br.com.atus.util.ArquivoUtil;
-import br.com.atus.util.DocumentoConverter;
+import br.com.atus.modelo.SubGrupoPeca;
+import br.com.atus.util.peca.ArquivoUtil;
+import br.com.atus.util.peca.DocumentoConverter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -44,6 +45,10 @@ public class PecaController extends Controller<Peca, Long> implements Serializab
         setDAO(dao);
     }
 
+    public List<Peca> listar(SubGrupoPeca sgp) {
+        return dao.listar(sgp);
+    }
+
     public void salvar(Peca t, UploadedFile file) throws Exception {
         t.setArquivo(file.getFileName());
         super.salvar(t);
@@ -65,16 +70,16 @@ public class PecaController extends Controller<Peca, Long> implements Serializab
         return new DefaultStreamedContent(new FileInputStream(f), "docx", p.getArquivo());
     }
 
-    public StreamedContent getModeloDownload(Peca peca, Object entidade) throws PecaFileException, FileNotFoundException, Docx4JException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    public StreamedContent getModeloDownload(Peca peca, Object entidade) throws PecaFileException, FileNotFoundException, Docx4JException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, NoSuchFieldException, ClassNotFoundException {
         InputStream stream = getDownload(peca).getStream();
         return DocumentoConverter.converterArquivo(stream, entidade, peca);
     }
 
-    public List<String> getListaTags(String classe) throws ClassNotFoundException {
+    public List<String> getListaTags(String classe) throws ClassNotFoundException, NoSuchFieldException {
         return DocumentoConverter.getListaTags(Class.forName(classe));
     }
 
-    public boolean validaArquivoDocx(UploadedFile f, String grupo) {
+    public boolean validaArquivoDocx(UploadedFile f, String grupo) throws NoSuchFieldException {
         try {
             return DocumentoConverter.validarArquivo(f.getInputstream(), Class.forName(grupo));
         } catch (IOException | ClassNotFoundException | Docx4JException ex) {

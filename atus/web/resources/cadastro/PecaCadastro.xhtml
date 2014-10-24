@@ -23,24 +23,29 @@
                     <p:inputText value="#{pecaMB.peca.descricao}" size="50" id="desc" required="true" requiredMessage="#{mensagens['require']}"/>
                 </h:panelGrid>
                 <h:panelGrid id="griPrin4">
-                    <h:panelGrid columns="2" id="grd04">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Grupo" for="grupo"/>
+                        <p:message for="grupo"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <p:selectOneMenu value="#{pecaMB.grupo}" id="grupo" converter="#{indexConverter}" style="width: 200px;">
+                            <f:selectItem itemValue="#{null}" itemLabel=""/>
+                            <f:selectItems value="#{pecaMB.listaGrupoPecas}" var="g" itemLabel="#{g.nome}" itemValue="#{g}"/>
+                            <p:ajax event="change" update="sub"  process="@this" listener="#{pecaMB.atualizaListaSubGrupos()}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGrid id="sub">
+                    <h:panelGrid columns="2">
                         <p:outputLabel value="Subgrupo" for="sub"/>
                         <p:message for="sub"/>
                     </h:panelGrid>
                     <h:panelGrid columns="2">
-                        <p:selectOneMenu value="#{pecaMB.peca.subgrupo}" id="sub" required="true" requiredMessage="#{mensagens['require']}" style="width: 200px;">
-                            <f:selectItem itemValue="" itemLabel=""/>
-
-                            <f:selectItem itemValue="br.com.atus.modelo.Peca" itemLabel="Peca"/>
-                            <f:selectItem itemValue="br.com.atus.modelo.Processo" itemLabel="Processo"/>
-                            <p:ajax event="change" update="sub, tags" immediate="true"/>
+                        <p:selectOneMenu value="#{pecaMB.peca.subgrupo}" converter="#{indexConverter}" required="true" requiredMessage="#{mensagens['require']}" style="width: 200px;">
+                            <f:selectItem itemValue="#{null}" itemLabel=""/>
+                            <f:selectItems value="#{pecaMB.listaSubGrupoPecas}" var="s" itemLabel="#{s.nome}" itemValue="#{s}"/>
                         </p:selectOneMenu>
                     </h:panelGrid>
-                </h:panelGrid>
-                <h:panelGrid id="tags">
-                    <p:dataGrid value="#{pecaMB.camposClasse}" columns="3" var="tag" rows="5" emptyMessage="Nenhum Subgrupo Selecionado">
-                        <h:outputText value="${tag}"/>
-                    </p:dataGrid>
                 </h:panelGrid>
                 <h:panelGrid id="file">
                     <h:panelGrid columns="2">
@@ -52,6 +57,13 @@
                         <p:fileUpload mode="advanced" fileUploadListener="#{pecaMB.uploadArquivo}" uploadLabel="Upload" allowTypes="/(\.|\/)(docx)$/" update="file" rendered="#{pecaMB.file == null}"/>
                         <p:commandButton value="Excluir arquivo" actionListener="#{pecaMB.excluirArquivo()}" update="file" rendered="#{pecaMB.file != null}" icon="ui-icon-trash" immediate="true"/>
                     </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGrid id="tags">
+                    <p:dataGrid value="#{pecaMB.camposClasse}" var="tag" emptyMessage="Nenhum Subgrupo Selecionado" columns="4">
+                        <p:column>
+                            <h:outputText value="#{tag}"/>
+                        </p:column>
+                    </p:dataGrid>
                 </h:panelGrid>
             </h:panelGrid>
         </p:fieldset>

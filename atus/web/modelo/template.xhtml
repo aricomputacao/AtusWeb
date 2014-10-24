@@ -17,7 +17,7 @@
         <h:outputStylesheet library="css" name="default.css"/>
         <h:outputStylesheet library="css" name="agenda.css"/>
         <h:outputScript name="calendario_pt_BR.js" library="js" />
-        <h:outputScript library="js" name="navegacao.js" />      
+        <h:outputScript library="js" name="navegacao.js" />
         <title>#{label['nome.sistema']}</title>
     </h:head>
     <h:body styleClass="boby">
@@ -54,10 +54,9 @@
 
         </p:layout>
         <p:dialog showEffect="fade" position="top"   id="altSen" modal="true" hideEffect="fade" widgetVar="dialogAltSen">
-                <util:alterarSenha/>
-            </p:dialog>
+            <util:alterarSenha/>
+        </p:dialog>
         <ui:insert name="dialogs">
-            
         </ui:insert>
         <ui:insert name="confirme">
             <p:confirmDialog global="true" >

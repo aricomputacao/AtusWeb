@@ -4,6 +4,7 @@
  */
 package br.com.atus.modelo;
 
+import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -34,10 +35,12 @@ public class Cidade implements Serializable {
     @Length(max = 255)
     @NotNull
     @Column(name = "cid_nome", nullable = false)
+    @PecaColetor
     private String nome;
     @NotNull
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "und_fed_id", referencedColumnName = "und_fed_id", nullable = false)
+    @PecaColetor(isEntidade = true)
     private UnidadeFederativa unidadeFederativa;
 
     public Integer getId() {

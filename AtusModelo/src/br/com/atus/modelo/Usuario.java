@@ -6,6 +6,7 @@
 package br.com.atus.modelo;
 
 import br.com.atus.enumerated.Perfil;
+import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -52,6 +53,7 @@ public class Usuario implements Serializable {
     @Column(name = "usr_perfil", nullable = false)
     private Perfil perfil;
     @Column(name = "usr_nome")
+    @PecaColetor
     private String nome;
 
     @Override
@@ -70,10 +72,7 @@ public class Usuario implements Serializable {
             return false;
         }
         final Usuario other = (Usuario) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
 
     public String getNome() {

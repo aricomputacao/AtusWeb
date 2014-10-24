@@ -6,6 +6,7 @@
 package br.com.atus.modelo;
 
 import br.com.atus.enumerated.Sexo;
+import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -38,23 +39,28 @@ public class Colaborador implements Serializable {
     @Column(name = "col_id", nullable = false)
     private Long id;
     @Embedded
+    @PecaColetor(isEntidade = true)
     private Pessoa pessoa;
-    
+
     @Enumerated(EnumType.STRING)
     @Column(name = "col_sexo")
+    @PecaColetor
     private Sexo sexo;
-        
+
     @NotNull
-    @Column(name = "col_participacao",nullable = false)
+    @Column(name = "col_participacao", nullable = false)
+    @PecaColetor
     private BigDecimal participacao;
-    
+
     @ManyToOne
-    @JoinColumn(name = "adv_id",referencedColumnName = "adv_id")
+    @JoinColumn(name = "adv_id", referencedColumnName = "adv_id")
+    @PecaColetor(isEntidade = true)
     private Advogado advogado;
-    
-    @Column(name = "col_dados_bancarios",length = 1024)
+
+    @Column(name = "col_dados_bancarios", length = 1024)
     private String dadosBancarios;
-    @Column(name = "col_observacao",length = 1024)
+    @Column(name = "col_observacao", length = 1024)
+    @PecaColetor
     private String observacao;
 
     public String getObservacao() {
@@ -64,8 +70,6 @@ public class Colaborador implements Serializable {
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
-    
-    
 
     public Long getId() {
         return id;
@@ -136,6 +140,5 @@ public class Colaborador implements Serializable {
         }
         return true;
     }
-    
-    
+
 }

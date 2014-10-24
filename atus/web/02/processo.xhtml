@@ -21,11 +21,11 @@
                 <p:graphicImage library="imagens" name="carregar.gif"/>
             </p:blockUI>
             <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['pro.processo'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['pro.processo'])}" acao_imprimir="#{processoMB.imprimir()}" acao_limpar="#{processoMB.init()}" acao_salvar="#{processoMB.salvar()}"/>
-            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Processo" id_form="frm_pag"  >               
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Processo" id_form="frm_pag"  >
                 <h:panelGrid width="100%" rendered="#{navegacaoMB.renderPainelCadastro}"  >
                     <cadastro:ProcessoCadastro id="compProce"/>
-                </h:panelGrid>       
-                <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}"> 
+                </h:panelGrid>
+                <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}">
                     <cons:ProcessoConsulta id="compProceConsu" dialogInfo="dialogCadProc" dialogMovimenUpdate=":frmCadMov" dialogMovimen="dialogoEncProce" renderMovimen="true" dialogUpdade=":frmDialogCadProce:compCadPro:fieldCad" >
                         <f:facet name="btnConsultaProcesso">
                             <comp:commandButton_consulta id="btnCon" acao_butao="#{processoMB.listar()}"  componente_to_update=":frm_pag:cadFrm:compProceConsu:tabela"/>
@@ -65,7 +65,7 @@
             <h:form id="frmConInt" prependId="false">
                 <cons:ClienteConsulta renderBtnEditar="false" id="tblInt" renderSelecionar="true" renderInfo="false"  nomeDialog="dialogoConIntere" update_form=":frm_pag:cadFrm:compProce:tbView:input_componente_int" valorSelecionado="#{processoMB.parteInteressada.cliente}" >
                     <f:facet name="btnConsultaCliente">
-                        <h:panelGrid columns="2" id="btnConRamo">                               
+                        <h:panelGrid columns="2" id="btnConRamo">
                             <comp:commandButton_consulta id="btnCon" acao_butao="#{clienteMB.listar()}"  componente_to_update="@form:tblInt:fieldCon" />
                         </h:panelGrid>
                     </f:facet>
@@ -76,7 +76,7 @@
             <h:form id="frmConAdv" prependId="false">
                 <cons:AdversarioConsulta renderBtnEditar="false" id="tblAdv" renderSelecionar="true" renderInfo="false"  nomeDialog="dialogoConAdv" update_form=":frm_pag:cadFrm:compProce:tbView:input_componente_adv" valorSelecionado="#{processoMB.adversario.cliente}" >
                     <f:facet name="btnConsultaCliente">
-                        <h:panelGrid columns="2" >               
+                        <h:panelGrid columns="2" >
                             <comp:commandButton_consulta id="btnCon" acao_butao="#{clienteMB.listar()}"  componente_to_update="@form:tblAdv:fieldCon" />
                         </h:panelGrid>
                     </f:facet>
@@ -88,6 +88,54 @@
                 <cadastro:ProcessoCadastro id="compCadPro" legend="Dados do Processo" />
             </h:form>
         </p:dialog>
+
+        <p:dialog showEffect="fade" position="top" header="Gerar Peça" id="dialodPecaId" modal="true" hideEffect="fade" widgetVar="dialogPeca" width="800" height="400">
+            <h:form>
+                <h:panelGrid id="griPrin4">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Grupo" for="grupo"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <p:selectOneMenu value="#{pecaMB.grupo}" id="grupo" converter="#{indexConverter}" style="width: 200px;">
+                            <f:selectItem itemValue="#{null}" itemLabel=""/>
+                            <f:selectItems value="#{pecaMB.listaGrupoPecas}" var="g" itemLabel="#{g.nome}" itemValue="#{g}"/>
+                            <p:ajax event="change" update="sub"  process="@this" listener="#{pecaMB.atualizaListaSubGrupos()}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGrid id="sub">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Subgrupo" for="sub"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <p:selectOneMenu value="#{pecaMB.subGrupo}" converter="#{indexConverter}" style="width: 200px;">
+                            <f:selectItem itemValue="#{null}" itemLabel=""/>
+                            <f:selectItems value="#{pecaMB.listaSubGrupoPecas}" var="s" itemLabel="#{s.nome}" itemValue="#{s}"/>
+                            <p:ajax event="change" update="tabela_peca"  process="@this" listener="#{pecaMB.atualizaListaPecas()}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGrid id="tabela_peca">
+                    <p:dataTable style="width: 100%;" paginatorAlwaysVisible="false" paginator="true" value="#{pecaMB.listaPecas}" var="peca">
+                        <p:column headerText="Descrição" sortBy="#{peca.descricao}">
+                            <comp:outputText value="#{peca.descricao}"/>
+                        </p:column>
+                        <p:column headerText="Grupo" sortBy="#{peca.subgrupo.grupoPeca.nome}">
+                            <comp:outputText value="#{peca.subgrupo.grupoPeca.nome}"/>
+                        </p:column>
+                        <p:column headerText="SubGrupo" sortBy="#{peca.subgrupo.nome}">
+                            <comp:outputText value="#{peca.subgrupo.nome}"/>
+                        </p:column>
+                        <p:column headerText="Arquivo" sortBy="#{peca.arquivo}">
+                            <comp:outputText value="#{peca.arquivo}"/>
+                        </p:column>
+                        <p:column headerText="Baixa">
+                            <p:commandButton icon="ui-icon-star" title="Obter Peça" ajax="false" style="width: 20px;height: 20px;">
+                                <p:fileDownload value="#{processoMB.downloadModelo(processoMB.processo, peca)}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGrid>
         <p:dialog showEffect="fade" position="top"  id="dialogPrintDoc"   modal="true" hideEffect="fade" widgetVar="dialogPrintDoc">
             <h:form id="frmDialogPrintDoc">
                 <acao:ImprimirDocumentos />

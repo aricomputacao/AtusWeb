@@ -9,18 +9,23 @@ import br.com.atus.controller.AdversarioController;
 import br.com.atus.controller.EventoController;
 import br.com.atus.controller.MovimentacaoController;
 import br.com.atus.controller.ParteInteressadaController;
+import br.com.atus.controller.PecaController;
 import br.com.atus.controller.ProcessoController;
+import br.com.atus.exceptions.PecaFileException;
 import br.com.atus.modelo.Adversario;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Evento;
 import br.com.atus.modelo.Fase;
 import br.com.atus.modelo.Movimentacao;
 import br.com.atus.modelo.ParteInteressada;
+import br.com.atus.modelo.Peca;
 import br.com.atus.modelo.Processo;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,7 +39,9 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.jfree.data.time.MovingAverage;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -56,6 +63,8 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     private EventoController eventoController;
     @EJB
     private MovimentacaoController movimentacaoController;
+    @EJB
+    private PecaController pecaController;
     private Movimentacao movimentacao;
     private Processo processo;
     private Adversario adversario;
@@ -209,24 +218,24 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * Metodo utilizado para importar fase atual do projeto
      */
-    public void utilitarioSetarFase(){
+    public void utilitarioSetarFase() {
         try {
             listaProcessos = controller.listarTodos("id");
             for (Processo p : listaProcessos) {
                 listaMovimentacaos = movimentacaoController.listarPorProcesso(p);
                 if (!listaMovimentacaos.isEmpty()) {
-                    p.setFase(listaMovimentacaos.get(listaMovimentacaos.size()-1).getFaseNova());
+                    p.setFase(listaMovimentacaos.get(listaMovimentacaos.size() - 1).getFaseNova());
                     controller.atualizar(p);
                 }
             }
         } catch (Exception ex) {
             Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     public void setarProcesso(Processo p) {
@@ -318,6 +327,15 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     public void setFase(Fase fase) {
         this.fase = fase;
+    }
+
+    public StreamedContent downloadModelo(Processo processo, Peca peca) {
+        try {
+            return pecaController.getModeloDownload(peca, processo);
+        } catch (PecaFileException | FileNotFoundException | Docx4JException | IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchFieldException | ClassNotFoundException e) {
+            MenssagemUtil.addMessageErro(e);
+        }
+        return null;
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package br.com.atus.modelo;
 
+import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -17,7 +18,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -35,10 +35,11 @@ public class Adversario implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "cli_id", referencedColumnName = "cli_id", nullable = false)
+    @PecaColetor(isEntidade = true)
     private Cliente cliente;
 
- 
     @Column(name = "adv_representante", nullable = false)
+    @PecaColetor
     private String representante;
 
     public Long getId() {
@@ -87,5 +88,4 @@ public class Adversario implements Serializable {
         return true;
     }
 
-    
 }

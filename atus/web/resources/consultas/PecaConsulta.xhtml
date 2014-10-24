@@ -44,8 +44,11 @@
                     <p:column headerText="Descrição" sortBy="#{t.descricao}">
                         <comp:outputText value="#{t.descricao}"/>
                     </p:column>
-                    <p:column headerText="SubGrupo" sortBy="#{t.subgrupo}">
-                        <comp:outputText value="#{t.subgrupo}"/>
+                    <p:column headerText="Grupo" sortBy="#{t.subgrupo.grupoPeca.nome}">
+                        <comp:outputText value="#{t.subgrupo.grupoPeca.nome}"/>
+                    </p:column>
+                    <p:column headerText="SubGrupo" sortBy="#{t.subgrupo.nome}">
+                        <comp:outputText value="#{t.subgrupo.nome}"/>
                     </p:column>
                     <p:column headerText="Arquivo" sortBy="#{t.arquivo}">
                         <comp:outputText value="#{t.arquivo}"/>
@@ -57,9 +60,6 @@
                             <comp:commandButton_excluir acao_butao="#{pecaMB.excluir(t)}" classe="Peca" form_to_update="@form"/>
                             <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false" style="width: 20px;height: 20px;">
                                 <p:fileDownload value="#{pecaMB.download(t)}"/>
-                            </p:commandButton>
-                            <p:commandButton icon="ui-icon-star" title="Teste" ajax="false" style="width: 20px;height: 20px;">
-                                <p:fileDownload value="#{pecaMB.downloadModelo(t)}"/>
                             </p:commandButton>
                         </ui:insert>
                     </p:column>

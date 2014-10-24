@@ -5,6 +5,7 @@
  */
 package br.com.atus.modelo;
 
+import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -36,10 +37,12 @@ public class ParteInteressada implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "cli_id", referencedColumnName = "cli_id", nullable = false)
+    @PecaColetor(isEntidade = true)
     private Cliente cliente;
 
    
     @Column(name = "pai_representante", nullable = false)
+    @PecaColetor
     private String representante;
 
     public Long getId() {
