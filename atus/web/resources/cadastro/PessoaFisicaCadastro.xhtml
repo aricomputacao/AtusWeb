@@ -91,7 +91,7 @@
                     <p:outputLabel for="orgEmi" value="Órgão Emissor" />
                 </h:panelGrid>
                 <h:panelGrid columns="2">
-                    <p:selectOneMenu id="orgEmi" value="#{clienteMB.cliente.orgaoEmissor}" required="true"  style="width: 169px" effect="fade" converter="#{orgaoEmissorConverter}" >
+                    <p:selectOneMenu id="orgEmi" value="#{clienteMB.cliente.orgaoEmissor}" required="true"  style="width: 169px" effect="fade" converter="#{indexConverter}" >
                         <f:selectItems value="#{orgaoEmissorMB.listaOrgaoEmissors}" var="ore" itemLabel="#{ore.abreviacao}"  itemValue="#{ore}"/>
                     </p:selectOneMenu>
                     <p:commandButton onclick="PF('dialogoOrgaoEmissor').show()" title="Add" immediate="true" icon="ui-icon-circle-plus"/>
@@ -100,7 +100,7 @@
 
             </h:panelGrid>
             <h:panelGrid >
-                <comp:inputText nomeLabel="PIS/PASEP" size="20" value="#{clienteMB.cliente.orgaoEmissor}" idInputTex="rg"/>
+                <comp:inputText nomeLabel="PIS/PASEP" size="20" value="#{clienteMB.cliente.pisPasep}" idInputTex="pis"/>
             </h:panelGrid>
         </h:panelGrid>
         <util:compEndereco id="comEnd" bai="#{clienteMB.cliente.pessoa.bairro}" cep="#{clienteMB.cliente.pessoa.cep}" cid="#{clienteMB.cliente.pessoa.cidade}" acao_listar_cidade="#{clienteMB.listarCidade()}" listaCidade="#{clienteMB.listaCidades}"

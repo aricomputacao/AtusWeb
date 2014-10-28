@@ -289,6 +289,14 @@ ui-layout-unit{
 
 }
 
+
+
+.ui-button-icon-left.ui-icon.ui-c.ui-icon-carat-1-n{
+    background: url("../resources/imagens/doc.png") ! important;
+    width: 16px;
+    height: 16px;
+}
+
 .ui-button-icon-left.ui-icon.ui-c.ui-icon-pencil{
     background: url("../resources/imagens/update.png") ! important;
     width: 16px;

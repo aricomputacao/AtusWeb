@@ -68,7 +68,7 @@
                         <p:commandButton  style="width: 22px;height: 22px" title="Gerar Peça" oncomplete="PF('dialogPeca').show()" icon="ui-icon-plusthink" >
                             <f:setPropertyActionListener value="#{t}" target="#{processoMB.processo}"/>
                         </p:commandButton>
-                        <p:commandButton  style="width: 22px;height: 22px" actionListener="#{processoMB.setarProcesso(t)}"    rendered="#{cc.attrs.renderPrintDoc}" title="Imprimir Documentos" oncomplete="PF('dialogPrintDoc').show()"  id="btnPrintDoc" icon="ui-icon-carat-1-e" />
+                        <p:commandButton  style="width: 22px;height: 22px" actionListener="#{processoMB.setarProcesso(t)}"    rendered="#{cc.attrs.renderPrintDoc}" title="Imprimir Documentos" oncomplete="PF('dialogPrintDoc').show()"  id="btnPrintDoc" icon="ui-icon-carat-1-n" />
 
                     </p:column>
 
