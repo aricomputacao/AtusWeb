@@ -252,6 +252,33 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     }
 
+    public void imprimirDossie() {
+        List<Processo> l = new ArrayList<>();
+        l.add(processo);
+        Map<String, Object> m = new HashMap<>();
+        byte[] rel = new AssistentedeRelatorio().relatorioemByte(l, m, "WEB-INF/relatorios/rel_dossie.jasper", "Relatório de Processos");
+        RelatorioSession.setBytesRelatorioInSession(rel);
+
+    }
+
+    public void imprimirProtocolo() {
+        List<Processo> l = new ArrayList<>();
+        l.add(processo);
+        Map<String, Object> m = new HashMap<>();
+        byte[] rel = new AssistentedeRelatorio().relatorioemByte(l, m, "WEB-INF/relatorios/rel_protocolo.jasper", "Relatório de Processos");
+        RelatorioSession.setBytesRelatorioInSession(rel);
+
+    }
+    
+     public void imprimirDeclaracao() {
+        List<Processo> l = new ArrayList<>();
+        l.add(processo);
+        Map<String, Object> m = new HashMap<>();
+        byte[] rel = new AssistentedeRelatorio().relatorioemByte(l, m, "WEB-INF/relatorios/re_declaracao_hipo.jasper", "Relatório de Processos");
+        RelatorioSession.setBytesRelatorioInSession(rel);
+
+    }
+
     public ProcessoMB() {
         super(Processo.class);
     }

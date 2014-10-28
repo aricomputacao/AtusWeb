@@ -24,7 +24,7 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 @Entity
 @Table(name = "orgao_emissor",schema = "cadastro")
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class OrgaoEmissor implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

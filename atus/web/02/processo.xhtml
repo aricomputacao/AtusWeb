@@ -26,7 +26,7 @@
                     <cadastro:ProcessoCadastro id="compProce"/>
                 </h:panelGrid>
                 <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}">
-                    <cons:ProcessoConsulta id="compProceConsu" dialogInfo="dialogCadProc" dialogMovimenUpdate=":frmCadMov" dialogMovimen="dialogoEncProce" renderMovimen="true" dialogUpdade=":frmDialogCadProce:compCadPro:fieldCad" >
+                    <cons:ProcessoConsulta id="compProceConsu" renderPrintDoc="true" dialogInfo="dialogCadProc" dialogMovimenUpdate=":frmCadMov" dialogMovimen="dialogoEncProce" renderMovimen="true" dialogUpdade=":frmDialogCadProce:compCadPro:fieldCad" >
                         <f:facet name="btnConsultaProcesso">
                             <comp:commandButton_consulta id="btnCon" acao_butao="#{processoMB.listar()}"  componente_to_update=":frm_pag:cadFrm:compProceConsu:tabela"/>
                         </f:facet>
@@ -63,7 +63,7 @@
         </p:dialog>
         <p:dialog showEffect="fade" position="top"   header="Consulta de Pessoas" id="conPesInt" modal="true" hideEffect="fade" widgetVar="dialogoConIntere">
             <h:form id="frmConInt" prependId="false">
-                <cons:ClienteConsulta renderBtnEditar="false" id="tblInt" renderSelecionar="true" renderInfo="false"  nomeDialog="dialogoConIntere" update_form=":frm_pag:cadFrm:compProce:tbView:input_componente_int" valorSelecionado="#{processoMB.parteInteressada.cliente}" >
+                <cons:ClienteConsulta renderBtnEditar="false" id="tblInt"  renderSelecionar="true" renderInfo="false"  nomeDialog="dialogoConIntere" update_form=":frm_pag:cadFrm:compProce:tbView:input_componente_int" valorSelecionado="#{processoMB.parteInteressada.cliente}" >
                     <f:facet name="btnConsultaCliente">
                         <h:panelGrid columns="2" id="btnConRamo">
                             <comp:commandButton_consulta id="btnCon" acao_butao="#{clienteMB.listar()}"  componente_to_update="@form:tblInt:fieldCon" />
@@ -74,7 +74,7 @@
         </p:dialog>
         <p:dialog showEffect="fade" position="top"   header="Consulta de Pessoas" id="conPesAdv" modal="true" hideEffect="fade" widgetVar="dialogoConAdv">
             <h:form id="frmConAdv" prependId="false">
-                <cons:AdversarioConsulta renderBtnEditar="false" id="tblAdv" renderSelecionar="true" renderInfo="false"  nomeDialog="dialogoConAdv" update_form=":frm_pag:cadFrm:compProce:tbView:input_componente_adv" valorSelecionado="#{processoMB.adversario.cliente}" >
+                <cons:AdversarioConsulta renderBtnEditar="false" id="tblAdv"  renderSelecionar="true" renderInfo="false"  nomeDialog="dialogoConAdv" update_form=":frm_pag:cadFrm:compProce:tbView:input_componente_adv" valorSelecionado="#{processoMB.adversario.cliente}" >
                     <f:facet name="btnConsultaCliente">
                         <h:panelGrid columns="2" >
                             <comp:commandButton_consulta id="btnCon" acao_butao="#{clienteMB.listar()}"  componente_to_update="@form:tblAdv:fieldCon" />
@@ -138,6 +138,11 @@
                         </p:column>
                     </p:dataTable>
                 </h:panelGrid>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center"  id="dialogPrintDoc" header="Impressão de Documentos"   modal="true" hideEffect="fade" widgetVar="dialogPrintDoc">
+            <h:form id="frmDialogPrintDoc">
+                <acao:ImprimirDocumentos />
             </h:form>
         </p:dialog>
     </ui:define>

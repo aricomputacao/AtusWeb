@@ -6,40 +6,28 @@
 	<parameter name="rodapeEmail" class="java.lang.String"/>
 	<parameter name="imgRoda" class="java.lang.String"/>
 	<noData>
-		<band height="47">
-			<frame>
-				<reportElement uuid="aef0d384-b743-46f1-8b6f-b901bae11e98" mode="Opaque" x="0" y="0" width="555" height="45" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
-				<line>
-					<reportElement uuid="ec346ee6-254c-4cd9-ae08-75b28832a586" x="0" y="2" width="555" height="1"/>
-					<graphicElement>
-						<pen lineWidth="0.5"/>
-					</graphicElement>
-				</line>
-				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement uuid="95cbfe61-5474-4ba5-a635-e01500eb3824" x="413" y="18" width="141" height="13"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="SansSerif" size="8" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-				</textField>
-				<line>
-					<reportElement uuid="92f3db99-feb7-4589-bf56-2c9c98e8c9d2" x="0" y="44" width="555" height="1"/>
-					<graphicElement>
-						<pen lineWidth="0.5"/>
-					</graphicElement>
-				</line>
-				<image>
-					<reportElement uuid="af1307c5-052f-4547-aea1-9e780cdbfdec" x="0" y="4" width="385" height="40"/>
-					<imageExpression><![CDATA[$P{imgRoda}]]></imageExpression>
-				</image>
-				<textField>
-					<reportElement uuid="2d98004e-bcf3-40e2-b8bd-29b0fa74faa5" x="413" y="31" width="141" height="13"/>
-					<textElement verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{rodapeEmail}]]></textFieldExpression>
-				</textField>
-			</frame>
+		<band height="50">
+			<rectangle>
+				<reportElement uuid="b67f5960-f183-4342-a08d-3cc42a13ba91" x="0" y="0" width="553" height="5" backcolor="#CCCCCC"/>
+				<graphicElement>
+					<pen lineWidth="0.25" lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="0e57da9b-485b-4331-84d6-5d2458cd03c9" x="0" y="7" width="553" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[Avocatus - Advogados Associados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5f31f2be-4c45-4fd0-b1ec-c8bca4ff4325" x="0" y="21" width="554" height="15"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Rua Estanislau Frota | 340 LJ-01 - Centro - Sobral\CE (Em frente ao INSS)]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="46964d46-8194-4a55-a36f-c8f83ff9b1a5" x="0" y="35" width="553" height="15"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[""+"CEP - 62010560 | Fone: 3611-6210 | Email:"+""+$P{rodapeEmail} ]]></textFieldExpression>
+			</textField>
 		</band>
 	</noData>
 </jasperReport>

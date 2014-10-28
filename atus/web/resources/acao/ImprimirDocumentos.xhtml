@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:util="http://java.sun.com/jsf/composite/util">
+
+    <composite:interface id="int">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+    </composite:interface>
+    <composite:implementation id="int2" >
+        <p:fieldset  id="fieldAtend" style="text-align: left" >
+            <p:blockUI block="@form" trigger="btnDossie,btnProc,btnDecH,btnConTra"    >
+                <p:graphicImage library="imagens" name="carregar.gif"/>
+            </p:blockUI>
+            <h:outputText rendered="#{processoMB.processo.id != null}" style="font-weight: bold;font-size: 15px" value="&rsaquo;&rsaquo;Processo: #{processoMB.processo.numero}"/>
+            <br/>
+            <p:separator/>
+            <h:panelGrid style="margin-top: 15px" columns="3"  cellspacing="5">
+                <p:commandButton value="Dossiê" styleClass="btnDocumento"  actionListener="#{processoMB.imprimirDossie()}"  style="font-weight: bold" oncomplete="popup('/atus/RelatorioServlet.pdf');" />
+                <p:commandButton value="Protocolo" id="btnDossie" styleClass="btnDocumento" style="font-weight: bold" actionListener="#{processoMB.imprimirProtocolo()}" oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
+                <p:commandButton value="Procuração AD Judicial" id="btnProc" styleClass="btnDocumento" style="font-weight: bold" oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
+                <p:commandButton value="Declaração de Hip. Financeira" id="btnDecH" actionListener="#{processoMB.imprimirDeclaracao()}" title="Declaração de Hipossuficiência Financeira" styleClass="btnDocumento" style="font-weight: bold" oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
+                <p:commandButton value="Contrato" styleClass="btnDocumento" id="btnConTra" style="font-weight: bold" oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
+            </h:panelGrid>
+
+
+        </p:fieldset>
+
+    </composite:implementation>
+</ui:composition>
+
+
+
+

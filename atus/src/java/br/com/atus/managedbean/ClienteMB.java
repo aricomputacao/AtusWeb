@@ -95,6 +95,7 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
             profissao = new Profissao();
             if (cliente.getId() == null) {
                 cliente.setPessoa(new Pessoa());
+                cliente.setSexo(Sexo.M);
                 pf = 1;
                 cliente.getPessoa().setTipoPessoa(TipoPessoa.PF);
             } else {
@@ -147,7 +148,8 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
 
     public void salvar() {
         try {
-            controller.atualizar(cliente);
+            cliente.setCpfCpnj(cliente.getCpfCpnj().replace(".", "").replace("-", ""));
+            controller.salvarouAtualizar(cliente);
             init();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="re_declaracao_hipo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d22f032c-f934-4c07-89b5-3bfac5af7496">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="cliente" class="br.com.atus.modelo.Cliente">
+		<fieldDescription><![CDATA[cliente]]></fieldDescription>
+	</field>
+	<title>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="f3ef1e7d-e84c-4efa-bf3d-db6f3765f965" mode="Opaque" x="0" y="0" width="555" height="27" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DECLARAÇÃO DE HIPOSSUFICIÊNCIA FINANCEIRA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="160" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4b3aa4f2-defc-4bf9-ace2-08cb2fda3d77" x="0" y="0" width="555" height="160"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["   "+$F{cliente}.getPessoa().getNome()+", "+$F{cliente}.getNacionalidade().getNome()+", "+$F{cliente}.getEstadoCivil()+", "
++$F{cliente}.getProfissao().getNome()+","+"portador(a) da cédula de identidade nº "+$F{cliente}.getRg()+" expedida pelo "+$F{cliente}.getOrgaoEmissor().getAbreviacao()
++", inscrito no CPF/MF sob Nº "+$F{cliente}.getCpfCpnj()+", domiciliado em "+$F{cliente}.getPessoa().getCidade().getNome()+", "+$F{cliente}.getPessoa().getCidade().getUnidadeFederativa().getNome()
++", no(a) "+$F{cliente}.getPessoa().getBairro()+", "+$F{cliente}.getPessoa().getLogradouro()+" Nº "+$F{cliente}.getPessoa().getNumero()+" DECLARA, nos termos da lei nº. 1.060/50, que dispõe sobre a prova documental"
++" para todos os fins de direito, inclusive para fazer prova junto a esse juízo, que é pobre, na forma da lei, não podendo arcar com custas e emolumentos judiciais, sem prejuizo de seus sustentos e seus familiares,  "
++"pelo que assumo inteira responsabilidade, sob as penas da lei, pela presente declaração."
+
+]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
