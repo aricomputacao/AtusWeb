@@ -6,6 +6,7 @@
 package br.com.atus.util.peca;
 
 import br.com.atus.modelo.Peca;
+import br.com.atus.util.MascaraUtil;
 import br.com.atus.util.RegexUtil;
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,7 +35,7 @@ import org.primefaces.model.StreamedContent;
  */
 public class DocumentoConverter {
 
-    public static final String PARAMETROS_PADRAO = "\\$\\{\\w+.\\w+\\}";
+    public static final String PARAMETROS_PADRAO = "\\$\\{[a-z|.|A-Z|0-9]+\\}";
     public static final String STRING_ESQUERDA = "\\$\\{";
     public static final String STRING_DIREITA = "\\}";
     public static final String PARTE_ESQUERDA = "${";
@@ -98,22 +99,18 @@ public class DocumentoConverter {
             System.out.println("linha " + texto + " ");
             if (matcher.find()) {
                 //Troca aqui o valor parametro do texto pelo valor do objeto
-                for (String campo : getListaCampos(entidade.getClass(), "")) {
-                    if (texto.contains(PARTE_ESQUERDA + campo + PARTE_DIREITA)) {
-                        Object valor = executaMetodo(campo, entidade);
-                        if (valor instanceof List) {
-                            for (Object o : (List) valor) {
-                                System.out.println(o);
-                            }
-                        }
-                        texto = texto.replaceAll(STRING_ESQUERDA + campo + STRING_DIREITA, valor.toString());
+                for (CampoPersonalizado campo : getListaCampos(entidade.getClass(), "")) {
+                    String resposta;
+                    if (texto.contains(campo.getTagName())) {
+                        Object valor = executaMetodo(campo.getNome(), entidade);
+                        resposta = valor.toString();
+                        texto = texto.replaceAll(campo.getReplaceTagName(), resposta);
                         textElement.setValue(texto);
-                        System.out.println(campo + " foi substituido por " + valor);
+                        System.out.println(campo.getNome() + " foi substituido por " + valor);
                     }
                 }
             }
         }
-
         File file = new File("temp.docx");
         template.save(file);
         StreamedContent context = new DefaultStreamedContent(new FileInputStream(file), "docx", peca.getArquivo());
@@ -127,30 +124,29 @@ public class DocumentoConverter {
      * @param entidade
      * @return
      * @throws org.docx4j.openpackaging.exceptions.Docx4JException
+     *
+     * public static boolean validarArquivo(InputStream stream, Class entidade)
+     * throws Docx4JException, NoSuchFieldException, ClassNotFoundException {
+     * WordprocessingMLPackage wordMLPackage; boolean valido = false;
+     * wordMLPackage = WordprocessingMLPackage.load(stream); MainDocumentPart
+     * arquivoBase = wordMLPackage.getMainDocumentPart(); List<Object> linhas =
+     * arquivoBase.getContent(); for (Object valor : linhas) { String texto =
+     * valor.toString(); Matcher matcher =
+     * RegexUtil.getMatcher(PARAMETROS_PADRAO, texto); if (matcher.find()) { //
+     * Verifica se o parametro existe na classe for (CampoPersonalizado campo :
+     * getListaCampos(entidade, "")) { if (texto.contains(campo.getTagName())) {
+     * valido = true; } } } } return valido; }
      */
-    public static boolean validarArquivo(InputStream stream, Class entidade) throws Docx4JException, NoSuchFieldException, ClassNotFoundException {
-        WordprocessingMLPackage wordMLPackage;
-        boolean valido = false;
-        wordMLPackage = WordprocessingMLPackage.load(stream);
-        MainDocumentPart arquivoBase = wordMLPackage.getMainDocumentPart();
-        List<Object> linhas = arquivoBase.getContent();
-        for (Object valor : linhas) {
-            String texto = valor.toString();
-            Matcher matcher = RegexUtil.getMatcher(PARAMETROS_PADRAO, texto);
-            if (matcher.find()) {
-                // Verifica se o parametro existe na classe
-                for (String campo : getListaTags(entidade)) {
-                    if (texto.contains(campo)) {
-                        valido = true;
-                    }
-                }
-            }
-        }
-        return valido;
-    }
-
-    private static List<String> getListaCampos(Class classe, String prefix) throws NoSuchFieldException, ClassNotFoundException {
-        List<String> campos = new ArrayList<>();
+    /**
+     *
+     * @param classe
+     * @param prefix
+     * @return
+     * @throws NoSuchFieldException
+     * @throws ClassNotFoundException
+     */
+    public static List<CampoPersonalizado> getListaCampos(Class classe, String prefix) throws NoSuchFieldException, ClassNotFoundException {
+        List<CampoPersonalizado> campos = new ArrayList<>();
         for (Field field : classe.getDeclaredFields()) {
             try {
                 PecaColetor p = (PecaColetor) field.getAnnotation(PecaColetor.class);
@@ -158,9 +154,9 @@ public class DocumentoConverter {
                     if (p.isEntidade()) {
                         campos.addAll(getListaCampos(field.getType(), prefix + field.getName() + "."));
                     } else if (p.isLista()) {
-                        campos.addAll(getListaCampos(tipoLista(classe, field.getName()), "Lista" + (prefix + field.getName()).substring(0, 1).toUpperCase() + "."));
+                        campos.addAll(getListaCampos(tipoLista(classe, field.getName()), prefix + field.getName() + "."));
                     } else {
-                        campos.add(prefix + field.getName());
+                        campos.add(new CampoPersonalizado((prefix + field.getName()), p.mascara(), p.tipo()));
                     }
                 }
             } catch (NullPointerException n) {
@@ -170,17 +166,10 @@ public class DocumentoConverter {
         return campos;
     }
 
-    public static List<String> getListaTags(Class classe) throws NoSuchFieldException, ClassNotFoundException {
-        List<String> campos = new ArrayList<>();
-        for (String campo : getListaCampos(classe, "")) {
-            campos.add(PARTE_ESQUERDA + campo + PARTE_DIREITA);
-        }
-        return campos;
-    }
-
     private static Method getMetodo(String nomeCampo, Class classe) {
         for (Method m : classe.getDeclaredMethods()) {
-            if (m.getName().toLowerCase().equals("get" + nomeCampo)) {
+            String nomeMetodo = m.getName().toLowerCase();
+            if (nomeMetodo.equals("get" + nomeCampo.toLowerCase())) {
                 return m;
             }
         }
@@ -194,8 +183,9 @@ public class DocumentoConverter {
     }
 
     // Retorna Uma String vazia no caso de ser nulo
-    private static Object executaMetodo(String campo, Object entidade) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    private static Object executaMetodo(String campo, Object entidade) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException {
         if (campo.contains(".")) {
+            List<Object> respostas = new ArrayList<>();
             String[] partes = campo.split("\\.");
             String c = partes[0];
             String m = partes[1];
@@ -203,16 +193,51 @@ public class DocumentoConverter {
                 m = campo.replace(c + ".", "");
             }
             Object valor = executaMetodo(c, entidade);
-            return executaMetodo(m, valor);
+            if (valor instanceof List) {
+                for (Object o : (List) valor) {
+                    respostas.add(executaMetodo(m, o));
+                }
+                String resp = "";
+                for (Object r : respostas) {
+                    resp += r.toString() + ", ";
+                }
+                if (resp.length() > 2) {
+                    return resp.substring(0, resp.length() - 2);
+                } else {
+                    return "";
+                }
+            } else {
+                return executaMetodo(m, valor);
+            }
         } else {
             Method metodo = getMetodo(campo, entidade.getClass());
             if (metodo != null) {
                 Object valor = metodo.invoke(entidade);
-                return valor == null ? "" : valor;
+                if (valor == null) {
+                    return "";
+                } else {
+                    CampoPersonalizado campoPer = getCampoPorNome(campo, entidade.getClass());
+                    if (campoPer.getMascara().equals("") && campoPer.getTipoMascara().equals(TipoMascara.GENERICO)) {
+                        return valor;
+                    } else {
+                        return MascaraUtil.formatarValor(valor, campoPer.getMascara(), campoPer.getTipoMascara());
+                    }
+                }
             } else {
                 return "";
             }
         }
+
     }
 
+    private static CampoPersonalizado getCampoPorNome(String nome, Class classe) throws NoSuchFieldException {
+        Field campo = classe.getDeclaredField(nome);
+        PecaColetor p = (PecaColetor) campo.getAnnotation(PecaColetor.class);
+        if (p != null) {
+            return new CampoPersonalizado(campo.getName(), p.mascara(), p.tipo());
+        } else {
+            return null;
+        }
+
+    }
 }

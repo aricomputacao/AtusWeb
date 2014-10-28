@@ -10,17 +10,15 @@ import br.com.atus.exceptions.PecaFileException;
 import br.com.atus.modelo.Peca;
 import br.com.atus.modelo.SubGrupoPeca;
 import br.com.atus.util.peca.ArquivoUtil;
+import br.com.atus.util.peca.CampoPersonalizado;
 import br.com.atus.util.peca.DocumentoConverter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -75,17 +73,17 @@ public class PecaController extends Controller<Peca, Long> implements Serializab
         return DocumentoConverter.converterArquivo(stream, entidade, peca);
     }
 
-    public List<String> getListaTags(String classe) throws ClassNotFoundException, NoSuchFieldException {
-        return DocumentoConverter.getListaTags(Class.forName(classe));
+    public List<CampoPersonalizado> getListaTags(String classe) throws ClassNotFoundException, NoSuchFieldException {
+        return DocumentoConverter.getListaCampos(Class.forName(classe), "");
     }
 
     public boolean validaArquivoDocx(UploadedFile f, String grupo) throws NoSuchFieldException {
-        try {
-            return DocumentoConverter.validarArquivo(f.getInputstream(), Class.forName(grupo));
-        } catch (IOException | ClassNotFoundException | Docx4JException ex) {
-            Logger.getLogger(PecaController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
+        //try {
+//            return DocumentoConverter.validarArquivo(f.getInputstream(), Class.forName(grupo));
+//        } catch (IOException | ClassNotFoundException | Docx4JException ex) {
+//            Logger.getLogger(PecaController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        return true;
     }
 
 }

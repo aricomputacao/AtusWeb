@@ -91,28 +91,30 @@
 
         <p:dialog showEffect="fade" position="top" header="Gerar Peça" id="dialodPecaId" modal="true" hideEffect="fade" widgetVar="dialogPeca" width="800" height="400">
             <h:form>
-                <h:panelGrid id="griPrin4">
-                    <h:panelGrid columns="2">
-                        <p:outputLabel value="Grupo" for="grupo"/>
+                <h:panelGrid columns="2">
+                    <h:panelGrid id="griPrin4">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Grupo" for="grupo"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <p:selectOneMenu value="#{pecaMB.grupo}" id="grupo" converter="#{indexConverter}" style="width: 200px;">
+                                <f:selectItem itemValue="#{null}" itemLabel=""/>
+                                <f:selectItems value="#{pecaMB.listaGrupoPecas}" var="g" itemLabel="#{g.nome}" itemValue="#{g}"/>
+                                <p:ajax event="change" update="sub"  process="@this" listener="#{pecaMB.atualizaListaSubGrupos()}"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
                     </h:panelGrid>
-                    <h:panelGrid columns="2">
-                        <p:selectOneMenu value="#{pecaMB.grupo}" id="grupo" converter="#{indexConverter}" style="width: 200px;">
-                            <f:selectItem itemValue="#{null}" itemLabel=""/>
-                            <f:selectItems value="#{pecaMB.listaGrupoPecas}" var="g" itemLabel="#{g.nome}" itemValue="#{g}"/>
-                            <p:ajax event="change" update="sub"  process="@this" listener="#{pecaMB.atualizaListaSubGrupos()}"/>
-                        </p:selectOneMenu>
-                    </h:panelGrid>
-                </h:panelGrid>
-                <h:panelGrid id="sub">
-                    <h:panelGrid columns="2">
-                        <p:outputLabel value="Subgrupo" for="sub"/>
-                    </h:panelGrid>
-                    <h:panelGrid columns="2">
-                        <p:selectOneMenu value="#{pecaMB.subGrupo}" converter="#{indexConverter}" style="width: 200px;">
-                            <f:selectItem itemValue="#{null}" itemLabel=""/>
-                            <f:selectItems value="#{pecaMB.listaSubGrupoPecas}" var="s" itemLabel="#{s.nome}" itemValue="#{s}"/>
-                            <p:ajax event="change" update="tabela_peca"  process="@this" listener="#{pecaMB.atualizaListaPecas()}"/>
-                        </p:selectOneMenu>
+                    <h:panelGrid id="sub">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Subgrupo" for="sub"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <p:selectOneMenu value="#{pecaMB.subGrupo}" converter="#{indexConverter}" style="width: 200px;">
+                                <f:selectItem itemValue="#{null}" itemLabel=""/>
+                                <f:selectItems value="#{pecaMB.listaSubGrupoPecas}" var="s" itemLabel="#{s.nome}" itemValue="#{s}"/>
+                                <p:ajax event="change" update="tabela_peca"  process="@this" listener="#{pecaMB.atualizaListaPecas()}"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
                     </h:panelGrid>
                 </h:panelGrid>
                 <h:panelGrid id="tabela_peca">

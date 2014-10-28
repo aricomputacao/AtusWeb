@@ -40,7 +40,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
-import org.jfree.data.time.MovingAverage;
 import org.primefaces.model.StreamedContent;
 
 /**
@@ -334,6 +333,8 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             return pecaController.getModeloDownload(peca, processo);
         } catch (PecaFileException | FileNotFoundException | Docx4JException | IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchFieldException | ClassNotFoundException e) {
             MenssagemUtil.addMessageErro(e);
+            Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, e);
+
         }
         return null;
     }

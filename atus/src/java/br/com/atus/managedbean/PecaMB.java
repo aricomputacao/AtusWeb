@@ -14,9 +14,9 @@ import br.com.atus.modelo.Peca;
 import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.SubGrupoPeca;
 import br.com.atus.util.MenssagemUtil;
+import br.com.atus.util.peca.CampoPersonalizado;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -24,7 +24,6 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
-import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -59,6 +58,10 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
         peca = (Peca) navegacaoMB.getRegistroMapa("peca", new Peca());
         listaSubGrupoPecas = new ArrayList<>();
         file = null;
+        if (peca.getId() != null) {
+            grupo = peca.getSubgrupo().getGrupoPeca();
+            atualizaListaSubGrupos();
+        }
         try {
             listaGrupoPecas = grupoPecaController.listarTodos("nome");
         } catch (Exception ex) {
@@ -171,7 +174,7 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
         }
     }
 
-    public List<String> getCamposClasse() {
+    public List<CampoPersonalizado> getCamposClasse() {
         try {
             return controller.getListaTags(Processo.class.getName());
         } catch (ClassNotFoundException | NoSuchFieldException ex) {
