@@ -8,6 +8,7 @@ package br.com.atus.modelo;
 import br.com.atus.enumerated.EstadoCivil;
 import br.com.atus.enumerated.Sexo;
 import br.com.atus.util.peca.PecaColetor;
+import br.com.atus.util.peca.TipoMascara;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -42,7 +43,7 @@ public class Cliente implements Serializable {
     private Pessoa pessoa;
 
     @Column(name = "cli_documento", length = 20)
-    @PecaColetor
+    @PecaColetor(tipo = TipoMascara.CPF_CNPJ)
     private String cpfCpnj;
     @Column(name = "cli_rg", length = 20)
     @PecaColetor

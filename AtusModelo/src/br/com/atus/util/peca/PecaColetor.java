@@ -21,4 +21,9 @@ public @interface PecaColetor {
     public boolean isEntidade() default false;
 
     public boolean isLista() default false;
+
+    public String mascara() default "";
+
+    public TipoMascara tipo() default TipoMascara.GENERICO;
+
 }

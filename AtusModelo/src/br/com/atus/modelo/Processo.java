@@ -6,6 +6,7 @@
 package br.com.atus.modelo;
 
 import br.com.atus.util.peca.PecaColetor;
+import br.com.atus.util.peca.TipoMascara;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -23,13 +24,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -70,7 +69,7 @@ public class Processo implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
-    @PecaColetor
+    @PecaColetor(isLista = true)
     private List<ParteInteressada> parteInteressadas;
 
     @Column(name = "pro_numero", length = 80)
@@ -90,7 +89,7 @@ public class Processo implements Serializable {
 
     @Column(name = "pro_data_cadastro")
     @Temporal(TemporalType.DATE)
-    @PecaColetor
+    @PecaColetor(tipo = TipoMascara.DATA)
     private Date dataCadastro;
 
     @ManyToOne
@@ -113,7 +112,7 @@ public class Processo implements Serializable {
     private JuizoTribunal juizoTribunal;
 
     @Column(name = "pro_valor")
-    @PecaColetor
+    @PecaColetor(tipo = TipoMascara.DINHEIRO)
     private BigDecimal valor;
 
     @ManyToOne
@@ -151,22 +150,22 @@ public class Processo implements Serializable {
 
     @Column(name = "pro_der")
     @Temporal(TemporalType.DATE)
-    @PecaColetor
+    @PecaColetor(tipo = TipoMascara.DATA)
     private Date der;
 
     @Column(name = "pro_dcb")
     @Temporal(TemporalType.DATE)
-    @PecaColetor
+    @PecaColetor(tipo = TipoMascara.DATA)
     private Date dcb;
 
     @Column(name = "pro_dib")
     @Temporal(TemporalType.DATE)
-    @PecaColetor
+    @PecaColetor(tipo = TipoMascara.DATA)
     private Date dib;
 
     @Column(name = "pro_dip")
     @Temporal(TemporalType.DATE)
-    @PecaColetor
+    @PecaColetor(tipo = TipoMascara.DATA)
     private Date dip;
 
     @Length(max = 100000)

@@ -7,6 +7,7 @@ package br.com.atus.modelo;
 
 import br.com.atus.enumerated.TipoPessoa;
 import br.com.atus.util.peca.PecaColetor;
+import br.com.atus.util.peca.TipoMascara;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -58,7 +59,7 @@ public class Pessoa implements Serializable {
     private Cidade cidade;
 
     @Column(name = "end_cep")
-    @PecaColetor
+    @PecaColetor(mascara = "##.###-###")
     private String cep;
 
     @Column(name = "end_logradouro")
@@ -79,7 +80,7 @@ public class Pessoa implements Serializable {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "pes_data_nascimento")
-    @PecaColetor
+    @PecaColetor(tipo = TipoMascara.DATA)
     private Date dataNascimento;
 
     public String getCelular() {

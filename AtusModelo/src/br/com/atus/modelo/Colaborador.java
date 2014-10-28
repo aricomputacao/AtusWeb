@@ -49,7 +49,7 @@ public class Colaborador implements Serializable {
 
     @NotNull
     @Column(name = "col_participacao", nullable = false)
-    @PecaColetor
+    @PecaColetor(mascara = "#,##0.00")
     private BigDecimal participacao;
 
     @ManyToOne
