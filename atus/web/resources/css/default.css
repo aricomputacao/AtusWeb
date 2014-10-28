@@ -399,7 +399,11 @@ ui-layout-unit{
 .bold{
     font-weight:  bold;
 }
-
+.btnDocumento{
+    width: 100px;
+    height: 100px;
+   
+}
 /*Style Class                                Applies
 .ui-layout                                   Main wrapper container element
 .ui-layout-doc                             Layout container
