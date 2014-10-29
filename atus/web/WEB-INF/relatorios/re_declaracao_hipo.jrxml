@@ -3,6 +3,10 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="rodapeEmail" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Projetos\\Atus\\atus\\web\\WEB-INF\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -21,22 +25,47 @@
 		</band>
 	</title>
 	<detail>
-		<band height="160" splitType="Stretch">
+		<band height="220" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="4b3aa4f2-defc-4bf9-ace2-08cb2fda3d77" x="0" y="0" width="555" height="160"/>
-				<textElement textAlignment="Justified"/>
-				<textFieldExpression><![CDATA["   "+$F{cliente}.getPessoa().getNome()+", "+$F{cliente}.getNacionalidade().getNome()+", "+$F{cliente}.getEstadoCivil()+", "
-+$F{cliente}.getProfissao().getNome()+","+"portador(a) da cédula de identidade nº "+$F{cliente}.getRg()+" expedida pelo "+$F{cliente}.getOrgaoEmissor().getAbreviacao()
-+", inscrito no CPF/MF sob Nº "+$F{cliente}.getCpfCpnj()+", domiciliado em "+$F{cliente}.getPessoa().getCidade().getNome()+", "+$F{cliente}.getPessoa().getCidade().getUnidadeFederativa().getNome()
-+", no(a) "+$F{cliente}.getPessoa().getBairro()+", "+$F{cliente}.getPessoa().getLogradouro()+" Nº "+$F{cliente}.getPessoa().getNumero()+" DECLARA, nos termos da lei nº. 1.060/50, que dispõe sobre a prova documental"
-+" para todos os fins de direito, inclusive para fazer prova junto a esse juízo, que é pobre, na forma da lei, não podendo arcar com custas e emolumentos judiciais, sem prejuizo de seus sustentos e seus familiares,  "
-+"pelo que assumo inteira responsabilidade, sob as penas da lei, pela presente declaração."
-
-]]></textFieldExpression>
+				<reportElement uuid="4b3aa4f2-defc-4bf9-ace2-08cb2fda3d77" x="0" y="12" width="555" height="167"/>
+				<textElement textAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[ $F{cliente}.getPessoa().getNome()+
+ ($F{cliente}.getNacionalidade() == null  ? "" : ", "+$F{cliente}.getNacionalidade().getNome())
+ +($F{cliente}.getEstadoCivil() == null ? "" :", "+$F{cliente}.getEstadoCivil())
+ +($F{cliente}.getProfissao() == null ? "" :", "+$F{cliente}.getProfissao().getNome())
+ +($F{cliente}.getRg() == null ? "" : " portador(a) da cédula de identidade nº "+$F{cliente}.getRg())
+ +($F{cliente}.getOrgaoEmissor() == null ? "" : " expedida pelo "+$F{cliente}.getOrgaoEmissor().getAbreviacao())
+ +($F{cliente}.getCpfCpnj() == null ? "" : ", inscrito no CPF/MF sob Nº "+$F{cliente}.getCpfCpnj())
+ +($F{cliente}.getPessoa().getCidade() == null ? "" : ", domiciliado em "+$F{cliente}.getPessoa().getCidade().getNome()+", "+$F{cliente}.getPessoa().getCidade().getUnidadeFederativa().getNome())
+ +($F{cliente}.getPessoa().getBairro() == null ? "" : ", no(a) "+$F{cliente}.getPessoa().getBairro())
+ +($F{cliente}.getPessoa().getLogradouro() == null ? "" : ", " +$F{cliente}.getPessoa().getLogradouro())
+ +($F{cliente}.getPessoa().getNumero() == null ? "":  " Nº "+$F{cliente}.getPessoa().getNumero())
+ +" DECLARA, nos termos da lei nº. 1.060/50, que dispõe sobre a prova documental"+" para todos os fins de direito, inclusive para fazer prova junto a esse juízo, que é pobre, na forma da lei, não podendo arcar com custas e emolumentos judiciais, sem prejuizo de seus sustentos e seus familiares,  "+"pelo que assumo inteira responsabilidade, sob as penas da lei, pela presente declaração."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bd84e336-c5ad-4c08-b780-550f27bd4cdd" x="68" y="200" width="437" height="20"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente}.getPessoa().getNome()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
+	<pageFooter>
+		<band height="57">
+			<subreport>
+				<reportElement uuid="7dcf67bf-623d-4762-bf6d-0879694265c7" x="0" y="3" width="555" height="50"/>
+				<subreportParameter name="rodapeEmail">
+					<subreportParameterExpression><![CDATA[$P{rodapeEmail}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="imgRoda"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rodape_retrato.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageFooter>
 </jasperReport>
