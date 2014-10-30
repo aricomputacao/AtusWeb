@@ -14,7 +14,7 @@
 		<fieldDescription><![CDATA[cliente]]></fieldDescription>
 	</field>
 	<title>
-		<band height="27" splitType="Stretch">
+		<band height="80" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="f3ef1e7d-e84c-4efa-bf3d-db6f3765f965" mode="Opaque" x="0" y="0" width="555" height="27" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -25,13 +25,13 @@
 		</band>
 	</title>
 	<detail>
-		<band height="220" splitType="Stretch">
+		<band height="311" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="4b3aa4f2-defc-4bf9-ace2-08cb2fda3d77" x="0" y="12" width="555" height="167"/>
+				<reportElement uuid="4b3aa4f2-defc-4bf9-ace2-08cb2fda3d77" x="0" y="33" width="555" height="167"/>
 				<textElement textAlignment="Justified">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[ $F{cliente}.getPessoa().getNome()+
+				<textFieldExpression><![CDATA["        "+$F{cliente}.getPessoa().getNome() +
  ($F{cliente}.getNacionalidade() == null  ? "" : ", "+$F{cliente}.getNacionalidade().getNome())
  +($F{cliente}.getEstadoCivil() == null ? "" :", "+$F{cliente}.getEstadoCivil())
  +($F{cliente}.getProfissao() == null ? "" :", "+$F{cliente}.getProfissao().getNome())
@@ -45,7 +45,7 @@
  +" DECLARA, nos termos da lei nº. 1.060/50, que dispõe sobre a prova documental"+" para todos os fins de direito, inclusive para fazer prova junto a esse juízo, que é pobre, na forma da lei, não podendo arcar com custas e emolumentos judiciais, sem prejuizo de seus sustentos e seus familiares,  "+"pelo que assumo inteira responsabilidade, sob as penas da lei, pela presente declaração."]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="bd84e336-c5ad-4c08-b780-550f27bd4cdd" x="68" y="200" width="437" height="20"/>
+				<reportElement uuid="bd84e336-c5ad-4c08-b780-550f27bd4cdd" x="68" y="270" width="437" height="20"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 				</box>
