@@ -26,7 +26,7 @@
                 <p:commandButton value="Protocolo" id="btnDossie" styleClass="btnDocumento" style="font-weight: bold" actionListener="#{processoMB.imprimirProtocolo()}" oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
                 <p:commandButton value="Procuração AD Judicial" id="btnProc" actionListener="#{processoMB.imprimirProcuracaoAdJud()}" styleClass="btnDocumento" style="font-weight: bold" oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
                 <p:commandButton value="Declaração de Hip. Financeira" id="btnDecH" actionListener="#{processoMB.imprimirDeclaracao()}" title="Declaração de Hipossuficiência Financeira" styleClass="btnDocumento" style="font-weight: bold" oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
-                <p:commandButton value="Contrato" styleClass="btnDocumento" id="btnConTra" style="font-weight: bold" oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
+                <p:commandButton value="Contrato" styleClass="btnDocumento" id="btnConTra" actionListener="#{processoMB.imprimirContrato()}" style="font-weight: bold" oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
             </h:panelGrid>
 
 

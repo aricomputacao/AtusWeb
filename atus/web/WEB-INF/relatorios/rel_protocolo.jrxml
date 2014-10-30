@@ -138,7 +138,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="17bb7b7c-e5a9-47e8-bf1c-198cb8a9b9ee" x="101" y="80" width="454" height="20"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{cliente}.getProfissao()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cliente}.getProfissao().getNome()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="08a2151a-0142-4780-8056-b83892c807f1" x="1" y="100" width="100" height="20"/>

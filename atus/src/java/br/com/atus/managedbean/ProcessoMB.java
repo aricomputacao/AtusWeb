@@ -269,7 +269,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         RelatorioSession.setBytesRelatorioInSession(rel);
 
     }
-    
+
     public void imprimirProcuracaoAdJud() {
         List<Processo> l = new ArrayList<>();
         l.add(processo);
@@ -278,11 +278,21 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         RelatorioSession.setBytesRelatorioInSession(rel);
 
     }
-     public void imprimirDeclaracao() {
+
+    public void imprimirDeclaracao() {
         List<Processo> l = new ArrayList<>();
         l.add(processo);
         Map<String, Object> m = new HashMap<>();
         byte[] rel = new AssistentedeRelatorio().relatorioemByte(l, m, "WEB-INF/relatorios/re_declaracao_hipo.jasper", "Relatório de Processos");
+        RelatorioSession.setBytesRelatorioInSession(rel);
+
+    }
+
+    public void imprimirContrato() {
+        List<Processo> l = new ArrayList<>();
+        l.add(processo);
+        Map<String, Object> m = new HashMap<>();
+        byte[] rel = new AssistentedeRelatorio().relatorioemByte(l, m, "WEB-INF/relatorios/rel_contrato_honorarios.jasper", "Relatório de Processos");
         RelatorioSession.setBytesRelatorioInSession(rel);
 
     }
