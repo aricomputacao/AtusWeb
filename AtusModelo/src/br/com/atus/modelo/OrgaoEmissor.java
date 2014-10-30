@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.atus.modelo;
 
+import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -23,18 +23,21 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author ari
  */
 @Entity
-@Table(name = "orgao_emissor",schema = "cadastro")
+@Table(name = "orgao_emissor", schema = "cadastro")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class OrgaoEmissor implements Serializable{
+public class OrgaoEmissor implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ore_id",nullable = false)
+    @Column(name = "ore_id", nullable = false)
     private Integer id;
     @NotBlank
-    @Column(name = "ore_nome",nullable = false)
+    @Column(name = "ore_nome", nullable = false)
+    @PecaColetor
     private String nome;
     @NotBlank
-    @Column(name = "ore_abreviacao",nullable = false)
+    @Column(name = "ore_abreviacao", nullable = false)
+    @PecaColetor
     private String abreviacao;
 
     public Integer getId() {
@@ -60,8 +63,6 @@ public class OrgaoEmissor implements Serializable{
     public void setAbreviacao(String abreviacao) {
         this.abreviacao = abreviacao;
     }
-    
-    
 
     @Override
     public int hashCode() {
@@ -84,6 +85,5 @@ public class OrgaoEmissor implements Serializable{
         }
         return true;
     }
-    
-    
+
 }

@@ -45,6 +45,7 @@ public class Processo implements Serializable {
     @Id
     @Column(name = "pro_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @PecaColetor
     private Long id;
 
     @ManyToOne

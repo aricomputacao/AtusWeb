@@ -64,21 +64,26 @@ public class Cliente implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "pro_id", referencedColumnName = "pro_id")
+    @PecaColetor
     private Profissao profissao;
 
     @Column(name = "cli_estado_civil")
     @Enumerated(EnumType.STRING)
+    @PecaColetor
     private EstadoCivil estadoCivil;
 
     @Column(name = "cli_observacao", length = 1024)
+    @PecaColetor
     private String observacao;
 
     @ManyToOne
     @JoinColumn(name = "ore_id", referencedColumnName = "ore_id")
+    @PecaColetor(isEntidade = true)
     private OrgaoEmissor orgaoEmissor;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "cli_sexo")
+    @PecaColetor
     private Sexo sexo;
 
     public Sexo getSexo() {
@@ -193,10 +198,7 @@ public class Cliente implements Serializable {
             return false;
         }
         final Cliente other = (Cliente) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
 
 }

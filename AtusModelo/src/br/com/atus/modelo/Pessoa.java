@@ -82,6 +82,10 @@ public class Pessoa implements Serializable {
     @Column(name = "pes_data_nascimento")
     @PecaColetor(tipo = TipoMascara.DATA)
     private Date dataNascimento;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "pes_data_cadastro")
+    @PecaColetor(tipo = TipoMascara.DATA)
+    private Date dataCadastro;
 
     public String getCelular() {
         return celular;
@@ -177,6 +181,14 @@ public class Pessoa implements Serializable {
 
     public void setBairro(String bairro) {
         this.bairro = bairro;
+    }
+
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 
 }
