@@ -270,6 +270,14 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     }
     
+    public void imprimirProcuracaoAdJud() {
+        List<Processo> l = new ArrayList<>();
+        l.add(processo);
+        Map<String, Object> m = new HashMap<>();
+        byte[] rel = new AssistentedeRelatorio().relatorioemByte(l, m, "WEB-INF/relatorios/rel_proc_ad_judicia.jasper", "Relatório de Processos");
+        RelatorioSession.setBytesRelatorioInSession(rel);
+
+    }
      public void imprimirDeclaracao() {
         List<Processo> l = new ArrayList<>();
         l.add(processo);
