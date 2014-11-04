@@ -65,6 +65,19 @@ public class Evento implements Serializable {
     @NotBlank
     @Column(name = "eve_observacao",nullable = false,length = 1024)
     private String observacao;
+    
+    @Column(name = "eve_local",length = 1024)
+    private String local;
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+    
+    
 
     public Long getId() {
         return id;
