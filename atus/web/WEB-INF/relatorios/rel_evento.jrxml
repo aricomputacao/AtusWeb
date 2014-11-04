@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_evento" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2c6557a1-9e45-4554-87c5-e6360567aa58">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="data" class="java.util.Date">
+		<fieldDescription><![CDATA[data]]></fieldDescription>
+	</field>
+	<field name="especieEvento" class="br.com.atus.modelo.EspecieEvento">
+		<fieldDescription><![CDATA[especieEvento]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[nome]]></fieldDescription>
+	</field>
+	<field name="local" class="java.lang.String">
+		<fieldDescription><![CDATA[local]]></fieldDescription>
+	</field>
+	<field name="observacao" class="java.lang.String">
+		<fieldDescription><![CDATA[observacao]]></fieldDescription>
+	</field>
+	<field name="processo" class="br.com.atus.modelo.Processo">
+		<fieldDescription><![CDATA[processo]]></fieldDescription>
+	</field>
+	<field name="usuario" class="br.com.atus.modelo.Usuario">
+		<fieldDescription><![CDATA[usuario]]></fieldDescription>
+	</field>
+	<title>
+		<band height="101" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="101" uuid="42766cac-ef1f-455d-afdb-b3d7ca9124f1"/>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="2" width="555" height="38" uuid="a5759f88-193c-4059-8f78-4c90c9dec604"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="30" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{especieEvento}.getNome()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="180" y="40" width="175" height="32" forecolor="#0066FF" uuid="e7292ac7-c4d8-49e6-a332-df5b0aef24a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Horário]]></text>
+			</staticText>
+			<textField pattern="EEE, d MMM yyyy HH:mm:ss">
+				<reportElement x="137" y="72" width="253" height="29" uuid="c32e3ea6-08b3-43ad-b273-46bbf20abedd"/>
+				<textElement textAlignment="Center">
+					<font size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="140" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="140" uuid="cc1a870b-879d-47a7-a4cd-8682118f0e00"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="8" y="0" width="56" height="20" uuid="27168e87-f3c6-46f1-92ef-58e1e4c2d6a4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Processo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="64" y="0" width="491" height="20" uuid="2f1609a0-489b-45e2-947a-f4d40ec443b6"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{processo}.getNumero()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="20" width="56" height="20" uuid="c02720c2-29d9-4fe4-9cd7-d46cc9265abb"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Advogado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="64" y="20" width="491" height="20" uuid="2a389c54-61bd-4fe8-8c9d-7aaf3c926a0e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{processo}.getAdvogado().getNome()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="40" width="56" height="20" uuid="8fea56e2-18bc-4f0d-b105-9103c75628b6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="64" y="40" width="491" height="20" uuid="ea4f577c-3a37-4f28-a1c5-f332cf60a644"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{processo}.getCliente().getPessoa().getNome()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="60" width="56" height="20" uuid="53fd3bba-25b6-4210-842c-e977bea796ca"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Local:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="64" y="60" width="491" height="33" uuid="6603d498-76e0-4160-8922-2ff7c0cdcc81"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{local}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="93" width="56" height="20" uuid="bf1e3fe6-5784-491e-89c5-6a85187a765e"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observação:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="64" y="93" width="491" height="47" uuid="e349a1c9-f921-4eb3-b140-04db92c5d60e"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{observacao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

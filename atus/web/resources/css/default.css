@@ -322,6 +322,11 @@ ui-layout-unit{
     width: 16px;
     height: 16px;
 }
+.ui-button-icon-left.ui-icon.ui-c.ui-icon-print{
+    background: url("../resources/imagens/print_16.png") ! important;
+    width: 16px;
+    height: 16px;
+}
 .btnConEdit{
     width: 16px;
     height: 16px;

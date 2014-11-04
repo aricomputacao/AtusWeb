@@ -33,11 +33,11 @@
                 <h:panelGrid >
 
                     <h:outputLabel for="inicio" value="Início:" />  
-                    <p:calendar id="inicio" size="12"
+                    <p:calendar id="inicio" size="15"
                                 showButtonPanel="true"
                                 required="true"
                                 value="#{eventoMB.evento.data}" 
-                                pattern="dd/MM/yyyy"/>
+                                pattern="dd/MM/yyyy HH:ss"/>
                 </h:panelGrid>
             </h:panelGrid>
             <h:panelGrid columns="2">
@@ -54,7 +54,7 @@
                     <h:outputLabel for="tit" value="Titulo:" /> 
                     <p:inputText 
                         id="tit" 
-                        size="60"
+                        size="63"
                         maxlength="60"
                         required="true"
                         value="#{eventoMB.evento.nome}" />  
@@ -62,11 +62,22 @@
             </h:panelGrid>
             <h:panelGrid >
 
+                <h:outputLabel for="local" value="Local:" /> 
+                <p:inputTextarea 
+                    id="local" 
+                    rows="5"
+                    cols="103"
+                    maxlength="1024"
+                    placeholder="Ex: Forum , Av. Monsenhor Aloísio Pinto, 1300, Bairro Dom Expedito, Sobral-CE "
+                    value="#{eventoMB.evento.local}" />  
+            </h:panelGrid>
+            <h:panelGrid >
+
                 <h:outputLabel for="descricao" value="Descrição:" /> 
                 <p:inputTextarea 
                     id="descricao" 
                     rows="5"
-                    cols="100"
+                    cols="103"
                     maxlength="1024"
                     required="true"
                     value="#{eventoMB.evento.observacao}" />  

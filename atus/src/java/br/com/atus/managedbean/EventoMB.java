@@ -9,6 +9,7 @@ import br.com.atus.controller.AgendaController;
 import br.com.atus.controller.EventoController;
 import br.com.atus.modelo.Agenda;
 import br.com.atus.modelo.Evento;
+import br.com.atus.modelo.Processo;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
@@ -117,6 +118,15 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
             byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaEventos, m, "WEB-INF/relatorios/rel_eventos.jasper", "Relatório de Eventos");
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
+
+    }
+    
+    public void imprimirEvento(Evento e) {
+        List<Evento> l = new ArrayList<>();
+        l.add(e);
+        Map<String, Object> m = new HashMap<>();
+        byte[] rel = new AssistentedeRelatorio().relatorioemByte(l, m, "WEB-INF/relatorios/rel_prot_evento.jasper", "teste");
+        RelatorioSession.setBytesRelatorioInSession(rel);
 
     }
 

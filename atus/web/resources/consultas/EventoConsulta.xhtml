@@ -24,7 +24,7 @@
 
     </composite:interface>
     <composite:implementation id="compConCli" >
-
+       
         <h:panelGrid  width="100%" id="rtt" >
             <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" style="font-weight: bold">
                 <h:panelGrid columns="3">
@@ -40,13 +40,14 @@
 
                         <p:spacer width="15"/>
                         <composite:renderFacet name="btnConsultaEvento" />
-                        
+
                     </h:panelGrid>
                 </h:panelGrid>
+          
                 <p:dataTable value="#{eventoMB.listaEventos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10" 
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
-                   <p:column headerText="Data" width="5%" >
+                    <p:column headerText="Data" width="5%" >
                         <comp:outputText tipo="d" value="#{t.data}"/>
                     </p:column>
                     <p:column headerText="Nome" width="10%" sortBy="#{t.nome}">
@@ -64,8 +65,9 @@
                     <p:column headerText="Participante" sortBy="#{t.usuario.nome}" width="10%" >
                         <comp:outputText value="#{t.usuario.nome}"/>
                     </p:column>
-                    
-                    <p:column headerText="Ação" width="5%" style="text-align: center">
+
+                    <p:column headerText="Ação" id="acao" width="5%" style="text-align: center">
+                        <p:commandButton  style="width: 22px;height: 22px" actionListener="#{eventoMB.imprimirEvento(t)}"  oncomplete="popup('/atus/RelatorioServlet.pdf');" id="btnEvent" icon="ui-icon-print" />
                         <p:commandButton  style="width: 22px;height: 22px" actionListener="#{processoMB.setarProcesso(t.processo)}" update="#{cc.attrs.dialogUpdade}"  rendered="#{cc.attrs.renderInfo}" title="Informações" oncomplete="PF('#{cc.attrs.dialogInfo}').show()"  id="btnInfo" icon="ui-icon-info" />
                         <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderBtnEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['pro.evento'],'evento',t)}" />
                         <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />

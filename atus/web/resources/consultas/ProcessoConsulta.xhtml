@@ -56,6 +56,9 @@
                     <p:column headerText="Cliente|Contatos" sortBy="#{t.cliente.pessoa.nome}" width="30%" >
                         <comp:outputText value="#{t.cliente.pessoa.nome} | #{t.cliente.pessoa.telefone}  #{t.cliente.pessoa.celular}"/>
                     </p:column>
+                    <p:column headerText="Advogado" sortBy="#{t.advogado.nome}" width="20%" >
+                        <comp:outputText value="#{t.advogado.nome}"/>
+                    </p:column>
                     <p:column headerText="Fase" width="15%" >
                         <comp:outputText value="#{t.fase.nome} -- #{t.fase.usuario.nome}"/>
                     </p:column>
