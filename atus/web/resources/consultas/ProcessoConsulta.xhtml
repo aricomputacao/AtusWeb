@@ -17,6 +17,8 @@
         <composite:attribute name="renderInfo" default="true"/>
         <composite:attribute name="renderMovimen" default="false"/>
         <composite:attribute name="renderPrintDoc" default="false"/>
+        <composite:attribute name="renderGerarPeca" default="false"/>
+
         <composite:attribute name="valorSelecionado" />
         <composite:attribute name="nomeDialog" />
         <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
@@ -68,7 +70,7 @@
                         <comp:commandButton_editar id="btnEditaProc" rendered="#{cc.attrs.renderBtnEditar}" acao_butao="#{navegacaoMB.redirecionar(navegacao['pro.processo'],'processo',t)}" />
                         <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
                         <p:commandButton  style="width: 22px;height: 22px" actionListener="#{processoMB.setarProcesso(t)}"  update="#{cc.attrs.dialogMovimenUpdate}"  rendered="#{cc.attrs.renderMovimen}" title="Encaminhar" oncomplete="PF('#{cc.attrs.dialogMovimen}').show()"  id="btnMov" icon="ui-icon-carat-1-e" />
-                        <p:commandButton  style="width: 22px;height: 22px" title="Gerar Peça" oncomplete="PF('dialogPeca').show()" icon="ui-icon-plus" >
+                        <p:commandButton  style="width: 22px;height: 22px" title="Gerar Peça" oncomplete="PF('dialogPeca').show()" rendered="#{cc.attrs.renderGerarPeca}" icon="ui-icon-plus" >
                             <f:setPropertyActionListener value="#{t}" target="#{processoMB.processo}"/>
                         </p:commandButton>
                         <p:commandButton  style="width: 22px;height: 22px" actionListener="#{processoMB.setarProcesso(t)}"    rendered="#{cc.attrs.renderPrintDoc}" title="Imprimir Documentos" oncomplete="PF('dialogPrintDoc').show()"  id="btnPrintDoc" icon="ui-icon-carat-1-n" />

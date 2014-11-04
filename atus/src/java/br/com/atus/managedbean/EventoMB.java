@@ -77,12 +77,14 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
     }
 
     public void listarPorPeriodo() {
-        listaEventos = controller.listarPorPeriodo(dataInicial,dataFinal);
+        listaEventos = controller.listarPorPeriodo(dataInicial, dataFinal);
         if (listaEventos.isEmpty()) {
             MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
         }
     }
+
+  
 
     public void listar() {
         try {
@@ -120,7 +122,7 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
         }
 
     }
-    
+
     public void imprimirEvento(Evento e) {
         List<Evento> l = new ArrayList<>();
         l.add(e);

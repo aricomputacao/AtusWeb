@@ -40,4 +40,6 @@ public class EventoController extends Controller<Evento, Long> implements Serial
       return dao.listarPorPeriodo(dataInicial,dataFinal);
     }
     
+   
+    
 }

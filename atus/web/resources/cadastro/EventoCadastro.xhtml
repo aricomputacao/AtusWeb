@@ -6,9 +6,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:composite="http://java.sun.com/jsf/composite"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:comp="http://java.sun.com/jsf/composite/comp"
-                xmlns:util="http://java.sun.com/jsf/composite/util">
+                xmlns:f="http://java.sun.com/jsf/core">
 
     <composite:interface id="int">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
@@ -37,7 +35,7 @@
                                 showButtonPanel="true"
                                 required="true"
                                 value="#{eventoMB.evento.data}" 
-                                pattern="dd/MM/yyyy HH:ss"/>
+                                pattern="dd/MM/yyyy HH:mm"/>
                 </h:panelGrid>
             </h:panelGrid>
             <h:panelGrid columns="2">

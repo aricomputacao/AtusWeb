@@ -48,6 +48,7 @@
                         <consultas:EventoConsulta renderInfo="true" dialogInfo="dialogProc" dialogUpdade=":frmDialogProce" >
                             <f:facet name="btnConsultaEvento">
                                 <comp:commandButton_consulta acao_butao="#{eventoMB.listarPorPeriodo()}" componente_to_update="@form"  />
+                                <p:commandButton actionListener="#{eventoMB.imprimir()}" value="Imprimir" oncomplete="popup('/atus/RelatorioServlet.pdf');"  icon="ui-icon-print" />
                             </f:facet>
                         </consultas:EventoConsulta>
                     </p:panel>

@@ -39,43 +39,8 @@
 	<field name="usuario" class="br.com.atus.modelo.Usuario">
 		<fieldDescription><![CDATA[usuario]]></fieldDescription>
 	</field>
-	<variable name="processo_1" class="java.lang.Integer" resetType="Group" resetGroup="usuario" calculation="Count">
-		<variableExpression><![CDATA[$F{processo}]]></variableExpression>
-	</variable>
-	<group name="usuario" isStartNewPage="true">
-		<groupExpression><![CDATA[$F{data}]]></groupExpression>
-		<groupHeader>
-			<band height="20">
-				<rectangle>
-					<reportElement uuid="71623154-c6cf-4c1d-baca-b1de14326dd1" x="0" y="0" width="802" height="20"/>
-					<graphicElement>
-						<pen lineWidth="0.25" lineColor="#666666"/>
-					</graphicElement>
-				</rectangle>
-				<textField>
-					<reportElement uuid="379187c7-d23f-4cfa-b1f7-8b876987ccb4" x="20" y="0" width="195" height="20"/>
-					<textElement verticalAlignment="Middle">
-						<font isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{usuario}.getNome()]]></textFieldExpression>
-				</textField>
-				<textField evaluationTime="Group" evaluationGroup="usuario">
-					<reportElement uuid="d7ec434c-dc41-41f7-8547-786a5e11319f" x="704" y="0" width="79" height="20"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$V{processo_1}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement uuid="92ab3efd-e9f8-428d-ac77-b4d14ac612ce" x="592" y="0" width="110" height="20"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font isBold="true"/>
-					</textElement>
-					<text><![CDATA[Quantidade:]]></text>
-				</staticText>
-			</band>
-		</groupHeader>
-	</group>
 	<group name="data">
-		<groupExpression><![CDATA[$F{data}]]></groupExpression>
+		<groupExpression><![CDATA[$F{data}.getDay()]]></groupExpression>
 		<groupHeader>
 			<band height="20">
 				<rectangle>
@@ -85,9 +50,21 @@
 					</graphicElement>
 				</rectangle>
 				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement uuid="0d42e6a8-caca-4342-87c2-f51cf1642a8e" x="20" y="0" width="238" height="20"/>
+					<reportElement uuid="0d42e6a8-caca-4342-87c2-f51cf1642a8e" x="168" y="0" width="238" height="20"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="usuario">
+		<groupExpression><![CDATA[$F{usuario}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement uuid="59c7217d-0223-42a0-a1a0-116127ad9ca4" x="1" y="0" width="405" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{usuario}.getNome()]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>

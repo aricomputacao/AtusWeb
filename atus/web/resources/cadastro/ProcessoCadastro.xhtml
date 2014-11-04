@@ -269,7 +269,10 @@
                         <p:column headerText="Data" width="5%" >
                             <comp:outputText tipo="d" value="#{ev.data}"/>
                         </p:column>
-
+                        <p:column headerText="Ação" id="acao" width="3%" style="text-align: center">
+                            <p:commandButton  style="width: 22px;height: 22px" actionListener="#{eventoMB.imprimirEvento(ev)}"  oncomplete="popup('/atus/RelatorioServlet.pdf');" id="btnEvent" icon="ui-icon-print" />
+                            
+                        </p:column>
 
                     </p:dataTable>
                 </p:tab>
