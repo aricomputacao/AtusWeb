@@ -7,6 +7,8 @@ package br.com.atus.controller;
 
 import br.com.atus.dao.ProcessoDAO;
 import br.com.atus.dto.ProcessoAtrasadoDTO;
+import br.com.atus.dto.ProcessoGrupoDiaAtrasadoDTO;
+import br.com.atus.modelo.Fase;
 import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.Usuario;
 import java.io.Serializable;
@@ -38,5 +40,20 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
     
     public List<ProcessoAtrasadoDTO> processoAtrasadoGeral() {
         return dao.processoAtrasadoGeral();
+    }
+    
+    public List<ProcessoGrupoDiaAtrasadoDTO> processoGrupoDiaAtrasadoGeral(){
+        return dao.processoGrupoDiaAtrasadoGeral();
+    }
+
+    public List<ProcessoGrupoDiaAtrasadoDTO> processoGrupoDiaAtrasadoSetor(Usuario usuarioLogado) {
+           return dao.processoGrupoDiaAtrasadoSetor(usuarioLogado);
+
+    }
+
+    
+
+    public List<Processo> listarPorFase(Fase f) {
+        return dao.listarPorFase(f);
     }
 }

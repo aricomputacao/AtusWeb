@@ -10,16 +10,24 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro"
                 xmlns:consultas="http://java.sun.com/jsf/composite/consultas"
-                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:acao="http://java.sun.com/jsf/composite/acao">
 
     <ui:define name="corpo">
+
         <p:tabView dynamic="true" style="margin-top: 10px" prependId="false" id="tabV">
             <p:tab title="Processos" >
                 <p:panel styleClass="painelAgendas" >
-                    <consultas:ProcessoConsulta  nome="Processos Geral" renderSelecionar="true" />
                     <h:form>
                         <p:blockUI block="@form" trigger="btnim"/>
                         <p:commandButton immediate="true" rendered="false" id="btnim" value="importar" actionListener="#{processoMB.utilitarioSetarFase()}"/>
+                        <h:panelGrid columns='2'>
+                            <consultas:PainelProcessoConsulta listaTabela="#{painelHomeMB.listaGrupoDiaAtrasadoSetorDTOs}" nome="Processos Setor"/>
+                            <consultas:PainelProcessoConsulta listaTabela="#{painelHomeMB.listaGrupoDiaAtrasadoGeralDTOs}" nome="Processos Geral"/>
+
+                        </h:panelGrid>
+
+
                     </h:form>
                 </p:panel>
             </p:tab>
@@ -135,6 +143,18 @@
             </h:form>
         </p:dialog>
 
+        <p:dialog showEffect="fade"   position="top" id="dialogPro" header="Processos"   modal="true" hideEffect="fade" widgetVar="dialogPro">
+            <h:form id="frmConProce">
+                <consultas:ProcessoConsulta id="pnlCon" listaProcessos="#{painelHomeMB.listaProcessos}"  renderGerarPeca="false" renderInfo="false" renderMovimen="true" renderPrintDoc="true" renderSelecionar="false" />
+            </h:form>
+        </p:dialog>
+        
+        <p:dialog showEffect="fade" position="center"  id="dialogPrintDoc" header="Impressão de Documentos"   modal="true" hideEffect="fade" widgetVar="dialogPrintDoc">
+            <h:form id="frmDialogPrintDoc">
+                <acao:ImprimirDocumentos />
+            </h:form>
+        </p:dialog>
+         
     </ui:define>
 
 </ui:composition>

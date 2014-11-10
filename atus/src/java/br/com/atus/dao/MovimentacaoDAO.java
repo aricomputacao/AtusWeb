@@ -27,7 +27,7 @@ public class MovimentacaoDAO extends DAO<Movimentacao, Long> implements Serializ
 
     public List<Movimentacao> listarPorProcesso(Processo processo) {
         TypedQuery tq;
-        tq = getEm().createQuery("SELECT m FROM Movimentacao m  WHERE m.processo = :pro ORDER BY m.dataMovimentacao", Movimentacao.class);
+        tq = getEm().createQuery("SELECT m FROM Movimentacao m  WHERE m.processo = :pro ORDER BY m.id", Movimentacao.class);
         tq.setParameter("pro", processo);
         if (tq.getResultList().isEmpty()) {
             return new ArrayList<>();

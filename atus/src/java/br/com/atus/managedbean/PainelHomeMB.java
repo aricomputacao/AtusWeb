@@ -7,7 +7,11 @@ package br.com.atus.managedbean;
 
 import br.com.atus.controller.ProcessoController;
 import br.com.atus.dto.ProcessoAtrasadoDTO;
+import br.com.atus.dto.ProcessoGrupoDiaAtrasadoDTO;
+import br.com.atus.modelo.Fase;
+import br.com.atus.modelo.Processo;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -29,12 +33,31 @@ public class PainelHomeMB implements Serializable {
     private ProcessoController processoController;
     private List<ProcessoAtrasadoDTO> listaAtrasadoUsuario;
     private List<ProcessoAtrasadoDTO> listaAtrasadoGeral;
-    
+    private List<ProcessoGrupoDiaAtrasadoDTO> listaGrupoDiaAtrasadoGeralDTOs;
+    private List<ProcessoGrupoDiaAtrasadoDTO> listaGrupoDiaAtrasadoSetorDTOs;
+    private List<Processo> listaProcessos;
+
     @PostConstruct
-    private void init(){
-        listaAtrasadoGeral = processoController.processoAtrasadoGeral();
-        listaAtrasadoUsuario = processoController.processoAtrasadoUsuario(navegacaoMB.getUsuarioLogado());
+    private void init() {
+        listaGrupoDiaAtrasadoGeralDTOs = processoController.processoGrupoDiaAtrasadoGeral();
+        listaGrupoDiaAtrasadoSetorDTOs = processoController.processoGrupoDiaAtrasadoSetor(navegacaoMB.getUsuarioLogado());
+        listaProcessos = new ArrayList<>();
     }
+
+    
+    public void listarProcessoFase(Fase f){
+        listaProcessos = processoController.listarPorFase(f);
+    }
+    
+    public List<ProcessoGrupoDiaAtrasadoDTO> getListaGrupoDiaAtrasadoGeralDTOs() {
+        return listaGrupoDiaAtrasadoGeralDTOs;
+    }
+
+    public void setListaGrupoDiaAtrasadoGeralDTOs(List<ProcessoGrupoDiaAtrasadoDTO> listaGrupoDiaAtrasadoGeralDTOs) {
+        this.listaGrupoDiaAtrasadoGeralDTOs = listaGrupoDiaAtrasadoGeralDTOs;
+    }
+
+   
 
     public List<ProcessoAtrasadoDTO> getListaAtrasadoUsuario() {
         return listaAtrasadoUsuario;
@@ -51,8 +74,21 @@ public class PainelHomeMB implements Serializable {
     public void setListaAtrasadoGeral(List<ProcessoAtrasadoDTO> listaAtrasadoGeral) {
         this.listaAtrasadoGeral = listaAtrasadoGeral;
     }
-    
-    
-    
+
+    public List<ProcessoGrupoDiaAtrasadoDTO> getListaGrupoDiaAtrasadoSetorDTOs() {
+        return listaGrupoDiaAtrasadoSetorDTOs;
+    }
+
+    public void setListaGrupoDiaAtrasadoSetorDTOs(List<ProcessoGrupoDiaAtrasadoDTO> listaGrupoDiaAtrasadoSetorDTOs) {
+        this.listaGrupoDiaAtrasadoSetorDTOs = listaGrupoDiaAtrasadoSetorDTOs;
+    }
+
+    public List<Processo> getListaProcessos() {
+        return listaProcessos;
+    }
+
+    public void setListaProcessos(List<Processo> listaProcessos) {
+        this.listaProcessos = listaProcessos;
+    }
 
 }
