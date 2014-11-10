@@ -18,14 +18,13 @@
         <composite:attribute name="renderMovimen" default="false"/>
         <composite:attribute name="renderPrintDoc" default="false"/>
         <composite:attribute name="renderGerarPeca" default="false"/>
-
         <composite:attribute name="valorSelecionado" />
         <composite:attribute name="nomeDialog" />
         <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
         <composite:attribute name="dialogInfo" default="dialogCadProc"/>
         <composite:attribute name="dialogMovimen" default="dialogMovimen"/>
         <composite:attribute name="dialogMovimenUpdate" default="@form"/>
-
+        <composite:attribute name="listaProcessos" default="#{processoMB.listaProcessos}" shortDescription="Lista de processos"/>
         <composite:attribute name="dialogUpdade" default=":frmDialogCadProce:compCadPro:tbView"/>
 
     </composite:interface>

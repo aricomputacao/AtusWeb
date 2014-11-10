@@ -15,7 +15,8 @@
     <ui:define name="corpo">
         <p:tabView dynamic="true" style="margin-top: 10px" prependId="false" id="tabV">
             <p:tab title="Processos" >
-                <p:panel styleClass="painelAgendas">
+                <p:panel styleClass="painelAgendas" >
+                    <consultas:ProcessoConsulta  nome="Processos Geral" renderSelecionar="true" />
                     <h:form>
                         <p:blockUI block="@form" trigger="btnim"/>
                         <p:commandButton immediate="true" rendered="false" id="btnim" value="importar" actionListener="#{processoMB.utilitarioSetarFase()}"/>
