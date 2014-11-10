@@ -19,10 +19,12 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * Depende da criação das seguintes view: 1 -- CREATE OR REPLACE VIEW
+ * Depende da criação das seguintes view: 
+ * 1 -- CREATE OR REPLACE VIEW
  * processo.fase_processo ( pro_id, fas_id) AS SELECT pr.pro_id, fa.fas_id FROM
  * processo.processo pr JOIN processo.fase fa ON pr.fas_id = fa.fas_id GROUP BY
- * fa.fas_id, pr.pro_id ORDER BY fa.fas_id; 2 -- CREATE OR REPLACE VIEW
+ * fa.fas_id, pr.pro_id ORDER BY fa.fas_id; 
+ * 2 -- CREATE OR REPLACE VIEW
  * processo.movimentacao_processo ( fas_id, pro_id, ult_mov) AS SELECT
  * fp.fas_id, fp.pro_id, max(mv.mov_id) AS ult_mov FROM processo.fase_processo
  * fp JOIN processo.movimentacao mv ON mv.pro_id = fp.pro_id GROUP BY fp.pro_id,
