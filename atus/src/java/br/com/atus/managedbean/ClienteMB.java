@@ -9,6 +9,7 @@ import br.com.atus.controller.CEPWebService;
 import br.com.atus.controller.CidadeController;
 import br.com.atus.controller.ClienteController;
 import br.com.atus.controller.NacionalidadeController;
+import br.com.atus.controller.ProcessoController;
 import br.com.atus.controller.ProfissaoController;
 import br.com.atus.controller.TipoTratamentoController;
 import br.com.atus.controller.UnidadeFederativaController;
@@ -19,6 +20,7 @@ import br.com.atus.modelo.Cidade;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Nacionalidade;
 import br.com.atus.modelo.Pessoa;
+import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.Profissao;
 import br.com.atus.modelo.TipoTratamento;
 import br.com.atus.modelo.UnidadeFederativa;
@@ -65,12 +67,15 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
     private TipoTratamentoController tipoTratamentoController;
     @EJB
     private ProfissaoController profissaoController;
+    @EJB
+    private ProcessoController processoController;
     private List<UnidadeFederativa> listaUnidadeFederativas;
     private List<Cidade> listaCidades;
     private List<Cliente> listaClientes;
     private List<Nacionalidade> listaNacionalidades;
     private List<TipoTratamento> listaTratamentos;
     private List<Profissao> listaProfissaos;
+    private List<Processo> listaProcessos;
     private Cliente cliente;
     private UnidadeFederativa uf;
     private Profissao profissao;
@@ -91,8 +96,10 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
             listaProfissaos = profissaoController.listarTodos("nome");
             listaUnidadeFederativas = unidadeFederativaController.listarTodos("nome");
             listaCidades = cidadeController.listarTodos("nome");
+            listaProcessos = new ArrayList<>();
             cliente = (Cliente) navegacaoMB.getRegistroMapa("cliente", new Cliente());
             profissao = new Profissao();
+            
             if (cliente.getId() == null) {
                 cliente.setPessoa(new Pessoa());
                 cliente.setSexo(Sexo.M);
@@ -137,7 +144,12 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
         }
 
     }
-
+    
+    public  void listaProcessoCliente(Cliente c){
+       listaProcessos = processoController.listarPorCliente(c);
+    }
+    
+    
     public void setarProf(Profissao p) {
         cliente.setProfissao(p);
     }
@@ -259,6 +271,14 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
 
     public List<Cliente> getListaClientes() {
         return listaClientes;
+    }
+
+    public List<Processo> getListaProcessos() {
+        return listaProcessos;
+    }
+
+    public void setListaProcessos(List<Processo> listaProcessos) {
+        this.listaProcessos = listaProcessos;
     }
 
     public void setListaClientes(List<Cliente> listaClientes) {

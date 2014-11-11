@@ -7,6 +7,7 @@ package br.com.atus.dao;
 
 import br.com.atus.dto.ProcessoAtrasadoDTO;
 import br.com.atus.dto.ProcessoGrupoDiaAtrasadoDTO;
+import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Fase;
 import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.Usuario;
@@ -76,6 +77,17 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
         TypedQuery q;
         q = getEm().createQuery("SELECT p FROM Processo p WHERE p.fase  = :f ", Processo.class)
                 .setParameter("f", f);
+        if (q.getResultList().isEmpty()) {
+            return new ArrayList<>();
+        } else {
+            return q.getResultList();
+        }
+    }
+
+    public List<Processo> listarPorCliente(Cliente c) {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT p FROM Processo p WHERE p.cliente  = :c ", Processo.class)
+                .setParameter("c", c);
         if (q.getResultList().isEmpty()) {
             return new ArrayList<>();
         } else {

@@ -6,7 +6,8 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:composite="http://java.sun.com/jsf/composite"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
     <composite:interface>
 
         <composite:attribute name="id_frm" default="frmDadosCli"/>
@@ -61,6 +62,24 @@
                     </h:panelGrid>
                 </p:tab>
                 <p:tab title="Processos">
+                    <h:panelGrid>
+                        <h:outputText style="font-weight: bolder;font-size: 15px" value="#{clienteMB.cliente.tipoTratamento.abreviacao} #{clienteMB.cliente.pessoa.nome}"/>
+                        <h:outputText  value="#{clienteMB.cliente.estadoCivil} / #{clienteMB.cliente.nacionalidade.nome}"/>
+                    </h:panelGrid>
+                    <p:separator/>
+                    <p:dataTable value="#{clienteMB.listaProcessos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10"
+                                 rowStyleClass="#{not processoMB.processoAtrasado(t)?(empty rowIx or rowIx mod 2 ne 0 ? 'linha-atrasada-even-row' : 'linha-atrasada-odd-row'):(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                 rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                        <p:column headerText="Número" width="10%" sortBy="#{t.numero}">
+                            <comp:outputText value="#{t.numero}"/>
+                        </p:column>
+                        <p:column headerText="Advogado" sortBy="#{t.advogado.nome}" width="15%" >
+                            <comp:outputText value="#{t.advogado.nome}"/>
+                        </p:column>
+                        <p:column headerText="Fase" width="15%" >
+                            <comp:outputText value="#{t.fase.nome} -- #{t.fase.usuario.nome}"/>
+                        </p:column>
+                    </p:dataTable>
 
                 </p:tab>
             </p:tabView>

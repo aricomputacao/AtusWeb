@@ -17,25 +17,25 @@
         <h:outputStylesheet library="css" name="default.css"/>
         <title>#{label['nome.sistema']}</title>
     </h:head>
-    <h:body >
-        <div align="center">
+    <h:body styleClass="body">
+        <div align="center"  style="margin-top: 120px">
             <form action="j_spring_security_check" method="post"  >
-                <h:panelGrid id="grid" columns="1" style="background:url(resources/imagens/login.png) center no-repeat; height: 700px;width: 800px;border-radius: 15px" >
+                <h:panelGrid id="grid" columns="1" style="background:url(resources/imagens/login.png) center no-repeat; height: 700px;width: 800px;border-radius: 500px" >
                     <h:panelGroup >
-                        <h:panelGrid style="margin-top: 100px;margin-left:   200px" columns="2">
+                        <h:panelGrid style="margin-top: 100px;margin-left:   200px" columns="3">
                             <h:panelGrid cellspacing="5" >
-                                <p:outputLabel value="Usuário" style="size: 20px" for="j_username"/>
-                                <p:outputLabel value="Senha  " style="size: 20px" for="j_password"/>
-
+                                <p:outputLabel value="Usuário" style="font-size: 15px;font-weight: bold" for="j_username"/>
+                                <p:outputLabel value="Senha  " style="font-size: 15px;font-weight: bold" for="j_password"/>
                             </h:panelGrid>
-                            <h:panelGrid   >
+                            <h:panelGrid>   
                                 <p:inputText id="j_username"  requiredMessage="Preencha o documento!"  required="true" style="width: 200px;"/>
-
                                 <p:password id="j_password"   required="true" style="width: 200px;"/>
                             </h:panelGrid>
+                            <h:panelGrid>   
+                                <p:graphicImage library="imagens" name="lock.png" width="42" height="64" title="Usuário ou senha incorrento!" rendered="#{param.erro}"/>
+                            </h:panelGrid>
                         </h:panelGrid>
-                        <h:commandButton   image="/resources/imagens/entrar.gif" style="margin-top: 20px;margin-left: 398px;border-radius: 5px"  />
-
+                        <h:commandButton   image="/resources/imagens/entrar.gif" style="margin-left: 397px;border-radius: 5px"  />
                     </h:panelGroup>
                 </h:panelGrid>
 

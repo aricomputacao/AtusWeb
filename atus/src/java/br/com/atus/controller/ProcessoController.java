@@ -8,6 +8,7 @@ package br.com.atus.controller;
 import br.com.atus.dao.ProcessoDAO;
 import br.com.atus.dto.ProcessoAtrasadoDTO;
 import br.com.atus.dto.ProcessoGrupoDiaAtrasadoDTO;
+import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Fase;
 import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.Usuario;
@@ -55,5 +56,9 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
 
     public List<Processo> listarPorFase(Fase f) {
         return dao.listarPorFase(f);
+    }
+
+    public List<Processo>  listarPorCliente(Cliente c) {
+        return dao.listarPorCliente(c);
     }
 }
