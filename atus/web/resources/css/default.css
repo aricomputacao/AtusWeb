@@ -242,6 +242,12 @@ ui-layout-unit{
 
 }
 
+.lg{
+    background-image: url('../resources/imagens/login.png') ! important; 
+    background-repeat: no-repeat ! important;
+
+}
+
 /*Icones menu*/
 
 .ui-menuitem-icon.ui-icon.ui-icon-disk{
@@ -386,7 +392,7 @@ ui-layout-unit{
 
     color:red;
     background-color: white;
-    
+
     /*background-color:#ffe990;*/
 }
 /*------------------------------------------------------------*/
@@ -420,7 +426,7 @@ ui-layout-unit{
 .btnDocumento{
     width: 100px;
     height: 100px;
-   
+
 }
 /*Style Class                                Applies
 .ui-layout                                   Main wrapper container element
