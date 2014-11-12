@@ -36,6 +36,8 @@ import org.primefaces.model.UploadedFile;
 @ViewScoped
 public class PecaMB extends BeanGenerico<Peca> implements Serializable {
 
+    @Inject
+    private NavegacaoMB navegacaoMB;
     @EJB
     private PecaController controller;
     @EJB
@@ -46,11 +48,13 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
     private Peca peca;
     private GrupoPeca grupo;
     private SubGrupoPeca subGrupo;
-    @Inject
-    private NavegacaoMB navegacaoMB;
+
     private List<Peca> listaPecas;
     private List<SubGrupoPeca> listaSubGrupoPecas;
     private List<GrupoPeca> listaGrupoPecas;
+    private List<CampoPersonalizado> lisColaborador = new ArrayList<>();
+    private List<CampoPersonalizado> lisProcesso = new ArrayList<>();
+    private List<CampoPersonalizado> lisCliente = new ArrayList<>();
 
     @PostConstruct
     public void init() {
@@ -58,6 +62,7 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
         peca = (Peca) navegacaoMB.getRegistroMapa("peca", new Peca());
         listaSubGrupoPecas = new ArrayList<>();
         file = null;
+        getCamposClasse();
         if (peca.getId() != null) {
             grupo = peca.getSubgrupo().getGrupoPeca();
             atualizaListaSubGrupos();
@@ -174,11 +179,35 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
         }
     }
 
-    public List<CampoPersonalizado> getCamposClasse() {
+    public void getCamposClasse() {
         try {
-            return controller.getListaTags(Processo.class.getName());
+            List<CampoPersonalizado> listaCampoPersonalizados = controller.getListaTags(Processo.class.getName());
+            lisCliente.clear();
+            lisColaborador.clear();
+            lisProcesso.clear();
+            for (CampoPersonalizado c : listaCampoPersonalizados) {
+                if (c.getNome().length() >= 4) {
+                    String cc = c.getNome().substring(0, 4);
+                    if (cc.contains("cola")) {
+                        lisColaborador.add(c);
+                    }
+                    if (cc.contains("mate") || cc.contains("tipo") || cc.contains("fase") || cc.contains("valo") || cc.contains("part") || cc.contains("advo") || cc.contains("fato") || cc.contains("nbIn")
+                            || cc.contains("ende") || cc.contains("data") || cc.contains("obje") || cc.contains("prov") || cc.contains("nbDe") || cc.contains("inca") || cc.contains("nume") || cc.contains("juiz")
+                            || cc.contains("info") || cc.contains("depe")) {
+                        lisProcesso.add(c);
+                    }
+                    if (cc.contains("clie")) {
+                        lisCliente.add(c);
+                    }
+                }else{
+                    lisProcesso.add(c);
+                }
+
+            }
+//            return controller.getListaTags(Processo.class.getName());
         } catch (ClassNotFoundException | NoSuchFieldException ex) {
-            return new ArrayList<>();
+            MenssagemUtil.addMessageErro("Falha ao listar", ex, this.getClass().getName());
+
         }
     }
 
@@ -212,6 +241,30 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
 
     public void setSubGrupo(SubGrupoPeca subGrupo) {
         this.subGrupo = subGrupo;
+    }
+
+    public List<CampoPersonalizado> getLisColaborador() {
+        return lisColaborador;
+    }
+
+    public void setLisColaborador(List<CampoPersonalizado> lisColaborador) {
+        this.lisColaborador = lisColaborador;
+    }
+
+    public List<CampoPersonalizado> getLisProcesso() {
+        return lisProcesso;
+    }
+
+    public void setLisProcesso(List<CampoPersonalizado> lisProcesso) {
+        this.lisProcesso = lisProcesso;
+    }
+
+    public List<CampoPersonalizado> getLisCliente() {
+        return lisCliente;
+    }
+
+    public void setLisCliente(List<CampoPersonalizado> lisCliente) {
+        this.lisCliente = lisCliente;
     }
 
 }

@@ -23,7 +23,6 @@ import java.util.regex.Matcher;
 import javax.xml.bind.JAXBElement;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.ContentAccessor;
 import org.docx4j.wml.Text;
 import org.primefaces.model.DefaultStreamedContent;
