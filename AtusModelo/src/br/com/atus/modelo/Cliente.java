@@ -64,7 +64,7 @@ public class Cliente implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "pro_id", referencedColumnName = "pro_id")
-    @PecaColetor
+    @PecaColetor(isEntidade = true)
     private Profissao profissao;
 
     @Column(name = "cli_estado_civil")
