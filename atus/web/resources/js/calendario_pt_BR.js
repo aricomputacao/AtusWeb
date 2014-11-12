@@ -28,7 +28,8 @@ PrimeFaces.locales['pt_BR'] = {
     week: 'Semana',
     day: 'Dia',
     allDayText: 'Todo o Dia',
-    emptyMessage: 'Nenhum registro encontrado'
+    emptyMessage: 'Nenhum registro encontrado',
+   
 };
 
 

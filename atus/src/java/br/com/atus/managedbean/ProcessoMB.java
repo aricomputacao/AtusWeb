@@ -22,6 +22,7 @@ import br.com.atus.modelo.Peca;
 import br.com.atus.modelo.Processo;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
+import br.com.atus.util.MetodosUtilitarios;
 import br.com.atus.util.RelatorioSession;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
@@ -172,7 +173,16 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             prazoFase.setTime(listaMovimentacaos.get(listaMovimentacaos.size() - 1).getDataMovimentacao());
             prazoFase.add(Calendar.DAY_OF_MONTH, p.getFase().getPrazo());
 
-            return dataAtual.before(prazoFase);
+            boolean b = (dataAtual.compareTo(prazoFase) < 0);
+            System.out.print(b);
+
+            System.out.print(p.getFase().getPrazo());
+            System.out.print(MetodosUtilitarios.formatarData(new Date(listaMovimentacaos.get(listaMovimentacaos.size() - 1).getDataMovimentacao().getTime())));
+
+            System.out.print(MetodosUtilitarios.formatarData(new Date(dataAtual.getTimeInMillis())));
+            System.out.print(MetodosUtilitarios.formatarData(new Date(prazoFase.getTimeInMillis())));
+
+            return b;
         } else {
             return true;
         }

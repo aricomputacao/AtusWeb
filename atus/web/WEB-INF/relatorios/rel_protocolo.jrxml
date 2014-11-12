@@ -114,7 +114,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="8de32cfb-7a64-497b-942f-c193e248020c" x="101" y="40" width="454" height="20"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{cliente}.getNacionalidade()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cliente}.getNacionalidade().getNome()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="9a2db13b-e25b-47d5-8034-ed06f2c77139" x="1" y="60" width="100" height="20"/>

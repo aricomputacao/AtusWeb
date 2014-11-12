@@ -55,18 +55,35 @@
                     </h:panelGrid>
                     <h:panelGrid columns="3">
                         <p:inputText value="#{pecaMB.file.fileName}" readonly="true" rendered="#{pecaMB.file != null}" id="arq" size="30"/>
-                        <p:fileUpload mode="advanced" fileUploadListener="#{pecaMB.uploadArquivo}" uploadLabel="Upload" allowTypes="/(\.|\/)(docx)$/" update="file" rendered="#{pecaMB.file == null}"/>
+                        <p:fileUpload mode="advanced" fileUploadListener="#{pecaMB.uploadArquivo}" cancelLabel="Cancelar" label="Carregar Arquivo" uploadLabel="Enviar Arquivo" allowTypes="/(\.|\/)(docx)$/" update="file" rendered="#{pecaMB.file == null}"/>
                         <p:commandButton value="Excluir arquivo" actionListener="#{pecaMB.excluirArquivo()}" update="file" rendered="#{pecaMB.file != null}" icon="ui-icon-trash" immediate="true"/>
                     </h:panelGrid>
                 </h:panelGrid>
                 <p:fieldset id="tags" legend="Tags válidas" >
-
-                    <p:dataGrid value="#{pecaMB.camposClasse}" var="tag" emptyMessage="Nenhum Subgrupo Selecionado" columns="3">
-                        <p:column>
-                            <h:outputText value="#{tag.tagName}"/>
-                        </p:column>
-                    </p:dataGrid>
-
+                    <h:panelGrid columns="3" >
+                        <p:fieldset style="min-height: 1210px" id="tagCliente" legend="Cliente" >
+                            <p:dataGrid value="#{pecaMB.lisCliente}"  var="tag" emptyMessage="Nenhum Subgrupo Selecionado" columns="1" >
+                                <p:column>
+                                    <h:outputText value="#{tag.tagName}"/>
+                                </p:column>
+                            </p:dataGrid>
+                        </p:fieldset>
+                         <p:fieldset id="tagCol" style="min-height: 1210px" legend="Colaborador" >
+                            <p:dataGrid value="#{pecaMB.lisColaborador}"  var="tag3" emptyMessage="Nenhum Subgrupo Selecionado" columns="1" >
+                                <p:column>
+                                    <h:outputText value="#{tag3.tagName}"/>
+                                </p:column>
+                            </p:dataGrid>
+                        </p:fieldset>
+                        <p:fieldset id="tagProce"  style="min-height: 1210px" legend="Processo" >
+                            <p:dataGrid value="#{pecaMB.lisProcesso}"  var="tag2" emptyMessage="Nenhum Subgrupo Selecionado" columns="2" >
+                                <p:column>
+                                    <h:outputText value="#{tag2.tagName}"/>
+                                </p:column>
+                            </p:dataGrid>
+                        </p:fieldset>
+                       
+                    </h:panelGrid>
                 </p:fieldset>
             </h:panelGrid>
         </p:fieldset>

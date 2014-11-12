@@ -1,82 +1,45 @@
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:sef="http://sefin.ce.gov.br">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:util="http://java.sun.com/jsf/composite/util"
+                >
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        </f:facet>
+        <link rel="shortcut icon" href="resources/imagens/ico.ico" />
+        <link rel="icon" type="image/png" href="/resources/imagens/ico.png" />
+        <h:outputStylesheet library="css" name="default.css"/>
+        <title>#{label['nome.sistema']}</title>
+    </h:head>
+    <h:body  >
+        <div align="center"  style="margin-top: 5px">
+            <form action="j_spring_security_check" method="post"  >
+                <h:panelGrid id="grid" columns="1" style="background:url(resources/imagens/login.png) center no-repeat; height: 700px;width: 800px;border-radius: 1500px" >
+                    <h:panelGroup >
+                        <h:panelGrid style="margin-top: 100px;margin-left:   200px" columns="3">
+                            <h:panelGrid cellspacing="5" >
+                                <p:outputLabel value="Usuário" style="font-size: 15px;font-weight: bold" for="j_username"/>
+                                <p:outputLabel value="Senha  " style="font-size: 15px;font-weight: bold" for="j_password"/>
+                            </h:panelGrid>
+                            <h:panelGrid>   
+                                <p:inputText id="j_username"  requiredMessage="Preencha o documento!"  required="true" style="width: 200px;"/>
+                                <p:password id="j_password"   required="true" style="width: 200px;"/>
+                            </h:panelGrid>
+                            <h:panelGrid>   
+                                <p:graphicImage library="imagens" name="lock.png" width="42" height="64" title="Usuário ou senha incorrento!" rendered="#{param.erro}"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                        <h:commandButton   image="/resources/imagens/entrar.gif" style="margin-left: 397px;border-radius: 5px"  />
+                    </h:panelGroup>
+                </h:panelGrid>
 
-    <f:view contentType="text/html">
-        <h:head>
-            <f:facet name="first">
-                <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
-                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-            </f:facet>
-            <link rel="shortcut icon" href="resources/imagens/ico.ico" />
-            <link rel="icon" type="image/png" href="resources/imagens/ico.ico" />
-            <h:outputStylesheet name="/css/default.css"/>
-            <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css"/>
-            <script  type="text/javascript" src="resources/js/bootstrap.js"/>
-            <title>#{label['nome.sistema']}</title>
-        </h:head>
-        <h:body  >
-
-            <!-- Main jumbotron for a primary marketing message or call to action -->
-            <div class="jumbotron center-block painelLogin" style="width: 1149px;margin-top: 50px;">
-                <div class="  row center-block painelLogin" style="width: 251px;;border-radius: 5px"   >
-                    <img  class="col-lg-4 img-circle img-responsive"  src="resources/imagens/logo-login.png"/>
-                    <text  style="font-family: Georgia, Palatino, serif;margin-top: 0px;font-size: 40px;" class="col-lg-2">#{label['nome.sistema']}</text>
-
-                </div>
-                <div class="panel  center-block " style="width: 251px;height: 260px;border: #989898   solid 1px">
-
-                    <h4 class="text-center" style="font-family: Georgia, Palatino, serif;"> Identificação do Usuário</h4>
-                    <hr />
-                    <form    action="j_spring_security_check" method="post">
-                        <div class="panel-body " style="margin-top: -20px" >
-                            <div class="text-center">
-                                <h:outputText   value="Usuário ou senha incorretos!" rendered="#{param.erro}" style="font-family: Georgia, Palatino, serif;color: red;margin-bottom: 200px;font-weight: bolder"/>
-                            </div>
-                            <div >
-                                <h:panelGrid  columns="1"  >
-                                    <h:panelGrid >
-                                        <label class="control-label" for="j_username">Usuário</label>
-                                        <p:inputText id="j_username"  requiredMessage="Preencha o documento!"  required="true" style="width: 200px;"/>
-                                    </h:panelGrid>
-                                    <h:panelGrid  style="margin-top: 10px"  >
-                                        <label class="control-label" for="j_password">Senha</label>
-                                        <p:password id="j_password"   required="true" style="width: 200px;"/>
-                                    </h:panelGrid>
-
-                                </h:panelGrid> 
-
-                                <h:commandButton   image="/resources/imagens/entrar.gif" style="margin-top: 20px;margin-left: 115px;border-radius: 5px"  />
-
-                                <!--
-                                                                <a   href="http://www.google.com/intl/pt-BR/chrome/" target="_blank"> <img src="resources/imagens/chrome.png" alt="Chrome" width="20" height="20" style="border-style:none;margin-left: 130px" title="Google Chrome" /></a>
-                                                                <a href="https://www.mozilla.org/pt-BR/firefox/new/" target="_blank"><img src="resources/imagens/firefox.png" alt="Firefox" width="20" height="20" style="border-style:none;" title="Mozilla Firefox" /></a>-->
-                                <h:form>
-                                    <h:commandLink value="Esqueci a senha!"/>
-
-                                </h:form>
-                            </div>
-
-                        </div>
-
-
-                    </form>
-                </div>
-            </div>
-
-            <div class="container">
-                <hr/>
-                <footer>
-                    <p>&copy; Company 2014</p>
-                </footer>
-            </div> 
-        </h:body>
-    </f:view>
-    <h:outputScript name="bootstrap.js" library="js" />
-
-
-</html>
+            </form>
+        </div>
+    </h:body>
+</ui:composition>

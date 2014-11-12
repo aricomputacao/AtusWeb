@@ -62,11 +62,11 @@
                     </p:column>
 
 
-                    <p:column headerText="Ação" width="6%" style="text-align: center">
+                    <p:column headerText="Ação" width="7%" style="text-align: center">
                         <ui:insert name="acaoOrgao" >
                             <comp:commandButton_editar id="btnEdita" rendered="#{cc.attrs.renderEditar}" acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.colaborador'],'colaborador',t)}" />
                             <comp:commandButton_excluir acao_butao="#{colaboradorMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Colaborador" form_to_update="@form"/>
-                            <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
+                            <comp:button_acao_selecionar rendered="#{cc.attrs.renderSelecionar}" alvo="#{cc.attrs.valorSelecionado}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
 
                         </ui:insert>
                     </p:column>

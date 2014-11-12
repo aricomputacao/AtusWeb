@@ -15,7 +15,6 @@
                 <p:menuitem styleClass="item" value="Início" actionListener="#{navegacaoMB.index()}"  />
                 <p:submenu styleClass="subMenu" style="font-weight: bolder"  label="Cadastro" >
                     <p:menuitem value="Juizo Tribunal" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.juizo_tribunal'])}" immediate="true"/>
-                    <p:menuitem value="Peças" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.peca'])}" immediate="true"/>
                     <p:menuitem value="Materia" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.materia'])}" immediate="true"/>
                     <p:menuitem value="Tipo de Contrato" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.tipo_contato'])}" immediate="true"/>
                     <p:menuitem value="Órgão" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.orgao'])}" immediate="true"/>
@@ -36,6 +35,7 @@
                 <p:submenu label="Processo" styleClass="subMenu">
                     <p:menuitem value="Fases" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.fase'])}" immediate="true"/>
                     <p:menuitem value="Endereçamentos" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.enderecamento'])}" immediate="true"/>
+                    <p:menuitem value="Peças" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.peca'])}" immediate="true"/>
                     <p:menuitem value="Processos" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.processo'])}" immediate="true"/>
                 </p:submenu>
                 <p:submenu label="Agenda" styleClass="subMenu">

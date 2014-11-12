@@ -88,24 +88,6 @@
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="47" splitType="Stretch">
-			<subreport>
-				<reportElement uuid="29cae2a0-e147-4bfe-9375-03cdc9294a08" x="0" y="0" width="555" height="47"/>
-				<subreportParameter name="rodapeEmail">
-					<subreportParameterExpression><![CDATA[$P{rodapeEmail}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="imgRoda">
-					<subreportParameterExpression><![CDATA[$P{imgRoda}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rodape_retrato.jasper"]]></subreportExpression>
-			</subreport>
-			<textField>
-				<reportElement uuid="a79a9243-9bbd-4c7b-8b17-c44a414c8abd" x="446" y="0" width="34" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="47" splitType="Stretch"/>
 	</pageFooter>
 </jasperReport>
