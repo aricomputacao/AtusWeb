@@ -5,7 +5,6 @@
  */
 package br.com.atus.managedbean;
 
-import br.com.atus.controller.CEPWebService;
 import br.com.atus.controller.CidadeController;
 import br.com.atus.controller.ClienteController;
 import br.com.atus.controller.NacionalidadeController;
@@ -35,7 +34,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
@@ -77,6 +75,7 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
     private String cep;
     public int pf; //0-->null;1-->pf;-->2pj
 
+    // Observe Criar a data de cadastro na hora de um novo cadastro
     public ClienteMB() {
         super(Cliente.class);
     }
