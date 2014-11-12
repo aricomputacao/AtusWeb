@@ -56,8 +56,11 @@
                     <p:panel styleClass="painelAgendas">
                         <consultas:EventoConsulta renderInfo="true" dialogInfo="dialogProc" dialogUpdade=":frmDialogProce" >
                             <f:facet name="btnConsultaEvento">
+                                <p:blockUI block="@form" trigger="btnPrint"    >
+                                    <p:graphicImage library="imagens" name="carregar.gif"/>
+                                </p:blockUI>
                                 <comp:commandButton_consulta acao_butao="#{eventoMB.listarPorPeriodo()}" componente_to_update="@form"  />
-                                <p:commandButton actionListener="#{eventoMB.imprimir()}" value="Imprimir" oncomplete="popup('/atus/RelatorioServlet.pdf');"  icon="ui-icon-print" />
+                                <p:commandButton id="btnPrint" actionListener="#{eventoMB.imprimir()}" value="Imprimir" oncomplete="popup('/atus/RelatorioServlet.pdf');"  icon="ui-icon-print" />
                             </f:facet>
                         </consultas:EventoConsulta>
                     </p:panel>
@@ -127,7 +130,7 @@
                     <p:separator/>
 
                     <p:commandButton
-                        value="Salvar"
+                        value="Salvar" icon="ui-icon-disk" 
                         actionListener="#{agendaMB.salvar()}"
                         oncomplete="PF('meucalendario').update();PF('caixaDialogo').hide();"
                         update=":tabV:frm_home:mensagens" 
@@ -145,16 +148,16 @@
 
         <p:dialog showEffect="fade"   position="top" id="dialogPro" header="Processos"   modal="true" hideEffect="fade" widgetVar="dialogPro">
             <h:form id="frmConProce">
-                <consultas:ProcessoConsulta id="pnlCon" listaProcessos="#{painelHomeMB.listaProcessos}"  renderGerarPeca="false" renderInfo="false" renderMovimen="true" renderPrintDoc="true" renderSelecionar="false" />
+                <consultas:ProcessoConsulta id="pnlCon" renderPesquisar="false" listaProcessos="#{painelHomeMB.listaProcessos}"  renderGerarPeca="false" renderInfo="false" renderMovimen="true" renderPrintDoc="true" renderSelecionar="false" />
             </h:form>
         </p:dialog>
-        
+
         <p:dialog showEffect="fade" position="center"  id="dialogPrintDoc" header="Impressão de Documentos"   modal="true" hideEffect="fade" widgetVar="dialogPrintDoc">
             <h:form id="frmDialogPrintDoc">
                 <acao:ImprimirDocumentos />
             </h:form>
         </p:dialog>
-         
+
     </ui:define>
 
 </ui:composition>

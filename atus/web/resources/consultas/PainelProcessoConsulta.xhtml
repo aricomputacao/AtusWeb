@@ -34,7 +34,10 @@
                         <comp:outputText value="#{t2.qtdEmDia + t2.qtdAntrasada}"/>
                     </p:column>
                     <p:column headerText="Ações" width="4%" >
-                        <p:commandButton  style="width: 22px;height: 22px" actionListener="#{painelHomeMB.listarProcessoFase(t2.fase)}"     title="Processos" oncomplete="PF('dialogPro').show()"  update=":frmConProce:pnlCon:tabela" icon="ui-icon-document" />
+                        <p:blockUI block="@form" trigger="btnProcs"    >
+                            <p:graphicImage library="imagens" name="carregar.gif"/>
+                        </p:blockUI>
+                        <p:commandButton id="btnProcs"  style="width: 22px;height: 22px" actionListener="#{painelHomeMB.listarProcessoFase(t2.fase)}"     title="Processos" oncomplete="PF('dialogPro').show()"  update=":frmConProce:pnlCon:tabela" icon="ui-icon-document" />
 
                     </p:column>
                 </p:dataTable>

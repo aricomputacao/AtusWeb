@@ -89,9 +89,9 @@ public class ColaboradorMB extends BeanGenerico<Colaborador> implements Serializ
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaColaboradors = controller.listarTodos("nome");
+                listaColaboradors = controller.listarTodos("pessoa.nome");
             } else {
-                listaColaboradors = controller.listarLike("nome", getValorBusca());
+                listaColaboradors = controller.listarLike("pessoa.nome", getValorBusca());
 
             }
         } catch (Exception ex) {

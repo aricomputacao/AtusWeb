@@ -20,7 +20,7 @@
             <comp:panel_cadastro id="cadFrm" cabecalho_grid="Colaborador" id_form="frm_pag"  >               
                 <h:panelGrid >
                     <cadastro:ColaboradorCadastro  id="compCol" rendered="#{navegacaoMB.renderPainelCadastro}" />
-                    <cons:ColaboradorConsulta rendered="#{not navegacaoMB.renderPainelCadastro}" id="compConCol">
+                    <cons:ColaboradorConsulta rendered="#{not navegacaoMB.renderPainelCadastro}" renderSelecionar="false" id="compConCol">
                         <f:facet name="btnConCola">
                             <comp:commandButton_consulta acao_butao="#{colaboradorMB.listar()}" componente_to_update=":frm_pag:cadFrm:compConCol:tabela"/>
                         </f:facet>
