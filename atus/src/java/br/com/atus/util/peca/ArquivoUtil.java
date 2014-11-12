@@ -41,6 +41,8 @@ public class ArquivoUtil {
             if (!pastaGeral.mkdirs()) {
                 throw new Exception("Erro ao cria pasta relativa");
             }
+        }else{
+            pastaGeral.delete();
         }
 
         try (FileOutputStream writer = new FileOutputStream(pastaGeral + SEPARADOR + nome)) {

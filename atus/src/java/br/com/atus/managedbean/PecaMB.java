@@ -190,16 +190,12 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
                     String cc = c.getNome().substring(0, 4);
                     if (cc.contains("cola")) {
                         lisColaborador.add(c);
-                    }
-                    if (cc.contains("mate") || cc.contains("tipo") || cc.contains("fase") || cc.contains("valo") || cc.contains("part") || cc.contains("advo") || cc.contains("fato") || cc.contains("nbIn")
-                            || cc.contains("ende") || cc.contains("data") || cc.contains("obje") || cc.contains("prov") || cc.contains("nbDe") || cc.contains("inca") || cc.contains("nume") || cc.contains("juiz")
-                            || cc.contains("info") || cc.contains("depe")) {
+                    } else if (cc.contains("clie")) {
+                        lisCliente.add(c);
+                    } else {
                         lisProcesso.add(c);
                     }
-                    if (cc.contains("clie")) {
-                        lisCliente.add(c);
-                    }
-                }else{
+                } else {
                     lisProcesso.add(c);
                 }
 
