@@ -37,6 +37,7 @@ public class Colaborador implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "col_id", nullable = false)
+    @PecaColetor
     private Long id;
     @Embedded
     @PecaColetor(isEntidade = true)
