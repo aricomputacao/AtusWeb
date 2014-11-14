@@ -41,7 +41,7 @@ public class ArquivoUtil {
             if (!pastaGeral.mkdirs()) {
                 throw new Exception("Erro ao cria pasta relativa");
             }
-        }else{
+        } else {
             pastaGeral.delete();
         }
 
@@ -68,6 +68,8 @@ public class ArquivoUtil {
 
     public static void excluirAquivo(String path, String nomeFile) {
         File file = new File(diretorioRelativo() + SEPARADOR + path + SEPARADOR + nomeFile);
-        file.delete();
+        if (file.exists()) {
+            file.delete();
+        }
     }
 }

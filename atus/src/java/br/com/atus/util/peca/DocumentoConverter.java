@@ -67,12 +67,12 @@ public class DocumentoConverter {
         return template;
     }
 
-    private static WordprocessingMLPackage getTemplate(InputStream is) throws Docx4JException, FileNotFoundException {
+    public static WordprocessingMLPackage getTemplate(InputStream is) throws Docx4JException, FileNotFoundException {
         WordprocessingMLPackage template = WordprocessingMLPackage.load(is);
         return template;
     }
 
-    private static List<Object> getAllElementFromObject(Object obj, Class<?> toSearch) {
+    public static List<Object> getAllElementFromObject(Object obj, Class<?> toSearch) {
         List<Object> result = new ArrayList<>();
         if (obj instanceof JAXBElement) {
             obj = ((JAXBElement<?>) obj).getValue();
@@ -88,9 +88,17 @@ public class DocumentoConverter {
         return result;
     }
 
+    public static List<Object> getListPartesDocument(InputStream stream) throws Docx4JException, FileNotFoundException {
+        WordprocessingMLPackage template = getTemplate(stream);
+        return getAllElementFromObject(template.getMainDocumentPart(), Text.class);
+    }
+
     public static StreamedContent converterArquivo(InputStream stream, Object entidade, Peca peca) throws Docx4JException, IllegalArgumentException, IllegalAccessException, FileNotFoundException, InvocationTargetException, NoSuchFieldException, ClassNotFoundException {
         WordprocessingMLPackage template = getTemplate(stream);
         List<Object> linhas = getAllElementFromObject(template.getMainDocumentPart(), Text.class);
+        Text tagParte = null;
+        // 0 - sem parte; 1 - parte $; 2 - parte { ; 3 - parte texto ; 4 - parte }
+        int flag = 0;
         for (Object text : linhas) {
             Text textElement = (Text) text;
             String texto = textElement.getValue();
@@ -108,6 +116,38 @@ public class DocumentoConverter {
                         System.out.println(campo.getNome() + " foi substituido por " + valor);
                     }
                 }
+            } else {
+                //Tentar encontar parte da tag
+                /**
+                 * switch (flag) { case 0: // Verifica se contem o $ // Parece
+                 * haver um tag partida if (texto.contains("$") ||
+                 * texto.contains("${")) { // Parece haver um tag partida
+                 * tagParte = (Text) text; flag = 1; } break; // Montando a tag
+                 * partida // abril a tag case 1: if (tagParte != null) { if
+                 * (texto.contains("{")) { // Parece haver um tag partida flag =
+                 * 2; tagParte.setValue(tagParte.getValue() +
+                 * textElement.getValue()); textElement.setValue(""); } } case
+                 * 2: // Incluir partes ate encontrar o fim da tag if (tagParte
+                 * != null) { if (texto.contains("}")) { // Parece haver um tag
+                 * partida flag = 0; tagParte.setValue(tagParte.getValue() +
+                 * textElement.getValue()); texto = tagParte.getValue(); for
+                 * (CampoPersonalizado campo :
+                 * getListaCampos(entidade.getClass(), "")) { String resposta;
+                 * if (texto.contains(campo.getTagName())) { Object valor =
+                 * executaMetodo(campo.getNome(), entidade); resposta =
+                 * valor.toString(); texto =
+                 * texto.replaceAll(campo.getReplaceTagName(), resposta);
+                 * tagParte.setValue(texto); System.out.println(campo.getNome()
+                 * + "em tag parte foi substituido por " + valor); } }
+                 * textElement.setValue(""); tagParte = null; } else {
+                 * tagParte.setValue(tagParte.getValue() +
+                 * textElement.getValue()); textElement.setValue(""); }
+                 *
+                 * }
+                 *
+                 * default: break;
+                }*
+                 */
             }
         }
         File file = new File("temp.docx");

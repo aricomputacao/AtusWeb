@@ -15,15 +15,22 @@ import br.com.atus.util.peca.DocumentoConverter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import org.apache.commons.fileupload.FileItem;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.docx4j.wml.Text;
 import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.DefaultUploadedFile;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
@@ -47,16 +54,38 @@ public class PecaController extends Controller<Peca, Long> implements Serializab
         return dao.listar(sgp);
     }
 
-    public void salvar(Peca t, UploadedFile file) throws Exception {
-        t.setArquivo(file.getFileName());
-        super.salvar(t);
-        ArquivoUtil.gravaArquivo(t.getId().toString(), file.getFileName(), file.getContents());
+    @Override
+    public void excluir(Peca t) throws Exception {
+        ArquivoUtil.excluirAquivo(t.getId().toString(), "");
+        t = carregar(t.getId());
+        super.excluir(t);
     }
 
-    public void atualizar(Peca t, UploadedFile file) throws Exception {
-        t.setArquivo(file.getFileName());
+    public void salvar(Peca t, String fileName, WordprocessingMLPackage template) throws Exception {
+        t.setArquivo(fileName);
+        File f = new File("temp.docx");
+        template.save(f);
+        FileInputStream stream = new FileInputStream(f);
+        byte[] byt = new byte[(int) f.length()];
+        for (int i = 0; i < f.length(); i++) {
+            byt[i] = (byte) stream.read();
+        }
+        super.salvar(t);
+        ArquivoUtil.gravaArquivo(t.getId().toString(), fileName, byt);
+    }
+
+    public void atualizar(Peca t, String fileName, WordprocessingMLPackage template) throws Exception {
+        t.setArquivo(fileName);
+        File f = new File("temp.docx");
+        template.save(f);
+        FileInputStream stream = new FileInputStream(f);
+        byte[] byt = new byte[(int) f.length()];
+        for (int i = 0; i < f.length(); i++) {
+            byt[i] = (byte) stream.read();
+        }
         super.atualizar(t);
-        ArquivoUtil.gravaArquivo(t.getId().toString(), file.getFileName(), file.getContents());
+        ArquivoUtil.gravaArquivo(t.getId().toString(), fileName, byt);
+        ArquivoUtil.gravaArquivo(t.getId().toString(), fileName, byt);
     }
 
     public StreamedContent getDownload(Peca p) throws PecaFileException, FileNotFoundException {
@@ -77,13 +106,41 @@ public class PecaController extends Controller<Peca, Long> implements Serializab
         return DocumentoConverter.getListaCampos(Class.forName(classe), "");
     }
 
-    public boolean validaArquivoDocx(UploadedFile f, String grupo) throws NoSuchFieldException {
-        //try {
-//            return DocumentoConverter.validarArquivo(f.getInputstream(), Class.forName(grupo));
-//        } catch (IOException | ClassNotFoundException | Docx4JException ex) {
-//            Logger.getLogger(PecaController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        return true;
+    public List validaArquivoDocx(UploadedFile f, String grupo) throws NoSuchFieldException {
+        try {
+            try {
+                return DocumentoConverter.getListPartesDocument(f.getInputstream());
+            } catch (Docx4JException | FileNotFoundException ex) {
+                Logger.getLogger(PecaController.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(PecaController.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public List getPartes(WordprocessingMLPackage f) throws NoSuchFieldException {
+        try {
+            return DocumentoConverter.getAllElementFromObject(f.getMainDocumentPart(), Text.class);
+        } catch (Exception ex) {
+            Logger.getLogger(PecaController.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public WordprocessingMLPackage getTemplate(UploadedFile f) throws NoSuchFieldException {
+        try {
+            try {
+                return DocumentoConverter.getTemplate(f.getInputstream());
+            } catch (Docx4JException | FileNotFoundException ex) {
+                Logger.getLogger(PecaController.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(PecaController.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
 }

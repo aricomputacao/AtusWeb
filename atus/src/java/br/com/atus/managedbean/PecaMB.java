@@ -19,12 +19,18 @@ import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import org.apache.commons.fileupload.FileItem;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.docx4j.wml.Text;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultUploadedFile;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
@@ -48,13 +54,15 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
     private Peca peca;
     private GrupoPeca grupo;
     private SubGrupoPeca subGrupo;
-
     private List<Peca> listaPecas;
     private List<SubGrupoPeca> listaSubGrupoPecas;
     private List<GrupoPeca> listaGrupoPecas;
     private List<CampoPersonalizado> lisColaborador = new ArrayList<>();
     private List<CampoPersonalizado> lisProcesso = new ArrayList<>();
     private List<CampoPersonalizado> lisCliente = new ArrayList<>();
+    private List<Text> textos;
+    private Text tag;
+    private WordprocessingMLPackage template;
 
     @PostConstruct
     public void init() {
@@ -134,7 +142,14 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
     }
 
     public void excluir(Peca p) {
-
+        try {
+            controller.excluir(p);
+            listar();
+            MenssagemUtil.addMessageInfo("Peça excluída com sucesso.");
+        } catch (Exception ex) {
+            Logger.getLogger(PecaMB.class.getName()).log(Level.SEVERE, null, ex);
+            MenssagemUtil.addMessageErro(ex);
+        }
     }
 
     public void imprimir() {
@@ -153,10 +168,9 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
     public void salvar() {
         try {
             if (peca.getId() == null) {
-
-                controller.salvar(peca, file);
+                controller.salvar(peca, file.getFileName(), template);
             } else {
-                controller.atualizar(peca, file);
+                controller.atualizar(peca, file.getFileName(), template);
             }
             init();
             MenssagemUtil.addMessageInfo("Registro salvo");
@@ -167,13 +181,10 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
 
     public void uploadArquivo(FileUploadEvent event) {
         try {
-            if (controller.validaArquivoDocx(event.getFile(), Processo.class.getName())) {
-                file = event.getFile();
-                MenssagemUtil.addMessageInfo("Arquivo enviado com sucesso!" + file.getFileName());
-            } else {
-                MenssagemUtil.addMessageWarn("Arquivo Invalido. Possue tags Invalidas.");
-            }
-
+            file = event.getFile();
+            template = controller.getTemplate(file);
+            textos = (List<Text>) controller.getPartes(template);
+            MenssagemUtil.addMessageInfo("Arquivo enviado com sucesso!" + file.getFileName());
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro("Erro ao fazer upload do arquivo", ex, this.getClass().getName());
         }
@@ -261,6 +272,22 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
 
     public void setLisCliente(List<CampoPersonalizado> lisCliente) {
         this.lisCliente = lisCliente;
+    }
+
+    public List<Text> getTextos() {
+        return textos;
+    }
+
+    public void setTextos(List<Text> textos) {
+        this.textos = textos;
+    }
+
+    public Text getTag() {
+        return tag;
+    }
+
+    public void setTag(Text tag) {
+        this.tag = tag;
     }
 
 }

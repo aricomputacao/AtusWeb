@@ -12,7 +12,8 @@
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
     </composite:interface>
     <composite:implementation  >
-        <p:fieldset id="fieldCad"  legend="Cadastro" style="font-weight: bold;text-align: left">
+
+        <p:fieldset legend="Cadastro" style="font-weight: bold;text-align: left">
             <h:panelGrid width="100%">
                 <h:panelGrid columns="3">
                     <h:panelGrid id="griPrin3">
@@ -55,10 +56,24 @@
                     </h:panelGrid>
                     <h:panelGrid columns="3">
                         <p:inputText value="#{pecaMB.file.fileName}" readonly="true" rendered="#{pecaMB.file != null}" id="arq" size="30"/>
-                        <p:fileUpload mode="advanced" fileUploadListener="#{pecaMB.uploadArquivo}" cancelLabel="Cancelar" label="Carregar Arquivo" uploadLabel="Enviar Arquivo" allowTypes="/(\.|\/)(docx)$/" update="file" rendered="#{pecaMB.file == null}"/>
+                        <p:fileUpload mode="advanced" fileUploadListener="#{pecaMB.uploadArquivo}" cancelLabel="Cancelar" label="Carregar Arquivo" uploadLabel="Enviar Arquivo" allowTypes="/(\.|\/)(docx)$/" update="file, textos" rendered="#{pecaMB.file == null}"/>
                         <p:commandButton value="Excluir arquivo" actionListener="#{pecaMB.excluirArquivo()}" update="file" rendered="#{pecaMB.file != null}" icon="ui-icon-trash" immediate="true"/>
                     </h:panelGrid>
                 </h:panelGrid>
+                <p:fieldset legend="Conteúdo do arquivo" style="font-weight: bold;text-align: left" id="fieldTextos">
+                    <h:panelGrid id="textos">
+                        <p:dataTable rendered="#{pecaMB.textos != null}" value="#{pecaMB.textos}" var="tag">
+                            <p:column>
+                                <h:outputText value="#{tag.value}"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton icon="ui-icon-pencil" update=":frmedt" onclick="PF('editTag').show();" immediate="true">
+                                    <f:setPropertyActionListener value="#{tag}" target="#{pecaMB.tag}"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGrid>
+                </p:fieldset>
                 <p:fieldset id="tags" legend="Tags válidas" >
                     <h:panelGrid columns="3" >
                         <p:fieldset style="min-height: 1210px" id="tagCliente" legend="Cliente" >
@@ -68,7 +83,7 @@
                                 </p:column>
                             </p:dataGrid>
                         </p:fieldset>
-                         <p:fieldset id="tagCol" style="min-height: 1210px" legend="Colaborador" >
+                        <p:fieldset id="tagCol" style="min-height: 1210px" legend="Colaborador" >
                             <p:dataGrid value="#{pecaMB.lisColaborador}"  var="tag3" emptyMessage="Nenhum Subgrupo Selecionado" columns="1" >
                                 <p:column>
                                     <h:outputText value="#{tag3.tagName}"/>
@@ -82,11 +97,11 @@
                                 </p:column>
                             </p:dataGrid>
                         </p:fieldset>
-                       
                     </h:panelGrid>
                 </p:fieldset>
             </h:panelGrid>
         </p:fieldset>
+
     </composite:implementation>
 </ui:composition>
 
