@@ -5,13 +5,14 @@
  */
 package br.com.atus.util.peca;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author gilmario
  */
-public class CampoPersonalizado {
+public class CampoPersonalizado implements Serializable {
 
     private String nome;
     private String mascara;
