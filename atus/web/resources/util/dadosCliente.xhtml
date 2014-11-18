@@ -41,7 +41,7 @@
                         </h:panelGrid>
                         <h:panelGrid columns="2" rendered="#{clienteMB.cliente.pessoa.tipoPessoa == 'PF'}">
                             <p:outputLabel   style="font-weight: bolder;" value="RG:" />
-                            <h:outputText   value="#{clienteMB.cliente.rg} - #{clienteMB.cliente.orgaoEmissor}" />
+                            <h:outputText   value="#{clienteMB.cliente.rg} - #{clienteMB.cliente.orgaoEmissor.nome}" />
                         </h:panelGrid>
                         <h:panelGrid columns="2" rendered="#{clienteMB.cliente.pessoa.tipoPessoa == 'PF'}">
                             <p:outputLabel   style="font-weight: bolder;" value="PIS/PASEP:" />

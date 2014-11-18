@@ -38,9 +38,7 @@
                 <p:dataTable value="#{pecaMB.listaPecas}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
-                    <p:column headerText="Código" width="60" sortBy="#{t.id}">
-                        <comp:outputText value="#{t.id}"/>
-                    </p:column>
+                    
                     <p:column headerText="Descrição" sortBy="#{t.descricao}">
                         <comp:outputText value="#{t.descricao}"/>
                     </p:column>

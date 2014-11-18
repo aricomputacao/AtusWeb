@@ -62,7 +62,8 @@
                 </h:panelGrid>
                 <p:fieldset legend="Conteúdo do arquivo" style="font-weight: bold;text-align: left" id="fieldTextos">
                     <h:panelGrid id="textos">
-                        <p:dataTable rendered="#{pecaMB.textos != null}" value="#{pecaMB.textos}" var="tag">
+                        <p:dataTable rendered="#{pecaMB.textos != null}" value="#{pecaMB.textos}" var="tag" rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" 
+                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
                             <p:column>
                                 <h:outputText value="#{tag.value}"/>
                             </p:column>
