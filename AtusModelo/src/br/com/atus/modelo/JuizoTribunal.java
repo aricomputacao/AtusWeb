@@ -35,6 +35,19 @@ public class JuizoTribunal implements Serializable {
     @Column(name = "jut_nome", nullable = false, unique = true)
     @PecaColetor
     private String nome;
+    @Column(name = "jut_instancia1")
+    @PecaColetor
+    private String instancia1;
+
+    public String getInstancia1() {
+        return instancia1;
+    }
+
+    public void setInstancia1(String instancia1) {
+        this.instancia1 = instancia1;
+    }
+    
+    
 
     public Integer getId() {
         return id;

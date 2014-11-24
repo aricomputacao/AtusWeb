@@ -11,5 +11,5 @@ package br.com.atus.enumerated;
  * @author ari
  */
 public enum EstadoCivil {
-    Casado,Solteiro,Divorciado,Viuvo
+    casado,solteiro,divorciado,viuvo
 }
