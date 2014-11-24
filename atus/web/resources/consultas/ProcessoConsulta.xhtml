@@ -52,6 +52,9 @@
                 <p:dataTable value="#{cc.attrs.listaProcessos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10"
                              rowStyleClass="#{not processoMB.processoAtrasado(t)?(empty rowIx or rowIx mod 2 ne 0 ? 'linha-atrasada-even-row' : 'linha-atrasada-odd-row'):(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                    <p:column headerText="Id" width="5%" sortBy="#{t.id}">
+                        <comp:outputText value="#{t.id}"/>
+                    </p:column>
                     <p:column headerText="Número" width="10%" sortBy="#{t.numero}">
                         <comp:outputText value="#{t.numero}"/>
                     </p:column>

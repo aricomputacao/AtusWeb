@@ -38,11 +38,14 @@
                 <p:dataTable value="#{juizoTribunalMB.listaJuizoTribunals}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
-                    <p:column headerText="Código" width="60" sortBy="#{t.id}">
+                    <p:column headerText="id" width="5%" sortBy="#{t.id}">
                         <comp:outputText value="#{t.id}"/>
                     </p:column>
-                    <p:column headerText="Nome" sortBy="#{t.nome}">
+                    <p:column headerText="Nome" width="25%" sortBy="#{t.nome}">
                         <comp:outputText value="#{t.nome}"/>
+                    </p:column>
+                    <p:column headerText="Instância" >
+                        <comp:outputText value="#{t.instancia1}"/>
                     </p:column>
                      <p:column headerText="Ação" width="6%" style="text-align: center">
                         <ui:insert name="acaoJuizoTribunal" >

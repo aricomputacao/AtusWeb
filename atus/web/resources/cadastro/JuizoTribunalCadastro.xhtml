@@ -29,6 +29,13 @@
                         </h:panelGrid>
                         <p:inputText value="#{juizoTribunalMB.juizoTribunal.nome}" id="nome" size="50" required="true" requiredMessage="#{mensagens['require']}"/>
                     </h:panelGrid>
+                    <h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Instância" for="inst"/>
+                            <p:message for="inst"/>
+                        </h:panelGrid>
+                        <p:inputTextarea value="#{juizoTribunalMB.juizoTribunal.instancia1}" id="inst" cols="50" rows="10" required="true" requiredMessage="#{mensagens['require']}"/>
+                    </h:panelGrid>
                 </h:panelGrid>
             </p:fieldset>
     </composite:implementation>
