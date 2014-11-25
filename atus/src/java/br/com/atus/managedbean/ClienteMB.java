@@ -98,7 +98,7 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
             listaProcessos = new ArrayList<>();
             cliente = (Cliente) navegacaoMB.getRegistroMapa("cliente", new Cliente());
             profissao = new Profissao();
-            
+
             if (cliente.getId() == null) {
                 cliente.setPessoa(new Pessoa());
                 cliente.setSexo(Sexo.M);
@@ -143,12 +143,11 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
         }
 
     }
-    
-    public  void listaProcessoCliente(Cliente c){
-       listaProcessos = processoController.listarPorCliente(c);
+
+    public void listaProcessoCliente(Cliente c) {
+        listaProcessos = processoController.listarPorCliente(c);
     }
-    
-    
+
     public void setarProf(Profissao p) {
         cliente.setProfissao(p);
     }
@@ -172,10 +171,15 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
 
     public void listar() {
         try {
+
             if (getValorBusca() == null || getValorBusca().equals("")) {
                 listaClientes = controller.listarTodos("pessoa.nome");
             } else {
-                listaClientes = controller.listarLike("pessoa.nome", getValorBusca());
+                if (getCampoBusca().equals("nome")) {
+                    listaClientes = controller.listarLike("pessoa.nome", getValorBusca());
+                } else {
+                    listaClientes = controller.listarLike("cpfCpnj", getValorBusca());
+                }
 
             }
         } catch (Exception ex) {

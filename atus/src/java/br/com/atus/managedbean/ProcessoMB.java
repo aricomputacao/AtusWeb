@@ -70,15 +70,18 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     private Adversario adversario;
     private ParteInteressada parteInteressada;
     private Fase fase;
+    private Cliente cliente;
     private List<Movimentacao> listaMovimentacaos;
     private List<Processo> listaProcessos;
     private List<Evento> listaEventos;
     private int i;
+    private boolean renderPesquisa;
 
     @PostConstruct
     public void init() {
         processo = (Processo) navegacaoMB.getRegistroMapa("processo", new Processo());
         movimentacao = new Movimentacao();
+        cliente = new Cliente();
         if (processo.getId() == null) {
             processo.setAdversarios(new ArrayList<Adversario>());
             processo.setParteInteressadas(new ArrayList<ParteInteressada>());
@@ -174,13 +177,13 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             prazoFase.add(Calendar.DAY_OF_MONTH, p.getFase().getPrazo());
 
             boolean b = (dataAtual.compareTo(prazoFase) < 0);
-            System.out.print(b);
-
-            System.out.print(p.getFase().getPrazo());
-            System.out.print(MetodosUtilitarios.formatarData(new Date(listaMovimentacaos.get(listaMovimentacaos.size() - 1).getDataMovimentacao().getTime())));
-
-            System.out.print(MetodosUtilitarios.formatarData(new Date(dataAtual.getTimeInMillis())));
-            System.out.print(MetodosUtilitarios.formatarData(new Date(prazoFase.getTimeInMillis())));
+//            System.out.print(b);
+//
+//            System.out.print(p.getFase().getPrazo());
+//            System.out.print(MetodosUtilitarios.formatarData(new Date(listaMovimentacaos.get(listaMovimentacaos.size() - 1).getDataMovimentacao().getTime())));
+//
+//            System.out.print(MetodosUtilitarios.formatarData(new Date(dataAtual.getTimeInMillis())));
+//            System.out.print(MetodosUtilitarios.formatarData(new Date(prazoFase.getTimeInMillis())));
 
             return b;
         } else {
@@ -201,14 +204,32 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         }
     }
 
+    public void renderizarPesquisa() {
+        if (getCampoBusca().equals("numero") || getCampoBusca().equals("id")) {
+            renderPesquisa = false;
+        } else {
+            renderPesquisa = true;
+        }
+    }
+
     public void listar() {
         try {
-            if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaProcessos = controller.listarTodos("numero");
-            } else {
-                listaProcessos = controller.listarLike("numero", getValorBusca());
+
+            switch (getCampoBusca()) {
+                case "id":
+                    listaProcessos.clear();
+                    processo = controller.carregar(Long.decode(getValorBusca()));
+                    listaProcessos.add(processo);
+                    break;
+                case "numero":
+                    listaProcessos = controller.listarLike("numero", getValorBusca());
+                    break;
+                case "cliente":
+                    listaProcessos = controller.listarPorCliente(cliente);
+                    break;
 
             }
+
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
             Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
@@ -392,6 +413,22 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
         }
         return null;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public boolean isRenderPesquisa() {
+        return renderPesquisa;
+    }
+
+    public void setRenderPesquisa(boolean renderPesquisa) {
+        this.renderPesquisa = renderPesquisa;
     }
 
 }

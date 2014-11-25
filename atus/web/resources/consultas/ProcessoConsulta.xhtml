@@ -36,12 +36,21 @@
                     <h:panelGrid id="grdConsulta1">
                         <p:outputLabel value="Campo"/>
                         <p:selectOneMenu value="#{processoMB.campoBusca}" styleClass="lista">
+                            <f:selectItem itemLabel="Id" itemValue="id" />
                             <f:selectItem itemLabel="Número" itemValue="numero" />
+                            <f:selectItem itemLabel="Cliente" itemValue="cliente" />
+                            <p:ajax listener="#{processoMB.renderizarPesquisa()}" event="change" update="grdConsulta2"/>
                         </p:selectOneMenu>
                     </h:panelGrid>
-                    <h:panelGrid id="grdConsulta2">
-                        <p:outputLabel value="Buscar por"/>
-                        <p:inputText value="#{processoMB.valorBusca}" />
+                    <h:panelGrid  id="grdConsulta2">
+                        <h:panelGrid rendered="#{not processoMB.renderPesquisa}" >
+                            <p:outputLabel value="Buscar por"/>
+                            <p:inputText value="#{processoMB.valorBusca}" />
+                        </h:panelGrid>
+                        <h:panelGrid rendered="#{processoMB.renderPesquisa}">
+                            <comp:input_button nome_dialog="dialogoConCliente" id="inputCon" input_size="50" nome_label="Cliente" value_input="#{processoMB.cliente.pessoa.nome}"  />
+                        </h:panelGrid>
+
                     </h:panelGrid>
                     <h:panelGrid id="grdConsulta3">
                         <p:spacer width="15"/>
@@ -52,16 +61,16 @@
                 <p:dataTable value="#{cc.attrs.listaProcessos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10"
                              rowStyleClass="#{not processoMB.processoAtrasado(t)?(empty rowIx or rowIx mod 2 ne 0 ? 'linha-atrasada-even-row' : 'linha-atrasada-odd-row'):(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
-                    <p:column headerText="Id" width="5%" sortBy="#{t.id}">
+                    <p:column headerText="Id" width="3%" sortBy="#{t.id}">
                         <comp:outputText value="#{t.id}"/>
                     </p:column>
-                    <p:column headerText="Número" width="10%" sortBy="#{t.numero}">
+                    <p:column headerText="Número" width="12%" sortBy="#{t.numero}">
                         <comp:outputText value="#{t.numero}"/>
                     </p:column>
-                    <p:column headerText="Cliente|Contatos" sortBy="#{t.cliente.pessoa.nome}" width="30%" >
+                    <p:column headerText="Cliente | Contatos" sortBy="#{t.cliente.pessoa.nome}" width="30%" >
                         <comp:outputText value="#{t.cliente.pessoa.nome} | #{t.cliente.pessoa.telefone}  #{t.cliente.pessoa.celular}"/>
                     </p:column>
-                    <p:column headerText="Advogado" sortBy="#{t.advogado.nome}" width="20%" >
+                    <p:column headerText="Advogado" sortBy="#{t.advogado.nome}" width="15%" >
                         <comp:outputText value="#{t.advogado.nome}"/>
                     </p:column>
                     <p:column headerText="Fase" width="15%" >

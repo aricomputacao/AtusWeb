@@ -30,6 +30,8 @@
                         <p:outputLabel value="Campo"/>
                         <p:selectOneMenu value="#{clienteMB.campoBusca}" styleClass="lista">
                             <f:selectItem itemLabel="Nome" itemValue="nome" />
+                            <f:selectItem itemLabel="CPF\CNPJ" itemValue="doc" />
+
                         </p:selectOneMenu>
                     </h:panelGrid>
                     <h:panelGrid id="grdConsulta2">
@@ -47,6 +49,10 @@
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
                     <p:column headerText="Nome/Razão Social" width="30%" sortBy="#{t.pessoa.nome}">
                         <comp:outputText value="#{t.pessoa.nome}"/>
+                    </p:column>
+                    <p:column headerText="CPF/CNPJ" width="8%" >
+                        <h:outputText value="#{t.cpfCpnj}" converter="#{cpfConverter}" />
+                       
                     </p:column>
                     <p:column headerText="Formas de Contato" width="10%" >
                         <comp:outputText value="#{t.pessoa.email}  #{t.pessoa.telefone}  #{t.pessoa.celular}"/>

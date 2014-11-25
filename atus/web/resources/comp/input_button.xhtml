@@ -20,7 +20,7 @@
             <p:outputLabel value="#{cc.attrs.nome_label}" for="input_componente"/>
             <h:panelGrid columns="2">
                 <p:inputText  value="#{cc.attrs.value_input}" id="input_componente" required="true" readonly="true" size="#{cc.attrs.input_size}"/>
-                <p:commandButton icon="ui-icon-search"  onclick="#{cc.attrs.nome_dialog}.show();" immediate="true" update="#{cc.attrs.form_to_update}"/>
+                <p:commandButton icon="ui-icon-search"  onclick="PF('#{cc.attrs.nome_dialog}').show();" immediate="true" update="#{cc.attrs.form_to_update}"/>
             </h:panelGrid>
         </h:panelGrid>
     </composite:implementation>

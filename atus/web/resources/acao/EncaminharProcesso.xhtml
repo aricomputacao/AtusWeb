@@ -14,8 +14,21 @@
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
     </composite:interface>
     <composite:implementation id="int2" >
-        <p:fieldset  id="fieldAtend" style="text-align: left" >
-            <h:outputText rendered="#{processoMB.processo.id != null}" style="font-weight: bold;font-size: 15px" value="&rsaquo;&rsaquo;Processo: #{processoMB.processo.numero}"/>
+        <p:fieldset  legend="Dados do Processo" id="fieldAtend" style="text-align: left" >
+            <h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputText rendered="#{processoMB.processo.id != null}" style="font-weight: bold;font-size: 15px" value="&rsaquo;&rsaquo;Id:"/>
+                    <h:outputText value="#{processoMB.processo.id}" style="font-size: 15px"/>
+                </h:panelGrid>
+                <h:panelGrid rendered="#{processoMB.processo.numero != null}" columns="2">
+                    <h:outputText  style="font-weight: bold;font-size: 15px" value="&rsaquo;&rsaquo;Número:"/>
+                    <h:outputText value="#{processoMB.processo.numero}" style="font-size: 15px"/>
+                </h:panelGrid>
+                <h:panelGrid  columns="2">
+                    <h:outputText  style="font-weight: bold;font-size: 15px" value="&rsaquo;&rsaquo;Cliente:"/>
+                    <h:outputText value="#{processoMB.processo.cliente.pessoa.nome}" style="font-size: 15px"/>
+                </h:panelGrid>
+            </h:panelGrid>
             <br/>
             <p:separator/>
             <h:panelGrid style="margin-top: 15px">
