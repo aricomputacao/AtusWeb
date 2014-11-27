@@ -39,13 +39,19 @@
 	<field name="usuario" class="br.com.atus.modelo.Usuario">
 		<fieldDescription><![CDATA[usuario]]></fieldDescription>
 	</field>
-	<variable name="processo_1" class="java.lang.Integer" resetType="Group" resetGroup="usuario" calculation="Count">
+	<variable name="processo_2" class="java.lang.Integer" resetType="Group" resetGroup="data" calculation="Count">
 		<variableExpression><![CDATA[$F{processo}]]></variableExpression>
 	</variable>
-	<group name="data" isStartNewPage="true">
+	<group name="data">
 		<groupExpression><![CDATA[$F{data}.getDay()]]></groupExpression>
 		<groupHeader>
-			<band height="20">
+			<band height="40">
+				<rectangle>
+					<reportElement uuid="2cde4832-2001-4c56-80b5-7c5b10bd055e" x="0" y="20" width="802" height="20"/>
+					<graphicElement>
+						<pen lineWidth="0.25" lineColor="#666666"/>
+					</graphicElement>
+				</rectangle>
 				<rectangle>
 					<reportElement uuid="cbb2bad2-49a5-46b7-a111-0fb270d1dbac" x="0" y="0" width="802" height="20"/>
 					<graphicElement>
@@ -59,39 +65,54 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
 				</textField>
-			</band>
-		</groupHeader>
-	</group>
-	<group name="usuario">
-		<groupExpression><![CDATA[$F{usuario}]]></groupExpression>
-		<groupHeader>
-			<band height="20">
-				<rectangle>
-					<reportElement uuid="fd7a3a60-5329-4f4d-bf9d-cd111f43fc3e" mode="Opaque" x="0" y="0" width="802" height="20" backcolor="#CCCCCC"/>
-					<graphicElement>
-						<pen lineWidth="0.25" lineColor="#666666"/>
-					</graphicElement>
-				</rectangle>
-				<textField>
-					<reportElement uuid="59c7217d-0223-42a0-a1a0-116127ad9ca4" mode="Transparent" x="180" y="0" width="428" height="20" backcolor="#CCCCCC"/>
+				<textField evaluationTime="Group" evaluationGroup="data">
+					<reportElement uuid="2b4dec57-7479-409e-a4c0-78710a1bb2d9" x="766" y="0" width="36" height="20"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="12" isBold="true" isItalic="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{usuario}.getNome()]]></textFieldExpression>
-				</textField>
-				<textField evaluationTime="Group" evaluationGroup="usuario">
-					<reportElement uuid="0a6bc25e-a189-4594-8aa2-4c2a37424ab1" x="768" y="0" width="34" height="20"/>
-					<textElement verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{processo_1}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{processo_2}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement uuid="67f92d67-3d54-4819-84db-f8696985713c" x="691" y="0" width="77" height="20"/>
-					<textElement verticalAlignment="Middle">
+					<reportElement uuid="3d2bf513-6b19-4b78-9276-9de3f626f3bd" x="666" y="0" width="100" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Quantidade:]]></text>
+					<text><![CDATA[Quantidade]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="0f2068ad-564b-49a7-acd6-c9b5d85d0fbd" x="0" y="20" width="190" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Processo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d8f741d9-8ff8-4c16-9ffd-85409124faa9" x="191" y="20" width="165" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Evento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="2dac3b05-8e30-4ebf-9c52-bf2b043d5f97" x="363" y="20" width="44" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Horário]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e704836e-fbda-4c6e-8021-f902d3703bc5" x="424" y="20" width="151" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tipo de Evento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="84da94e5-2fa7-4414-99fd-0acdfea1746c" x="575" y="20" width="227" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cliente]]></text>
 				</staticText>
 			</band>
 		</groupHeader>
@@ -116,51 +137,6 @@
 			</subreport>
 		</band>
 	</title>
-	<pageHeader>
-		<band height="20" splitType="Stretch">
-			<rectangle>
-				<reportElement uuid="2cde4832-2001-4c56-80b5-7c5b10bd055e" x="0" y="0" width="802" height="20"/>
-				<graphicElement>
-					<pen lineWidth="0.25" lineColor="#666666"/>
-				</graphicElement>
-			</rectangle>
-			<staticText>
-				<reportElement uuid="0f2068ad-564b-49a7-acd6-c9b5d85d0fbd" x="1" y="0" width="190" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Processo]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="d8f741d9-8ff8-4c16-9ffd-85409124faa9" x="198" y="0" width="165" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Evento]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="e704836e-fbda-4c6e-8021-f902d3703bc5" x="424" y="0" width="151" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Tipo de Evento]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="84da94e5-2fa7-4414-99fd-0acdfea1746c" x="575" y="0" width="227" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Cliente]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="2dac3b05-8e30-4ebf-9c52-bf2b043d5f97" x="363" y="0" width="44" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Horário]]></text>
-			</staticText>
-		</band>
-	</pageHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<rectangle>
@@ -170,7 +146,7 @@
 				</graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement uuid="2532746f-2b89-4a1a-9840-87c3324c740c" x="198" y="0" width="165" height="20"/>
+				<reportElement uuid="2532746f-2b89-4a1a-9840-87c3324c740c" x="191" y="0" width="165" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>

@@ -18,10 +18,10 @@
             <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.atendimento'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.atendimento'])}" acao_imprimir="#{atendimentoMB.imprimir()}" acao_limpar="#{atendimentoMB.init()}" acao_salvar="#{atendimentoMB.salvar()}"/>
             <comp:panel_cadastro id="cadFrm" cabecalho_grid="Acompanhar Atendimento" id_form="frm_pag"  >               
                 <h:panelGrid width="100%"   >
-                    <cons:AtendimentoConsulta acao_consultar="#{atendimentoMB.listar()}" nome="Atendimento Fundo" lista="#{atendimentoMB.listaAtendimentosFundo}" id="atendConsFundo"/>
+                    <cons:AtendimentoConsulta acao_consultar="#{atendimentoMB.listar()}" renderAtenderr="true" nome="Atendimento Fundo" lista="#{atendimentoMB.listaAtendimentosFundo}" id="atendConsFundo"/>
                 </h:panelGrid>       
                 <h:panelGrid width="100%" > 
-                    <cons:AtendimentoConsulta acao_consultar="#{atendimentoMB.listar()}" nome="Atendimento Frente" lista="#{atendimentoMB.listaAtendimentosFrente}" id="atendConsFrente"/>
+                    <cons:AtendimentoConsulta acao_consultar="#{atendimentoMB.listar()}" nome="Atendimento Frente" renderAtenderr="true" lista="#{atendimentoMB.listaAtendimentosFrente}" id="atendConsFrente"/>
                 </h:panelGrid>
             </comp:panel_cadastro>
         </h:form>
@@ -31,7 +31,7 @@
         
         <p:dialog showEffect="fade" position="top"   header="Atendimento" id="atend" modal="true" hideEffect="fade" widgetVar="dialogAtend">
             <h:form id="frmAtend">                
-                <util:menuCadDialogo acao_remoteCommand="#{atendimentoMB.listar()}" acao_salvar="#{atendimentoMB.finalizarAtendimento()}" frm_update=":frmAtend:atendi:fieldAtend" />
+                <util:menuCadDialogo acao_remoteCommand="#{atendimentoMB.listar()}"  acao_salvar="#{atendimentoMB.finalizarAtendimento()}" frm_update=":frmAtend:atendi:fieldAtend" />
                 <acao:AtenderAtendimento id="atendi"/>
             </h:form>
         </p:dialog>

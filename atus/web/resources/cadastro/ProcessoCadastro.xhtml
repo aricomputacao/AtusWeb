@@ -131,7 +131,7 @@
                                     </h:panelGrid>
                                 </h:panelGrid>
                                 <h:panelGrid columns="2">
-                                    <comp:inputText require="false" nomeLabel="Representante" value="#{processoMB.parteInteressada.representante}" size="30" />
+                                    <comp:inputText require="false" nomeLabel="Representante\Qualificação" value="#{processoMB.parteInteressada.representante}" size="100" />
                                     <p:commandButton style="margin-top: 23px" value="Adicionar"  actionListener="#{processoMB.addInteressado()}"  update=":frm_pag:cadFrm:compProce:tbView:tabela" icon="ui-icon-circle-plus"  />
                                 </h:panelGrid>
                             </h:panelGrid>
@@ -164,7 +164,7 @@
                                     </h:panelGrid>
                                 </h:panelGrid>
                                 <h:panelGrid columns="2">
-                                    <comp:inputText nomeLabel="Representante" require="false" value="#{processoMB.adversario.representante}" size="30" />
+                                    <comp:inputText nomeLabel="Representante\Qualificação" require="false" value="#{processoMB.adversario.representante}" size="100" />
                                     <p:commandButton style="margin-top: 23px" value="Adicionar"  actionListener="#{processoMB.addAdversario()}"  update=":frm_pag:cadFrm:compProce:tbView:tabelaAdv" icon="ui-icon-circle-plus"  />
                                 </h:panelGrid>
                             </h:panelGrid>

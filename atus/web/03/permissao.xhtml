@@ -3,26 +3,44 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 template="/modelo/template.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:consultas="http://java.sun.com/jsf/composite/consultas"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:cons="http://java.sun.com/jsf/composite/consultas"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro">
 
     <ui:define name="corpo">
-        <h:form id="frm_permissao">
-            <p:panel header="Registro Permissões de Acesso">
+        <h:form id="frm_pag" prependId="false" >
+
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Gerenciar Permissões" id_form="frm_ram"  >
+
                 <p:panel header="Selecione um Usuário" rendered="#{permissaoMB.usuario == null}">
-                    <consultas:UsuarioConsulta valorSelecionado="#{permissaoMB.usuario}" update_form="@form"  renderEditar="false" renderExcluir="false" renderSelecionar="true"/>
+                    <cons:UsuarioConsulta valorSelecionado="#{permissaoMB.usuario}" update_form="@form"  renderEditar="false" renderExcluir="false" renderSelecionar="true"/>
                 </p:panel>
                 <p:panel header="Permissões" rendered="#{permissaoMB.usuario != null}">
-                    <h:panelGrid columns="4">
-                        <h:outputText value="Nome: #{permissaoMB.usuario.nome}"/>
-                        <h:outputText value="Perfil: #{permissaoMB.usuario.perfil}"/>
-                        <h:outputText value="Login: #{permissaoMB.usuario.login}"/>
-                        <h:outputText value="Ativo: #{permissaoMB.usuario.ativo}"/>
-                    </h:panelGrid>
-                    <h:panelGrid columns="4">
-                        <p:commandButton value="Incluir Permissão" icon="ui-icon-plus" onclick="PF('dialogInfo').show();" update=":frm"/>
+                    <h:panelGrid columns="2">
+                        <h:panelGrid columns="4">
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Nome: " style="font-weight: bold"/>
+                                <h:outputText value="#{permissaoMB.usuario.nome}"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Perfil: " style="font-weight: bold"/>
+                                <h:outputText value="#{permissaoMB.usuario.perfil}"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Login: " style="font-weight: bold"/>
+                                <h:outputText value="#{permissaoMB.usuario.login}"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Ativo: " style="font-weight: bold"/>
+                                <h:outputText value="#{permissaoMB.usuario.ativo}"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                        <h:panelGrid >
+                            <p:commandButton value="Incluir Permissão" icon="ui-icon-plusthick" onclick="PF('dialogInfo').show();" update=":frm"/>
+                        </h:panelGrid>
                     </h:panelGrid>
                     <p:dataTable value="#{permissaoMB.permissoes}" var="p" emptyMessage="Nenhuma permissão" paginatorAlwaysVisible="false" paginator="true">
                         <p:column headerText="Tarefa">
@@ -45,38 +63,66 @@
                         </p:column>
                     </p:dataTable>
                 </p:panel>
-            </p:panel>
+            </comp:panel_cadastro>
         </h:form>
+
     </ui:define>
     <ui:define name="dialogs">
-        <p:dialog id="info" widgetVar="dialogInfo" width="800" height="400" position="top">
+        <p:dialog id="info" widgetVar="dialogInfo" header="Incluir Permissões" width="800" height="400" position="top">
             <h:form id="frm">
-                <h:panelGrid columns="2" id="x">
-                    <h:panelGrid id="x2">
-                        <h:panelGrid columns="2">
-                            <p:outputLabel value="Módulo" for="modulo"/>
-                            <p:messages for="modulo"/>
+                <h:panelGrid columns="2" id="x" width="100%">
+                    <p:fieldset legend="Mosulos">
+                        <h:panelGrid id="x2">
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Módulo" for="modulo"/>
+                                <p:messages for="modulo"/>
+                            </h:panelGrid>
+                            <p:selectOneMenu value="#{permissaoMB.modulo}" converter="#{indexConverter}" id="modulo" style="width: 200px;">
+                                <f:selectItem itemValue="#{null}" itemLabel=""/>
+                                <f:selectItems value="#{permissaoMB.listaModulos}" itemLabel="#{m.nome}" itemValue="#{m}" var="m"/>
+                                <p:ajax listener="#{permissaoMB.atualizaListaTarefas()}" update=":frm" event="change" process="@this" async="true"/>
+                            </p:selectOneMenu>
                         </h:panelGrid>
-                        <p:selectOneMenu value="#{permissaoMB.modulo}" converter="#{indexConverter}" id="modulo" style="width: 200px;">
-                            <f:selectItem itemValue="#{null}" itemLabel=""/>
-                            <f:selectItems value="#{permissaoMB.listaModulos}" itemLabel="#{m.nome}" itemValue="#{m}" var="m"/>
-                            <p:ajax listener="#{permissaoMB.atualizaListaTarefas()}" update=":frm" event="change" process="@this" async="true"/>
-                        </p:selectOneMenu>
-                    </h:panelGrid>
-                    <p:commandButton value="TESTE" actionListener="#{permissaoMB.atualizaListaTarefas()}" update="tarefa" immediate="true"/>
-                    <h:panelGrid id="tarefa">
-                        <h:panelGrid columns="2" id="x3">
-                            <p:outputLabel value="Tarefa" for="tarefa"/>
-                            <p:messages for="tarefa"/>
+                    </p:fieldset>
+                    <p:fieldset legend="Tarefas">
+
+                        <h:panelGrid id="tarefa">
+                            <h:panelGrid columns="2" id="x3">
+                                <p:outputLabel value="Tarefa" for="tarefa"/>
+                                <p:messages for="tarefa"/>
+                            </h:panelGrid>
+                            <p:selectOneMenu value="#{permissaoMB.permissao.tarefa}" converter="#{indexConverter}" style="width: 300px;" id="x4">
+                                <f:selectItem itemValue="#{null}" itemLabel=""/>
+                                <f:selectItems value="#{permissaoMB.listaTarefas}" itemLabel="#{t.descricao}" itemValue="#{t}" var="t"/>
+                            </p:selectOneMenu>
                         </h:panelGrid>
-                        <p:selectOneMenu value="#{permissaoMB.permissao.tarefa}" converter="#{indexConverter}" style="width: 200px;" id="x4">
-                            <f:selectItem itemValue="#{null}" itemLabel=""/>
-                            <f:selectItems value="#{permissaoMB.listaTarefas}" itemLabel="#{t.nome}" itemValue="#{t}" var="t"/>
-                        </p:selectOneMenu>
-                    </h:panelGrid>
+                    </p:fieldset>
                 </h:panelGrid>
+                <p:fieldset legend="Acessos">
+                    <h:panelGrid columns="4">
+                        <h:panelGrid cellspacing="5" columns="2">
+                            <h:outputText value="Incluir: "/>
+                            <p:selectBooleanCheckbox value="#{permissaoMB.permissao.incluir}"/>
+                        </h:panelGrid>
+                        <h:panelGrid cellspacing="5" columns="2">
+                            <h:outputText value="Editar: "/>
+                            <p:selectBooleanCheckbox value="#{permissaoMB.permissao.editar}"/>
+
+                        </h:panelGrid>
+                        <h:panelGrid cellspacing="5" columns="2">
+                            <h:outputText value="Consulta: "/>
+                            <p:selectBooleanCheckbox value="#{permissaoMB.permissao.consultar}"/>
+                        </h:panelGrid>
+                        <h:panelGrid cellspacing="5" columns="2">
+                            <h:outputText value="Excluir: "/>
+                            <p:selectBooleanCheckbox value="#{permissaoMB.permissao.excluir}"/>
+                        </h:panelGrid>
+
+                    </h:panelGrid>
+                </p:fieldset>
             </h:form>
         </p:dialog>
     </ui:define>
+
 </ui:composition>
 

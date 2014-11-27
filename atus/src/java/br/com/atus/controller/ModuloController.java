@@ -18,17 +18,25 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class ModuloController extends Controller<Modulo, Long> implements Serializable {
-
+    
     @EJB
     private ModuloDAO dao;
-
+    
     public ModuloController() {
     }
-
+    
     @Override
     @PostConstruct
     protected void inicializaDAO() {
         setDAO(this.dao);
     }
-
+    
+    public boolean existeModulo(String nome) throws Exception {
+      return dao.existeModulo(nome);
+    }
+    
+    public Modulo buscarUnique(String mine) throws Exception{
+        return dao.moduloMnemonico(mine);
+    }
+    
 }

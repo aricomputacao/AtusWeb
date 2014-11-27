@@ -51,6 +51,9 @@
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
 
+                    <p:column headerText="Cliente">
+                        <comp:outputText value="#{t.cliente.pessoa.nome}"/>
+                    </p:column>
                     <p:column headerText="Visitante">
                         <comp:outputText value="#{t.visitante}"/>
                     </p:column>
@@ -62,7 +65,7 @@
                     </p:column>
 
 
-                    <p:column headerText="Ação" width="6%" style="text-align: center">
+                    <p:column headerText="Ação" width="10%" style="text-align: center">
                         <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.atendimento'],'atendimento',t)}" />
                         <comp:commandButton_excluir acao_butao="#{advogadoMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Atendimento" form_to_update="@form"/>
                         <p:commandButton title="Atender" update=":frmAtend:atendi:fieldAtend" onclick="PF('dialogAtend').show();" rendered="#{cc.attrs.renderAtenderr}" icon="ui-icon-circle-check" style="width: 20px;height: 20px;" >

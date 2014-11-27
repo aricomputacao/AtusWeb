@@ -24,12 +24,23 @@
                 <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}"> 
                     <cons:AtendimentoConsulta acao_consultar="#{atendimentoMB.listar()}" renderAtenderr="false" lista="#{atendimentoMB.listaAtendimentos}" id="atendCons"/>
                 </h:panelGrid>
+                
             </comp:panel_cadastro>
         </h:form>
 
     </ui:define>
     <ui:define name="dialogs">
-
+ <p:dialog showEffect="fade" position="top"   header="Consulta de Pessoas" id="conPesCli" modal="true" hideEffect="fade" widgetVar="dialogoConCliente">
+            <h:form id="frmConCliente" prependId="false">
+                <cons:ClienteConsulta renderBtnEditar="false" id="tblCli"  renderSelecionar="true" renderInfo="false"  nomeDialog="dialogoConCliente" update_form=":frm_pag:cadFrm:compAten:inputCon:input_componente" valorSelecionado="#{atendimentoMB.atendimento.cliente}" >
+                    <f:facet name="btnConsultaCliente">
+                        <h:panelGrid columns="2" id="btnConRamo">
+                            <comp:commandButton_consulta id="btnCon" acao_butao="#{clienteMB.listar()}"  componente_to_update="@form" />
+                        </h:panelGrid>
+                    </f:facet>
+                </cons:ClienteConsulta>
+            </h:form>
+        </p:dialog>
         <p:dialog showEffect="fade" position="top"   header="Consulta de Usuário" id="adv" modal="true" hideEffect="fade" widgetVar="dialogUsr">
             <h:form>
                 <cons:UsuarioConsulta nomeDialog="dialogUsr" renderEditar="false" renderExcluir="false" renderSelecionar="true" update_form=":frm_pag:cadFrm:compAten:input_componente" 

@@ -15,18 +15,19 @@
     </composite:interface>
     <composite:implementation id="int2" >
         <p:fieldset  id="fieldAtend" style="text-align: left" >
-            <p:blockUI block="@form" trigger="btnDossie,btnProc,btnDecH,btnConTra"    >
+            <p:blockUI block="@form" trigger="btnDossie,btnProc,btnDecH,btnConTra,btnProt"    >
                 <p:graphicImage library="imagens" name="carregar.gif"/>
             </p:blockUI>
             <h:outputText rendered="#{processoMB.processo.id != null}" style="font-weight: bold;font-size: 15px" value="&rsaquo;&rsaquo;Processo: #{processoMB.processo.numero}"/>
             <br/>
             <p:separator/>
             <h:panelGrid style="margin-top: 15px" columns="3"  cellspacing="5">
-                <p:commandButton value="Dossiê" styleClass="btnDocumento"  actionListener="#{processoMB.imprimirDossie()}"  style="font-weight: bold" oncomplete="popup('/atus/RelatorioServlet.pdf');" />
-                <p:commandButton value="Protocolo" id="btnDossie" styleClass="btnDocumento" style="font-weight: bold" actionListener="#{processoMB.imprimirProtocolo()}" oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
+                <p:commandButton value="Dossiê" id="btnDossie" styleClass="btnDocumento"  actionListener="#{processoMB.imprimirDossie()}"  style="font-weight: bold" oncomplete="popup('/atus/RelatorioServlet.pdf');" />
+                <p:commandButton value="Protocolo" id="btnProt" styleClass="btnDocumento" style="font-weight: bold" actionListener="#{processoMB.imprimirProtocolo()}" oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
                 <p:commandButton value="Procuração AD Judicial" id="btnProc" actionListener="#{processoMB.imprimirProcuracaoAdJud()}" styleClass="btnDocumento" style="font-weight: bold" oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
                 <p:commandButton value="Declaração de Hip. Financeira" id="btnDecH" actionListener="#{processoMB.imprimirDeclaracao()}" title="Declaração de Hipossuficiência Financeira" styleClass="btnDocumento" style="font-weight: bold" oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
                 <p:commandButton value="Contrato" styleClass="btnDocumento" id="btnConTra" actionListener="#{processoMB.imprimirContrato()}" style="font-weight: bold" oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
+
             </h:panelGrid>
 
 

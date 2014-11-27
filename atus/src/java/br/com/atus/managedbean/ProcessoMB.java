@@ -327,7 +327,17 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         RelatorioSession.setBytesRelatorioInSession(rel);
 
     }
+    
+    public void imprimirTodos() {
+       imprimirContrato();
+       imprimirDeclaracao();
+       imprimirDossie();
+       imprimirProcuracaoAdJud();
+       imprimirProtocolo();
+    }
 
+    
+    
     public ProcessoMB() {
         super(Processo.class);
     }

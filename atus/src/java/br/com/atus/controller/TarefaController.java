@@ -37,4 +37,8 @@ public class TarefaController extends Controller<Tarefa, Long> implements Serial
         return dao.listar(modulo);
     }
 
+    public boolean existeTarefa(Tarefa taf) {
+        return dao.existeTarefa(taf);
+    }
+
 }
