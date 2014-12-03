@@ -16,9 +16,9 @@
             <comp:panel_cadastro id="cadFrm" cabecalho_grid="Cadastro de Peças" id_form="frm_pag">
                 <cadastro:PecaCadastro id="cad" rendered="#{navegacaoMB.renderPainelCadastro}"/>
 
-                <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}">
-                    <cons:PecaConsulta/>
-                </h:panelGrid>
+               
+                    <cons:PecaConsulta  id="conPeca" rendered="#{not navegacaoMB.renderPainelCadastro}"/>
+               
             </comp:panel_cadastro>
         </h:form>
     </ui:define>

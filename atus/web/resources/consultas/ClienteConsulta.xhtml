@@ -28,7 +28,7 @@
                 <h:panelGrid id="grdConsulta" columns="4">
                     <h:panelGrid id="grdConsulta1">
                         <p:outputLabel value="Campo"/>
-                        <p:selectOneMenu value="#{clienteMB.campoBusca}" styleClass="lista">
+                        <p:selectOneMenu id="selectOne" value="#{clienteMB.campoBusca}" styleClass="lista">
                             <f:selectItem itemLabel="Nome" itemValue="nome" />
                             <f:selectItem itemLabel="CPF\CNPJ" itemValue="doc" />
 
@@ -40,7 +40,7 @@
                     </h:panelGrid>
                     <h:panelGrid id="grdConsulta3">
                         <p:spacer width="15"/>
-                        <composite:renderFacet name="btnConsultaCliente" />
+                        <composite:renderFacet name="btnConsultaCliente" id="btnConsultaCliente" />
 
                     </h:panelGrid>
                 </h:panelGrid>

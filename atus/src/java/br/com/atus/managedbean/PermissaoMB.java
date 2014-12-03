@@ -60,11 +60,16 @@ public class PermissaoMB extends BeanGenerico<Permissao> implements Serializable
         }
     }
 
-    public void salvar(Permissao p) throws Exception {
-        if (p.getId() == null) {
-            controller.salvar(p);
-        } else {
-            controller.atualizar(p);
+    public void salvar(Permissao p) {
+        try {
+            if (p.getId() == null) {
+                permissao.setUsuario(usuario);
+                controller.salvar(p);
+            } else {
+                controller.atualizar(p);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(PermissaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

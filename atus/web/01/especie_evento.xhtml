@@ -17,10 +17,10 @@
             <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.especie_evento'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.especie_evento'])}" acao_imprimir="#{especieEventoMB.imprimir()}" acao_limpar="#{especieEventoMB.init()}" acao_salvar="#{especieEventoMB.salvar()}"/>
             <comp:panel_cadastro id="cadFrm" cabecalho_grid="Especie de Eventos" id_form="frm_ram"  >               
 
-                <h:panelGrid style="width: 100%" rendered="#{navegacaoMB.renderPainelCadastro}">
+                <h:panelGrid style="width: 100%" id="grdEvenCad" rendered="#{navegacaoMB.renderPainelCadastro}">
                     <cadastro:EspecieEventoCadastro/>
                 </h:panelGrid>
-                <cons:EspecieEventoConsulta rendered="#{not navegacaoMB.renderPainelCadastro}"/>
+                <cons:EspecieEventoConsulta id="grdEvenCon" rendered="#{not navegacaoMB.renderPainelCadastro}"/>
          
             </comp:panel_cadastro>
         </h:form>
