@@ -30,12 +30,6 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 public class PermissaoMB extends BeanGenerico<Permissao> implements Serializable {
 
-    private Usuario usuario;
-    private Tarefa tarefa;
-    private Permissao permissao;
-    private Modulo modulo;
-    private List<Modulo> listaModulos;
-    private List<Tarefa> listaTarefas;
     @EJB
     private PermissaoController controller;
     @EJB
@@ -43,6 +37,14 @@ public class PermissaoMB extends BeanGenerico<Permissao> implements Serializable
     @EJB
     private TarefaController tarefaController;
     private List<Permissao> permissoes;
+    private Usuario usuario;
+    private Tarefa tarefa;
+    private Permissao permissao;
+    private Modulo modulo;
+    private List<Modulo> listaModulos;
+    private List<Tarefa> listaTarefas;
+
+    private boolean renderSelecionarUrs;
 
     public PermissaoMB() {
         super(Permissao.class);
@@ -55,6 +57,8 @@ public class PermissaoMB extends BeanGenerico<Permissao> implements Serializable
     private void init() {
         try {
             listaModulos = moduloController.listarTodos("nome");
+            renderSelecionarUrs = true;
+            usuario = new Usuario();
         } catch (Exception ex) {
             Logger.getLogger(PermissaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -65,12 +69,33 @@ public class PermissaoMB extends BeanGenerico<Permissao> implements Serializable
             if (p.getId() == null) {
                 permissao.setUsuario(usuario);
                 controller.salvar(p);
+                permissoes.add(p);
+                permissao = new Permissao();
             } else {
                 controller.atualizar(p);
+                permissao = new Permissao();
+
             }
         } catch (Exception ex) {
             Logger.getLogger(PermissaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void listaPermUsuario(Usuario u) {
+        usuario = u;
+        permissoes = controller.listar(usuario);
+    }
+
+    public void trocarTela() {
+        usuario = new Usuario();
+    }
+
+    public boolean isRenderSelecionarUrs() {
+        return renderSelecionarUrs;
+    }
+
+    public void setRenderSelecionarUrs(boolean renderSelecionarUrs) {
+        this.renderSelecionarUrs = renderSelecionarUrs;
     }
 
     public Usuario getUsuario() {

@@ -13,13 +13,11 @@
 
     <ui:define name="corpo">
         <h:form id="frm_pag" prependId="false" >
-
             <comp:panel_cadastro id="cadFrm" cabecalho_grid="Gerenciar Permissões" id_form="frm_ram"  >
-
-                <p:panel header="Selecione um Usuário" rendered="#{permissaoMB.usuario == null}">
-                    <cons:UsuarioConsulta valorSelecionado="#{permissaoMB.usuario}" update_form="@form"  renderEditar="false" renderExcluir="false" renderSelecionar="true"/>
+                <p:panel header="Selecione um Usuário" rendered="#{permissaoMB.usuario.id == null}">
+                    <cons:UsuarioConsulta id="usrCon" valorSelecionado="#{permissaoMB.usuario}" acao_executa_btn2="#{permissaoMB.listaPermUsuario(t)}" renderSelecionar2="true" update_form="@form"  renderEditar="false" renderExcluir="false" renderSelecionar="false"/>
                 </p:panel>
-                <p:panel header="Permissões" rendered="#{permissaoMB.usuario != null}">
+                <p:panel header="Permissões" rendered="#{permissaoMB.usuario.id != null}">
                     <h:panelGrid columns="2">
                         <h:panelGrid columns="2" cellspacing="10">
                             <h:panelGrid columns="2">
@@ -40,27 +38,35 @@
                             </h:panelGrid>
                         </h:panelGrid>                        
                     </h:panelGrid>
-                    <h:panelGrid style="margin: 5px" >
+                    <h:panelGrid style="margin: 5px" columns="2" >
                         <p:commandButton value="Incluir Permissão" icon="ui-icon-plusthick" onclick="PF('dialogInfo').show();" update=":frm"/>
+                        <p:commandButton value="Selecionar usuário" actionListener="#{permissaoMB.trocarTela()}" ajax="false" icon="ui-icon-person"  update=":frm"/>
+
                     </h:panelGrid>
-                    <p:dataTable value="#{permissaoMB.permissoes}" var="p" emptyMessage="Nenhuma permissão" paginatorAlwaysVisible="false" paginator="true">
+                    <p:dataTable value="#{permissaoMB.permissoes}" id="tblPerm" var="p" emptyMessage="Nenhuma permissão" paginatorAlwaysVisible="false" paginator="true">
                         <p:column headerText="Tarefa">
                             <h:outputText value="#{p.tarefa.nome}"/>
                         </p:column>
-                        <p:column headerText="Modulo">
+                        <p:column headerText="Modulo" >
                             <h:outputText value="#{p.tarefa.modulo.nome}"/>
                         </p:column>
-                        <p:column headerText="Consultar">
-                            <h:outputText value="#{p.consultar}"/>
+                       
+                        <p:column headerText="Incluir" width="5%">
+                            <h:outputText rendered="#{p.incluir}" value="X" style="text-align: center;font-weight: bold"/>
                         </p:column>
-                        <p:column headerText="Editar">
-                            <h:outputText value="#{p.editar}"/>
+                        <p:column headerText="Editar" width="5%">
+                            <h:outputText rendered="#{p.editar}" value="X" style="text-align: center;font-weight: bold" />
                         </p:column>
-                        <p:column headerText="Incluir">
-                            <h:outputText value="#{p.incluir}"/>
+                        <p:column headerText="Consultar" width="5%">
+                            <h:outputText rendered="#{p.consultar}" value="X" style="text-align: center;font-weight: bold "/>
+                        </p:column> 
+                        <p:column headerText="Excluir" width="5%">
+                            <h:outputText rendered="#{p.excluir}" value="X" style="text-align: center;font-weight: bold"/>
                         </p:column>
-                        <p:column headerText="Excluir">
-                            <h:outputText value="#{p.excluir}"/>
+                        <p:column headerText="Ação" width="5%">
+                            <p:commandButton  icon="ui-icon-circle-check" onclick="PF('dialogInfo2').show();" update=":frm2">
+                                <f:setPropertyActionListener target="#{permissaoMB.permissao}" value="#{p}" />
+                            </p:commandButton>
                         </p:column>
                     </p:dataTable>
                 </p:panel>
@@ -69,9 +75,9 @@
 
     </ui:define>
     <ui:define name="dialogs">
-        <p:dialog id="info" widgetVar="dialogInfo" header="Incluir Permissões" width="800" height="400" position="top">
+        <p:dialog id="info" widgetVar="dialogInfo" header="Incluir Permissões"  onHide="PF('@form').update()" width="800" height="400" position="top">
             <h:form id="frm">   
-                <p:commandButton actionListener="#{permissaoMB.salvar(permissaoMB.permissao)}" update="@form" ajax="false" />
+                <p:commandButton actionListener="#{permissaoMB.salvar(permissaoMB.permissao)}" update=":frm_pag:cadFrm:tblPerm" ajax="false" />
                 <util:menuCadDialogo2 id="menDialog"  frm_update=":frm_pag:cadFrm"  acao_salvar="#{permissaoMB.salvar(permissaoMB.permissao)}"  />
                 <h:panelGrid columns="3" id="x" width="100%">
                     <p:fieldset legend="Módulos" style="min-height: 200px">
@@ -97,6 +103,45 @@
                                 <f:selectItem itemValue="#{null}" itemLabel=""/>
                                 <f:selectItems value="#{permissaoMB.listaTarefas}" itemLabel="#{t.descricao}" itemValue="#{t}" var="t"/>
                             </p:selectOneMenu>
+                        </h:panelGrid>
+                    </p:fieldset>
+                    <p:fieldset legend="Acessos" style="min-height: 200px">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <h:panelGrid cellspacing="5" >
+                                <h:outputText value="Incluir: "/>
+                                <h:outputText value="Editar: "/>
+                                <h:outputText value="Consulta: "/>
+                                <h:outputText value="Excluir: "/>
+                            </h:panelGrid>
+                            <h:panelGrid  >
+                                <p:selectBooleanCheckbox value="#{permissaoMB.permissao.incluir}"/>
+                                <p:selectBooleanCheckbox value="#{permissaoMB.permissao.editar}"/>
+                                <p:selectBooleanCheckbox value="#{permissaoMB.permissao.consultar}"/>
+                                <p:selectBooleanCheckbox value="#{permissaoMB.permissao.excluir}"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:fieldset>
+                </h:panelGrid>
+
+            </h:form>
+        </p:dialog>
+        <p:dialog id="info2" widgetVar="dialogInfo2" onHide="PF('@form').update()" header="Editar Permissões" width="800" height="400" position="top">
+            <h:form id="frm2">   
+                <util:menuCadDialogo2 id="menDialog2"  frm_update=":frm_pag:cadFrm:tblPerm"  acao_salvar="#{permissaoMB.salvar(permissaoMB.permissao)}"  />
+                <h:panelGrid columns="3" id="x2" width="100%">
+                    <p:fieldset legend="Módulos" style="min-height: 200px">
+                        <h:panelGrid id="x22">
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="#{permissaoMB.permissao.tarefa.modulo.nome}" />
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+                    </p:fieldset>
+                    <p:fieldset legend="Tarefas" style="min-height: 200px">
+                        <h:panelGrid id="tarefa2">
+                            <h:panelGrid columns="2" id="x32">
+                                <p:outputLabel value="#{permissaoMB.permissao.tarefa.descricao}" />
+                            </h:panelGrid>
                         </h:panelGrid>
                     </p:fieldset>
                     <p:fieldset legend="Acessos" style="min-height: 200px">
