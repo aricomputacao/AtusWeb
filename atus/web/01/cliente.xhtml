@@ -17,7 +17,7 @@
             <comp:panel_cadastro id="cadFrm" cabecalho_grid="Clientes" id_form="frm_pag"  >               
 
                 <cadastro:ClienteCadastro rendered="#{navegacaoMB.renderPainelCadastro}" id="compCad"/>
-                <cons:ClienteConsulta rendered="#{not navegacaoMB.renderPainelCadastro}">
+                <cons:ClienteConsulta id="conClie" rendered="#{not navegacaoMB.renderPainelCadastro}">
                     <f:facet name="btnConsultaCliente">
                         <h:panelGrid columns="2" id="btnConRamo">
                             <p:blockUI block="@form" trigger="btnCon:btn"    >

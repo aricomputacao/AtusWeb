@@ -36,4 +36,8 @@ public class PermissaoController extends Controller<Permissao, Long> implements 
         return getDAO().listar(usuario, modulo, tarefa);
     }
 
+    public List<Permissao> listar(Usuario usuario) {
+        return dao.listar(usuario);
+    }
+
 }

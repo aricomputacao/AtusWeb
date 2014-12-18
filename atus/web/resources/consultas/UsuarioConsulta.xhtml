@@ -11,16 +11,20 @@
 
     <composite:interface id="interCon">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
-         <composite:attribute name="renderExcluir" default="true"/>
+        <composite:attribute name="renderExcluir" default="true"/>
         <composite:attribute name="renderEditar" default="true"/>
         <composite:attribute name="renderSelecionar" default="false"/>
         <composite:attribute name="valorSelecionado" />
         <composite:attribute name="nomeDialog" />
         <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
+        <composite:attribute name="acao_executa_btn2"  method-signature="java.lang.Void action()"/>
+        <composite:attribute name="renderSelecionar2" default="false" />
+
+
     </composite:interface>
     <composite:implementation  >
         <h:panelGrid  width="100%" id="rtt" >
-            <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" style="font-weight: bold">
+            <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}"  style="font-weight: bold">
                 <h:panelGrid id="grdConsulta" columns="4">
                     <h:panelGrid id="grdConsulta1">
                         <p:outputLabel value="Campo"/>
@@ -57,10 +61,12 @@
                         <comp:outputText value="Não" rendered="#{not t.ativo}"/>
                     </p:column>
 
-                    <p:column headerText="Ação" width="6%" style="text-align: center">
+                    <p:column headerText="Ação" width="5%" style="text-align: center">
                         <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.usuario'],'usuario',t)}" />
                         <comp:commandButton_excluir acao_butao="#{usuarioMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Usuário" form_to_update="@form"/>
                         <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
+                        <p:commandButton title="Selecionar" immediate="true" rendered="#{cc.attrs.renderSelecionar2}" actionListener="#{cc.attrs.acao_executa_btn2}" icon="ui-icon-circle-check" style="width: 20px;height: 20px;" update="#{cc.attrs.update_form}">
+                        </p:commandButton>
                     </p:column>
 
 

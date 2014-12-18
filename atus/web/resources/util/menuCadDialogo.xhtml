@@ -18,10 +18,10 @@
 
     </composite:interface>
     <composite:implementation>
-        <p:blockUI block="@form" trigger="menSal"    >
+        <p:blockUI block="@form" trigger="menSal"  id="bclMenCad"  >
             <p:graphicImage library="imagens" name="carregar.gif"/>
         </p:blockUI>
-        <p:menubar   style="margin-top: 20px" >
+        <p:menubar id="menCadDia"  style="margin-top: 20px" >
             <p:menuitem id="menSal"   action="#{cc.attrs.acao_remoteCommand}" styleClass="menuPanel"  icon="ui-icon-disk" title="#{cc.attrs.title}"  actionListener="#{cc.attrs.acao_salvar}" update="#{cc.attrs.frm_update}" />
         </p:menubar>
 

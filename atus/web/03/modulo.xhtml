@@ -15,9 +15,9 @@
                 <h:panelGrid width="100%" id="grdComAdv" rendered="#{navegacaoMB.renderPainelCadastro}"  >
                     <cadastro:ModuloCadastro id="mod_cad"/>
                 </h:panelGrid>
-                <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}">
-                    <cons:ModuloConsulta renderSelecionar="false" />
-                </h:panelGrid>
+
+                <cons:ModuloConsulta  rendered="#{not navegacaoMB.renderPainelCadastro}" renderSelecionar="false" id="modCon" />
+
             </comp:panel_cadastro>
         </h:form>
 

@@ -54,14 +54,14 @@
                     <p:column headerText="Tipo" width="10%" >
                         <comp:outputText value="#{t.especieEvento.nome}"/>
                     </p:column>
-                    <p:column headerText="Processo" width="10%" >
+                    <p:column headerText="Processo" width="8%" >
                         <comp:outputText value="#{t.processo.numero}"/>
                     </p:column>
                     <p:column headerText="Descrição" width="10%" >
                         <comp:outputText value="#{t.observacao}"/>
                     </p:column>
-                    <p:column headerText="Participante" sortBy="#{t.usuario.nome}" width="10%" >
-                        <comp:outputText value="#{t.usuario.nome}"/>
+                    <p:column headerText="Local" width="30%"   >
+                        <comp:outputText value="#{t.local}"/>
                     </p:column>
 
                     <p:column headerText="Ação" id="acao" width="7%" style="text-align: center">

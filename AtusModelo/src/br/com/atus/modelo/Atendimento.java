@@ -70,6 +70,9 @@ public class Atendimento implements Serializable {
     @Column(name = "ate_desistencia")
     private boolean desistencia;  
 
+    @ManyToOne
+    @JoinColumn(name = "cli_id", referencedColumnName = "cli_id")
+    private Cliente cliente;
     
     @Column(name = "ate_desistencia_motivo", length = 1024)
     private String desistenciaMotivo;
@@ -176,6 +179,15 @@ public class Atendimento implements Serializable {
     public void setDesistenciaMotivo(String desistenciaMotivo) {
         this.desistenciaMotivo = desistenciaMotivo;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
 
     @Override
     public int hashCode() {
