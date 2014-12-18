@@ -5,14 +5,18 @@
  */
 package br.com.atus.managedbean;
 
+import br.com.atus.controller.NotificacaoController;
 import br.com.atus.controller.ProcessoController;
 import br.com.atus.dto.ProcessoAtrasadoDTO;
 import br.com.atus.dto.ProcessoGrupoDiaAtrasadoDTO;
 import br.com.atus.modelo.Fase;
+import br.com.atus.modelo.Notificacao;
 import br.com.atus.modelo.Processo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -31,19 +35,38 @@ public class PainelHomeMB implements Serializable {
     private NavegacaoMB navegacaoMB;
     @EJB
     private ProcessoController processoController;
+    @EJB
+    private NotificacaoController notificacaoController;
     private List<ProcessoAtrasadoDTO> listaAtrasadoUsuario;
     private List<ProcessoAtrasadoDTO> listaAtrasadoGeral;
     private List<ProcessoGrupoDiaAtrasadoDTO> listaGrupoDiaAtrasadoGeralDTOs;
     private List<ProcessoGrupoDiaAtrasadoDTO> listaGrupoDiaAtrasadoSetorDTOs;
     private List<Processo> listaProcessos;
+    private List<Notificacao> listanNotificacao;
+    private Notificacao notificacao;
 
     @PostConstruct
     private void init() {
         listaGrupoDiaAtrasadoGeralDTOs = processoController.processoGrupoDiaAtrasadoGeral();
         listaGrupoDiaAtrasadoSetorDTOs = processoController.processoGrupoDiaAtrasadoSetor(navegacaoMB.getUsuarioLogado());
+        listanNotificacao = notificacaoController.listaNotificacaoAtiva();
         listaProcessos = new ArrayList<>();
+        notificacao = new Notificacao();
+    }
+    
+    public void marcarLido(Notificacao n){
+        try {
+            n.setAtivo(true);
+            notificacaoController.atualizar(n);
+            listanNotificacao = notificacaoController.listaNotificacaoAtiva();
+        } catch (Exception ex) {
+            Logger.getLogger(PainelHomeMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
+    public  void setarNotificacao(Notificacao n){
+        notificacao = n;
+    }
     
     public void listarProcessoFase(Fase f){
         listaProcessos = processoController.listarPorFase(f);
@@ -89,6 +112,22 @@ public class PainelHomeMB implements Serializable {
 
     public void setListaProcessos(List<Processo> listaProcessos) {
         this.listaProcessos = listaProcessos;
+    }
+
+    public List<Notificacao> getListanNotificacao() {
+        return listanNotificacao;
+    }
+
+    public void setListanNotificacao(List<Notificacao> listanNotificacao) {
+        this.listanNotificacao = listanNotificacao;
+    }
+
+    public Notificacao getNotificacao() {
+        return notificacao;
+    }
+
+    public void setNotificacao(Notificacao notificacao) {
+        this.notificacao = notificacao;
     }
 
 }

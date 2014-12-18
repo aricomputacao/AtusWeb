@@ -66,6 +66,13 @@
                     </p:panel>
                 </h:form>
             </p:tab>
+            <p:tab title="Notificações (#{painelHomeMB.listanNotificacao.size()})" >
+                <h:form id="frmDialogCadNoti">
+                    <p:panel styleClass="painelAgendas">
+                        <consultas:NotificacaoConsulta dialogInfo="dialogNot" dialogUpdade=":frmDialogNot" renderInfo="true"  valorSelecionado="#{painelHomeMB.notificacao}" update_form="@form" />
+                    </p:panel>
+                </h:form>
+            </p:tab>
         </p:tabView>
 
 
@@ -155,6 +162,15 @@
         <p:dialog showEffect="fade" position="center"  id="dialogPrintDoc" header="Impressão de Documentos"   modal="true" hideEffect="fade" widgetVar="dialogPrintDoc">
             <h:form id="frmDialogPrintDoc">
                 <acao:ImprimirDocumentos />
+            </h:form>
+        </p:dialog>
+
+        <p:dialog showEffect="fade" position="top"  id="dialogNot" header="Notificação"   modal="true" hideEffect="fade" widgetVar="dialogNot">
+            <h:form id="frmDialogNot">
+                <h:panelGrid>
+                    <h:outputText style="font-weight: bolder" value="#{painelHomeMB.notificacao.titulo}"/>
+                </h:panelGrid>
+                <p:inputTextarea value="#{painelHomeMB.notificacao.texto}" cols="150" rows="40"  autoResize="false" readonly="true" />
             </h:form>
         </p:dialog>
 
