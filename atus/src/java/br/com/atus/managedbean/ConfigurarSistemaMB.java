@@ -80,11 +80,14 @@ public class ConfigurarSistemaMB implements Serializable {
                     case ("seg"):
                         taf.setModulo(moduloController.buscarUnique("03"));
                         break;
+                    case ("rel"):
+                        taf.setModulo(moduloController.buscarUnique("04"));
+                        break;
 
                 }
-               if(!tarefaController.existeTarefa(taf)){
-                   tarefaController.salvar(taf);
-               }
+                if (!tarefaController.existeTarefa(taf)) {
+                    tarefaController.salvar(taf);
+                }
             } catch (Exception ex) {
                 Logger.getLogger(ConfigurarSistemaMB.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -7,6 +7,7 @@ package br.com.atus.dao;
 
 import br.com.atus.dto.ProcessoAtrasadoDTO;
 import br.com.atus.dto.ProcessoGrupoDiaAtrasadoDTO;
+import br.com.atus.dto.ProcessosAtrasadoRelatorioDTO;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Fase;
 import br.com.atus.modelo.Processo;
@@ -86,7 +87,39 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
 
     public List<Processo> listarPorCliente(Cliente c) {
         TypedQuery q;
-        q = getEm().createQuery("SELECT p FROM Processo p WHERE p.cliente  = :c ", Processo.class)
+        q = getEm().createQuery("SELECT p FROM Processo p WHERE p.cliente  = :c ORDER BY p.fase,p.fase.usuario", Processo.class)
+                .setParameter("c", c);
+        if (q.getResultList().isEmpty()) {
+            return new ArrayList<>();
+        } else {
+            return q.getResultList();
+        }
+    }
+    
+    public List<Processo> listarLikeNumero(String num) {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT p FROM Processo p WHERE UPPER(p.numero) like :c ORDER BY p.fase.usuario,p.fase", Processo.class)
+                .setParameter("c", "%"+num.toUpperCase()+"%");
+        if (q.getResultList().isEmpty()) {
+            return new ArrayList<>();
+        } else {
+            return q.getResultList();
+        }
+    }
+
+    public List<ProcessosAtrasadoRelatorioDTO> listaProcessosAtrasadosRelatorio() {
+         TypedQuery q;
+        q = getEm().createQuery("SELECT p FROM ProcessosAtrasadoRelatorioDTO p  ORDER BY p.processo.fase.usuario,p.processo.fase", ProcessosAtrasadoRelatorioDTO.class);
+        if (q.getResultList().isEmpty()) {
+            return new ArrayList<>();
+        } else {
+            return q.getResultList();
+        }
+    }
+
+    public List<ProcessosAtrasadoRelatorioDTO> listaProcessosAtrasadosRelatorio(Cliente c) {
+           TypedQuery q;
+        q = getEm().createQuery("SELECT p FROM ProcessosAtrasadoRelatorioDTO p  where p.processo.cliente = :c ORDER BY p.processo.fase.usuario,p.processo.fase", ProcessosAtrasadoRelatorioDTO.class)
                 .setParameter("c", c);
         if (q.getResultList().isEmpty()) {
             return new ArrayList<>();

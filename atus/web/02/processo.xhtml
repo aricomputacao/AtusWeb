@@ -20,7 +20,7 @@
             <p:blockUI block="@form" trigger="cadFrm:compProceConsu:btnCon:btn">
                 <p:graphicImage library="imagens" name="carregar.gif"/>
             </p:blockUI>
-            <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['pro.processo'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['pro.processo'])}" acao_imprimir="#{processoMB.imprimir()}" acao_limpar="#{processoMB.init()}" acao_salvar="#{processoMB.salvar()}"/>
+            <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['pro.processo'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['pro.processo'])}" acao_imprimir="#{processoMB.imprimirProcesso()}" acao_limpar="#{processoMB.init()}" acao_salvar="#{processoMB.salvar()}"/>
             <comp:panel_cadastro id="cadFrm" cabecalho_grid="Processo" id_form="frm_pag"  >
                 <h:panelGrid width="100%" rendered="#{navegacaoMB.renderPainelCadastro}"  >
                     <cadastro:ProcessoCadastro id="compProce"/>

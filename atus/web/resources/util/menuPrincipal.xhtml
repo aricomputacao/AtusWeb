@@ -42,8 +42,10 @@
                     <p:menuitem value="Eventos" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.evento'])}" immediate="true"/>
 
                 </p:submenu>
+                <p:submenu label="Relatório" styleClass="subMenu">
+                    <p:menuitem value="Processos Atrasados" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['rel.processo_atrasado'])}" immediate="true"/>
 
-                <p:menuitem styleClass="item" value="Relatórios"/>
+                </p:submenu>
                 <p:submenu label="Segurança" styleClass="subMenu">
                     <p:menuitem value="Módulo" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['seg.modulo'])}" immediate="true"/>
                     <p:menuitem value="Tarefa" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['seg.tarefa'])}" immediate="true"/>

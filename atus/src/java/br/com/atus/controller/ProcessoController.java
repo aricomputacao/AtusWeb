@@ -8,6 +8,7 @@ package br.com.atus.controller;
 import br.com.atus.dao.ProcessoDAO;
 import br.com.atus.dto.ProcessoAtrasadoDTO;
 import br.com.atus.dto.ProcessoGrupoDiaAtrasadoDTO;
+import br.com.atus.dto.ProcessosAtrasadoRelatorioDTO;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Fase;
 import br.com.atus.modelo.Processo;
@@ -38,27 +39,38 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
         return dao.processoAtrasadoUsuario(u);
     }
 
-    
     public List<ProcessoAtrasadoDTO> processoAtrasadoGeral() {
         return dao.processoAtrasadoGeral();
     }
-    
-    public List<ProcessoGrupoDiaAtrasadoDTO> processoGrupoDiaAtrasadoGeral(){
+
+    public List<ProcessoGrupoDiaAtrasadoDTO> processoGrupoDiaAtrasadoGeral() {
         return dao.processoGrupoDiaAtrasadoGeral();
     }
 
     public List<ProcessoGrupoDiaAtrasadoDTO> processoGrupoDiaAtrasadoSetor(Usuario usuarioLogado) {
-           return dao.processoGrupoDiaAtrasadoSetor(usuarioLogado);
+        return dao.processoGrupoDiaAtrasadoSetor(usuarioLogado);
 
     }
 
-    
+    public List<ProcessosAtrasadoRelatorioDTO> listaProcessosAtrasadosRelatorio(Cliente c) {
+        if (c.getId() != null) {
+            return dao.listaProcessosAtrasadosRelatorio(c);
+
+        } else {
+            return dao.listaProcessosAtrasadosRelatorio();
+
+        }
+    }
 
     public List<Processo> listarPorFase(Fase f) {
         return dao.listarPorFase(f);
     }
 
-    public List<Processo>  listarPorCliente(Cliente c) {
+    public List<Processo> listarPorCliente(Cliente c) {
         return dao.listarPorCliente(c);
+    }
+
+    public List<Processo> listarLikeNumero(String num) {
+        return dao.listarLikeNumero(num);
     }
 }

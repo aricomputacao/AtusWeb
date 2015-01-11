@@ -11,6 +11,8 @@ import br.com.atus.controller.MovimentacaoController;
 import br.com.atus.controller.ParteInteressadaController;
 import br.com.atus.controller.PecaController;
 import br.com.atus.controller.ProcessoController;
+import br.com.atus.dto.ProcessoAtrasadoDTO;
+import br.com.atus.dto.ProcessosAtrasadoRelatorioDTO;
 import br.com.atus.exceptions.PecaFileException;
 import br.com.atus.modelo.Adversario;
 import br.com.atus.modelo.Cliente;
@@ -22,7 +24,6 @@ import br.com.atus.modelo.Peca;
 import br.com.atus.modelo.Processo;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
-import br.com.atus.util.MetodosUtilitarios;
 import br.com.atus.util.RelatorioSession;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
@@ -76,6 +77,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     private List<Evento> listaEventos;
     private int i;
     private boolean renderPesquisa;
+    private List<ProcessosAtrasadoRelatorioDTO> liastaProcessosAtrasadosRela;
 
     @PostConstruct
     public void init() {
@@ -94,9 +96,13 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         adversario = new Adversario();
         parteInteressada = new ParteInteressada();
         listaProcessos = new ArrayList<>();
+        liastaProcessosAtrasadosRela = new ArrayList<>();
         i = 0;
     }
+    
+   
 
+          
     public void addInteressado() {
         try {
             interessadaController.salvar(parteInteressada);
@@ -222,7 +228,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
                     listaProcessos.add(processo);
                     break;
                 case "numero":
-                    listaProcessos = controller.listarLike("numero", getValorBusca());
+                    listaProcessos = controller.listarLikeNumero(getValorBusca());
                     break;
                 case "cliente":
                     listaProcessos = controller.listarPorCliente(cliente);
@@ -274,10 +280,10 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         listaMovimentacaos = movimentacaoController.listarPorProcesso(processo);
     }
 
-    public void imprimir() {
+    public void imprimirProcesso() {
         if (!listaProcessos.isEmpty()) {
             Map<String, Object> m = new HashMap<>();
-            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaProcessos, m, "WEB-INF/relatorios/rel_especie_eventos.jasper", "Relatório de Processos");
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaProcessos, m, "WEB-INF/relatorios/rel_processos.jasper", "Relatório de Processos");
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
 

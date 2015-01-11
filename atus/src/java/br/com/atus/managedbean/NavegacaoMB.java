@@ -175,6 +175,9 @@ public class NavegacaoMB implements Serializable {
                 case ("seg"):
                     modulo = "03";
                     break;
+                case ("rel"):
+                    modulo = "04";
+                    break;
 
             }
             //renderiza atela de cadastro
@@ -203,6 +206,9 @@ public class NavegacaoMB implements Serializable {
                     break;
                 case ("seg"):
                     modulo = "03";
+                    break;
+                case ("rel"):
+                    modulo = "04";
                     break;
 
             }
