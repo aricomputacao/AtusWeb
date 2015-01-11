@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * CREATE OR REPLACE VIEW processo.grupo_processo_dia_atrasado ( fas_id,
@@ -25,6 +27,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "grupo_processo_dia_atrasado", schema = "processo")
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class ProcessoGrupoDiaAtrasadoDTO implements Serializable {
 
     @Id

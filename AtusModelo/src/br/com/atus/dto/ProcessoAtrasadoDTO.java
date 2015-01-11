@@ -39,6 +39,13 @@ public class ProcessoAtrasadoDTO implements Serializable {
     @Column(name = "qtd")
     private Integer quantidade;
 
+    public ProcessoAtrasadoDTO(Fase fase, Integer quantidade) {
+        this.fase = fase;
+        this.quantidade = quantidade;
+    }
+    
+    
+
     public Fase getFase() {
         return fase;
     }
