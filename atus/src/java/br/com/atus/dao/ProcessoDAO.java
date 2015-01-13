@@ -95,11 +95,11 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
             return q.getResultList();
         }
     }
-    
+
     public List<Processo> listarLikeNumero(String num) {
         TypedQuery q;
         q = getEm().createQuery("SELECT p FROM Processo p WHERE UPPER(p.numero) like :c ORDER BY p.fase.usuario,p.fase", Processo.class)
-                .setParameter("c", "%"+num.toUpperCase()+"%");
+                .setParameter("c", "%" + num.toUpperCase() + "%");
         if (q.getResultList().isEmpty()) {
             return new ArrayList<>();
         } else {
@@ -108,7 +108,7 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
     }
 
     public List<ProcessosAtrasadoRelatorioDTO> listaProcessosAtrasadosRelatorio() {
-         TypedQuery q;
+        TypedQuery q;
         q = getEm().createQuery("SELECT p FROM ProcessosAtrasadoRelatorioDTO p  ORDER BY p.processo.fase.usuario,p.processo.fase", ProcessosAtrasadoRelatorioDTO.class);
         if (q.getResultList().isEmpty()) {
             return new ArrayList<>();
@@ -118,9 +118,20 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
     }
 
     public List<ProcessosAtrasadoRelatorioDTO> listaProcessosAtrasadosRelatorio(Cliente c) {
-           TypedQuery q;
+        TypedQuery q;
         q = getEm().createQuery("SELECT p FROM ProcessosAtrasadoRelatorioDTO p  where p.processo.cliente = :c ORDER BY p.processo.fase.usuario,p.processo.fase", ProcessosAtrasadoRelatorioDTO.class)
                 .setParameter("c", c);
+        if (q.getResultList().isEmpty()) {
+            return new ArrayList<>();
+        } else {
+            return q.getResultList();
+        }
+    }
+
+    public List<ProcessosAtrasadoRelatorioDTO> listaProcessosAtrasadosRelatorio(Usuario u) {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT p FROM ProcessosAtrasadoRelatorioDTO p  where p.processo.fase.usuario = :c ORDER BY p.processo.fase.usuario,p.processo.fase", ProcessosAtrasadoRelatorioDTO.class)
+                .setParameter("c", u);
         if (q.getResultList().isEmpty()) {
             return new ArrayList<>();
         } else {

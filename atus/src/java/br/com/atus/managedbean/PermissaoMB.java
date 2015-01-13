@@ -36,7 +36,7 @@ public class PermissaoMB extends BeanGenerico<Permissao> implements Serializable
     private ModuloController moduloController;
     @EJB
     private TarefaController tarefaController;
-    private List<Permissao> permissoes;
+    private List<Permissao> listaPermissoes;
     private Usuario usuario;
     private Tarefa tarefa;
     private Permissao permissao;
@@ -66,16 +66,17 @@ public class PermissaoMB extends BeanGenerico<Permissao> implements Serializable
 
     public void salvar(Permissao p) {
         try {
-            if (p.getId() == null) {
-                permissao.setUsuario(usuario);
-                controller.salvar(p);
-                permissoes.add(p);
-                permissao = new Permissao();
-            } else {
-                controller.atualizar(p);
-                permissao = new Permissao();
 
+            permissao.setUsuario(usuario);
+            controller.atualizar(p);
+            if (listaPermissoes.contains(p)) {
+                listaPermissoes.remove(p);
+                listaPermissoes.add(p);
+
+            } else {
+                listaPermissoes.add(p);
             }
+
         } catch (Exception ex) {
             Logger.getLogger(PermissaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -83,7 +84,7 @@ public class PermissaoMB extends BeanGenerico<Permissao> implements Serializable
 
     public void listaPermUsuario(Usuario u) {
         usuario = u;
-        permissoes = controller.listar(usuario);
+        listaPermissoes = controller.listar(usuario);
     }
 
     public void trocarTela() {
@@ -107,7 +108,7 @@ public class PermissaoMB extends BeanGenerico<Permissao> implements Serializable
     }
 
     public void inicializaUsuario() {
-        permissoes = controller.listar(usuario, modulo, tarefa);
+        listaPermissoes = controller.listar(usuario, modulo, tarefa);
     }
 
     public Tarefa getTarefa() {
@@ -126,12 +127,12 @@ public class PermissaoMB extends BeanGenerico<Permissao> implements Serializable
         this.modulo = modulo;
     }
 
-    public List<Permissao> getPermissoes() {
-        return permissoes;
+    public List<Permissao> getListaPermissoes() {
+        return listaPermissoes;
     }
 
-    public void setPermissoes(List<Permissao> permissoes) {
-        this.permissoes = permissoes;
+    public void setListaPermissoes(List<Permissao> listaPermissoes) {
+        this.listaPermissoes = listaPermissoes;
     }
 
     public Permissao getPermissao() {

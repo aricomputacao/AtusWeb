@@ -64,7 +64,9 @@
 				</staticText>
 				<textField isBlankWhenNull="true">
 					<reportElement uuid="e30cc25f-a285-4cc5-9077-50df79a3086a" x="102" y="0" width="453" height="20"/>
-					<textElement verticalAlignment="Middle"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{fase}.getUsuario().getNome()]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="respon">

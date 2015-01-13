@@ -8,6 +8,7 @@ package br.com.atus.managedbean;
 import br.com.atus.controller.ProcessoController;
 import br.com.atus.dto.ProcessosAtrasadoRelatorioDTO;
 import br.com.atus.modelo.Cliente;
+import br.com.atus.modelo.Usuario;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.RelatorioSession;
 import java.io.Serializable;
@@ -33,6 +34,7 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
     private ProcessoController processoController;
     private List<ProcessosAtrasadoRelatorioDTO> listaProcessosAtrasadoRelatorioDTOs;
     private Cliente cliente;
+    private Usuario usuario;
 
     public RelatorioMB() {
         super(ProcessosAtrasadoRelatorioDTO.class);
@@ -45,7 +47,7 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
     }
 
     public void listarProcessosAtrasados() {
-        listaProcessosAtrasadoRelatorioDTOs = processoController.listaProcessosAtrasadosRelatorio(cliente);
+        listaProcessosAtrasadoRelatorioDTOs = processoController.listaProcessosAtrasadosRelatorio(usuario);
         cliente = new Cliente();
 
     }
@@ -54,7 +56,7 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
      public void imprimirProcessoAtrasados() {
         if (!listaProcessosAtrasadoRelatorioDTOs.isEmpty()) {
             Map<String, Object> m = new HashMap<>();
-            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaProcessosAtrasadoRelatorioDTOs, m, "WEB-INF/relatorios/rel_processos.jasper", "Relatório de Processos Atrasados");
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaProcessosAtrasadoRelatorioDTOs, m, "WEB-INF/relatorios/rel_processos_atrasados.jasper", "Relatório de Processos Atrasados");
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
 
@@ -74,6 +76,14 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
 }

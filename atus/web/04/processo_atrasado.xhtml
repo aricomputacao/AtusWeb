@@ -35,15 +35,11 @@
     <ui:define name="dialogs">
        
         
-        <p:dialog showEffect="fade" position="top"   header="Consulta de Pessoas" id="conPesCli" modal="true" hideEffect="fade" widgetVar="dialogoConCliente">
+        <p:dialog showEffect="fade" position="top"   header="Consulta de Pessoas" id="conPesCli" modal="true" hideEffect="fade" widgetVar="dialogoConUsuario">
             <h:form id="frmConCliente" prependId="false">
-                <cons:ClienteConsulta renderBtnEditar="false" id="tblCli"  renderSelecionar="true" renderInfo="false"  nomeDialog="dialogoConCliente" update_form=":frm_pag:cadFrm:compProceConsu:inputCon:input_componente" valorSelecionado="#{relatorioMB.cliente}" >
-                    <f:facet name="btnConsultaCliente">
-                        <h:panelGrid columns="2" id="btnConRamo">
-                            <comp:commandButton_consulta id="btnCon" acao_butao="#{clienteMB.listar()}"  componente_to_update="@form" />
-                        </h:panelGrid>
-                    </f:facet>
-                </cons:ClienteConsulta>
+                <cons:UsuarioConsulta renderEditar="false" id="tblCli" renderExcluir="false" renderSelecionar="true"   nomeDialog="dialogoConUsuario" update_form=":frm_pag:cadFrm:compProceConsu:inputCon:input_componente" valorSelecionado="#{relatorioMB.usuario}" >
+                  
+                </cons:UsuarioConsulta>
             </h:form>
         </p:dialog>
       

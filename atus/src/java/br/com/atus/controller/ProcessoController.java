@@ -61,6 +61,15 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
 
         }
     }
+    public List<ProcessosAtrasadoRelatorioDTO> listaProcessosAtrasadosRelatorio(Usuario u) {
+        if (u.getId() != null) {
+            return dao.listaProcessosAtrasadosRelatorio(u);
+
+        } else {
+            return dao.listaProcessosAtrasadosRelatorio();
+
+        }
+    }
 
     public List<Processo> listarPorFase(Fase f) {
         return dao.listarPorFase(f);

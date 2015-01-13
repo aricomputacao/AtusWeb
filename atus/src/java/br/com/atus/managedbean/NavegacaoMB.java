@@ -8,28 +8,29 @@ package br.com.atus.managedbean;
 import br.com.atus.controller.AdvogadoController;
 import br.com.atus.controller.ClienteController;
 import br.com.atus.controller.ColaboradorController;
+import br.com.atus.controller.PermissaoController;
 import br.com.atus.controller.UsuarioController;
 import br.com.atus.enumerated.Perfil;
 import br.com.atus.modelo.Advogado;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Colaborador;
+import br.com.atus.modelo.Permissao;
 import br.com.atus.modelo.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -47,7 +48,12 @@ public class NavegacaoMB implements Serializable {
     private ClienteController clienteController;
     @EJB
     private ColaboradorController colaboradorController;
+    @EJB
+    private PermissaoController permissaoController;
     private final Map<String, Object> map;
+    private final Map<String, Permissao> menu;
+    private List<Permissao> listaPermissaos;
+
     private String pagina;
 
     //-----variaveis para controlar os btn do menu do panel-------//
@@ -61,6 +67,11 @@ public class NavegacaoMB implements Serializable {
     private Advogado advogado;
     private Cliente cliente;
     private Colaborador colaborador;
+    /**
+     * Variaveis para renderizas consultar ou cadastro true = cadastro false =
+     * consultar
+     */
+    private boolean renderPainelCadastro;
 
     @Inject
     private void init() {
@@ -69,6 +80,8 @@ public class NavegacaoMB implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             ExternalContext external = context.getExternalContext();
             usuarioLogado = usuarioController.usuarioLogin(external.getRemoteUser());
+            listaPermissaos = permissaoController.listar(usuarioLogado);
+            popularMenu();
             if (usuarioLogado.getPerfil().equals(Perfil.ADVOGADO)) {
                 advogado = advogadoController.carregar(usuarioLogado.getReferencia().intValue());
 
@@ -84,14 +97,94 @@ public class NavegacaoMB implements Serializable {
         }
     }
 
+    private void popularMenu() {
+        for (Permissao p : listaPermissaos) {
+            menu.put(p.getTarefa().getNome(), p);
+        }
+    }
+
+    public boolean permissaoExiste(String tarNome) {
+        if (menu.containsKey(tarNome.substring(4))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean permissaoModuloCadastro() {
+        for (Permissao p : listaPermissaos) {
+            if (p.getTarefa().getModulo().getMnemonico().equals("01")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean permissaoModuloProcesso() {
+        for (Permissao p : listaPermissaos) {
+            if (p.getTarefa().getModulo().getMnemonico().equals("02")) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean permissaoModuloSeguranca() {
+        for (Permissao p : listaPermissaos) {
+            if (p.getTarefa().getModulo().getMnemonico().equals("03")) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean permissaoModuloRelatorio() {
+        for (Permissao p : listaPermissaos) {
+            if (p.getTarefa().getModulo().getMnemonico().equals("04")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
-     * Variaveis para renderizas consultar ou cadastro true = cadastro false =
-     * consultar
+     *
+     * @param tarNome
+     * @return
      */
-    private boolean renderPainelCadastro;
+    public boolean permissaoIncluir(String tarNome) {
+        if (menu.containsKey(tarNome.substring(4))) {
+            return menu.get(tarNome.substring(4)).isIncluir();
+        } else {
+            return false;
+        }
+    }
+
+    public boolean permissaoConsultar(String tarNome) {
+        if (menu.containsKey(tarNome.substring(4))) {
+            return menu.get(tarNome.substring(4)).isConsultar();
+        } else {
+            return false;
+        }
+    }
+
+    public boolean permissaoEditar(String tarNome) {
+        if (menu.containsKey(tarNome.substring(4))) {
+            return menu.get(tarNome.substring(4)).isEditar();
+        } else {
+            return false;
+        }
+    }
+
+    public boolean permissaoExcluir(String tarNome) {
+        if (menu.containsKey(tarNome.substring(4))) {
+            return menu.get(tarNome.substring(4)).isExcluir();
+        } else {
+            return false;
+        }
+    }
 
     public NavegacaoMB() {
         map = new HashMap<>();
+        menu = new HashMap<>();
     }
 
     /**

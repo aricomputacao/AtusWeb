@@ -18,39 +18,43 @@
                     <cons:UsuarioConsulta id="usrCon" valorSelecionado="#{permissaoMB.usuario}" acao_executa_btn2="#{permissaoMB.listaPermUsuario(t)}" renderSelecionar2="true" update_form="@form"  renderEditar="false" renderExcluir="false" renderSelecionar="false"/>
                 </p:panel>
                 <p:panel header="Permissões" rendered="#{permissaoMB.usuario.id != null}">
-                    <h:panelGrid columns="2">
-                        <h:panelGrid columns="2" cellspacing="10">
-                            <h:panelGrid columns="2">
-                                <h:outputText value="Nome: " style="font-weight: bold"/>
-                                <h:outputText value="#{permissaoMB.usuario.nome}"/>
-                            </h:panelGrid>
-                            <h:panelGrid columns="2">
-                                <h:outputText value="Perfil: " style="font-weight: bold"/>
-                                <h:outputText value="#{permissaoMB.usuario.perfil}"/>
-                            </h:panelGrid>
-                            <h:panelGrid columns="2">
-                                <h:outputText value="Login: " style="font-weight: bold"/>
-                                <h:outputText value="#{permissaoMB.usuario.login}"/>
-                            </h:panelGrid>
-                            <h:panelGrid columns="2">
-                                <h:outputText value="Ativo: " style="font-weight: bold"/>
-                                <h:outputText value="#{permissaoMB.usuario.ativo}"/>
-                            </h:panelGrid>
-                        </h:panelGrid>                        
-                    </h:panelGrid>
-                    <h:panelGrid style="margin: 5px" columns="2" >
-                        <p:commandButton value="Incluir Permissão" icon="ui-icon-plusthick" onclick="PF('dialogInfo').show();" update=":frm"/>
-                        <p:commandButton value="Selecionar usuário" actionListener="#{permissaoMB.trocarTela()}" ajax="false" icon="ui-icon-person"  update=":frm"/>
+                    <h:panelGrid columns="2" width="100%">
+                        <p:fieldset legend="Usuário Selecionado" style="font-weight: bold" >
+                            <h:panelGrid columns="2" cellspacing="10">
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="Nome: " style="font-weight: bold"/>
+                                    <h:outputText value="#{permissaoMB.usuario.nome}"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="Perfil: " style="font-weight: bold"/>
+                                    <h:outputText value="#{permissaoMB.usuario.perfil}"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="Login: " style="font-weight: bold"/>
+                                    <h:outputText value="#{permissaoMB.usuario.login}"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="Ativo: " style="font-weight: bold"/>
+                                    <h:outputText value="#{permissaoMB.usuario.ativo}"/>
+                                </h:panelGrid>
+                            </h:panelGrid>   
+                        </p:fieldset>
 
                     </h:panelGrid>
-                    <p:dataTable value="#{permissaoMB.permissoes}" id="tblPerm" var="p" emptyMessage="Nenhuma permissão" paginatorAlwaysVisible="false" paginator="true">
+                    <h:panelGrid width="100%" columns="2" >
+                        <p:fieldset>
+                            <p:commandButton value="Incluir Permissão" style="margin-right: 15px" icon="ui-icon-unlocked" onclick="PF('dialogInfo').show();" update=":frm"/>
+                            <p:commandButton value="Selecionar usuário" actionListener="#{permissaoMB.trocarTela()}" ajax="false" icon="ui-icon-person"  update=":frm"/>
+                        </p:fieldset>
+                    </h:panelGrid>
+                    <p:dataTable value="#{permissaoMB.listaPermissoes}" id="tblPerm" var="p" emptyMessage="Nenhuma permissão" paginatorAlwaysVisible="false" paginator="true">
                         <p:column headerText="Tarefa">
                             <h:outputText value="#{p.tarefa.nome}"/>
                         </p:column>
                         <p:column headerText="Modulo" >
                             <h:outputText value="#{p.tarefa.modulo.nome}"/>
                         </p:column>
-                       
+
                         <p:column headerText="Incluir" width="5%">
                             <h:outputText rendered="#{p.incluir}" value="X" style="text-align: center;font-weight: bold"/>
                         </p:column>
@@ -64,7 +68,7 @@
                             <h:outputText rendered="#{p.excluir}" value="X" style="text-align: center;font-weight: bold"/>
                         </p:column>
                         <p:column headerText="Ação" width="5%">
-                            <p:commandButton  icon="ui-icon-circle-check" onclick="PF('dialogInfo2').show();" update=":frm2">
+                            <p:commandButton  icon="ui-icon-circle-check" style="width: 22px;height: 22px" onclick="PF('dialogInfo2').show();" update=":frm2">
                                 <f:setPropertyActionListener target="#{permissaoMB.permissao}" value="#{p}" />
                             </p:commandButton>
                         </p:column>
@@ -77,8 +81,7 @@
     <ui:define name="dialogs">
         <p:dialog id="info" widgetVar="dialogInfo" header="Incluir Permissões"  onHide="PF('@form').update()" width="800" height="400" position="top">
             <h:form id="frm">   
-                <p:commandButton actionListener="#{permissaoMB.salvar(permissaoMB.permissao)}" update=":frm_pag:cadFrm:tblPerm" ajax="false" />
-                <util:menuCadDialogo2 id="menDialog"  frm_update=":frm_pag:cadFrm"  acao_salvar="#{permissaoMB.salvar(permissaoMB.permissao)}"  />
+                <util:menuCadDialogo2 id="menDialog"  frm_update=":frm_pag:cadFrm:tblPerm"  acao_salvar="#{permissaoMB.salvar(permissaoMB.permissao)}"  />
                 <h:panelGrid columns="3" id="x" width="100%">
                     <p:fieldset legend="Módulos" style="min-height: 200px">
                         <h:panelGrid id="x2">
