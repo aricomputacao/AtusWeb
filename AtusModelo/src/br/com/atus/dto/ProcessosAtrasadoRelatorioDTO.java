@@ -5,7 +5,6 @@
  */
 package br.com.atus.dto;
 
-import br.com.atus.modelo.Fase;
 import br.com.atus.modelo.Processo;
 import java.io.Serializable;
 import java.util.Objects;
@@ -28,6 +27,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name = "processo_atrasado_relatorio", schema = "processo")
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class ProcessosAtrasadoRelatorioDTO implements Serializable {
 
     @Id
