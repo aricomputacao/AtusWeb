@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.atus.dao;
 
 import br.com.atus.modelo.Usuario;
@@ -15,16 +14,21 @@ import javax.ejb.Stateless;
  * @author ari
  */
 @Stateless
-public class UsuarioDAO extends DAO<Usuario, Long> implements Serializable{
+public class UsuarioDAO extends DAO<Usuario, Long> implements Serializable {
 
     public UsuarioDAO() {
         super(Usuario.class);
     }
 
     public Usuario usuarioLogin(String remoteUser) {
-       return  (Usuario) getEm().createQuery("SELECT u FROM Usuario u  WHERE u.login = :log")
-               .setParameter("log", remoteUser)
-               .getSingleResult();
+        try {
+            return (Usuario) getEm().createQuery("SELECT u FROM Usuario u  WHERE u.login = :log")
+                    .setParameter("log", remoteUser)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return new Usuario();
+        }
+
     }
-    
+
 }
