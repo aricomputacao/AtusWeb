@@ -17,7 +17,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * CREATE OR REPLACE VIEW processo.processo_atrasado_relatorio ( pro_id) AS
+ * CREATE OR REPLACE VIEW processo.processo_atrasado_relatorio_view ( pro_id) AS
  * SELECT mp.pro_id FROM processo.movimentacao_processo mp JOIN
  * processo.movimentacao mo ON mp.ult_mov = mo.mov_id AND mo.pro_id = mp.pro_id
  * JOIN processo.fase fa ON fa.fas_id = mp.fas_id WHERE (( SELECT
@@ -26,7 +26,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * @author Ari
  */
 @Entity
-@Table(name = "processo_atrasado_relatorio", schema = "processo")
+@Table(name = "processo_atrasado_relatorio_view", schema = "processo")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class ProcessosAtrasadoRelatorioDTO implements Serializable {
 

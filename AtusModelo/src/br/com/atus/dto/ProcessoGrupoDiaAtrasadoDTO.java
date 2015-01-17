@@ -18,7 +18,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * CREATE OR REPLACE VIEW processo.grupo_processo_dia_atrasado ( fas_id,
+ * CREATE OR REPLACE VIEW processo.grupo_processo_dia_atrasado_view ( fas_id,
  * qtd_atra, qtd_dia) AS SELECT fa.fas_id, pa.qtd AS qtd_atra, pd.qtd AS qtd_dia
  * FROM processo.fase fa FULL JOIN processo.processo_atrasado pa ON pa.fas_id =
  * fa.fas_id FULL JOIN processo.processo_em_dia pd ON pd.fas_id = fa.fas_id;
@@ -26,7 +26,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * @author ari
  */
 @Entity
-@Table(name = "grupo_processo_dia_atrasado", schema = "processo")
+@Table(name = "grupo_processo_dia_atrasado_view", schema = "processo")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class ProcessoGrupoDiaAtrasadoDTO implements Serializable {
 
