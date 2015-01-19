@@ -19,7 +19,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * CREATE VIEW processo.processo_em_dia_view ( fas_id, qtd) AS SELECT fa.fas_id,
- * count(mp.pro_id) AS qtd FROM processo.movimentacao_processo mp JOIN
+ * count(mp.pro_id) AS qtd FROM processo.movimentacao_processo_view mp JOIN
  * processo.movimentacao mo ON mp.ult_mov = mo.mov_id AND mo.pro_id = mp.pro_id
  * JOIN processo.fase fa ON fa.fas_id = mp.fas_id WHERE (( SELECT
  * 'now'::text::date - fa.fas_prazo )) <= mo.mov_data GROUP BY fa.fas_id 

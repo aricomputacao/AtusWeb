@@ -18,7 +18,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * CREATE OR REPLACE VIEW processo.processo_atrasado_relatorio_view ( pro_id) AS
- * SELECT mp.pro_id FROM processo.movimentacao_processo mp JOIN
+ * SELECT mp.pro_id FROM processo.movimentacao_processo_view mp JOIN
  * processo.movimentacao mo ON mp.ult_mov = mo.mov_id AND mo.pro_id = mp.pro_id
  * JOIN processo.fase fa ON fa.fas_id = mp.fas_id WHERE (( SELECT
  * 'now'::text::date - fa.fas_prazo )) > mo.mov_data ORDER BY mp.fas_id;

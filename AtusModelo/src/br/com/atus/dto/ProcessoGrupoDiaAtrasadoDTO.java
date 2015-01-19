@@ -20,8 +20,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
  * CREATE OR REPLACE VIEW processo.grupo_processo_dia_atrasado_view ( fas_id,
  * qtd_atra, qtd_dia) AS SELECT fa.fas_id, pa.qtd AS qtd_atra, pd.qtd AS qtd_dia
- * FROM processo.fase fa FULL JOIN processo.processo_atrasado pa ON pa.fas_id =
- * fa.fas_id FULL JOIN processo.processo_em_dia pd ON pd.fas_id = fa.fas_id;
+ * FROM processo.fase fa FULL JOIN processo.processo_atrasado_view pa ON pa.fas_id =
+ * fa.fas_id FULL JOIN processo.processo_em_dia_view pd ON pd.fas_id = fa.fas_id;
  *
  * @author ari
  */
