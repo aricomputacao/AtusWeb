@@ -32,6 +32,17 @@ public class PermissaoController extends Controller<Permissao, Long> implements 
         setDAO(dao);
     }
 
+    public void zerarPermissaoInicial(Usuario u) throws Exception {
+        List<Permissao> l = listar(u);
+        if (!l.isEmpty()) {
+            for (Permissao l1 : l) {
+                l1 = carregar(l1.getId());
+                excluir(l1);
+            }
+        }
+
+    }
+
     public List<Permissao> listar(Usuario usuario, Modulo modulo, Tarefa tarefa) {
         return getDAO().listar(usuario, modulo, tarefa);
     }

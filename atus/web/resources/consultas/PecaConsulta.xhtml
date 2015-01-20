@@ -54,7 +54,7 @@
 
                     <p:column headerText="Ação" width="7%" style="text-align: center">
                         <ui:insert name="acaoPeca" >
-                            <comp:commandButton_editar id="btnEditaRamo"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.peca'],'peca',t)}" />
+                            <comp:commandButton_editar id="btnEditaRamo"  acao_butao="#{navegacaoMB.redirecionar(navegacao['pro.peca'],'peca',t)}" />
                             <comp:commandButton_excluir acao_butao="#{pecaMB.excluir(t)}" classe="Peca" form_to_update="@form"/>
                             <p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false" style="width: 20px;height: 20px;">
                                 <p:fileDownload value="#{pecaMB.download(t)}"/>

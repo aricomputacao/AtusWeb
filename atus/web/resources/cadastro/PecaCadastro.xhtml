@@ -6,7 +6,8 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:composite="http://java.sun.com/jsf/composite"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
 
     <composite:interface id="interCon">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
@@ -56,47 +57,58 @@
                     </h:panelGrid>
                     <h:panelGrid columns="3">
                         <p:inputText value="#{pecaMB.file.fileName}" readonly="true" rendered="#{pecaMB.file != null}" id="arq" size="30"/>
-                        <p:fileUpload mode="advanced" fileUploadListener="#{pecaMB.uploadArquivo}" cancelLabel="Cancelar" label="Carregar Arquivo" uploadLabel="Enviar Arquivo" allowTypes="/(\.|\/)(docx)$/" update="file, textos" rendered="#{pecaMB.file == null}"/>
+                        <p:fileUpload id="carArq" mode="advanced" fileUploadListener="#{pecaMB.uploadArquivo}" cancelLabel="Cancelar" label="Carregar Arquivo" uploadLabel="Enviar Arquivo" allowTypes="/(\.|\/)(docx)$/" update="file, textos" rendered="#{pecaMB.file == null}"/>
                         <p:commandButton value="Excluir arquivo" actionListener="#{pecaMB.excluirArquivo()}" update="file" rendered="#{pecaMB.file != null}" icon="ui-icon-trash" immediate="true"/>
                     </h:panelGrid>
                 </h:panelGrid>
                 <p:fieldset legend="Conteúdo do arquivo" style="font-weight: bold;text-align: left" id="fieldTextos">
                     <h:panelGrid id="textos">
                         <p:dataTable rendered="#{pecaMB.textos != null}" value="#{pecaMB.textos}" var="tag" rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" 
-                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
-                            <p:column>
+                                     rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                            <p:column width="90%">
                                 <h:outputText value="#{tag.value}"/>
                             </p:column>
-                            <p:column>
-                                <p:commandButton icon="ui-icon-pencil" update=":frmedt" onclick="PF('editTag').show();" immediate="true">
+                            <p:column width="10%">     
+                                <p:commandButton icon="ui-icon-circle-arrow-w" title="Corrigir tag" style="width: 22px;height: 22px" update=":frm_pag:cadFrm:cad:fieldTextos" actionListener="#{pecaMB.corrigirTexto(tag)}"  immediate="true"/>
+
+                                <p:commandButton icon="ui-icon-pencil" style="width: 22px;height: 22px" title="Editar tag" update=":frmedt" onclick="PF('editTag').show();" immediate="true">
                                     <f:setPropertyActionListener value="#{tag}" target="#{pecaMB.tag}"/>
                                 </p:commandButton>
+                                <comp:commandButton_excluir classe="Texto" acao_butao="#{pecaMB.apagarTexto(tag)}" form_to_update=":frm_pag:cadFrm:cad:fieldTextos" immediate="true" />
+
+
+
                             </p:column>
                         </p:dataTable>
                     </h:panelGrid>
                 </p:fieldset>
                 <p:fieldset id="tags" legend="Tags válidas" >
                     <h:panelGrid columns="3" >
-                        <p:fieldset style="min-height: 1210px" id="tagCliente" legend="Cliente" >
-                            <p:dataGrid value="#{pecaMB.lisCliente}"  var="tag" emptyMessage="Nenhum Subgrupo Selecionado" columns="1" >
-                                <p:column>
-                                    <h:outputText value="#{tag.tagName}"/>
+
+                        <p:fieldset toggleable="true" style="height: 2210px" id="tagCliente" legend="Cliente" >
+                            <p:dataTable value="#{pecaMB.lisCliente}"   var="tag"  emptyMessage="Nenhum Subgrupo Selecionado"  
+                                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" rowIndexVar="rowIx" >
+                                <p:column >
+                                    <h:outputText value="#{tag.tagName}" />
                                 </p:column>
-                            </p:dataGrid>
+                            </p:dataTable>
                         </p:fieldset>
-                        <p:fieldset id="tagCol" style="min-height: 1210px" legend="Colaborador" >
-                            <p:dataGrid value="#{pecaMB.lisColaborador}"  var="tag3" emptyMessage="Nenhum Subgrupo Selecionado" columns="1" >
+                        <p:fieldset toggleable="true" id="tagCol" style="height: 2210px" legend="Colaborador" >
+                            <p:dataTable   rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                           rowIndexVar="rowIx" value="#{pecaMB.lisColaborador}"  var="tag3" emptyMessage="Nenhum Subgrupo Selecionado" >
                                 <p:column>
                                     <h:outputText value="#{tag3.tagName}"/>
                                 </p:column>
-                            </p:dataGrid>
+                            </p:dataTable>
                         </p:fieldset>
-                        <p:fieldset id="tagProce"  style="min-height: 1210px" legend="Processo" >
-                            <p:dataGrid value="#{pecaMB.lisProcesso}"  var="tag2" emptyMessage="Nenhum Subgrupo Selecionado" columns="2" >
+
+                        <p:fieldset toggleable="true" id="tagProce" style="height: 2210px" legend="Processo" >
+                            <p:dataTable   rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                           rowIndexVar="rowIx" value="#{pecaMB.lisProcesso}"  var="tag2" emptyMessage="Nenhum Subgrupo Selecionado" >
                                 <p:column>
                                     <h:outputText value="#{tag2.tagName}"/>
                                 </p:column>
-                            </p:dataGrid>
+                            </p:dataTable>
                         </p:fieldset>
                     </h:panelGrid>
                 </p:fieldset>

@@ -22,11 +22,11 @@
                                authorities-by-username-query="SELECT u.usr_login, 'ROLE_ATUS' from cadastro.usuario u WHERE  (u.usr_login = ?)"
             />
         </authentication-provider>
-         <authentication-provider>
+<!--         <authentication-provider>
             <user-service>
                 <user name="adm" password="123" authorities="ROLE_ATUS" />
             </user-service>
-        </authentication-provider>
+        </authentication-provider>-->
     </authentication-manager>
 
 

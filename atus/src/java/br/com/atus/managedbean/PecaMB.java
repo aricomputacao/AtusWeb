@@ -26,11 +26,9 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
-import org.apache.commons.fileupload.FileItem;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.wml.Text;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.DefaultUploadedFile;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
@@ -80,6 +78,23 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
         } catch (Exception ex) {
             listaGrupoPecas = new ArrayList<>();
         }
+
+    }
+
+    public void apagarTexto(Text t) {
+        tag = t;
+        tag.setValue("");
+        textos.remove(tag);
+    }
+
+    public void corrigirTexto(Text t) {
+        tag = new Text();
+        tag.setValue(t.getValue().replace("{", "").replace("}", "").replace("$", "").trim());
+        String prefixo = "${";
+        String sufixo = "}";
+        tag.setValue(prefixo.concat(tag.getValue()).concat(sufixo).trim());
+        t.setValue(tag.getValue());
+
     }
 
     public PecaMB() {
@@ -167,6 +182,7 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
 
     public void salvar() {
         try {
+
             if (peca.getId() == null) {
                 controller.salvar(peca, file.getFileName(), template);
             } else {
@@ -184,6 +200,7 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
             file = event.getFile();
             template = controller.getTemplate(file);
             textos = (List<Text>) controller.getPartes(template);
+
             MenssagemUtil.addMessageInfo("Arquivo enviado com sucesso!" + file.getFileName());
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro("Erro ao fazer upload do arquivo", ex, this.getClass().getName());
