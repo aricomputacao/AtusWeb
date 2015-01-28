@@ -48,11 +48,11 @@ public class Notificacao implements Serializable{
     private Email email;
     
     @NotBlank
-    @Column(name = "not_titulo",nullable = false)
+    @Column(name = "not_titulo",nullable = false,length = 4048)
     private String titulo;
     
     @NotBlank
-    @Column(name = "not_texto",nullable = false,length = 2048)
+    @Column(name = "not_texto",nullable = false,length = 4048)
     private String texto;
     
     @NotNull
@@ -60,7 +60,7 @@ public class Notificacao implements Serializable{
     @Temporal(TemporalType.TIMESTAMP)
     private Date data;
 
-    @Column(name = "not_ativo",nullable = false)
+    @Column(name = "not_ativo",nullable = false,columnDefinition = "boolean default false")
     private boolean  ativo;
 
     public boolean isAtivo() {
