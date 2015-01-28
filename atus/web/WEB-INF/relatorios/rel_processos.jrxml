@@ -48,6 +48,9 @@
 	<variable name="fase_2" class="java.lang.Integer" resetType="Group" resetGroup="respon" calculation="Count">
 		<variableExpression><![CDATA[$F{fase}]]></variableExpression>
 	</variable>
+	<variable name="fase_3" class="java.lang.Integer" resetType="Group" resetGroup="respon" calculation="Count">
+		<variableExpression><![CDATA[$F{fase}]]></variableExpression>
+	</variable>
 	<group name="respon" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{fase}.getUsuario()]]></groupExpression>
 		<groupHeader>
@@ -70,11 +73,11 @@
 					<textFieldExpression><![CDATA[$F{fase}.getUsuario().getNome()]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="respon">
-					<reportElement uuid="c5115ab3-9060-4fc6-b0f5-9fc7e8a9a685" x="702" y="0" width="100" height="20"/>
-					<textElement>
-						<font size="10" isBold="true"/>
+					<reportElement uuid="5ff92b1d-b9a7-498a-a07b-f4829bd15669" x="701" y="0" width="100" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{fase}.getUsuario()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{fase_3}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
