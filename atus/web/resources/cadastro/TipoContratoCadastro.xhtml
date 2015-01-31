@@ -13,7 +13,7 @@
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
     </composite:interface>
     <composite:implementation  >
-        <p:fieldset id="fieldCad"   legend="Cadastro" style="font-weight: bold;text-align: left">
+        <p:fieldset id="fieldCad" rendered="#{navegacaoMB.permissaoIncluir(navegacao['cad.tipo_contrato'])}"   legend="Cadastro" style="font-weight: bold;text-align: left">
 
             <h:panelGrid columns="1"  >
                 <h:panelGrid >

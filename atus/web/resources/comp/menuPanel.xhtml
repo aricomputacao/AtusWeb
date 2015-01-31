@@ -21,7 +21,7 @@
         <p:blockUI block="@form" trigger="menPri,menSal"    >
             <p:graphicImage library="imagens" name="carregar.gif"/>
         </p:blockUI>
-        <p:menubar  style="margin-top: 20px;border: #E0E0E0  solid 1px" >
+        <p:menubar id="compMenuPanel" style="margin-top: 20px;border: #E0E0E0  solid 1px" >
          
             <p:menuitem id="menNovo" immediate="true" rendered="#{navegacaoMB.novo}" styleClass="menuPanel" icon="ui-icon-circle-plus" title="Novo"   actionListener="#{cc.attrs.acao_adicionar}" update="@form" />
             <p:menuitem id="menSal"  rendered="#{navegacaoMB.salvar}" styleClass="menuPanel"  icon="ui-icon-disk" title="Salvar"  actionListener="#{cc.attrs.acao_salvar}" update="@form" />

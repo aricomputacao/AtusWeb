@@ -14,7 +14,7 @@
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
     </composite:interface>
     <composite:implementation id="int2" >
-        <p:fieldset id="fieldCad"  legend="Cadastro" style="text-align: left">
+        <p:fieldset id="fieldCad"  legend="Cadastro" rendered="#{navegacaoMB.permissaoIncluir(navegacao['pro.fase'])}" style="text-align: left">
             <h:panelGrid columns="2">
                 <h:panelGrid  >
                     <p:outputLabel value="Nome" for="nome"/>

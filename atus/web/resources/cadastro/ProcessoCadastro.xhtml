@@ -17,7 +17,7 @@
 
     </composite:interface>
     <composite:implementation  >
-        <p:fieldset id="fieldCad" legend="#{cc.attrs.legend}"  >            
+        <p:fieldset id="fieldCad" rendered="#{navegacaoMB.permissaoIncluir(navegacao['pro.processo'])}" legend="#{cc.attrs.legend}"  >            
             <h:outputText rendered="#{processoMB.processo.id != null}" style="font-size:20px;font-weight: bold" value="&rsaquo;&rsaquo;#{processoMB.processo.cliente.pessoa.nome}"/>
             <p:tabView id="tbView" dynamic="true" >
                 <p:tab id="tabDadosGer" title="Dados Gerais">

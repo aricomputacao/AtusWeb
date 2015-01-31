@@ -33,14 +33,14 @@
                                 <h:outputLabel style="color: #505050 " value="|"/>
                                 <p:commandLink styleClass="link" value="Alterar Senha" onclick="PF('dialogAltSen').show()"  />
                                 <h:outputLabel style="color: #505050 " value="|"/>
-                                <h:commandLink class="link" value="Sair"  actionListener="#{navegacaoMB.logout()}" />
+                                <h:commandLink id="lnkSair" class="link" value="Sair"  actionListener="#{navegacaoMB.logout()}" />
                             </h:panelGrid>
                         </div>
 
                     </h:form>
                 </div>
 
-                <util:menuPrincipal/>
+                <util:menuPrincipal id="compMenu"/>
 
                 <ui:insert id="crp"  name="corpo"></ui:insert>
 

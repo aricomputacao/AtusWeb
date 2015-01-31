@@ -24,7 +24,7 @@
     <composite:implementation id="compConCli" >
 
         <h:panelGrid  width="100%" id="rtt" >
-            <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" style="font-weight: bold">
+            <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" rendered="#{navegacaoMB.permissaoConsultar(navegacao['cad.cliente'])}" style="font-weight: bold">
                 <h:panelGrid id="grdConsulta" columns="4">
                     <h:panelGrid id="grdConsulta1">
                         <p:outputLabel value="Campo"/>

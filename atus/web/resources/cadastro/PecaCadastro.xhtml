@@ -14,7 +14,7 @@
     </composite:interface>
     <composite:implementation  >
 
-        <p:fieldset legend="Cadastro" style="font-weight: bold;text-align: left">
+        <p:fieldset legend="Cadastro" rendered="#{navegacaoMB.permissaoIncluir(navegacao['pro.peca'])}" style="font-weight: bold;text-align: left">
             <h:panelGrid width="100%">
                 <h:panelGrid columns="3">
                     <h:panelGrid id="griPrin3">

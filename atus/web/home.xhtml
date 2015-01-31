@@ -66,7 +66,7 @@
                     </p:panel>
                 </h:form>
             </p:tab>
-            <p:tab title="Notificações (#{painelHomeMB.listanNotificacao.size()})" >
+            <p:tab title="Notificações (#{painelHomeMB.listanNotificacao.size()})" rendered="#{navegacaoMB.permissaoConsultar(navegacao['pro.notificacao'])}" >
                 <h:form id="frmDialogCadNoti">
                     <p:panel styleClass="painelAgendas">
                         <consultas:NotificacaoConsulta dialogInfo="dialogNot" dialogUpdade=":frmDialogNot" renderInfo="true"  valorSelecionado="#{painelHomeMB.notificacao}" update_form="@form" />
@@ -90,11 +90,11 @@
                     <h:panelGrid columns="2">  
 
                         <h:outputLabel for="tipo" value="Tipo:" /> 
-                        <h:selectOneMenu 
+                        <p:selectOneMenu 
                             id="tipo" value="#{agendaMB.agenda.especieEvento}"
                             converter="#{indexConverter}">
                             <f:selectItems value="#{especieEventoMB.listaEspecieEventos}" var="es" itemLabel="#{es.nome}" itemValue="#{es}"/>
-                        </h:selectOneMenu>
+                        </p:selectOneMenu>
 
                         <h:outputLabel for="tit" value="Titulo:" /> 
                         <p:inputText 

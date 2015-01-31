@@ -16,8 +16,8 @@
         <h:outputScript name="sonumero.js"  library="js"/>
         <h:form id="frm_pag" prependId="false" >
             <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.atendimento'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.atendimento'])}" acao_imprimir="#{atendimentoMB.imprimir()}" acao_limpar="#{atendimentoMB.init()}" acao_salvar="#{atendimentoMB.salvar()}"/>
-            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Acompanhar Atendimento" id_form="frm_pag"  >               
-                <h:panelGrid width="100%"   >
+            <comp:panel_cadastro id="cadFrm"  cabecalho_grid="Acompanhar Atendimento" id_form="frm_pag"  >               
+                <h:panelGrid width="100%"  >
                     <cons:AtendimentoConsulta acao_consultar="#{atendimentoMB.listar()}" renderAtenderr="true" nome="Atendimento Fundo" lista="#{atendimentoMB.listaAtendimentosFundo}" id="atendConsFundo"/>
                 </h:panelGrid>       
                 <h:panelGrid width="100%" > 

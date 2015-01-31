@@ -11,10 +11,10 @@
     </composite:interface>
     <composite:implementation>
         <h:form id="#{cc.attrs.id}" prependId="false">
-            <p:menubar styleClass="menu"   >
-                <p:menuitem styleClass="item" value="Início" actionListener="#{navegacaoMB.index()}"  />
-                <p:submenu styleClass="subMenu" rendered="#{navegacaoMB.permissaoModuloCadastro()}" style="font-weight: bolder"  label="Cadastro" >
-                    <p:submenu  label="Pessoa" styleClass="subMenu" >
+            <p:menubar styleClass="menu" id="menBar"  >
+                <p:menuitem styleClass="item" id="menIni" value="Início" actionListener="#{navegacaoMB.index()}"  />
+                <p:submenu styleClass="subMenu" id="sbCad" rendered="#{navegacaoMB.permissaoModuloCadastro()}" style="font-weight: bolder"  label="Cadastro" >
+                    <p:submenu  label="Pessoa" id="sbPes" styleClass="subMenu" >
                         <p:menuitem value="Clientes" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.cliente'])}"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.cliente'])}" immediate="true"/>
                         <p:menuitem value="Advogados" styleClass="item" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.advogado'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.advogado'])}" immediate="true"/>
                         <p:menuitem value="Colaboradores" styleClass="item" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.colaborador'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.colaborador'])}" immediate="true"/>
@@ -29,8 +29,8 @@
                     <p:menuitem value="Tipo Tratamento" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.tipo_tratamento'])}"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.tipo_tratamento'])}" immediate="true"/>
                 </p:submenu>
 
-                <p:submenu  label="Atendimento" rendered="#{navegacaoMB.permissaoModuloCadastro()}"  styleClass="subMenu" >
-                    <p:menuitem styleClass="item" value="Atendimento" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.atendimento'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.atendimento'])}" immediate="true"/>
+                <p:submenu  label="Atendimento" id="sbAte" rendered="#{navegacaoMB.permissaoModuloCadastro()}"  styleClass="subMenu" >
+                    <p:menuitem styleClass="item" id="menAte" value="Atendimento" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.atendimento'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.atendimento'])}" immediate="true"/>
                     <p:menuitem styleClass="item" value="Acompanhar" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.acompanhar_atendimento'])}"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.acompanhar_atendimento'])}" immediate="true"/>
                 </p:submenu>
                 <p:submenu label="Processo" rendered="#{navegacaoMB.permissaoModuloProcesso()}" styleClass="subMenu">

@@ -17,12 +17,12 @@
         <h:form id="frm_pag" prependId="false" >
 
             <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.atendimento'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.atendimento'])}" acao_imprimir="#{atendimentoMB.imprimir()}" acao_limpar="#{atendimentoMB.init()}" acao_salvar="#{atendimentoMB.salvar()}"/>
-            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Colaborador" id_form="frm_pag"  >               
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Atendimento" id_form="frm_pag"  >               
                 <h:panelGrid width="100%" rendered="#{navegacaoMB.renderPainelCadastro}"  >
-                    <cadastro:AtendimentoCadastro id="compAten"/>
+                    <cadastro:AtendimentoCadastro id="compAten"  />
                 </h:panelGrid>       
                 <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}"> 
-                    <cons:AtendimentoConsulta acao_consultar="#{atendimentoMB.listar()}" renderAtenderr="false" lista="#{atendimentoMB.listaAtendimentos}" id="atendCons"/>
+                    <cons:AtendimentoConsulta acao_consultar="#{atendimentoMB.listar()}" renderAtenderr="false" lista="#{atendimentoMB.listaAtendimentos}" id="atendCons" />
                 </h:panelGrid>
                 
             </comp:panel_cadastro>
