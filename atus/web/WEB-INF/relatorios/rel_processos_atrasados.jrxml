@@ -62,7 +62,7 @@
 				<textField>
 					<reportElement uuid="ee1a1fa0-cb78-4963-9d59-861081733fad" x="100" y="0" width="702" height="20"/>
 					<textElement verticalAlignment="Middle">
-						<font size="12"/>
+						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{fase}.getUsuario().getNome()]]></textFieldExpression>
 				</textField>
@@ -131,7 +131,7 @@
 				<textField>
 					<reportElement uuid="d4302575-1888-4d13-af26-5b34e4c9218d" x="100" y="0" width="702" height="20"/>
 					<textElement verticalAlignment="Middle">
-						<font size="12"/>
+						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{fase}.getNome()]]></textFieldExpression>
 				</textField>

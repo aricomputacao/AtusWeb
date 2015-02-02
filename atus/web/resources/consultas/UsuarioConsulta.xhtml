@@ -47,16 +47,16 @@
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
 
-                    <p:column headerText="Login" sortBy="#{t.login}">
+                    <p:column headerText="Login" width="10%" sortBy="#{t.login}">
                         <comp:outputText value="#{t.login}"/>
                     </p:column>
-                    <p:column headerText="Nome" >
+                    <p:column headerText="Nome" width="30%"  >
                         <comp:outputText value="#{t.nome}"/>
                     </p:column>
                     <p:column headerText="Perfil"  width="10%" sortBy="#{t.perfil}" >
                         <comp:outputText value="#{t.perfil}"/>
                     </p:column>
-                    <p:column headerText="Ativo"  width="10%"  >
+                    <p:column headerText="Ativo"  width="3%"  >
                         <comp:outputText value="Sim" rendered="#{t.ativo}"/>
                         <comp:outputText value="Não" rendered="#{not t.ativo}"/>
                     </p:column>
@@ -64,7 +64,7 @@
                     <p:column headerText="Ação" width="5%" style="text-align: center">
                         <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.usuario'],'usuario',t)}" />
                         <comp:commandButton_excluir acao_butao="#{usuarioMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Usuário" form_to_update="@form"/>
-                        <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
+                        <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}"  rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
                         <p:commandButton title="Selecionar" immediate="true" rendered="#{cc.attrs.renderSelecionar2}" actionListener="#{cc.attrs.acao_executa_btn2}" icon="ui-icon-circle-check" style="width: 20px;height: 20px;" update="#{cc.attrs.update_form}">
                         </p:commandButton>
                     </p:column>

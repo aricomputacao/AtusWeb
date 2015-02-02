@@ -43,17 +43,16 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
     @PostConstruct
     public void init() {
         listaProcessosAtrasadoRelatorioDTOs = new ArrayList<>();
-        cliente = new Cliente();
+        usuario = new Usuario();
     }
 
     public void listarProcessosAtrasados() {
         listaProcessosAtrasadoRelatorioDTOs = processoController.listaProcessosAtrasadosRelatorio(usuario);
-        cliente = new Cliente();
+        usuario = new Usuario();
 
     }
-    
-    
-     public void imprimirProcessoAtrasados() {
+
+    public void imprimirProcessoAtrasados() {
         if (!listaProcessosAtrasadoRelatorioDTOs.isEmpty()) {
             Map<String, Object> m = new HashMap<>();
             byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaProcessosAtrasadoRelatorioDTOs, m, "WEB-INF/relatorios/rel_processos_atrasados.jasper", "Relatório de Processos Atrasados");

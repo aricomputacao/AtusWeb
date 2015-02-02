@@ -19,8 +19,7 @@
             <p:tab title="Processos" >
                 <p:panel styleClass="painelAgendas" >
                     <h:form>
-                        <p:blockUI block="@form" trigger="btnim"/>
-                        <p:commandButton immediate="true" rendered="false" id="btnim" value="importar" actionListener="#{processoMB.utilitarioSetarFase()}"/>
+                        
                         <h:panelGrid columns='2'>
                             <consultas:PainelProcessoConsulta listaTabela="#{painelHomeMB.listaGrupoDiaAtrasadoSetorDTOs}" nome="Processos Setor"/>
                             <consultas:PainelProcessoConsulta listaTabela="#{painelHomeMB.listaGrupoDiaAtrasadoGeralDTOs}" nome="Processos Geral"/>

@@ -7,10 +7,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:comp="http://java.sun.com/jsf/composite/comp"
                 xmlns:cons="http://java.sun.com/jsf/composite/consultas"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro"
-                xmlns:util="http://java.sun.com/jsf/composite/util"
-                xmlns:acao="http://java.sun.com/jsf/composite/acao">
+                xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="corpo">
         <h:outputScript name="sonumero.js"  library="js"/>
@@ -20,6 +17,7 @@
                 <p:graphicImage library="imagens" name="carregar.gif"/>
             </p:blockUI>
             <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['pro.processo'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['rel.processo_atrasado'])}" acao_imprimir="#{relatorioMB.imprimirProcessoAtrasados()}" acao_limpar="#{relatorioMB.listarProcessosAtrasados()}" acao_salvar="#{processoMB.salvar()}"/>
+      
             <comp:panel_cadastro id="cadFrm" cabecalho_grid="Processos Atrasados" id_form="frm_pag"  >               
                 <h:panelGrid >
                     <cons:ProcessoAtrasadoConsulta id="compProceConsu" listaProcessos="#{relatorioMB.listaProcessosAtrasadoRelatorioDTOs}" dialogInfo="dialogCadProc"  dialogMovimenUpdate=":frmCadMov" dialogMovimen="dialogoEncProce" dialogUpdade=":frmDialogCadProce:compCadPro:fieldCad" >

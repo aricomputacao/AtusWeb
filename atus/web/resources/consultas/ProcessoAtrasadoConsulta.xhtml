@@ -27,14 +27,11 @@
     <composite:implementation id="compConCli" >
         <h:panelGrid  width="100%" id="rtt" >
             <p:fieldset id="fieldCon" rendered="#{navegacaoMB.permissaoConsultar(navegacao['pro.processo'])}" legend="#{cc.attrs.nome}" style="font-weight: bold">
-                <h:panelGrid id="grdConsulta" columns="4" rendered="#{cc.attrs.renderPesquisar}">
-                   
-                    <h:panelGrid  id="grdConsulta2">
-                        
+                <h:panelGrid id="grdConsulta" columns="4" rendered="#{cc.attrs.renderPesquisar}">                   
+                    <h:panelGrid  id="grdConsulta2">                        
                         <h:panelGrid>
-                            <comp:input_button nome_dialog="dialogoConUsuario" id="inputCon" input_size="50" nome_label="Usuário" value_input="#{relatorioMB.usuario.nome}"  />
+                            <comp:input_button nome_dialog="dialogoConUsuario" id="inputCon" input_size="50" nome_label="Usuário" value_input="#{relatorioMB.usuario.login}"  />
                         </h:panelGrid>
-
                     </h:panelGrid>
                     <h:panelGrid id="grdConsulta3">
                         <p:spacer width="15"/>
