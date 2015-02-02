@@ -19,6 +19,9 @@
 	<field name="objetoProcesso" class="java.lang.String">
 		<fieldDescription><![CDATA[objetoProcesso]]></fieldDescription>
 	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
 	<title>
 		<band height="31" splitType="Stretch">
 			<staticText>
@@ -47,7 +50,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["ID: "+$F{cliente}.getId()]]></textFieldExpression>
+				<textFieldExpression><![CDATA["ID: "+$F{id}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
