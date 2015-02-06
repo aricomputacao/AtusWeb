@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.atus.controller;
 
 import br.com.atus.dao.EventoDAO;
 import br.com.atus.modelo.Evento;
 import br.com.atus.modelo.Processo;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -21,11 +21,11 @@ import javax.ejb.Stateless;
  * @author ari
  */
 @Stateless
-public class EventoController extends Controller<Evento, Long> implements Serializable{
+public class EventoController extends Controller<Evento, Long> implements Serializable {
 
     @EJB
     private EventoDAO dao;
-    
+
     @PostConstruct
     @Override
     protected void inicializaDAO() {
@@ -33,13 +33,16 @@ public class EventoController extends Controller<Evento, Long> implements Serial
     }
 
     public List<Evento> listarPorProcessos(Processo processo) {
-        return dao.listarPorProcesso(processo);
+        if (processo.getId() == null) {
+            return new ArrayList<>();
+        } else {
+            return dao.listarPorProcesso(processo);
+
+        }
     }
 
     public List<Evento> listarPorPeriodo(Date dataInicial, Date dataFinal) {
-      return dao.listarPorPeriodo(dataInicial,dataFinal);
+        return dao.listarPorPeriodo(dataInicial, dataFinal);
     }
-    
-   
-    
+
 }

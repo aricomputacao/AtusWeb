@@ -28,6 +28,8 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
 
     @EJB
     private ProcessoDAO dao;
+    @EJB
+    private MovimentacaoController movimentacaoController;
 
     @PostConstruct
     @Override
@@ -81,5 +83,18 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
 
     public List<Processo> listarLikeNumero(String num) {
         return dao.listarLikeNumero(num);
+    }
+
+    public void salvarouAtualizarEditarFase(Processo processo, Fase fs,Usuario u) throws Exception {
+        if (processo.getId() == null) {
+            processo.setUsuarioCadastro(u);
+        }else{
+            //se a fase alterar add movimentação
+            if (!fs.equals(processo.getFase())) {
+                movimentacaoController.addMovimentacao(processo, fs,u);
+            }
+        }
+        salvarouAtualizar(processo);
+        
     }
 }

@@ -58,8 +58,8 @@
 						<pen lineWidth="0.25" lineColor="#666666"/>
 					</graphicElement>
 				</rectangle>
-				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement uuid="0d42e6a8-caca-4342-87c2-f51cf1642a8e" x="0" y="0" width="802" height="20"/>
+				<textField pattern="EEEEE dd MMMMM yyyy" isBlankWhenNull="true">
+					<reportElement uuid="0d42e6a8-caca-4342-87c2-f51cf1642a8e" x="0" y="0" width="802" height="20" backcolor="#FFFFFF"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
@@ -155,7 +155,7 @@
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{especieEvento}.getNome()]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="7d962444-a47d-413d-929b-56e32bb95204" x="1" y="0" width="190" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{processo}.getNumero()]]></textFieldExpression>

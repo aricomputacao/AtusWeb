@@ -77,7 +77,6 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     private List<Evento> listaEventos;
     private int i;
     private boolean renderPesquisa;
-    private List<ProcessosAtrasadoRelatorioDTO> liastaProcessosAtrasadosRela;
 
     @PostConstruct
     public void init() {
@@ -89,20 +88,37 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             processo.setParteInteressadas(new ArrayList<ParteInteressada>());
             fase = new Fase();
         } else {
-            listaMovimentacaos = movimentacaoController.listarPorProcesso(processo);
-            listaEventos = eventoController.listarPorProcessos(processo);
+
             fase = processo.getFase();
         }
+
+        listaMovimentacaos = movimentacaoController.listarPorProcesso(processo);
+        listaEventos = eventoController.listarPorProcessos(processo);
         adversario = new Adversario();
         parteInteressada = new ParteInteressada();
         listaProcessos = new ArrayList<>();
-        liastaProcessosAtrasadosRela = new ArrayList<>();
         i = 0;
     }
-    
-   
 
-          
+    public void aposSalvar() {
+        try {
+            processo = controller.carregar(processo.getId());
+            movimentacao = new Movimentacao();
+            cliente = new Cliente();
+            fase = processo.getFase();
+            listaMovimentacaos = movimentacaoController.listarPorProcesso(processo);
+            listaEventos = eventoController.listarPorProcessos(processo);
+            listaEventos = eventoController.listarPorProcessos(processo);
+            
+            adversario = new Adversario();
+            parteInteressada = new ParteInteressada();
+            listaProcessos = new ArrayList<>();
+            i = 0;
+        } catch (Exception ex) {
+            Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void addInteressado() {
         try {
             interessadaController.salvar(parteInteressada);
@@ -128,9 +144,8 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         try {
             //setar cliente como o primeiro cliente da lista da parte interessada
             setarCliente(processo.getParteInteressadas().get(0).getCliente());
-            processo.setUsuarioCadastro(navegacaoMB.getUsuarioLogado());
-            controller.salvarouAtualizar(processo);
-            init();
+            controller.salvarouAtualizarEditarFase(processo, fase, navegacaoMB.getUsuarioLogado());
+            aposSalvar();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
 
         } catch (Exception ex) {
@@ -333,17 +348,15 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         RelatorioSession.setBytesRelatorioInSession(rel);
 
     }
-    
+
     public void imprimirTodos() {
-       imprimirContrato();
-       imprimirDeclaracao();
-       imprimirDossie();
-       imprimirProcuracaoAdJud();
-       imprimirProtocolo();
+        imprimirContrato();
+        imprimirDeclaracao();
+        imprimirDossie();
+        imprimirProcuracaoAdJud();
+        imprimirProtocolo();
     }
 
-    
-    
     public ProcessoMB() {
         super(Processo.class);
     }

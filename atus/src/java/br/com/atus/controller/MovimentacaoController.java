@@ -9,7 +9,9 @@ import br.com.atus.dao.MovimentacaoDAO;
 import br.com.atus.modelo.Fase;
 import br.com.atus.modelo.Movimentacao;
 import br.com.atus.modelo.Processo;
+import br.com.atus.modelo.Usuario;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -34,21 +36,27 @@ public class MovimentacaoController extends Controller<Movimentacao, Long> imple
     }
 
     public List<Movimentacao> listarPorProcesso(Processo processo) {
-        return dao.listarPorProcesso(processo);
+        if (processo.getId() == null) {
+            return new ArrayList<>();
+        } else {
+            return dao.listarPorProcesso(processo);
+
+        }
     }
 
-    public void addMovimentacao(Processo p, Fase f) throws Exception {
+    public void addMovimentacao(Processo p, Fase f, Usuario u) throws Exception {
         Movimentacao m = new Movimentacao();
         if (f != null) {
             if (!Objects.equals(p.getFase().getId(), f.getId())) {
                 m.setDataMovimentacao(new Date());
-                m.setFaseAntiga(p.getFase());
-                m.setFaseNova(f);
+                m.setFaseAntiga(f);
+                m.setFaseNova(p.getFase());
                 m.setProcesso(p);
+                m.setUsuario(u);
                 dao.salvar(m);
             }
         } else {
-            
+            m.setUsuario(u);
             m.setDataMovimentacao(new Date());
             m.setFaseNova(p.getFase());
             m.setProcesso(p);
@@ -57,7 +65,5 @@ public class MovimentacaoController extends Controller<Movimentacao, Long> imple
         }
 
     }
-
-   
 
 }
