@@ -8,10 +8,9 @@ package br.com.atus.managedbean;
 import br.com.atus.controller.AgendaController;
 import br.com.atus.enumerated.TipoAgenda;
 import br.com.atus.modelo.Agenda;
-import br.com.atus.modelo.EspecieEvento;
 import br.com.atus.util.MenssagemUtil;
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -21,6 +20,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
@@ -63,14 +64,14 @@ public class AgendaMB extends BeanGenerico<Agenda> implements Serializable {
             eventModel = new DefaultScheduleModel();
 
             //recupera a lista de eventos
-            listaAgenda = controller.listarTodos("id");
+            listaAgenda = controller.listarPorUsuario(navegacaoMB.getUsuarioLogado());
 
             //percorre a lista de eventos e popula o calendario
             for (Agenda agenda : listaAgenda) {
 
                 DefaultScheduleEvent evento = new DefaultScheduleEvent();
                 evento.setAllDay(agenda.isDiaTodo());
-                evento.setEndDate(agenda.getDataFim());
+                evento.setEndDate(agenda.getDataInicio());
                 evento.setStartDate(agenda.getDataInicio());
                 evento.setTitle(agenda.getTitulo());
                 evento.setDescription(agenda.getDescricao());
@@ -106,32 +107,17 @@ public class AgendaMB extends BeanGenerico<Agenda> implements Serializable {
      */
     public void salvar() {
 
-        //se o ID for zero tenho que incluir na lista
-        //caso contrario nao e necessario
-        if (agenda.getId() == null) {
-
-            //uma validacao basica para verificar se o usuario informou 
-            //as datas corretamente
-            if (agenda.getDataInicio().getTime() <= agenda.getDataFim().getTime()) {
-
-                try {
-                    controller.salvarouAtualizar(agenda);
-                    agenda = new Agenda();
-                    init();
-                    MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
-
-                } catch (Exception ex) {
-                    Logger.getLogger(AgendaMB.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            } else {
-                MenssagemUtil.addMessageInfo("data");
-
-            }
-
-        } else {
+        try {
+            controller.salvarouAtualizar(agenda);
+            agenda = new Agenda();
             init();
+            MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
+
+        } catch (Exception ex) {
+            Logger.getLogger(AgendaMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+//      
     }
 
     /**
@@ -145,9 +131,11 @@ public class AgendaMB extends BeanGenerico<Agenda> implements Serializable {
                 (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
 
         agenda = new Agenda();
+        agenda.setUsuario(navegacaoMB.getUsuarioLogado());
+
         //recupero a data em q ele clicou
         agenda.setDataInicio(event.getStartDate());
-        agenda.setDataFim(event.getEndDate());
+        agenda.setDataFim(agenda.getDataInicio());
     }
 
     /**
@@ -173,13 +161,25 @@ public class AgendaMB extends BeanGenerico<Agenda> implements Serializable {
      * @param event
      */
     public void quandoMovido(ScheduleEntryMoveEvent event) {
-
+        Calendar c = Calendar.getInstance();
         for (Agenda agda : listaAgenda) {
-
+            c.setTimeInMillis(agda.getDataFim().getTime());
+            
             if (agda.getId() == (Long) event.getScheduleEvent().getData()) {
                 try {
+
+                    //Pega a diferença de dias
+//                    Days.daysBetween(new DateTime(c.getTime().getTime()), new DateTime(agda.getDataInicio().getTime())).getDays();
+                  //pega a quantidade de dias q movimentou 
+                    int i = event.getDayDelta();
+
+                    c.add(Calendar.DAY_OF_YEAR, i);
+                    agda.setDataInicio(c.getTime());
+                    agda.setDataFim(c.getTime());
+
                     agenda = agda;
                     controller.salvarouAtualizar(agda);
+                    init();
                     break;
                 } catch (Exception ex) {
                     Logger.getLogger(AgendaMB.class.getName()).log(Level.SEVERE, null, ex);

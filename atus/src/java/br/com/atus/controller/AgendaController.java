@@ -8,7 +8,9 @@ package br.com.atus.controller;
 import br.com.atus.dao.AgendaDAO;
 import br.com.atus.modelo.Agenda;
 import br.com.atus.modelo.Evento;
+import br.com.atus.modelo.Usuario;
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -45,6 +47,10 @@ public class AgendaController extends Controller<Agenda, Long> implements Serial
         Agenda a ;
         a = dao.buscarPorEvento(e);
         dao.excluir(a);
+    }
+
+    public List<Agenda> listarPorUsuario(Usuario usuarioLogado) {
+      return dao.listarPorUsuario(usuarioLogado);
     }
 
 }

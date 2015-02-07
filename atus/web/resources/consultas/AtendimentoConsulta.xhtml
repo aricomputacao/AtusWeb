@@ -16,6 +16,7 @@
         <composite:attribute name="renderSelecionar" default="false"/>
         <composite:attribute name="renderCancelar" default="false"/>
         <composite:attribute name="renderAtenderr" default="false"/>
+        <composite:attribute name="renderGrdConsulta" default="true"/>
         <composite:attribute name="valorSelecionado" />
         <composite:attribute name="nomeDialog" />
         <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
@@ -26,7 +27,7 @@
 
         <h:panelGrid  width="100%" id="rtt" >
             <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" rendered="#{navegacaoMB.permissaoConsultar(navegacao['cad.atendimento'])}"  style="font-weight: bold">
-                <h:panelGrid id="grdConsulta" columns="4">
+                <h:panelGrid rendered="#{cc.attrs.renderGrdConsulta}" id="grdConsulta" columns="4">
                     <h:panelGrid id="grdConsulta1">
                         <p:outputLabel value="Campo"/>
                         <p:selectOneMenu value="#{atendimentoMB.campoBusca}" styleClass="lista">
@@ -53,12 +54,15 @@
 
                     <p:column headerText="Cliente">
                         <comp:outputText value="#{t.cliente.pessoa.nome}"/>
+
                     </p:column>
                     <p:column headerText="Visitante">
                         <comp:outputText value="#{t.visitante}"/>
+                        <p:outputLabel style="font-weight: bold"  rendered="#{t.clienteNovo}" value="  &rArr; Cliente novo" />
+
                     </p:column>
-                    <p:column headerText="Destino" >
-                        <comp:outputText value="#{t.usuarioAtendimento.nome}"/>
+                    <p:column headerText="Assunto" >
+                        <comp:outputText value="#{t.assunto}"/>
                     </p:column>
                     <p:column headerText="Abertura" width="8%">
                         <comp:outputText tipo="dt" value="#{t.dataAbertura}"/>
@@ -67,7 +71,7 @@
 
                     <p:column headerText="Ação" width="10%" style="text-align: center">
                         <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.atendimento'],'atendimento',t)}" />
-                        <comp:commandButton_excluir acao_butao="#{advogadoMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Atendimento" form_to_update="@form"/>
+                        <comp:commandButton_excluir acao_butao="#{atendimentoMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Atendimento" form_to_update="@form"/>
                         <p:commandButton title="Atender" update=":frmAtend:atendi:fieldAtend" onclick="PF('dialogAtend').show();" rendered="#{cc.attrs.renderAtenderr}" icon="ui-icon-circle-check" style="width: 20px;height: 20px;" >
                             <f:setPropertyActionListener target="#{atendimentoMB.atendimento}" value="#{t}"/>
                         </p:commandButton>

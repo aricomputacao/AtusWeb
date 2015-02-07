@@ -8,7 +8,10 @@ package br.com.atus.dao;
 
 import br.com.atus.modelo.Agenda;
 import br.com.atus.modelo.Evento;
+import br.com.atus.modelo.Usuario;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
@@ -31,6 +34,17 @@ public class AgendaDAO extends DAO<Agenda, Long> implements Serializable{
             return new Agenda();
         } else {
             return (Agenda) tq.getSingleResult();
+        }
+    }
+
+    public List<Agenda> listarPorUsuario(Usuario usuarioLogado) {
+        TypedQuery tq;
+        tq = getEm().createQuery("SELECT a FROM Agenda a WHERE a.usuario = :usr OR a.usuario IS NULL", Agenda.class);
+        tq.setParameter("usr", usuarioLogado);
+        if (tq.getResultList().isEmpty()) {
+            return new ArrayList<>();
+        } else {
+            return tq.getResultList();
         }
     }
     

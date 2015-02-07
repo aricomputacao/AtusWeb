@@ -6,7 +6,9 @@
 package br.com.atus.managedbean;
 
 import br.com.atus.controller.AtendimentoController;
+import br.com.atus.controller.UsuarioController;
 import br.com.atus.modelo.Atendimento;
+import br.com.atus.modelo.Usuario;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
@@ -36,9 +38,12 @@ public class AtendimentoMB extends BeanGenerico<Atendimento> implements Serializ
     private NavegacaoMB navegacaoMB;
     @EJB
     private AtendimentoController controller;
+    @EJB
+    private UsuarioController usuarioController;
     private List<Atendimento> listaAtendimentos;
     private List<Atendimento> listaAtendimentosFrente;
     private List<Atendimento> listaAtendimentosFundo;
+    private List<Usuario> listaUsuarios;
 
     private Atendimento atendimento;
 
@@ -52,7 +57,7 @@ public class AtendimentoMB extends BeanGenerico<Atendimento> implements Serializ
             atendimento = (Atendimento) navegacaoMB.getRegistroMapa("atendimento", new Atendimento());
             listaAtendimentosFrente = controller.listarAtendFrente();
             listaAtendimentosFundo = controller.listarAtendFundo(navegacaoMB.getUsuarioLogado());
-            
+            listaUsuarios = usuarioController.listarTodos("login");
             if (atendimento.getId() == null) {
                 atendimento.setDataAbertura(new Date());
 
@@ -60,6 +65,11 @@ public class AtendimentoMB extends BeanGenerico<Atendimento> implements Serializ
         } catch (Exception ex) {
             Logger.getLogger(AtendimentoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void atualizarFrenteFundo() {
+        listaAtendimentosFrente = controller.listarAtendFrente();
+        listaAtendimentosFundo = controller.listarAtendFundo(navegacaoMB.getUsuarioLogado());
     }
 
     public void salvar() {
@@ -168,5 +178,13 @@ public class AtendimentoMB extends BeanGenerico<Atendimento> implements Serializ
     public void setListaAtendimentosFundo(List<Atendimento> listaAtendimentosFundo) {
         this.listaAtendimentosFundo = listaAtendimentosFundo;
     }
- 
+
+    public List<Usuario> getListaUsuarios() {
+        return listaUsuarios;
+    }
+
+    public void setListaUsuarios(List<Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
+    }
+
 }
