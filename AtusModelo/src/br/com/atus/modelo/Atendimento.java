@@ -46,8 +46,7 @@ public class Atendimento implements Serializable {
     @JoinColumn(name = "usr_id_atendeu", referencedColumnName = "usr_id")
     private Usuario usuarioAtendeu;
 
-    @NotNull
-    @Column(name = "ate_visitante", nullable = false)
+    @Column(name = "ate_visitante")
     private String visitante;
 
     @Column(name = "ate_visi_tel")
@@ -80,6 +79,19 @@ public class Atendimento implements Serializable {
     @Email
     @Column(name = "ate_visi_email")
     private String email;
+    
+    @Column(name = "ate_cli_novo")
+    private boolean clienteNovo;
+
+    public boolean isClienteNovo() {
+        return clienteNovo;
+    }
+
+    public void setClienteNovo(boolean clienteNovo) {
+        this.clienteNovo = clienteNovo;
+    }
+    
+    
 
     public String getEmail() {
         return email;
