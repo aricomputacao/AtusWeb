@@ -184,6 +184,15 @@ public class Processo implements Serializable {
     @PecaColetor
     private String dependente;
 
+    public String getTodosAdversarios() {
+        String adv = "";
+        for (Adversario a : adversarios) {
+            adv = adv.concat(a.getCliente().getPessoa().getNome()).concat(", ");
+
+        }
+        return adv;
+    }
+
     public String getFatos() {
         return fatos;
     }
