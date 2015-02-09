@@ -7,6 +7,7 @@ package br.com.atus.managedbean;
 
 import br.com.atus.controller.AgendaController;
 import br.com.atus.controller.EventoController;
+import br.com.atus.modelo.Adversario;
 import br.com.atus.modelo.Agenda;
 import br.com.atus.modelo.Evento;
 import br.com.atus.modelo.Processo;
@@ -116,6 +117,7 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
 
     public void imprimir() {
         if (!listaEventos.isEmpty()) {
+           
             Map<String, Object> m = new HashMap<>();
             byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaEventos, m, "WEB-INF/relatorios/rel_eventos.jasper", "Relatório de Eventos");
             RelatorioSession.setBytesRelatorioInSession(rel);

@@ -18,7 +18,10 @@
     </composite:interface>
     <composite:implementation  >
         <p:fieldset id="fieldCad" rendered="#{navegacaoMB.permissaoIncluir(navegacao['pro.processo'])}" legend="#{cc.attrs.legend}"  >            
-            <h:outputText rendered="#{processoMB.processo.id != null}" style="font-size:20px;font-weight: bold" value="&rsaquo;&rsaquo;#{processoMB.processo.cliente.pessoa.nome}"/>
+            <h:panelGrid>
+            <h:outputText rendered="#{processoMB.processo.id != null}" style="font-size:20px;font-weight: bold" value="&rsaquo;&rsaquo; Id: #{processoMB.processo.id}"/>
+            <h:outputText rendered="#{processoMB.processo.id != null}" style="font-size:20px;font-weight: bold" value="&rsaquo;&rsaquo; Cliente: #{processoMB.processo.cliente.pessoa.nome}"/>
+            </h:panelGrid>
             <p:tabView id="tbView" dynamic="true" >
                 <p:tab id="tabDadosGer" title="Dados Gerais">
                     <h:panelGrid columns="2" >
@@ -113,77 +116,81 @@
 
                             <comp:inputTextArea nomeLabel="Observações" value="#{processoMB.processo.observacoes}" coluna="50" linha="5"  />
                         </h:panelGrid>
+                        <h:panelGrid width="100%" id="grdParte">
+                            <h:panelGrid id="grdInt"  >
+                                <p:panel style="text-align: center" header="Partes Interessadas">
+                                    <h:panelGrid   >
+                                        <h:panelGrid>
+                                            <p:outputLabel value="Interessado" for="input_componente_int"/>
+                                            <h:panelGrid columns="3">
+                                                <p:inputText value="#{processoMB.parteInteressada.cliente.pessoa.nome}" id="input_componente_int" readonly="true" size="27"/>
+                                                <p:commandButton icon="ui-icon-search"  onclick="PF('dialogoConIntere').show()"  immediate="true"/>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="2">
+                                            <comp:inputText require="false" nomeLabel="Representante\Qualificação" value="#{processoMB.parteInteressada.representante}" size="70" />
+                                            <p:commandButton style="margin-top: 23px" value="Adicionar"  actionListener="#{processoMB.addInteressado()}" update="@form"  icon="ui-icon-circle-plus"  />
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                    <p:dataTable value="#{processoMB.processo.parteInteressadas}" id="tabelaInt" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
+                                                 rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                                 rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
 
+                                        <p:column headerText="Nome" sortBy="#{t.cliente.pessoa.nome}">
+                                            <comp:outputText value="#{t.cliente.pessoa.nome}"/>
+                                        </p:column>
+                                        <p:column headerText="Representante" >
+                                            <comp:outputText value="#{t.representante}"/>
+                                        </p:column>
+                                        <p:column headerText="Ação" width="10%"  style="text-align: center">
+                                            <comp:commandButton_excluir acao_butao="#{processoMB.delInteressado(t, processoMB.processo)}" classe="Interessado" form_to_update="@form"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:panel>
+                            </h:panelGrid>
+
+                            <h:panelGrid id="grdIntAdv"  >
+                                <p:panel style="text-align: center" header="Adversário">
+                                    <h:panelGrid   >
+                                        <h:panelGrid>
+                                            <p:outputLabel value="Adversário" for="input_componente_adv"/>
+                                            <h:panelGrid columns="3">
+                                                <p:inputText value="#{processoMB.adversario.cliente.pessoa.nome}" id="input_componente_adv"  readonly="true" size="27"/>
+                                                <p:commandButton icon="ui-icon-search"  onclick="PF('dialogoConAdv').show()"  immediate="true"/>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="2">
+                                            <comp:inputText nomeLabel="Representante\Qualificação" require="false" value="#{processoMB.adversario.representante}" size="70" />
+                                            <p:commandButton style="margin-top: 23px" value="Adicionar"  actionListener="#{processoMB.addAdversario()}" update="@form"  icon="ui-icon-circle-plus"  />
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                    <p:dataTable value="#{processoMB.processo.adversarios}" id="tabelaAdv" paginatorAlwaysVisible="false" paginator="true" var="t2" rows="10"
+                                                 rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                                 rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+
+                                        <p:column headerText="Nome" sortBy="#{t2.cliente.pessoa.nome}">
+                                            <comp:outputText value="#{t2.cliente.pessoa.nome}"/>
+                                        </p:column>
+                                        <p:column headerText="Representante" >
+                                            <comp:outputText value="#{t2.representante}"/>
+                                        </p:column>
+                                        <p:column headerText="Ação" width="10%" style="text-align: center">
+                                            <comp:commandButton_excluir acao_butao="#{processoMB.delAdversario(t2, processoMB.processo)}" classe="Adversário" form_to_update="@form"/>
+
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:panel>
+                            </h:panelGrid>
+                        </h:panelGrid>
 
                     </h:panelGrid>
-
 
                 </p:tab>
                 <p:tab id="tabInteressados" title="Interessados">
-                    <h:panelGrid id="grdInt" >
-                        <p:panel style="text-align: center" header="Partes Interessadas">
-                            <h:panelGrid   >
-                                <h:panelGrid>
-                                    <p:outputLabel value="Interessado" for="input_componente_int"/>
-                                    <h:panelGrid columns="3">
-                                        <p:inputText value="#{processoMB.parteInteressada.cliente.pessoa.nome}" id="input_componente_int" readonly="true" size="27"/>
-                                        <p:commandButton icon="ui-icon-search"  onclick="PF('dialogoConIntere').show()"  immediate="true"/>
-                                    </h:panelGrid>
-                                </h:panelGrid>
-                                <h:panelGrid columns="2">
-                                    <comp:inputText require="false" nomeLabel="Representante\Qualificação" value="#{processoMB.parteInteressada.representante}" size="100" />
-                                    <p:commandButton style="margin-top: 23px" value="Adicionar"  actionListener="#{processoMB.addInteressado()}"  update=":frm_pag:cadFrm:compProce:tbView:tabela" icon="ui-icon-circle-plus"  />
-                                </h:panelGrid>
-                            </h:panelGrid>
-                            <p:dataTable value="#{processoMB.processo.parteInteressadas}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
-                                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
-                                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
 
-                                <p:column headerText="Nome" sortBy="#{t.cliente.pessoa.nome}">
-                                    <comp:outputText value="#{t.cliente.pessoa.nome}"/>
-                                </p:column>
-                                <p:column headerText="Representante" >
-                                    <comp:outputText value="#{t.representante}"/>
-                                </p:column>
-                                <p:column headerText="Ação"  style="text-align: center">
-                                    <comp:commandButton_excluir acao_butao="#{advogadoMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Advogado" form_to_update="@form"/>
-                                </p:column>
-                            </p:dataTable>
-                        </p:panel>
-                    </h:panelGrid>
                 </p:tab>
                 <p:tab id="tabAdversario" title="Adversário">
-                    <h:panelGrid id="grdIntAdv" >
-                        <p:panel style="text-align: center" header="Adversário">
-                            <h:panelGrid   >
-                                <h:panelGrid>
-                                    <p:outputLabel value="Adversário" for="input_componente_adv"/>
-                                    <h:panelGrid columns="3">
-                                        <p:inputText value="#{processoMB.adversario.cliente.pessoa.nome}" id="input_componente_adv"  readonly="true" size="27"/>
-                                        <p:commandButton icon="ui-icon-search"  onclick="PF('dialogoConAdv').show()"  immediate="true"/>
-                                    </h:panelGrid>
-                                </h:panelGrid>
-                                <h:panelGrid columns="2">
-                                    <comp:inputText nomeLabel="Representante\Qualificação" require="false" value="#{processoMB.adversario.representante}" size="100" />
-                                    <p:commandButton style="margin-top: 23px" value="Adicionar"  actionListener="#{processoMB.addAdversario()}"  update=":frm_pag:cadFrm:compProce:tbView:tabelaAdv" icon="ui-icon-circle-plus"  />
-                                </h:panelGrid>
-                            </h:panelGrid>
-                            <p:dataTable value="#{processoMB.processo.adversarios}" id="tabelaAdv" paginatorAlwaysVisible="false" paginator="true" var="t2" rows="10"
-                                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
-                                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
 
-                                <p:column headerText="Nome" sortBy="#{t2.cliente.pessoa.nome}">
-                                    <comp:outputText value="#{t2.cliente.pessoa.nome}"/>
-                                </p:column>
-                                <p:column headerText="Representante" >
-                                    <comp:outputText value="#{t2.representante}"/>
-                                </p:column>
-                                <p:column headerText="Ação"  style="text-align: center">
-                                    <comp:commandButton_excluir acao_butao="#{advogadoMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Advogado" form_to_update="@form"/>
-                                </p:column>
-                            </p:dataTable>
-                        </p:panel>
-                    </h:panelGrid>
                 </p:tab>
                 <p:tab id="tabFatos" title="Dos Fatos">
                     <comp:inputTextArea  nomeLabel="Dos Fatos" value="#{processoMB.processo.fatos}" coluna="100" linha="20"  />
@@ -271,7 +278,7 @@
                         </p:column>
                         <p:column headerText="Ação" id="acao" width="3%" style="text-align: center">
                             <p:commandButton  style="width: 22px;height: 22px" actionListener="#{eventoMB.imprimirEvento(ev)}"  oncomplete="popup('/atus/RelatorioServlet.pdf');" id="btnEvent" icon="ui-icon-print" />
-                            
+
                         </p:column>
 
                     </p:dataTable>

@@ -109,7 +109,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             listaMovimentacaos = movimentacaoController.listarPorProcesso(processo);
             listaEventos = eventoController.listarPorProcessos(processo);
             listaEventos = eventoController.listarPorProcessos(processo);
-            
+
             adversario = new Adversario();
             parteInteressada = new ParteInteressada();
             listaProcessos = new ArrayList<>();
@@ -140,6 +140,33 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     }
 
+    public void delAdversario(Adversario adv, Processo p) {
+        try {
+            p.getAdversarios().remove(adv);
+            controller.atualizar(p);
+            adv = adversarioController.gerenciar(adv.getId());
+            adversarioController.excluir(adv);
+            MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("excluir_adversario", MenssagemUtil.MENSAGENS));
+        } catch (Exception ex) {
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("excluir.falha", MenssagemUtil.MENSAGENS));
+            Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void delInteressado(ParteInteressada pi, Processo p) {
+        try {
+            p.getParteInteressadas().remove(pi);
+            controller.atualizar(p);
+            pi = interessadaController.gerenciar(pi.getId());
+            interessadaController.excluir(pi);
+            
+            MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("excluir_interessado", MenssagemUtil.MENSAGENS));
+        } catch (Exception ex) {
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("excluir.falha", MenssagemUtil.MENSAGENS));
+            Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void salvar() {
         try {
             //setar cliente como o primeiro cliente da lista da parte interessada

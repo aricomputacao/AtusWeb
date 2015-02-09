@@ -45,26 +45,23 @@
                 <p:dataTable value="#{eventoMB.listaEventos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10" 
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
-                    <p:column headerText="Data" width="5%" >
-                        <comp:outputText tipo="d" value="#{t.data}"/>
+                    <p:column headerText="Id" width="5%" >
+                        <comp:outputText  value="#{t.processo.id}"/>
                     </p:column>
-                    <p:column headerText="Nome" width="10%" sortBy="#{t.nome}">
+                    <p:column headerText="Evento" width="10%" >
                         <comp:outputText value="#{t.nome}"/>
                     </p:column>
-                    <p:column headerText="Tipo" width="10%" >
+                    <p:column headerText="Data\Hora" width="5%" >
+                        <comp:outputText value="#{t.data}" tipo="dt"/>
+                    </p:column>
+                    <p:column headerText="Tipo de Evento" width="10%" >
                         <comp:outputText value="#{t.especieEvento.nome}"/>
                     </p:column>
-                    <p:column headerText="Processo" width="15%" >
-                        <comp:outputText value="#{t.processo.numero}"/>
+                    <p:column headerText="Cliente" width="15%" >
+                        <comp:outputText value="#{t.processo.cliente.pessoa.nome}"/>
                     </p:column>
-                    <p:column headerText="Descrição" width="10%" >
-                        <comp:outputText value="#{t.observacao}"/>
-                    </p:column>
-                    <p:column headerText="Local" width="20%"   >
-                        <comp:outputText value="#{t.local}"/>
-                    </p:column>
-
-                    <p:column headerText="Ação" id="acao" width="9%" style="text-align: center">
+                    
+                    <p:column headerText="Ação" id="acao" width="7%" style="text-align: center">
                         <p:commandButton  style="width: 22px;height: 22px" actionListener="#{eventoMB.imprimirEvento(t)}"  oncomplete="popup('/atus/RelatorioServlet.pdf');" id="btnEvent" icon="ui-icon-print" />
                         <p:commandButton  style="width: 22px;height: 22px" actionListener="#{processoMB.setarProcesso(t.processo)}" update="#{cc.attrs.dialogUpdade}"  rendered="#{cc.attrs.renderInfo}" title="Informações" oncomplete="PF('#{cc.attrs.dialogInfo}').show()"  id="btnInfo" icon="ui-icon-info" />
                         <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderBtnEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['pro.evento'],'evento',t)}" />
