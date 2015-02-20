@@ -66,4 +66,11 @@ public class MovimentacaoController extends Controller<Movimentacao, Long> imple
 
     }
 
+    public Movimentacao ultimaMovimentacao(Processo p) throws Exception {
+        Long ultimoId = dao.ultimaMovimentacao(p);
+        
+        System.out.println(ultimoId);
+        return ultimoId == null ? null : dao.carregar(ultimoId);
+    }
+
 }

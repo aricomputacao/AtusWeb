@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:cons="http://java.sun.com/jsf/composite/consultas"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="corpo">
+        <comp:panel_cadastro rendered="#{navegacaoMB.permissaoModuloUtilitarios()}" id_form="frm_pag" cabecalho_grid="Utilitarios do Sistema" >
+            <h:form id="frm_pag" prependId="false" >
+                <p:blockUI block="@form" trigger="btnFase"    >
+                    <p:graphicImage library="imagens" name="carregar.gif"/>
+                </p:blockUI> 
+                <p:commandButton  id="btnFase" actionListener="#{utilitariosMB.setarFaseProcesso()}" immediate="true" value="Importar Fases" >
+                    <p:confirm  header="Importar Fases" message="Tem certeza que deseja fazer isso?" icon="alert"  />
+                </p:commandButton>
+            </h:form>
+        </comp:panel_cadastro>
+    </ui:define>
+    <ui:define name="dialogs">
+
+
+        <p:dialog showEffect="fade" position="top"   header="Consulta de Pessoas" id="conPesCli" modal="true" hideEffect="fade" widgetVar="dialogoConUsuario">
+            <h:form id="frmConCliente" prependId="false">
+                <cons:UsuarioConsulta renderEditar="false" id="tblCli" renderExcluir="false" renderSelecionar="true"   nomeDialog="dialogoConUsuario" update_form=":frm_pag:cadFrm:compProceConsu:inputCon:input_componente" valorSelecionado="#{relatorioMB.usuario}" >
+
+                </cons:UsuarioConsulta>
+            </h:form>
+        </p:dialog>
+
+    </ui:define>
+
+</ui:composition>
+

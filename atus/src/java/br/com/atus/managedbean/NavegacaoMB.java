@@ -128,6 +128,7 @@ public class NavegacaoMB implements Serializable {
         }
         return false;
     }
+
     public boolean permissaoModuloSeguranca() {
         for (Permissao p : listaPermissaos) {
             if (p.getTarefa().getModulo().getMnemonico().equals("03")) {
@@ -136,9 +137,19 @@ public class NavegacaoMB implements Serializable {
         }
         return false;
     }
+
     public boolean permissaoModuloRelatorio() {
         for (Permissao p : listaPermissaos) {
             if (p.getTarefa().getModulo().getMnemonico().equals("04")) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean permissaoModuloUtilitarios() {
+        for (Permissao p : listaPermissaos) {
+            if (p.getTarefa().getModulo().getMnemonico().equals("05")) {
                 return true;
             }
         }
@@ -271,6 +282,9 @@ public class NavegacaoMB implements Serializable {
                 case ("rel"):
                     modulo = "04";
                     break;
+                case ("uti"):
+                    modulo = "05";
+                    break;
 
             }
             //renderiza atela de cadastro
@@ -302,6 +316,9 @@ public class NavegacaoMB implements Serializable {
                     break;
                 case ("rel"):
                     modulo = "04";
+                    break;
+                case ("uti"):
+                    modulo = "05";
                     break;
 
             }

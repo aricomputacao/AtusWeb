@@ -14,13 +14,12 @@
     <composite:interface id="interCon">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
         <composite:attribute  name="legend" default="Cadastro" shortDescription="Cabeçalho do fieldset" />
-
     </composite:interface>
     <composite:implementation  >
         <p:fieldset id="fieldCad" rendered="#{navegacaoMB.permissaoIncluir(navegacao['pro.processo'])}" legend="#{cc.attrs.legend}"  >            
             <h:panelGrid>
-            <h:outputText rendered="#{processoMB.processo.id != null}" style="font-size:20px;font-weight: bold" value="&rsaquo;&rsaquo; Id: #{processoMB.processo.id}"/>
-            <h:outputText rendered="#{processoMB.processo.id != null}" style="font-size:20px;font-weight: bold" value="&rsaquo;&rsaquo; Cliente: #{processoMB.processo.cliente.pessoa.nome}"/>
+                <h:outputText rendered="#{processoMB.processo.id != null}" style="font-size:20px;font-weight: bold" value="&rsaquo;&rsaquo; Id: #{processoMB.processo.id}"/>
+                <h:outputText rendered="#{processoMB.processo.id != null}" style="font-size:20px;font-weight: bold" value="&rsaquo;&rsaquo; Cliente: #{processoMB.processo.cliente.pessoa.nome}"/>
             </h:panelGrid>
             <p:tabView id="tbView" dynamic="true" >
                 <p:tab id="tabDadosGer" title="Dados Gerais">
@@ -116,9 +115,9 @@
 
                             <comp:inputTextArea nomeLabel="Observações" value="#{processoMB.processo.observacoes}" coluna="50" linha="5"  />
                         </h:panelGrid>
-                        <h:panelGrid width="100%" id="grdParte">
+                        <h:panelGrid  id="grdParte">
                             <h:panelGrid id="grdInt"  >
-                                <p:panel style="text-align: center" header="Partes Interessadas">
+                                <p:panel style="text-align: center"  header="Partes Interessadas">
                                     <h:panelGrid   >
                                         <h:panelGrid>
                                             <p:outputLabel value="Interessado" for="input_componente_int"/>
@@ -128,7 +127,7 @@
                                             </h:panelGrid>
                                         </h:panelGrid>
                                         <h:panelGrid columns="2">
-                                            <comp:inputText require="false" nomeLabel="Representante\Qualificação" value="#{processoMB.parteInteressada.representante}" size="70" />
+                                            <comp:inputText require="false" nomeLabel="Representante\Qualificação" value="#{processoMB.parteInteressada.representante}" size="50" />
                                             <p:commandButton style="margin-top: 23px" value="Adicionar"  actionListener="#{processoMB.addInteressado()}" update="@form"  icon="ui-icon-circle-plus"  />
                                         </h:panelGrid>
                                     </h:panelGrid>
@@ -143,6 +142,7 @@
                                             <comp:outputText value="#{t.representante}"/>
                                         </p:column>
                                         <p:column headerText="Ação" width="10%"  style="text-align: center">
+                                            <p:commandButton actionListener="#{clienteMB.setarCliente(t.cliente)}"   style="width: 22px;height: 22px" rendered="true" title="Informações"  update=":fic" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
                                             <comp:commandButton_excluir acao_butao="#{processoMB.delInteressado(t, processoMB.processo)}" classe="Interessado" form_to_update="@form"/>
                                         </p:column>
                                     </p:dataTable>
@@ -160,7 +160,7 @@
                                             </h:panelGrid>
                                         </h:panelGrid>
                                         <h:panelGrid columns="2">
-                                            <comp:inputText nomeLabel="Representante\Qualificação" require="false" value="#{processoMB.adversario.representante}" size="70" />
+                                            <comp:inputText nomeLabel="Representante\Qualificação" require="false" value="#{processoMB.adversario.representante}" size="50" />
                                             <p:commandButton style="margin-top: 23px" value="Adicionar"  actionListener="#{processoMB.addAdversario()}" update="@form"  icon="ui-icon-circle-plus"  />
                                         </h:panelGrid>
                                     </h:panelGrid>
@@ -175,8 +175,8 @@
                                             <comp:outputText value="#{t2.representante}"/>
                                         </p:column>
                                         <p:column headerText="Ação" width="10%" style="text-align: center">
+                                            <p:commandButton actionListener="#{clienteMB.setarCliente(t2.cliente)}"   style="width: 22px;height: 22px" rendered="true" title="Informações"  update=":fic" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
                                             <comp:commandButton_excluir acao_butao="#{processoMB.delAdversario(t2, processoMB.processo)}" classe="Adversário" form_to_update="@form"/>
-
                                         </p:column>
                                     </p:dataTable>
                                 </p:panel>
@@ -186,7 +186,7 @@
                     </h:panelGrid>
 
                 </p:tab>
-              
+
                 <p:tab id="tabFatos" title="Dos Fatos">
                     <comp:inputTextArea  nomeLabel="Dos Fatos" value="#{processoMB.processo.fatos}" coluna="100" linha="20"  />
 

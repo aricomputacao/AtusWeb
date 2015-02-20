@@ -97,4 +97,8 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
         salvarouAtualizar(processo);
         
     }
+
+    public List<Processo> listarFaseNula() {
+        return dao.listarFaseNula();
+    }
 }

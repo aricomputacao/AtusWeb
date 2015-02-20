@@ -150,6 +150,9 @@ public class ConfigurarSistemaMB implements Serializable {
                     case ("rel"):
                         taf.setModulo(moduloController.buscarUnique("04"));
                         break;
+                    case ("uti"):
+                        taf.setModulo(moduloController.buscarUnique("05"));
+                        break;
 
                 }
                 if (!tarefaController.existeTarefa(taf)) {

@@ -138,4 +138,11 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
             return q.getResultList();
         }
     }
+
+    public List<Processo> listarFaseNula() {
+         TypedQuery q;
+        q = getEm().createQuery("SELECT p FROM Processo p WHERE p.fase IS NULL", Processo.class);
+        
+        return q.getResultList().isEmpty() ? new ArrayList<>() : q.getResultList();
+    }
 }

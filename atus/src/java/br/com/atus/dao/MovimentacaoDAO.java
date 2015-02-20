@@ -35,5 +35,12 @@ public class MovimentacaoDAO extends DAO<Movimentacao, Long> implements Serializ
             return tq.getResultList();
         }
     }
+
+    public Long ultimaMovimentacao(Processo p) {
+        TypedQuery tq;
+        tq = getEm().createQuery("SELECT MAX(m.id) FROM Movimentacao m  WHERE m.processo = :pro ", Long.class);
+        tq.setParameter("pro", p);
+        return (Long) tq.getSingleResult();
+    }
     
 }

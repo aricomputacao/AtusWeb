@@ -45,16 +45,16 @@
                 <p:dataTable value="#{eventoMB.listaEventos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10" 
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
-                    <p:column headerText="Id" width="5%" >
+                    <p:column headerText="Id" width="3%" >
                         <comp:outputText  value="#{t.processo.id}"/>
                     </p:column>
-                    <p:column headerText="Evento" width="10%" >
+                    <p:column headerText="Evento" width="12%" >
                         <comp:outputText value="#{t.nome}"/>
                     </p:column>
-                    <p:column headerText="Data\Hora" width="5%" >
+                    <p:column headerText="Data\Hora" width="6%" >
                         <comp:outputText value="#{t.data}" tipo="dt"/>
                     </p:column>
-                    <p:column headerText="Tipo de Evento" width="10%" >
+                    <p:column headerText="Tipo de Evento" width="12%" >
                         <comp:outputText value="#{t.especieEvento.nome}"/>
                     </p:column>
                     <p:column headerText="Cliente" width="15%" >

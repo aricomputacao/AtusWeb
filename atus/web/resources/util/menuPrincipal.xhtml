@@ -52,6 +52,8 @@
                     <p:menuitem value="Tarefa" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['seg.tarefa'])}" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['seg.tarefa'])}" immediate="true"/>
                     <p:menuitem value="Permissões" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['seg.permissao'])}" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['seg.permissao'])}" immediate="true"/>
                 </p:submenu>
+                <p:menuitem value="Utilitários" styleClass="item" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['uti.utilitarios'])}" immediate="true"/>
+
             </p:menubar>
         </h:form>
     </composite:implementation>

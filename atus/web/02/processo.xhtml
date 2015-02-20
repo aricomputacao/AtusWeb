@@ -37,6 +37,9 @@
 
     </ui:define>
     <ui:define name="dialogs">
+        <p:dialog  position="top" width="600" height="400"  header="Ficha de Cliente" id="fic" modal="true" widgetVar="dialogFicha">
+            <util:dadosCliente  id="dadCli"/>
+        </p:dialog>
         <p:dialog showEffect="fade" position="top"   header="Cadastro de Tipo de Contrato" id="tpCo" modal="true" hideEffect="fade" widgetVar="dialogoTipoContrato">
             <h:form>
                 <util:menuCadDialogo id="menDialog" frm_update=":frm_pag:cadFrm:compProce:tbView:grdTipCon" acao_remoteCommand="#{tipoContratoMB.listar()}" acao_salvar="#{tipoContratoMB.salvar()}"  />
@@ -94,8 +97,8 @@
                 </cons:ClienteConsulta>
             </h:form>
         </p:dialog>
-        <p:dialog showEffect="fade" position="top"  id="dialogCadPro"   modal="true" hideEffect="fade" widgetVar="dialogCadProc">
-            <h:form id="frmDialogCadProce">
+        <p:dialog showEffect="fade" position="top"  id="dialogCadPro"    modal="true" hideEffect="fade" widgetVar="dialogCadProc">
+            <h:form id="frmDialogCadProce" >
                 <cadastro:ProcessoCadastro id="compCadPro" legend="Dados do Processo" />
             </h:form>
         </p:dialog>
