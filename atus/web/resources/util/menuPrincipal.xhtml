@@ -31,7 +31,11 @@
 
                 <p:submenu  label="Atendimento" id="sbAte" rendered="#{navegacaoMB.permissaoModuloCadastro()}"  styleClass="subMenu" >
                     <p:menuitem styleClass="item" id="menAte" value="Atendimento" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.atendimento'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.atendimento'])}" immediate="true"/>
-                    <p:menuitem styleClass="item" value="Acompanhar" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.acompanhar_atendimento'])}"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.acompanhar_atendimento'])}" immediate="true"/>
+                    <p:submenu label="Acompanhar" >
+                        <p:menuitem styleClass="item" value="Frente" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.acompanhar_atendimento'])}"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.acompanhar_atendimento_frente'])}" immediate="true"/>
+                        <p:menuitem styleClass="item" value="Fundo" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.acompanhar_atendimento'])}"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.acompanhar_atendimento'])}" immediate="true"/>
+
+                    </p:submenu>
                 </p:submenu>
                 <p:submenu label="Processo" rendered="#{navegacaoMB.permissaoModuloProcesso()}" styleClass="subMenu">
                     <p:menuitem value="Fases" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['pro.fase'])}" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.fase'])}" immediate="true"/>
@@ -45,6 +49,7 @@
                 </p:submenu>
                 <p:submenu label="Relatório"  rendered="#{navegacaoMB.permissaoModuloRelatorio()}" styleClass="subMenu">
                     <p:menuitem value="Processos Atrasados" styleClass="item" rendered="#{navegacaoMB.permissaoExiste(navegacao['rel.processo_atrasado'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['rel.processo_atrasado'])}" immediate="true"/>
+                    <p:menuitem value="Processos Colaborador" styleClass="item" rendered="#{navegacaoMB.permissaoExiste(navegacao['rel.processo_colaborador'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['rel.processo_colaborador'])}" immediate="true"/>
 
                 </p:submenu>
                 <p:submenu label="Segurança"  rendered="#{navegacaoMB.permissaoModuloSeguranca()}" styleClass="subMenu">

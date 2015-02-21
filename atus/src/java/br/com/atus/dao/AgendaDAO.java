@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.atus.dao;
 
 import br.com.atus.modelo.Agenda;
@@ -20,7 +19,7 @@ import javax.persistence.TypedQuery;
  * @author Ari
  */
 @Stateless
-public class AgendaDAO extends DAO<Agenda, Long> implements Serializable{
+public class AgendaDAO extends DAO<Agenda, Long> implements Serializable {
 
     public AgendaDAO() {
         super(Agenda.class);
@@ -39,13 +38,15 @@ public class AgendaDAO extends DAO<Agenda, Long> implements Serializable{
 
     public List<Agenda> listarPorUsuario(Usuario usuarioLogado) {
         TypedQuery tq;
-        tq = getEm().createQuery("SELECT a FROM Agenda a WHERE a.usuario = :usr OR a.usuario IS NULL", Agenda.class);
+        tq = getEm().createQuery("SELECT a FROM Agenda a WHERE a.usuario = :usr and a.especieEvento.nome <> :tp", Agenda.class);
         tq.setParameter("usr", usuarioLogado);
+        tq.setParameter("tp", "Publicação");
+
         if (tq.getResultList().isEmpty()) {
             return new ArrayList<>();
         } else {
             return tq.getResultList();
         }
     }
-    
+
 }

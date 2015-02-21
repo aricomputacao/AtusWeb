@@ -5,9 +5,12 @@
  */
 package br.com.atus.managedbean;
 
+import br.com.atus.controller.MovimentacaoController;
 import br.com.atus.controller.ProcessoController;
+import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.dto.ProcessosAtrasadoRelatorioDTO;
 import br.com.atus.modelo.Cliente;
+import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Usuario;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.RelatorioSession;
@@ -32,9 +35,13 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
 
     @EJB
     private ProcessoController processoController;
+    @EJB
+    private MovimentacaoController movimentacaoController;
     private List<ProcessosAtrasadoRelatorioDTO> listaProcessosAtrasadoRelatorioDTOs;
+    private List<ProcessoUltimaMovimentacaoDTO> listaProcessoUltimaMovimentacaoDTOs;
     private Cliente cliente;
     private Usuario usuario;
+    private Colaborador colaborador;
 
     public RelatorioMB() {
         super(ProcessosAtrasadoRelatorioDTO.class);
@@ -43,12 +50,27 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
     @PostConstruct
     public void init() {
         listaProcessosAtrasadoRelatorioDTOs = new ArrayList<>();
+        listaProcessoUltimaMovimentacaoDTOs = new ArrayList<>();
         usuario = new Usuario();
+        colaborador = new Colaborador();
     }
 
     public void listarProcessosAtrasados() {
         listaProcessosAtrasadoRelatorioDTOs = processoController.listaProcessosAtrasadosRelatorio(usuario);
         usuario = new Usuario();
+
+    }
+
+    public void listarProcessoColaborador() {
+        listaProcessoUltimaMovimentacaoDTOs = movimentacaoController.listarProcessosColaboradores(colaborador);
+    }
+
+    public void imprimirProcessoColaborador() {
+        if (!listaProcessoUltimaMovimentacaoDTOs.isEmpty()) {
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaProcessoUltimaMovimentacaoDTOs, m, "WEB-INF/relatorios/rel_processo_colaborador.jasper", "Relatório de Processos por Colaborador");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        }
 
     }
 
@@ -83,6 +105,22 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Colaborador getColaborador() {
+        return colaborador;
+    }
+
+    public void setColaborador(Colaborador colaborador) {
+        this.colaborador = colaborador;
+    }
+
+    public List<ProcessoUltimaMovimentacaoDTO> getListaProcessoUltimaMovimentacaoDTOs() {
+        return listaProcessoUltimaMovimentacaoDTOs;
+    }
+
+    public void setListaProcessoUltimaMovimentacaoDTOs(List<ProcessoUltimaMovimentacaoDTO> listaProcessoUltimaMovimentacaoDTOs) {
+        this.listaProcessoUltimaMovimentacaoDTOs = listaProcessoUltimaMovimentacaoDTOs;
     }
 
 }

@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.atus.dao;
 
+import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
+import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Movimentacao;
 import br.com.atus.modelo.Processo;
 import java.io.Serializable;
@@ -19,7 +20,7 @@ import javax.persistence.TypedQuery;
  * @author ari
  */
 @Stateless
-public class MovimentacaoDAO extends DAO<Movimentacao, Long> implements Serializable{
+public class MovimentacaoDAO extends DAO<Movimentacao, Long> implements Serializable {
 
     public MovimentacaoDAO() {
         super(Movimentacao.class);
@@ -42,5 +43,20 @@ public class MovimentacaoDAO extends DAO<Movimentacao, Long> implements Serializ
         tq.setParameter("pro", p);
         return (Long) tq.getSingleResult();
     }
-    
+
+    public List<ProcessoUltimaMovimentacaoDTO> listarProcessoUltimaMovimentacao() {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT new br.com.atus.dto.ProcessoUltimaMovimentacaoDTO(m.processo,MAX(m))  FROM Movimentacao m GROUP BY m.processo,m.processo.colaborador ORDER BY m.processo.colaborador  ", ProcessoUltimaMovimentacaoDTO.class);
+
+        return q.getResultList().isEmpty() ? new ArrayList<>() : q.getResultList();
+    }
+
+    public List<ProcessoUltimaMovimentacaoDTO> listarProcessoUltimaMovimentacao(Colaborador c) {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT new br.com.atus.dto.ProcessoUltimaMovimentacaoDTO(m.processo,MAX(m))  FROM Movimentacao m WHERE m.processo.colaborador = :col GROUP BY m.processo,m.processo.colaborador ORDER BY m.processo.colaborador ", ProcessoUltimaMovimentacaoDTO.class)
+                .setParameter("col", c);
+
+        return q.getResultList().isEmpty() ? new ArrayList<>() : q.getResultList();
+    }
+
 }

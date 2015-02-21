@@ -6,6 +6,8 @@
 package br.com.atus.controller;
 
 import br.com.atus.dao.MovimentacaoDAO;
+import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
+import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Fase;
 import br.com.atus.modelo.Movimentacao;
 import br.com.atus.modelo.Processo;
@@ -71,6 +73,18 @@ public class MovimentacaoController extends Controller<Movimentacao, Long> imple
         
         System.out.println(ultimoId);
         return ultimoId == null ? null : dao.carregar(ultimoId);
+    }
+
+    public List<ProcessoUltimaMovimentacaoDTO> listarProcessosColaboradores() {
+        return dao.listarProcessoUltimaMovimentacao();
+    }
+
+    public List<ProcessoUltimaMovimentacaoDTO> listarProcessosColaboradores(Colaborador c) {
+        if (c.getId() == null) {
+            return listarProcessosColaboradores();
+        }else{
+           return dao.listarProcessoUltimaMovimentacao(c);
+        }
     }
 
 }

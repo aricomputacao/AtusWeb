@@ -39,6 +39,7 @@ public class AgendaController extends Controller<Agenda, Long> implements Serial
         a.setDescricao(e.getObservacao());
         a.setEspecieEvento(e.getEspecieEvento());
         a.setEvento(e);
+        a.setUsuario(e.getUsuario());
         a.setTitulo(e.getNome());
         dao.atualizar(a);        
     }

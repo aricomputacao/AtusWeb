@@ -7,6 +7,7 @@ package br.com.atus.dao;
 
 import br.com.atus.dto.ProcessoAtrasadoDTO;
 import br.com.atus.dto.ProcessoGrupoDiaAtrasadoDTO;
+import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.dto.ProcessosAtrasadoRelatorioDTO;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Fase;
@@ -140,9 +141,11 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
     }
 
     public List<Processo> listarFaseNula() {
-         TypedQuery q;
+        TypedQuery q;
         q = getEm().createQuery("SELECT p FROM Processo p WHERE p.fase IS NULL", Processo.class);
-        
+
         return q.getResultList().isEmpty() ? new ArrayList<>() : q.getResultList();
     }
+    
+    
 }

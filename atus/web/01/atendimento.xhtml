@@ -55,7 +55,7 @@
         </p:dialog>
         <p:dialog showEffect="fade" position="top"   header="Atendimento" id="cancAtend" modal="true" hideEffect="fade" widgetVar="dialogCanAtend">
             <h:form id="frmCanAtend">                
-                <util:menuCadDialogo acao_remoteCommand="#{atendimentoMB.listar()}" title="Cancelar" acao_salvar="#{atendimentoMB.cancelarAtendimento()}" frm_update=":frmCanAtend:cancAtendi:fieldCanAtend" />
+                <util:menuCadDialogo acao_remoteCommand="#{atendimentoMB.listar()}" render_onclick="true" dialog="dialogCanAtend" title="Cancelar" acao_salvar="#{atendimentoMB.cancelarAtendimento()}" frm_update=":frmCanAtend:cancAtendi:fieldCanAtend" />
                 <acao:DesistirAtendimento id="cancAtendi"/>
             </h:form>
         </p:dialog>
