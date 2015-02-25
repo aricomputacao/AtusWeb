@@ -106,6 +106,10 @@ public class Processo implements Serializable {
     @PecaColetor
     @Column(name = "pro_objeto", length = 1024)
     private String objetoProcesso;
+    
+    
+    @Column(name = "pro_motivo_fase", length = 1024)
+    private String motivoFase;
 
     @ManyToOne
     @JoinColumn(name = "jut_id", referencedColumnName = "jut_id")
@@ -425,6 +429,15 @@ public class Processo implements Serializable {
         this.fase = fase;
     }
 
+    public String getMotivoFase() {
+        return motivoFase;
+    }
+
+    public void setMotivoFase(String motivoFase) {
+        this.motivoFase = motivoFase;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 7;
