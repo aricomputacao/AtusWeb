@@ -23,8 +23,26 @@
             </h:panelGrid>
             <p:tabView id="tbView" dynamic="true" >
                 <p:tab id="tabDadosGer" title="Dados Gerais">
-                    <h:panelGrid columns="2" >
+                    <h:panelGrid columns="1" >
                         <h:panelGrid columns="2"   >
+                            <h:panelGrid >
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Id" for="id" />
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:inputText value="#{processoMB.processo.id}" size="5" id="id" readonly="true" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid>
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Fase" for="fas"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="fas" effect="fade" style="width: 350px" converter="#{indexConverter}" value="#{processoMB.processo.fase}" required="true"   >
+                                        <f:selectItems value="#{faseMB.listaFases}" var="fas" itemLabel="#{fas.nome} --> #{fas.usuario.nome} (#{fas.prazo} dias) " itemValue="#{fas}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
                             <h:panelGrid id="grdEndere">
                                 <h:panelGrid columns="2" >
                                     <p:outputLabel value="Endereçamento" for="trat"/>
@@ -38,17 +56,22 @@
                             </h:panelGrid>
                             <h:panelGrid>
                                 <h:panelGrid columns="2" >
-                                    <p:outputLabel value="Colaborador" for="col"/>
+                                    <p:outputLabel value="Motivo Fase" for="mo"/>
                                 </h:panelGrid>
                                 <h:panelGrid columns="2">
-                                    <p:selectOneMenu id="col" effect="fade" style="width: 350px" converter="#{indexConverter}" value="#{processoMB.processo.colaborador}"    >
-                                        <f:selectItem itemLabel="------------  Selecione  --------------" itemValue="#{null}" /> 
-                                        <f:selectItems value="#{colaboradorMB.listaColaboradors}" var="col" itemLabel="#{col.pessoa.nome}" itemValue="#{col}"/>
-                                    </p:selectOneMenu>
+                                    <p:inputTextarea cols="45" maxlength="1024" value="#{processoMB.processo.motivoFase}" id="mo"/>
                                 </h:panelGrid>
                             </h:panelGrid>
                             <h:panelGrid >
                                 <comp:inputText nomeLabel="Número" size="20" value="#{processoMB.processo.numero}"/>
+                            </h:panelGrid>
+                            <h:panelGrid >
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Usuário Fase" for="ufs"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:inputText  value="#{processoMB.processo.fase.usuario.login}" readonly="true" id="ufs"/>
+                                </h:panelGrid>
                             </h:panelGrid>
                             <h:panelGrid id="grdTipCon">
                                 <h:panelGrid columns="2" >
@@ -61,19 +84,6 @@
                                     <p:commandButton onclick="PF('dialogoTipoContrato').show()" immediate="true" icon="ui-icon-circle-plus"/>
                                 </h:panelGrid>
                             </h:panelGrid>
-                            <h:panelGrid >
-                                <comp:inputTextCalendar nomeLabel="Data Cadastro" size="15" valorData="#{processoMB.processo.dataCadastro}"/>
-                            </h:panelGrid>                     
-                            <h:panelGrid>
-                                <h:panelGrid columns="2" >
-                                    <p:outputLabel value="Fase" for="fas"/>
-                                </h:panelGrid>
-                                <h:panelGrid columns="2">
-                                    <p:selectOneMenu id="fas" effect="fade" style="width: 350px" converter="#{indexConverter}" value="#{processoMB.processo.fase}" required="true"   >
-                                        <f:selectItems value="#{faseMB.listaFases}" var="fas" itemLabel="#{fas.nome} --> #{fas.usuario.nome} (#{fas.prazo} dias) " itemValue="#{fas}"/>
-                                    </p:selectOneMenu>
-                                </h:panelGrid>
-                            </h:panelGrid>
                             <h:panelGrid>
                                 <h:panelGrid columns="2" >
                                     <p:outputLabel value="Materia" for="mat"/>
@@ -81,24 +91,6 @@
                                 <h:panelGrid columns="2">
                                     <p:selectOneMenu id="mat" effect="fade" style="width: 350px" converter="#{indexConverter}" value="#{processoMB.processo.materia}" required="true"   >
                                         <f:selectItems value="#{materiaMB.listaMaterias}" var="mat" itemLabel="#{mat.nome}" itemValue="#{mat}"/>
-                                    </p:selectOneMenu>
-                                </h:panelGrid>
-                            </h:panelGrid>
-                            <h:panelGrid id="grdObj"  >
-                                <h:panelGrid >                                   
-                                    <p:outputLabel value="Objeto" for="input_componente_obj"/>
-                                    <h:panelGrid columns="3">
-                                        <p:inputTextarea rows="5" cols="30" value="#{processoMB.processo.objetoProcesso }" id="input_componente_obj"  />
-                                    </h:panelGrid>
-                                </h:panelGrid>
-                            </h:panelGrid>
-                            <h:panelGrid>
-                                <h:panelGrid columns="2" >
-                                    <p:outputLabel value="Juizo" for="juz"/>
-                                </h:panelGrid>
-                                <h:panelGrid columns="2">
-                                    <p:selectOneMenu id="juz" effect="fade" style="width: 350px" converter="#{indexConverter}" value="#{processoMB.processo.juizoTribunal}" required="true"   >
-                                        <f:selectItems value="#{juizoTribunalMB.listaJuizoTribunals}" var="juz" itemLabel="#{juz.nome}" itemValue="#{juz}"/>
                                     </p:selectOneMenu>
                                 </h:panelGrid>
                             </h:panelGrid>
@@ -112,10 +104,48 @@
                                     </p:selectOneMenu>
                                 </h:panelGrid>
                             </h:panelGrid>
+                            <h:panelGrid>
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Colaborador" for="col"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="col" effect="fade" style="width: 350px" converter="#{indexConverter}" value="#{processoMB.processo.colaborador}"    >
+                                        <f:selectItem itemLabel="------------  Selecione  --------------" itemValue="#{null}" /> 
+                                        <f:selectItems value="#{colaboradorMB.listaColaboradors}" var="col" itemLabel="#{col.pessoa.nome}" itemValue="#{col}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid>
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Juizo" for="juz"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="juz" effect="fade" style="width: 350px" converter="#{indexConverter}" value="#{processoMB.processo.juizoTribunal}" required="true"   >
+                                        <f:selectItems value="#{juizoTribunalMB.listaJuizoTribunals}" var="juz" itemLabel="#{juz.nome}" itemValue="#{juz}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
 
-                            <comp:inputTextArea nomeLabel="Observações" value="#{processoMB.processo.observacoes}" coluna="50" linha="5"  />
+                            <h:panelGrid >
+                                <comp:inputTextCalendar nomeLabel="Data Cadastro" size="15" valorData="#{processoMB.processo.dataCadastro}"/>
+                            </h:panelGrid>   
+
+
+
+                            <h:panelGrid id="grdObj"  >
+                                <h:panelGrid >                                   
+                                    <p:outputLabel value="Objeto" for="input_componente_obj"/>
+                                    <h:panelGrid columns="3">
+                                        <p:inputTextarea rows="5" cols="45" value="#{processoMB.processo.objetoProcesso }" id="input_componente_obj"  />
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+
+
+                            <comp:inputTextArea nomeLabel="Observações" value="#{processoMB.processo.observacoes}" coluna="45" linha="5"  />
                         </h:panelGrid>
-                        <h:panelGrid  id="grdParte">
+                        <h:panelGrid  id="grdParte" columns="2">
                             <h:panelGrid id="grdInt"  >
                                 <p:panel style="text-align: center"  header="Partes Interessadas">
                                     <h:panelGrid   >

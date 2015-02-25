@@ -7,6 +7,8 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Projetos\\Atus\\atus\\web\\WEB-INF\\relatorios\\"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="id" class="java.lang.String"/>
+	<parameter name="endere" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -14,9 +16,9 @@
 		<fieldDescription><![CDATA[cliente]]></fieldDescription>
 	</field>
 	<title>
-		<band height="80" splitType="Stretch">
+		<band height="27" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="f3ef1e7d-e84c-4efa-bf3d-db6f3765f965" mode="Opaque" x="0" y="0" width="555" height="27" backcolor="#CCCCCC"/>
+				<reportElement uuid="f3ef1e7d-e84c-4efa-bf3d-db6f3765f965" mode="Transparent" x="0" y="0" width="555" height="27" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="16" isBold="true"/>
 				</textElement>
@@ -60,6 +62,15 @@
 		<band height="57">
 			<subreport>
 				<reportElement uuid="7dcf67bf-623d-4762-bf6d-0879694265c7" x="0" y="3" width="555" height="50"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="endere">
+					<subreportParameterExpression><![CDATA[$P{endere}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="rodapeEmail">
 					<subreportParameterExpression><![CDATA[$P{rodapeEmail}]]></subreportParameterExpression>
 				</subreportParameter>

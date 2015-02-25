@@ -98,7 +98,7 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
         
     }
 
-    public List<Processo> listarFaseNula() {
-        return dao.listarFaseNula();
+    public List<Processo> listarFase() {
+        return dao.listarFase();
     }
 }

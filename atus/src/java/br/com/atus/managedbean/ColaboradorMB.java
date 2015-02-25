@@ -56,7 +56,7 @@ public class ColaboradorMB extends BeanGenerico<Colaborador> implements Serializ
     @PostConstruct
     public void init() {
         try {
-            listaColaboradors = controller.listarTodos("pessoa.nome");
+            listaColaboradors = controller.listaOrdenadoPorNome();
             listaCidades = new ArrayList<>();
             uf = new UnidadeFederativa();
             listaCidades = cidadeController.listarTodos("nome");

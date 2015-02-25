@@ -9,6 +9,7 @@ package br.com.atus.controller;
 import br.com.atus.dao.ColaboradorDAO;
 import br.com.atus.modelo.Colaborador;
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -27,6 +28,10 @@ public class ColaboradorController extends Controller<Colaborador, Long> impleme
     @Override
     protected void inicializaDAO() {
         setDAO(dao);
+    }
+    
+    public List<Colaborador> listaOrdenadoPorNome(){
+        return dao.listaOrdenadoPorNome();
     }
     
 }

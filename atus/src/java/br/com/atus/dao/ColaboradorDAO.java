@@ -8,7 +8,10 @@ package br.com.atus.dao;
 
 import br.com.atus.modelo.Colaborador;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -19,6 +22,12 @@ public class ColaboradorDAO extends DAO<Colaborador, Long> implements Serializab
 
     public ColaboradorDAO() {
         super(Colaborador.class);
+    }
+    
+    public List<Colaborador> listaOrdenadoPorNome(){
+        TypedQuery<Colaborador> tq;
+        tq = getEm().createQuery("SELECT c from Colaborador c ORDER BY c.pessoa.nome", Colaborador.class);
+        return tq.getResultList().isEmpty() ? new ArrayList<Colaborador>() : tq.getResultList();
     }
     
 }

@@ -31,12 +31,13 @@ public class UtilitariosMB {
 
     public void setarFaseProcesso() throws Exception {
         List<Processo> processos = new ArrayList<>();
-        processos = processoController.listarFaseNula();
+        processos = processoController.listarFase();
         for (Processo p : processos) {
             Movimentacao m = new Movimentacao();
             m = movimentacaoController.ultimaMovimentacao(p);
             if (m != null) {
                 p.setFase(m.getFaseNova());
+                p.setMotivoFase(m.getMotivo());
                 processoController.atualizar(p);
             }
 

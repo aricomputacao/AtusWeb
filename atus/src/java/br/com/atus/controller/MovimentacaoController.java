@@ -55,6 +55,7 @@ public class MovimentacaoController extends Controller<Movimentacao, Long> imple
                 m.setFaseNova(p.getFase());
                 m.setProcesso(p);
                 m.setUsuario(u);
+                m.setMotivo(p.getMotivoFase());
                 dao.salvar(m);
             }
         } else {
@@ -62,6 +63,8 @@ public class MovimentacaoController extends Controller<Movimentacao, Long> imple
             m.setDataMovimentacao(new Date());
             m.setFaseNova(p.getFase());
             m.setProcesso(p);
+            m.setMotivo(p.getMotivoFase());
+
             dao.salvar(m);
 
         }
@@ -70,7 +73,7 @@ public class MovimentacaoController extends Controller<Movimentacao, Long> imple
 
     public Movimentacao ultimaMovimentacao(Processo p) throws Exception {
         Long ultimoId = dao.ultimaMovimentacao(p);
-        
+
         System.out.println(ultimoId);
         return ultimoId == null ? null : dao.carregar(ultimoId);
     }
@@ -82,8 +85,8 @@ public class MovimentacaoController extends Controller<Movimentacao, Long> imple
     public List<ProcessoUltimaMovimentacaoDTO> listarProcessosColaboradores(Colaborador c) {
         if (c.getId() == null) {
             return listarProcessosColaboradores();
-        }else{
-           return dao.listarProcessoUltimaMovimentacao(c);
+        } else {
+            return dao.listarProcessoUltimaMovimentacao(c);
         }
     }
 

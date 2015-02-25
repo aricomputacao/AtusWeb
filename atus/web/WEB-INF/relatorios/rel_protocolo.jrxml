@@ -7,6 +7,8 @@
 		<defaultValueExpression><![CDATA["C:\\Projetos\\Atus\\atus\\web\\WEB-INF\\relatorios\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="rodapeEmail" class="java.lang.String"/>
+	<parameter name="id" class="java.lang.String"/>
+	<parameter name="endere" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -25,7 +27,7 @@
 	<title>
 		<band height="31" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="390807d6-ae34-43c9-a537-f127aec6ea03" mode="Opaque" x="0" y="0" width="555" height="31" backcolor="#CCCCCC"/>
+				<reportElement uuid="390807d6-ae34-43c9-a537-f127aec6ea03" mode="Transparent" x="0" y="0" width="555" height="31" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="22" isBold="true"/>
 				</textElement>
@@ -50,7 +52,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["ID: "+$F{id}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["ID: "+$F{id}+"-"+$P{endere}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -212,6 +214,12 @@
 		<band height="67">
 			<subreport>
 				<reportElement uuid="e7e0a9c7-218e-4136-901d-b6ff8c8cfece" x="0" y="9" width="555" height="54"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="endere">
+					<subreportParameterExpression><![CDATA[$P{endere}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="rodapeEmail">
 					<subreportParameterExpression><![CDATA[$P{rodapeEmail}]]></subreportParameterExpression>
 				</subreportParameter>

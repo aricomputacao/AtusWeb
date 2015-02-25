@@ -151,8 +151,8 @@ public class AssistentedeRelatorio implements Serializable {
             parametros.put("relatorio", nomeRelatorio);
             parametros.put("SUBREPORT_DIR", getDiretorioReal("WEB-INF/relatorios") + "/");
             parametros.put("REPORT_LOCALE", new Locale("pt", "BR"));
-            parametros.put("rodapeEmail", "atus@gmail.com");
-            parametros.put("rodapeFone", "(88) xxxx-xxxx");
+            parametros.put("rodapeEmail", "avocatus@live.com");
+            parametros.put("rodapeFone", "(88) 3611-6210");
             String rel = getDiretorioReal(arquivo);
             JRDataSource jrRS = new JRBeanCollectionDataSource(lista);
             JasperPrint print = JasperFillManager.fillReport(rel, parametros, jrRS);

@@ -11,8 +11,6 @@ import br.com.atus.controller.MovimentacaoController;
 import br.com.atus.controller.ParteInteressadaController;
 import br.com.atus.controller.PecaController;
 import br.com.atus.controller.ProcessoController;
-import br.com.atus.dto.ProcessoAtrasadoDTO;
-import br.com.atus.dto.ProcessosAtrasadoRelatorioDTO;
 import br.com.atus.exceptions.PecaFileException;
 import br.com.atus.modelo.Adversario;
 import br.com.atus.modelo.Cliente;
@@ -194,6 +192,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             movimentacaoController.salvar(movimentacao);
             //atualizo fase do processo
             processo.setFase(movimentacao.getFaseNova());
+            processo.setMotivoFase(movimentacao.getMotivo());
             controller.atualizar(processo);
             processo = new Processo();
             movimentacao = new Movimentacao();
@@ -209,19 +208,16 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
      *
      * @param p
      * @return
+     * @throws java.lang.Exception
      */
-    public boolean processoAtrasado(Processo p) {
-        if (p.getId() != null) {
-            listaMovimentacaos = movimentacaoController.listarPorProcesso(p);
-
-        }
-
-        if (p.getFase() != null && listaMovimentacaos.size() > 0) {
+    public boolean processoAtrasado(Processo p) throws Exception {
+       
+        if (p.getFase() != null ) {
             Calendar dataAtual = Calendar.getInstance();
             dataAtual.setTime(new Date());
 
             Calendar prazoFase = Calendar.getInstance();
-            prazoFase.setTime(listaMovimentacaos.get(listaMovimentacaos.size() - 1).getDataMovimentacao());
+            prazoFase.setTime(movimentacaoController.ultimaMovimentacao(p).getDataMovimentacao());
             prazoFase.add(Calendar.DAY_OF_MONTH, p.getFase().getPrazo());
 
             boolean b = (dataAtual.compareTo(prazoFase) < 0);
@@ -335,6 +331,8 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         List<Processo> l = new ArrayList<>();
         l.add(processo);
         Map<String, Object> m = new HashMap<>();
+        m.put("id", processo.getId());
+        m.put("endere", processo.getEnderecamento().getNome());
         byte[] rel = new AssistentedeRelatorio().relatorioemByte(l, m, "WEB-INF/relatorios/rel_dossie.jasper", "Relatório de Processos");
         RelatorioSession.setBytesRelatorioInSession(rel);
 
@@ -344,6 +342,8 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         List<Processo> l = new ArrayList<>();
         l.add(processo);
         Map<String, Object> m = new HashMap<>();
+        m.put("id", processo.getId());
+        m.put("endere", processo.getEnderecamento().getNome());
         byte[] rel = new AssistentedeRelatorio().relatorioemByte(l, m, "WEB-INF/relatorios/rel_protocolo.jasper", "Relatório de Processos");
         RelatorioSession.setBytesRelatorioInSession(rel);
 
@@ -353,6 +353,8 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         List<Processo> l = new ArrayList<>();
         l.add(processo);
         Map<String, Object> m = new HashMap<>();
+        m.put("id", processo.getId());
+        m.put("endere", processo.getEnderecamento().getNome());
         byte[] rel = new AssistentedeRelatorio().relatorioemByte(l, m, "WEB-INF/relatorios/rel_proc_ad_judicia.jasper", "Relatório de Processos");
         RelatorioSession.setBytesRelatorioInSession(rel);
 
@@ -362,6 +364,8 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         List<Processo> l = new ArrayList<>();
         l.add(processo);
         Map<String, Object> m = new HashMap<>();
+        m.put("id", processo.getId());
+        m.put("endere", processo.getEnderecamento().getNome());
         byte[] rel = new AssistentedeRelatorio().relatorioemByte(l, m, "WEB-INF/relatorios/re_declaracao_hipo.jasper", "Relatório de Processos");
         RelatorioSession.setBytesRelatorioInSession(rel);
 
@@ -371,6 +375,8 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         List<Processo> l = new ArrayList<>();
         l.add(processo);
         Map<String, Object> m = new HashMap<>();
+        m.put("id", processo.getId());
+        m.put("endere", processo.getEnderecamento().getNome());
         byte[] rel = new AssistentedeRelatorio().relatorioemByte(l, m, "WEB-INF/relatorios/rel_contrato_honorarios.jasper", "Relatório de Processos");
         RelatorioSession.setBytesRelatorioInSession(rel);
 

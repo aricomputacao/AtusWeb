@@ -2,11 +2,13 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_contrato_honorarios" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b8db20c6-e110-49bf-b8ce-b3535c410e60">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="272"/>
 	<parameter name="rodapeEmail" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Projetos\\Atus\\atus\\web\\WEB-INF\\relatorios\\"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="id" class="java.lang.String"/>
+	<parameter name="endere" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -29,7 +31,7 @@
 			<textField>
 				<reportElement uuid="3456b638-2d8c-4205-8152-f06bc553d832" x="0" y="3" width="555" height="141"/>
 				<textElement textAlignment="Justified"/>
-				<textFieldExpression><![CDATA[  $F{cliente}.getPessoa().getNome() +
+				<textFieldExpression><![CDATA[$F{cliente}.getPessoa().getNome() +
  ($F{cliente}.getNacionalidade() == null  ? "" : ", "+$F{cliente}.getNacionalidade().getNome())
  +($F{cliente}.getEstadoCivil() == null ? "" :", "+$F{cliente}.getEstadoCivil())
  +($F{cliente}.getProfissao() == null ? "" :", "+$F{cliente}.getProfissao().getNome())
@@ -68,8 +70,7 @@
 
 "Caso a parte contratante tenha seu benefício concedido administrativamente, será devido a quantia equivalente ao pactuado neste contrato em sua integralidade. \r\n \r\n"+
 
-"A parte contratante autoriza, expressamente, o desconto dos valores aqui contratados quando do levantamento de eventual alvará, RPV ou precatório decorrente da ação proposta. \r\n \r\n"
-]]></textFieldExpression>
+"A parte contratante autoriza, expressamente, o desconto dos valores aqui contratados quando do levantamento de eventual alvará, RPV ou precatório decorrente da ação proposta. \r\n \r\n"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="2202ea4f-ddf3-4ea5-b1c0-499591c5c9f8" x="0" y="317" width="100" height="20"/>
@@ -95,8 +96,7 @@
 				<textElement textAlignment="Justified"/>
 				<textFieldExpression><![CDATA["As partes contratantes elegem o foro desta cidade para o fim de dirimir qualquer ação oriunda do presente contrato. \n \n"+
 
-"E para firmeza e como prova de assim haverem contratado este instrumento particular, impresso em duas vias, de igual teor e forma, assinado pelas partes contratada e contratante, na forma do art. 24 do Estatuto da OAB."
-]]></textFieldExpression>
+"E para firmeza e como prova de assim haverem contratado este instrumento particular, impresso em duas vias, de igual teor e forma, assinado pelas partes contratada e contratante, na forma do art. 24 do Estatuto da OAB."]]></textFieldExpression>
 			</textField>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement uuid="2ef7f11e-061d-49fa-9069-58c6fa82211f" x="0" y="481" width="209" height="20"/>
@@ -178,6 +178,15 @@
 		<band height="54" splitType="Stretch">
 			<subreport>
 				<reportElement uuid="9425eccd-69ce-4df1-9228-b12e437ded52" x="0" y="2" width="555" height="50"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="endere">
+					<subreportParameterExpression><![CDATA[$P{endere}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="rodapeEmail">
 					<subreportParameterExpression><![CDATA[$P{rodapeEmail}]]></subreportParameterExpression>
 				</subreportParameter>
