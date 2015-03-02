@@ -146,7 +146,7 @@ public class NavegacaoMB implements Serializable {
         }
         return false;
     }
-    
+
     public boolean permissaoModuloUtilitarios() {
         for (Permissao p : listaPermissaos) {
             if (p.getTarefa().getModulo().getMnemonico().equals("05")) {
@@ -259,6 +259,31 @@ public class NavegacaoMB implements Serializable {
         } catch (Exception e) {
         }
         return msg;
+    }
+
+    /**
+     * Retorna a mensagem do bundle alterando a tag de parametro
+     *
+     *
+     * @param messageId
+     * @param arquivo
+     * @param parametro
+     * @return
+     */
+    public static String getMsgParametro(String messageId, String arquivo, String parametro) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String msg = "";
+        Locale locale = facesContext.getViewRoot().getLocale();
+        ResourceBundle bundle = ResourceBundle.getBundle(arquivo, locale);
+        try {
+            msg = bundle.getString(messageId);
+            msg = msg.replace("@", parametro);
+            return msg;
+
+        } catch (Exception e) {
+        }
+        return msg;
+
     }
 
     /**

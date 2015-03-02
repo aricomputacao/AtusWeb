@@ -11,11 +11,11 @@
     <composite:interface>
         <composite:attribute name="value" required="true" />
         <composite:attribute name="tipo"  default="t" shortDescription="Valores validos (t - texto) - (d - data) - (dt - dateTime)  - (c - dinheiro) - (p - porcentagem) - (n - number)" />
-
+        <composite:attribute name="title" default="" />
     </composite:interface>
     <composite:implementation>
         <ui:fragment rendered="#{cc.attrs.tipo == 't'}">
-            <h:outputText value="#{cc.attrs.value}"  />
+            <h:outputText value="#{cc.attrs.value}"  title="#{cc.attrs.title}" />
         </ui:fragment>
         <ui:fragment rendered="#{cc.attrs.tipo == 'd'}">
             <h:outputText value="#{cc.attrs.value}"  >

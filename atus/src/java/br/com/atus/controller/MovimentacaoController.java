@@ -56,15 +56,13 @@ public class MovimentacaoController extends Controller<Movimentacao, Long> imple
                 m.setProcesso(p);
                 m.setUsuario(u);
                 m.setMotivo(p.getMotivoFase());
-                dao.salvar(m);
+            } else {
+                m.setUsuario(u);
+                m.setDataMovimentacao(new Date());
+                m.setFaseNova(p.getFase());
+                m.setProcesso(p);
+                m.setMotivo(p.getMotivoFase());
             }
-        } else {
-            m.setUsuario(u);
-            m.setDataMovimentacao(new Date());
-            m.setFaseNova(p.getFase());
-            m.setProcesso(p);
-            m.setMotivo(p.getMotivoFase());
-
             dao.salvar(m);
 
         }

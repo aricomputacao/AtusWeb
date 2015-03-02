@@ -157,21 +157,21 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             controller.atualizar(p);
             pi = interessadaController.gerenciar(pi.getId());
             interessadaController.excluir(pi);
-            
+
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("excluir_interessado", MenssagemUtil.MENSAGENS));
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("excluir.falha", MenssagemUtil.MENSAGENS));
             Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void salvar() {
         try {
             //setar cliente como o primeiro cliente da lista da parte interessada
             setarCliente(processo.getParteInteressadas().get(0).getCliente());
             controller.salvarouAtualizarEditarFase(processo, fase, navegacaoMB.getUsuarioLogado());
             aposSalvar();
-            MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
+            MenssagemUtil.addMessageInfo(NavegacaoMB.getMsgParametro("salvar_processo", MenssagemUtil.MENSAGENS,processo.getId().toString()));
 
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS), ex, "Advogado");
@@ -211,13 +211,19 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
      * @throws java.lang.Exception
      */
     public boolean processoAtrasado(Processo p) throws Exception {
-       
-        if (p.getFase() != null ) {
+
+        if (p.getFase() != null) {
             Calendar dataAtual = Calendar.getInstance();
             dataAtual.setTime(new Date());
-
+            Movimentacao ultimaMovimentacao = movimentacaoController.ultimaMovimentacao(p);
             Calendar prazoFase = Calendar.getInstance();
-            prazoFase.setTime(movimentacaoController.ultimaMovimentacao(p).getDataMovimentacao());
+            if (ultimaMovimentacao != null) {
+                prazoFase.setTime(movimentacaoController.ultimaMovimentacao(p).getDataMovimentacao());
+            }else{
+                Calendar dt = Calendar.getInstance();
+                dt.setTime(p.getDataCadastro());
+                prazoFase.setTime(dt.getTime());
+            }
             prazoFase.add(Calendar.DAY_OF_MONTH, p.getFase().getPrazo());
 
             boolean b = (dataAtual.compareTo(prazoFase) < 0);

@@ -63,6 +63,7 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
 
         }
     }
+
     public List<ProcessosAtrasadoRelatorioDTO> listaProcessosAtrasadosRelatorio(Usuario u) {
         if (u.getId() != null) {
             return dao.listaProcessosAtrasadosRelatorio(u);
@@ -85,17 +86,20 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
         return dao.listarLikeNumero(num);
     }
 
-    public void salvarouAtualizarEditarFase(Processo processo, Fase fs,Usuario u) throws Exception {
+    public void salvarouAtualizarEditarFase(Processo processo, Fase fs, Usuario u) throws Exception {
         if (processo.getId() == null) {
             processo.setUsuarioCadastro(u);
-        }else{
+            salvar(processo);
+            movimentacaoController.addMovimentacao(processo, processo.getFase(), u);
+        } else {
             //se a fase alterar add movimentação
             if (!fs.equals(processo.getFase())) {
-                movimentacaoController.addMovimentacao(processo, fs,u);
+                movimentacaoController.addMovimentacao(processo, fs, u);
             }
+            salvarouAtualizar(processo);
+
         }
-        salvarouAtualizar(processo);
-        
+
     }
 
     public List<Processo> listarFase() {

@@ -58,26 +58,35 @@
 
                     </h:panelGrid>
                 </h:panelGrid>
-                <p:dataTable value="#{cc.attrs.listaProcessos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10"
+                <p:dataTable value="#{cc.attrs.listaProcessos}"  id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10"
                              rowStyleClass="#{not processoMB.processoAtrasado(t)?(empty rowIx or rowIx mod 2 ne 0 ? 'linha-atrasada-even-row' : 'linha-atrasada-odd-row'):(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
-                    <p:column headerText="Id" width="3%" sortBy="#{t.id}">
+                    <p:column headerText="Id" width="3%" sortBy="#{t.id}" style="font-size: 8px">
                         <comp:outputText value="#{t.id}"/>
                     </p:column>
-                    <p:column headerText="Número" width="12%" sortBy="#{t.numero}">
+                    <p:column headerText="Juizo" width="10%" >
+                        <comp:outputText value="#{t.juizoTribunal.nome}" />
+                    </p:column>
+                    <p:column headerText="Número" width="10%" sortBy="#{t.numero}" >
                         <comp:outputText value="#{t.numero}"/>
                     </p:column>
-                    <p:column headerText="Cliente | Contatos" sortBy="#{t.cliente.pessoa.nome}" width="30%" >
-                        <comp:outputText value="#{t.cliente.pessoa.nome} | #{t.cliente.pessoa.telefone}  #{t.cliente.pessoa.celular}"/>
+                    <p:column headerText="Objeto" width="10%" >
+                        <comp:outputText value="#{t.objetoProcesso}"/>
                     </p:column>
-                    <p:column headerText="Advogado" sortBy="#{t.advogado.nome}" width="15%" >
-                        <comp:outputText value="#{t.advogado.nome}"/>
+                    <p:column headerText="Cliente" sortBy="#{t.cliente.pessoa.nome}" width="10%">
+                        <comp:outputText value="#{t.cliente.pessoa.nome}"/>
                     </p:column>
-                    <p:column headerText="Fase" width="15%" >
-                        <comp:outputText value="#{t.fase.nome} -- #{t.fase.usuario.login}"/>
+                    <p:column headerText="Fase" width="8%"   >
+                        <comp:outputText value="#{t.fase.nome}" title="#{t.motivoFase}"/>
+                    </p:column>
+                    <p:column headerText="Ender" sortBy="#{t.enderecamento.nome}" width="3%" >
+                        <comp:outputText value="#{t.enderecamento.nome}"/>
+                    </p:column>
+                    <p:column headerText="Colaborador" sortBy="#{t.colaborador.pessoa.nome}" width="5%" >
+                        <comp:outputText value="#{t.colaborador.pessoa.nome}"/>
                     </p:column>
 
-                    <p:column headerText="Ação" width="10%" style="text-align: center">
+                    <p:column headerText="Ação" width="8%" style="text-align: center;font-size: 10px" >
                         <p:commandButton  style="width: 22px;height: 22px" actionListener="#{processoMB.setarProcesso(t)}"  update="#{cc.attrs.dialogUpdade}"  rendered="#{cc.attrs.renderInfo}" title="Informações" oncomplete="PF('#{cc.attrs.dialogInfo}').show()"  id="btnInfo" icon="ui-icon-info" />
                         <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
                         <p:commandButton  style="width: 22px;height: 22px" actionListener="#{processoMB.setarProcesso(t)}"  update="#{cc.attrs.dialogMovimenUpdate}"  rendered="#{cc.attrs.renderMovimen}" title="Encaminhar" oncomplete="PF('#{cc.attrs.dialogMovimen}').show()"  id="btnMov" icon="ui-icon-carat-1-e" />
