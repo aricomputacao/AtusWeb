@@ -15,7 +15,7 @@ import java.util.Objects;
  * @author Ari
  */
 
-public class ProcessoUltimaMovimentacaoDTO implements Comparable<Movimentacao>,Serializable {
+public class ProcessoUltimaMovimentacaoDTO implements Comparable<ProcessoUltimaMovimentacaoDTO>,Serializable {
     private Processo processo;
     private Movimentacao movimentacao;
 
@@ -78,11 +78,11 @@ public class ProcessoUltimaMovimentacaoDTO implements Comparable<Movimentacao>,S
   
 
     @Override
-    public int compareTo(Movimentacao o) {
-        if (this.movimentacao.getId() > o.getId()) {
+    public int compareTo(ProcessoUltimaMovimentacaoDTO o) {
+        if (this.movimentacao.getId() > o.getMovimentacao().getId()) {
             return 1;
         }
-        if (this.movimentacao.getId() < o.getId()) {
+        if (this.movimentacao.getId() < o.getMovimentacao().getId()) {
             return -1;
         }
         return 0;
