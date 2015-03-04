@@ -96,56 +96,56 @@
 				<text><![CDATA[Id]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a71bbdc4-8993-4037-b46a-7a56d3f987d8" x="33" y="0" width="108" height="20"/>
+				<reportElement uuid="a71bbdc4-8993-4037-b46a-7a56d3f987d8" x="22" y="0" width="99" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1ab90025-d5f7-4cb9-8458-8dda179d6470" x="141" y="0" width="63" height="20"/>
+				<reportElement uuid="1ab90025-d5f7-4cb9-8458-8dda179d6470" x="121" y="0" width="79" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[JuizoTribunal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d15a1dee-277f-46db-a1a3-d548f8755de5" x="205" y="0" width="83" height="20"/>
+				<reportElement uuid="d15a1dee-277f-46db-a1a3-d548f8755de5" x="202" y="0" width="85" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Número]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0d24341c-ebab-4811-8594-26af38334894" x="289" y="0" width="90" height="20"/>
+				<reportElement uuid="0d24341c-ebab-4811-8594-26af38334894" x="287" y="0" width="84" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Objeto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="64bed667-550f-460d-9ce2-4da2f34e8669" x="380" y="0" width="79" height="20"/>
+				<reportElement uuid="64bed667-550f-460d-9ce2-4da2f34e8669" x="371" y="0" width="74" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Materia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e50ecc43-22be-4a4c-bcae-2c6ba9519420" x="460" y="0" width="98" height="20"/>
+				<reportElement uuid="e50ecc43-22be-4a4c-bcae-2c6ba9519420" x="448" y="0" width="92" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fase]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="8bcbe5c4-2382-4123-9c5b-f409bcfde78b" x="560" y="0" width="68" height="20"/>
+				<reportElement uuid="8bcbe5c4-2382-4123-9c5b-f409bcfde78b" x="543" y="0" width="68" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Data Fase]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="aa00d407-7d9f-4abe-9229-df6f12d2f144" x="630" y="0" width="90" height="20"/>
+				<reportElement uuid="aa00d407-7d9f-4abe-9229-df6f12d2f144" x="613" y="0" width="107" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -154,56 +154,74 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="67" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="2098b39d-d50a-426a-ab75-9569160f3679" style="zebra" x="0" y="0" width="802" height="67"/>
+				<reportElement uuid="2098b39d-d50a-426a-ab75-9569160f3679" style="zebra" x="0" y="0" width="802" height="30"/>
 				<graphicElement>
 					<pen lineWidth="0.25" lineColor="#F2F2F2"/>
 				</graphicElement>
 			</rectangle>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="1ee5432d-360a-4274-8c5d-00708855a0fd" x="2" y="0" width="31" height="20"/>
-				<textElement/>
+				<reportElement uuid="1ee5432d-360a-4274-8c5d-00708855a0fd" x="2" y="0" width="17" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getId()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="bf8462a4-bd3b-4ed4-a427-5b541ad81773" x="33" y="0" width="108" height="67"/>
-				<textElement/>
+				<reportElement uuid="bf8462a4-bd3b-4ed4-a427-5b541ad81773" x="22" y="0" width="99" height="30"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getCliente().getPessoa().getNome()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="24ea65c0-bb5a-4aed-8bdb-182296c0ed28" x="141" y="0" width="63" height="67"/>
-				<textElement/>
+				<reportElement uuid="24ea65c0-bb5a-4aed-8bdb-182296c0ed28" x="122" y="0" width="79" height="30"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getJuizoTribunal().getNome()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="9d098659-0517-4e8d-a0bc-e5cc52a87cd3" x="205" y="0" width="83" height="67"/>
-				<textElement/>
+				<reportElement uuid="9d098659-0517-4e8d-a0bc-e5cc52a87cd3" x="203" y="0" width="85" height="30"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getNumero()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="209b5c7f-7ebf-4524-b6d7-abc6fd2db197" x="289" y="0" width="90" height="67"/>
-				<textElement/>
+				<reportElement uuid="209b5c7f-7ebf-4524-b6d7-abc6fd2db197" x="288" y="0" width="84" height="30"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getObjetoProcesso()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="7794acd5-ceb9-4124-86f1-62a64fa8cf20" x="380" y="0" width="79" height="67"/>
-				<textElement/>
+				<reportElement uuid="7794acd5-ceb9-4124-86f1-62a64fa8cf20" x="372" y="0" width="74" height="30"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getMateria().getNome()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="b755de56-526e-4e49-a043-42b268ea1945" x="460" y="0" width="98" height="67"/>
-				<textElement/>
+				<reportElement uuid="b755de56-526e-4e49-a043-42b268ea1945" x="448" y="0" width="92" height="30"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getFase().getNome()]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement uuid="f6273c21-03df-41f3-985d-716ab17c133c" x="560" y="0" width="68" height="20"/>
-				<textElement/>
+				<reportElement uuid="f6273c21-03df-41f3-985d-716ab17c133c" x="543" y="0" width="68" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{movimentacao}.getDataMovimentacao()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="b74b4f65-1ab1-4f48-b78d-38531ad7d4c2" x="630" y="0" width="172" height="67"/>
-				<textElement/>
+				<reportElement uuid="b74b4f65-1ab1-4f48-b78d-38531ad7d4c2" x="613" y="0" width="189" height="30"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{movimentacao}.getMotivo()]]></textFieldExpression>
 			</textField>
 		</band>

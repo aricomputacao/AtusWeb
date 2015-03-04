@@ -18,35 +18,14 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="cliente" class="br.com.atus.modelo.Cliente">
-		<fieldDescription><![CDATA[processo.cliente]]></fieldDescription>
+	<field name="movimentacao" class="br.com.atus.modelo.Movimentacao">
+		<fieldDescription><![CDATA[movimentacao]]></fieldDescription>
 	</field>
-	<field name="colaborador" class="br.com.atus.modelo.Colaborador">
-		<fieldDescription><![CDATA[processo.colaborador]]></fieldDescription>
-	</field>
-	<field name="fase" class="br.com.atus.modelo.Fase">
-		<fieldDescription><![CDATA[processo.fase]]></fieldDescription>
-	</field>
-	<field name="id" class="java.lang.Long">
-		<fieldDescription><![CDATA[processo.id]]></fieldDescription>
-	</field>
-	<field name="juizoTribunal" class="br.com.atus.modelo.JuizoTribunal">
-		<fieldDescription><![CDATA[processo.juizoTribunal]]></fieldDescription>
-	</field>
-	<field name="numero" class="java.lang.String">
-		<fieldDescription><![CDATA[processo.numero]]></fieldDescription>
-	</field>
-	<field name="objetoProcesso" class="java.lang.String">
-		<fieldDescription><![CDATA[processo.objetoProcesso]]></fieldDescription>
-	</field>
-	<field name="dataCadastro" class="java.util.Date">
-		<fieldDescription><![CDATA[processo.dataCadastro]]></fieldDescription>
-	</field>
-	<field name="advogado" class="br.com.atus.modelo.Advogado">
-		<fieldDescription><![CDATA[processo.advogado]]></fieldDescription>
+	<field name="processo" class="br.com.atus.modelo.Processo">
+		<fieldDescription><![CDATA[processo]]></fieldDescription>
 	</field>
 	<group name="responsa" isStartNewPage="true">
-		<groupExpression><![CDATA[$F{fase}.getUsuario()]]></groupExpression>
+		<groupExpression><![CDATA[$F{processo}.getFase().getUsuario()]]></groupExpression>
 		<groupHeader>
 			<band height="20">
 				<rectangle>
@@ -64,13 +43,13 @@
 					<textElement verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{fase}.getUsuario().getNome()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{processo}.getFase().getUsuario().getNome()]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
 	</group>
 	<group name="fase">
-		<groupExpression><![CDATA[$F{fase}]]></groupExpression>
+		<groupExpression><![CDATA[$F{processo}.getFase()]]></groupExpression>
 		<groupHeader>
 			<band height="40">
 				<rectangle>
@@ -112,7 +91,7 @@
 					<textElement verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
-					<text><![CDATA[Data Cadastro]]></text>
+					<text><![CDATA[Data da Fase]]></text>
 				</staticText>
 				<staticText>
 					<reportElement uuid="bc879c72-c328-43d0-a4ec-8811c9ad7d94" x="445" y="20" width="154" height="20"/>
@@ -133,7 +112,7 @@
 					<textElement verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{fase}.getNome()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{processo}.getFase().getNome()]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -167,36 +146,33 @@
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="6d686de5-10f5-4606-94dd-6320b63c5423" x="0" y="0" width="31" height="20"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{processo}.getId()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="364d51a8-c629-4fe1-a867-42715af34790" x="31" y="0" width="138" height="20"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{processo}.getNumero()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="4dcdf16d-aa95-45a3-a0be-340d392f6ea4" x="169" y="0" width="176" height="20"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{juizoTribunal}.getNome()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{processo}.getJuizoTribunal().getNome()]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement uuid="bebe91bc-94ff-4cae-9970-2aef8c16b35a" x="345" y="0" width="100" height="20"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{dataCadastro}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{movimentacao}.getDataMovimentacao()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="fe9ba2f6-2b2f-4705-aa99-3621f0a2bd64" x="445" y="0" width="154" height="20"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{advogado}.getNome()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{processo}.getAdvogado().getNome()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="b0b39f94-8c88-436d-b6e4-811ef5542aa2" x="599" y="0" width="203" height="20"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{cliente}.getPessoa().getNome()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{processo}.getCliente().getPessoa().getNome()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
-	<summary>
-		<band height="20" splitType="Stretch"/>
-	</summary>
 </jasperReport>

@@ -6,9 +6,11 @@
 package br.com.atus.dao;
 
 import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
+import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Movimentacao;
 import br.com.atus.modelo.Processo;
+import br.com.atus.modelo.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,19 +51,37 @@ public class MovimentacaoDAO extends DAO<Movimentacao, Long> implements Serializ
         q = getEm().createQuery("SELECT new br.com.atus.dto.ProcessoUltimaMovimentacaoDTO(m.processo,MAX(m))  FROM Movimentacao m GROUP BY m.processo,m.processo.colaborador ORDER BY m.processo.colaborador  ", ProcessoUltimaMovimentacaoDTO.class);
         return q.getResultList().isEmpty() ? new ArrayList<>() : q.getResultList();
     }
-    
+
     public List<ProcessoUltimaMovimentacaoDTO> listarProcessoUltimaMovimentacaoOrdenadoDataMovimentacao() {
         TypedQuery q;
         q = getEm().createQuery("SELECT new br.com.atus.dto.ProcessoUltimaMovimentacaoDTO(m.processo,MAX(m))  FROM Movimentacao m GROUP BY m.processo,m.processo.colaborador,m.dataMovimentacao ORDER BY m.processo.colaborador, m.dataMovimentacao DESC ", ProcessoUltimaMovimentacaoDTO.class);
         return q.getResultList().isEmpty() ? new ArrayList<>() : q.getResultList();
     }
-    
+
     public List<ProcessoUltimaMovimentacaoDTO> listarProcessoUltimaMovimentacaoOrdenadoDataMovimentacao(Colaborador c) {
         TypedQuery q;
         q = getEm().createQuery("SELECT new br.com.atus.dto.ProcessoUltimaMovimentacaoDTO(m.processo,MAX(m))  FROM Movimentacao m WHERE m.processo.colaborador = :col GROUP BY m.processo,m.processo.colaborador,m.dataMovimentacao ORDER BY m.processo.colaborador,m.dataMovimentacao ASC ", ProcessoUltimaMovimentacaoDTO.class)
                 .setParameter("col", c);
 
         return q.getResultList().isEmpty() ? new ArrayList<>() : q.getResultList();
+    }
+
+    public ProcessoUltimaMovimentacaoDTO ultimaMovimentacaoDTO(Processo p, Usuario u) {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT new br.com.atus.dto.ProcessoUltimaMovimentacaoDTO(m.processo,MAX(m))  FROM Movimentacao m WHERE m.processo.fase.usuario = :usr and m.processo = :pro GROUP BY m.processo", ProcessoUltimaMovimentacaoDTO.class)
+                .setParameter("usr", u)
+                .setParameter("pro", p);
+
+        return q.getResultList().isEmpty() ? new ProcessoUltimaMovimentacaoDTO(p, null) : (ProcessoUltimaMovimentacaoDTO) q.getSingleResult();
+
+    }
+
+    public ProcessoUltimaMovimentacaoDTO ultimaMovimentacaoDTO(Processo p) {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT new br.com.atus.dto.ProcessoUltimaMovimentacaoDTO(m.processo,MAX(m))  FROM Movimentacao m WHERE m.processo = :pro GROUP BY m.processo ", ProcessoUltimaMovimentacaoDTO.class)
+                .setParameter("pro", p);
+
+        return q.getResultList().isEmpty() ? new ProcessoUltimaMovimentacaoDTO(p, null) : (ProcessoUltimaMovimentacaoDTO) q.getSingleResult();
     }
 
     public List<ProcessoUltimaMovimentacaoDTO> listarProcessoUltimaMovimentacao(Colaborador c) {

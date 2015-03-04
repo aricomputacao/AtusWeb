@@ -38,27 +38,32 @@
                         <composite:renderFacet name="btnConsultaProcesso" />
                     </h:panelGrid>
                 </h:panelGrid>
-                <p:dataTable value="#{cc.attrs.listaProcessos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10"
+              <p:dataTable value="#{relatorioMB.listaProcessoUltimaMovimentacaoDTOs}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10"
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
                     <p:column headerText="Id" width="3%" sortBy="#{t.processo.id}">
                         <comp:outputText value="#{t.processo.id}"/>
                     </p:column>
-                    <p:column headerText="Número" width="12%" sortBy="#{t.processo.numero}">
+                    <p:column headerText="Número" width="8%" sortBy="#{t.processo.numero}">
                         <comp:outputText value="#{t.processo.numero}"/>
                     </p:column>
-                    <p:column headerText="Cliente | Contatos" sortBy="#{t.processo.cliente.pessoa.nome}" width="30%" >
+                    <p:column headerText="Objeto" width="20%" >
+                        <comp:outputText value="#{t.processo.objetoProcesso}"/>
+                    </p:column>
+                    <p:column headerText="Cliente | Contatos" sortBy="#{t.processo.cliente.pessoa.nome}" width="15%" >
                         <comp:outputText value="#{t.processo.cliente.pessoa.nome} | #{t.processo.cliente.pessoa.telefone}  #{t.processo.cliente.pessoa.celular}"/>
                     </p:column>
-                    <p:column headerText="Advogado" sortBy="#{t.processo.advogado.nome}" width="15%" >
-                        <comp:outputText value="#{t.processo.advogado.nome}"/>
-                    </p:column>
                     <p:column headerText="Fase" width="15%" >
-                        <comp:outputText value="#{t.processo.fase.nome} -- #{t.processo.fase.usuario.nome}"/>
+                        <comp:outputText value="#{t.processo.fase.nome} -- #{t.processo.fase.usuario.login}"/>
                     </p:column>
-                  
+                    <p:column headerText="Data Fase" width="5%" >
+                        <comp:outputText tipo="d" value="#{t.movimentacao.dataMovimentacao}"/>
+                    </p:column>
+                    <p:column headerText="Motivo" width="25%"  >
+                        <comp:outputText value="#{t.movimentacao.motivo}" />
+                    </p:column>
 
-                 
+
 
                 </p:dataTable>
             </p:fieldset>

@@ -5,15 +5,18 @@
  */
 package br.com.atus.controller;
 
+import br.com.atus.dao.MovimentacaoDAO;
 import br.com.atus.dao.ProcessoDAO;
 import br.com.atus.dto.ProcessoAtrasadoDTO;
 import br.com.atus.dto.ProcessoGrupoDiaAtrasadoDTO;
+import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.dto.ProcessosAtrasadoRelatorioDTO;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Fase;
 import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.Usuario;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -28,6 +31,8 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
 
     @EJB
     private ProcessoDAO dao;
+    @EJB
+    private MovimentacaoDAO movimentacaoDAO;
     @EJB
     private MovimentacaoController movimentacaoController;
 
@@ -64,14 +69,19 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
         }
     }
 
-    public List<ProcessosAtrasadoRelatorioDTO> listaProcessosAtrasadosRelatorio(Usuario u) {
-        if (u.getId() != null) {
-            return dao.listaProcessosAtrasadosRelatorio(u);
+    public List<ProcessoUltimaMovimentacaoDTO> listaProcessosAtrasadosRelatorio(Usuario u) {
+        List<ProcessosAtrasadoRelatorioDTO> atrasados = dao.listaProcessosAtrasadosRelatorio(u);
+        List<ProcessoUltimaMovimentacaoDTO> ultimaMovimentacaoDTOs = new ArrayList<>();
+        for (ProcessosAtrasadoRelatorioDTO atra : atrasados) {
+            if (u.getId() == null) {
+                ultimaMovimentacaoDTOs.add( movimentacaoDAO.ultimaMovimentacaoDTO(atra.getProcesso()));
 
-        } else {
-            return dao.listaProcessosAtrasadosRelatorio();
+            } else {
+                ultimaMovimentacaoDTOs.add(movimentacaoDAO.ultimaMovimentacaoDTO(atra.getProcesso(), u));
 
+            }
         }
+        return ultimaMovimentacaoDTOs;
     }
 
     public List<Processo> listarPorFase(Fase f) {

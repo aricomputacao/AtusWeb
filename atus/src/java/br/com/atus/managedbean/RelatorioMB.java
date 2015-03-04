@@ -16,6 +16,7 @@ import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.RelatorioSession;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,12 +57,16 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
     }
 
     public void listarProcessosAtrasados() {
-        listaProcessosAtrasadoRelatorioDTOs = processoController.listaProcessosAtrasadosRelatorio(usuario);
+        listaProcessoUltimaMovimentacaoDTOs.clear();
+        listaProcessoUltimaMovimentacaoDTOs = processoController.listaProcessosAtrasadosRelatorio(usuario);
+        Collection<ProcessoUltimaMovimentacaoDTO> collection;
+        
         usuario = new Usuario();
 
     }
 
     public void listarProcessoColaborador() {
+        listaProcessoUltimaMovimentacaoDTOs.clear();
         listaProcessoUltimaMovimentacaoDTOs = movimentacaoController.listarProcessosColaboradores(colaborador);
     }
 
@@ -75,9 +80,9 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
     }
 
     public void imprimirProcessoAtrasados() {
-        if (!listaProcessosAtrasadoRelatorioDTOs.isEmpty()) {
+        if (!listaProcessoUltimaMovimentacaoDTOs.isEmpty()) {
             Map<String, Object> m = new HashMap<>();
-            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaProcessosAtrasadoRelatorioDTOs, m, "WEB-INF/relatorios/rel_processos_atrasados.jasper", "Relatório de Processos Atrasados");
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaProcessoUltimaMovimentacaoDTOs, m, "WEB-INF/relatorios/rel_processos_atrasados.jasper", "Relatório de Processos Atrasados");
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
 

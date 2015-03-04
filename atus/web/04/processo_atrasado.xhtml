@@ -20,7 +20,7 @@
       
             <comp:panel_cadastro id="cadFrm" cabecalho_grid="Processos Atrasados" id_form="frm_pag"  >               
                 <h:panelGrid >
-                    <cons:ProcessoAtrasadoConsulta id="compProceConsu" listaProcessos="#{relatorioMB.listaProcessosAtrasadoRelatorioDTOs}" dialogInfo="dialogCadProc"  dialogMovimenUpdate=":frmCadMov" dialogMovimen="dialogoEncProce" dialogUpdade=":frmDialogCadProce:compCadPro:fieldCad" >
+                    <cons:ProcessoAtrasadoConsulta id="compProceConsu" listaProcessos="#{relatorioMB.listaProcessoUltimaMovimentacaoDTOs}" dialogInfo="dialogCadProc"  dialogMovimenUpdate=":frmCadMov" dialogMovimen="dialogoEncProce" dialogUpdade=":frmDialogCadProce:compCadPro:fieldCad" >
                         <f:facet name="btnConsultaProcesso">
                             <comp:commandButton_consulta id="btnCon" acao_butao="#{relatorioMB.listarProcessosAtrasados()}"  componente_to_update=":frm_pag:cadFrm:compProceConsu:tabela"/>
                         </f:facet>
