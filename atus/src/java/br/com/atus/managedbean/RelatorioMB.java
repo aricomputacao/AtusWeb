@@ -60,7 +60,7 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
     public void listarProcessosAtrasados() {
         listaProcessoUltimaMovimentacaoDTOs.clear();
         listaProcessoUltimaMovimentacaoDTOs = processoController.listaProcessosAtrasadosRelatorio(usuario);
-//        Collections.sort(new List<T>);
+        Collections.sort( listaProcessoUltimaMovimentacaoDTOs);
         usuario = new Usuario();
 
     }
