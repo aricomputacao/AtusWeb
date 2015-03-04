@@ -72,19 +72,20 @@ public class MovimentacaoController extends Controller<Movimentacao, Long> imple
     public Movimentacao ultimaMovimentacao(Processo p) throws Exception {
         Long ultimoId = dao.ultimaMovimentacao(p);
 
-        System.out.println(ultimoId);
+//        System.out.println(ultimoId);
         return ultimoId == null ? null : dao.carregar(ultimoId);
     }
 
     public List<ProcessoUltimaMovimentacaoDTO> listarProcessosColaboradores() {
-        return dao.listarProcessoUltimaMovimentacao();
+        return dao.listarProcessoUltimaMovimentacaoOrdenadoDataMovimentacao();
     }
+    
 
     public List<ProcessoUltimaMovimentacaoDTO> listarProcessosColaboradores(Colaborador c) {
         if (c.getId() == null) {
             return listarProcessosColaboradores();
         } else {
-            return dao.listarProcessoUltimaMovimentacao(c);
+            return dao.listarProcessoUltimaMovimentacaoOrdenadoDataMovimentacao(c);
         }
     }
 

@@ -43,11 +43,17 @@
                     <p:column headerText="Número" width="12%" sortBy="#{t.processo.numero}">
                         <comp:outputText value="#{t.processo.numero}"/>
                     </p:column>
-                    <p:column headerText="Cliente | Contatos" sortBy="#{t.processo.cliente.pessoa.nome}" width="30%" >
+                    <p:column headerText="Objeto" width="20%" >
+                        <comp:outputText value="#{t.processo.objetoProcesso}"/>
+                    </p:column>
+                    <p:column headerText="Cliente | Contatos" sortBy="#{t.processo.cliente.pessoa.nome}" width="15%" >
                         <comp:outputText value="#{t.processo.cliente.pessoa.nome} | #{t.processo.cliente.pessoa.telefone}  #{t.processo.cliente.pessoa.celular}"/>
                     </p:column>
                     <p:column headerText="Fase" width="15%" >
-                        <comp:outputText value="#{t.processo.fase.nome} -- #{t.processo.fase.usuario.nome}"/>
+                        <comp:outputText value="#{t.processo.fase.nome} -- #{t.processo.fase.usuario.login}"/>
+                    </p:column>
+                    <p:column headerText="Data Fase" width="5%" >
+                        <comp:outputText tipo="d" value="#{t.movimentacao.dataMovimentacao}"/>
                     </p:column>
                     <p:column headerText="Motivo" width="20%"  >
                         <comp:outputText value="#{t.movimentacao.motivo}" />

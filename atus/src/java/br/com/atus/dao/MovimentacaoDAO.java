@@ -47,6 +47,19 @@ public class MovimentacaoDAO extends DAO<Movimentacao, Long> implements Serializ
     public List<ProcessoUltimaMovimentacaoDTO> listarProcessoUltimaMovimentacao() {
         TypedQuery q;
         q = getEm().createQuery("SELECT new br.com.atus.dto.ProcessoUltimaMovimentacaoDTO(m.processo,MAX(m))  FROM Movimentacao m GROUP BY m.processo,m.processo.colaborador ORDER BY m.processo.colaborador  ", ProcessoUltimaMovimentacaoDTO.class);
+        return q.getResultList().isEmpty() ? new ArrayList<>() : q.getResultList();
+    }
+    
+    public List<ProcessoUltimaMovimentacaoDTO> listarProcessoUltimaMovimentacaoOrdenadoDataMovimentacao() {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT new br.com.atus.dto.ProcessoUltimaMovimentacaoDTO(m.processo,MAX(m))  FROM Movimentacao m GROUP BY m.processo,m.processo.colaborador,m.dataMovimentacao ORDER BY m.processo.colaborador, m.dataMovimentacao DESC ", ProcessoUltimaMovimentacaoDTO.class);
+        return q.getResultList().isEmpty() ? new ArrayList<>() : q.getResultList();
+    }
+    
+    public List<ProcessoUltimaMovimentacaoDTO> listarProcessoUltimaMovimentacaoOrdenadoDataMovimentacao(Colaborador c) {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT new br.com.atus.dto.ProcessoUltimaMovimentacaoDTO(m.processo,MAX(m))  FROM Movimentacao m WHERE m.processo.colaborador = :col GROUP BY m.processo,m.processo.colaborador,m.dataMovimentacao ORDER BY m.processo.colaborador,m.dataMovimentacao ASC ", ProcessoUltimaMovimentacaoDTO.class)
+                .setParameter("col", c);
 
         return q.getResultList().isEmpty() ? new ArrayList<>() : q.getResultList();
     }

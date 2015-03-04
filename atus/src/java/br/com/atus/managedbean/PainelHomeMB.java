@@ -49,7 +49,7 @@ public class PainelHomeMB implements Serializable {
     private void init() {
         listaGrupoDiaAtrasadoGeralDTOs = processoController.processoGrupoDiaAtrasadoGeral();
         listaGrupoDiaAtrasadoSetorDTOs = processoController.processoGrupoDiaAtrasadoSetor(navegacaoMB.getUsuarioLogado());
-        listanNotificacao = notificacaoController.listaNotificacaoAtiva();
+//        listanNotificacao = notificacaoController.listaNotificacaoAtiva();
         listaProcessos = new ArrayList<>();
         notificacao = new Notificacao();
     }
