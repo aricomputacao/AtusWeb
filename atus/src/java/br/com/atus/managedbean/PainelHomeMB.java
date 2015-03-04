@@ -12,9 +12,13 @@ import br.com.atus.dto.ProcessoGrupoDiaAtrasadoDTO;
 import br.com.atus.modelo.Fase;
 import br.com.atus.modelo.Notificacao;
 import br.com.atus.modelo.Processo;
+import br.com.atus.util.AssistentedeRelatorio;
+import br.com.atus.util.RelatorioSession;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -53,8 +57,8 @@ public class PainelHomeMB implements Serializable {
         listaProcessos = new ArrayList<>();
         notificacao = new Notificacao();
     }
-    
-    public void marcarLido(Notificacao n){
+
+    public void marcarLido(Notificacao n) {
         try {
             n.setAtivo(true);
             notificacaoController.atualizar(n);
@@ -64,14 +68,24 @@ public class PainelHomeMB implements Serializable {
         }
     }
 
-    public  void setarNotificacao(Notificacao n){
+    public void imprimirProcessoColaborador(Fase f) {
+        listarProcessoFase(f);
+        if (!listaProcessos.isEmpty()) {
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaProcessos, m, "WEB-INF/relatorios/rel_processos.jasper", "Relatório de Processos");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        }
+
+    }
+
+    public void setarNotificacao(Notificacao n) {
         notificacao = n;
     }
-    
-    public void listarProcessoFase(Fase f){
+
+    public void listarProcessoFase(Fase f) {
         listaProcessos = processoController.listarPorFase(f);
     }
-    
+
     public List<ProcessoGrupoDiaAtrasadoDTO> getListaGrupoDiaAtrasadoGeralDTOs() {
         return listaGrupoDiaAtrasadoGeralDTOs;
     }
@@ -79,8 +93,6 @@ public class PainelHomeMB implements Serializable {
     public void setListaGrupoDiaAtrasadoGeralDTOs(List<ProcessoGrupoDiaAtrasadoDTO> listaGrupoDiaAtrasadoGeralDTOs) {
         this.listaGrupoDiaAtrasadoGeralDTOs = listaGrupoDiaAtrasadoGeralDTOs;
     }
-
-   
 
     public List<ProcessoAtrasadoDTO> getListaAtrasadoUsuario() {
         return listaAtrasadoUsuario;

@@ -6,7 +6,6 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:composite="http://java.sun.com/jsf/composite"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:comp="http://java.sun.com/jsf/composite/comp">
 
     <composite:interface id="interCon">
@@ -16,6 +15,9 @@
         <composite:attribute name="listaTabela" required="true" shortDescription="Lista da tabela" />
     </composite:interface>
     <composite:implementation  >
+        <p:blockUI block="@form" widgetVar="blk">
+            <p:graphicImage library="imagens" name="carregar.gif"/>
+        </p:blockUI>
         <h:panelGrid  width="100%" id="rtt" >
             <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" style="font-weight: bold">
                 <p:dataTable value="#{cc.attrs.listaTabela}" id="tabela" paginatorAlwaysVisible="false"  var="t2" scrollHeight="500" scrollRows="10" scrollable="true"
@@ -38,6 +40,7 @@
                             <p:graphicImage library="imagens" name="carregar.gif"/>
                         </p:blockUI>
                         <p:commandButton id="btnProcs"  style="width: 22px;height: 22px" actionListener="#{painelHomeMB.listarProcessoFase(t2.fase)}"     title="Processos" oncomplete="PF('dialogPro').show()"  update=":frmConProce:pnlCon:tabela" icon="ui-icon-document" />
+                        <p:commandButton  style="width: 22px;height: 22px" actionListener="#{painelHomeMB.imprimirProcessoColaborador(t2.fase)}"   oncomplete="popup('/atus/RelatorioServlet.pdf');" id="btnEvent" icon="ui-icon-print" />
 
                     </p:column>
                 </p:dataTable>

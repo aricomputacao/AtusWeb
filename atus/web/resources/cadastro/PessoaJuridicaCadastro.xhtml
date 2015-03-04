@@ -15,15 +15,18 @@
     </composite:interface>
     <composite:implementation rendered="#{navegacaoMB.permissaoIncluir(navegacao['cad.cliente'])}" >
 
-        <h:panelGrid columns="2"   >
+        <h:panelGrid columns="3"   >
             <h:panelGrid >
                 <comp:inputTextCalendar nomeLabel="Data Criação." size="15" valorData="#{clienteMB.cliente.pessoa.dataNascimento}"/>
+            </h:panelGrid>
+             <h:panelGrid >
+                 <comp:inputText nomeLabel="Nome" size="50" value="#{clienteMB.cliente.pessoa.nome}" require="true"/>
             </h:panelGrid>
             <h:panelGrid >
                 <h:panelGrid columns="2" >
                     <p:outputLabel value="CNPJ" for="cnpj"/>
                 </h:panelGrid>
-                <p:inputMask id="cnpj" mask="99.999.999/9999-99" size="19"  validator="#{clienteMB.validate}" value="#{clienteMB.cliente.cpfCpnj}" />
+                <p:inputMask id="cnpj" mask="99.999.999/9999-99" size="19"   value="#{clienteMB.cliente.cpfCpnj}" />
 
             </h:panelGrid>
         </h:panelGrid>

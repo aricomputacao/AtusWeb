@@ -18,10 +18,10 @@
         <p:tabView dynamic="true" style="margin-top: 10px" prependId="false" id="tabV">
             <p:tab title="Processos" >
                 <p:panel styleClass="painelAgendas" >
-                    <h:form>
+                    <h:form id="formPanel">
                         <h:panelGrid columns='2'>
-                            <consultas:PainelProcessoConsulta listaTabela="#{painelHomeMB.listaGrupoDiaAtrasadoSetorDTOs}" nome="Processos Setor"/>
-                            <consultas:PainelProcessoConsulta listaTabela="#{painelHomeMB.listaGrupoDiaAtrasadoGeralDTOs}" nome="Processos Geral"/>
+                            <consultas:PainelProcessoConsulta id="pnSet" listaTabela="#{painelHomeMB.listaGrupoDiaAtrasadoSetorDTOs}" nome="Processos Setor"/>
+                            <consultas:PainelProcessoConsulta id="pnGeral" listaTabela="#{painelHomeMB.listaGrupoDiaAtrasadoGeralDTOs}" nome="Processos Geral"/>
                         </h:panelGrid>
                     </h:form>
                 </p:panel>
@@ -47,7 +47,7 @@
                 </h:form>
             </p:tab>
             <p:tab title="Eventos" >
-                <h:form id="frmDialogCadProce">
+                <h:form id="frmDialogeve">
                     <p:panel styleClass="painelAgendas">
                         <consultas:EventoConsulta renderInfo="true" dialogInfo="dialogProc" dialogUpdade=":frmDialogProce" >
                             <f:facet name="btnConsultaEvento">
@@ -140,7 +140,7 @@
 
         <p:dialog showEffect="fade"   position="top" id="dialogPro" header="Processos"   modal="true" hideEffect="fade" widgetVar="dialogPro">
             <h:form id="frmConProce">
-                <consultas:ProcessoConsulta id="pnlCon" renderPesquisar="false" listaProcessos="#{painelHomeMB.listaProcessos}"  renderGerarPeca="false" renderInfo="false" renderMovimen="true" renderPrintDoc="true" renderSelecionar="false" />
+                <consultas:ProcessoConsulta id="pnlCon" renderPesquisar="false" dialogMovimen="dialogoEncProce" dialogMovimenUpdate=":frmCadMov"  listaProcessos="#{painelHomeMB.listaProcessos}"  renderGerarPeca="true" renderInfo="false" renderMovimen="true" renderPrintDoc="true" renderSelecionar="false" />
             </h:form>
         </p:dialog>
 
@@ -150,6 +150,12 @@
             </h:form>
         </p:dialog>
 
+         <p:dialog showEffect="fade" position="top" header="Gerar Peça" id="dialodPecaId"  modal="true" hideEffect="fade" widgetVar="dialogPeca" width="1000" height="400">
+            <h:form id="frmPeca">
+                <acao:ImprimirPeca id="frmConPeca"/>
+            </h:form>
+        </p:dialog>
+        
         <p:dialog showEffect="fade" position="top"  id="dialogNot" header="Notificação"   modal="true" hideEffect="fade" widgetVar="dialogNot">
             <h:form id="frmDialogNot">
                 <h:panelGrid>
@@ -159,6 +165,18 @@
             </h:form>
         </p:dialog>
 
+        <p:dialog showEffect="fade" position="top"  id="dialogCadPro" height="650"   modal="true" hideEffect="fade" widgetVar="dialogCadProc">
+            <h:form id="frmDialogCadProce" >
+                <cadastro:ProcessoCadastro id="compCadPro"  legend="Dados do Processo" />
+            </h:form>
+        </p:dialog>
+        
+        <p:dialog showEffect="fade" position="top"  header="Encaminhar Processo" id="addEnc" modal="true" hideEffect="fade" widgetVar="dialogoEncProce">
+            <h:form id="frmCadMov">
+                <util:menuCadDialogo2 id="menDialog"  frm_update="@form"  acao_salvar="#{processoMB.addMovimentacao()}"  />
+                <acao:EncaminharProcesso />
+            </h:form>
+        </p:dialog>
     </ui:define>
 
 </ui:composition>

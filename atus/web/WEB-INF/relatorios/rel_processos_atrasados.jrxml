@@ -80,21 +80,21 @@
 					<text><![CDATA[Número]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="9e8e512a-39fe-4f04-803a-3a43d950d4bc" x="169" y="20" width="176" height="20"/>
+					<reportElement uuid="9e8e512a-39fe-4f04-803a-3a43d950d4bc" x="171" y="20" width="176" height="20"/>
 					<textElement verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Vara]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="3d28725d-543c-4644-9c65-8ab315920bfe" x="345" y="20" width="100" height="20"/>
+					<reportElement uuid="3d28725d-543c-4644-9c65-8ab315920bfe" x="352" y="20" width="85" height="20"/>
 					<textElement verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Data da Fase]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="bc879c72-c328-43d0-a4ec-8811c9ad7d94" x="445" y="20" width="154" height="20"/>
+					<reportElement uuid="bc879c72-c328-43d0-a4ec-8811c9ad7d94" x="443" y="20" width="154" height="20"/>
 					<textElement verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
@@ -154,17 +154,17 @@
 				<textFieldExpression><![CDATA[$F{processo}.getNumero()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="4dcdf16d-aa95-45a3-a0be-340d392f6ea4" x="169" y="0" width="176" height="20"/>
+				<reportElement uuid="4dcdf16d-aa95-45a3-a0be-340d392f6ea4" x="171" y="0" width="176" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{processo}.getJuizoTribunal().getNome()]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement uuid="bebe91bc-94ff-4cae-9970-2aef8c16b35a" x="345" y="0" width="100" height="20"/>
+				<reportElement uuid="bebe91bc-94ff-4cae-9970-2aef8c16b35a" x="352" y="0" width="85" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{movimentacao}.getDataMovimentacao()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="fe9ba2f6-2b2f-4705-aa99-3621f0a2bd64" x="445" y="0" width="154" height="20"/>
+				<reportElement uuid="fe9ba2f6-2b2f-4705-aa99-3621f0a2bd64" x="443" y="0" width="154" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{processo}.getAdvogado().getNome()]]></textFieldExpression>
 			</textField>

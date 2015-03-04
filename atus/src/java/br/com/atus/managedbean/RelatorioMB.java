@@ -16,7 +16,6 @@ import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.RelatorioSession;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -60,7 +59,7 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
     public void listarProcessosAtrasados() {
         listaProcessoUltimaMovimentacaoDTOs.clear();
         listaProcessoUltimaMovimentacaoDTOs = processoController.listaProcessosAtrasadosRelatorio(usuario);
-        Collections.sort( listaProcessoUltimaMovimentacaoDTOs);
+        Collections.sort(listaProcessoUltimaMovimentacaoDTOs);
         usuario = new Usuario();
 
     }
