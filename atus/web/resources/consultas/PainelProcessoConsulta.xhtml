@@ -15,9 +15,7 @@
         <composite:attribute name="listaTabela" required="true" shortDescription="Lista da tabela" />
     </composite:interface>
     <composite:implementation  >
-        <p:blockUI block="@form" widgetVar="blk">
-            <p:graphicImage library="imagens" name="carregar.gif"/>
-        </p:blockUI>
+        
         <h:panelGrid  width="100%" id="rtt" >
             <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" style="font-weight: bold">
                 <p:dataTable value="#{cc.attrs.listaTabela}" id="tabela" paginatorAlwaysVisible="false"  var="t2" scrollHeight="500" scrollRows="10" scrollable="true"
@@ -35,8 +33,8 @@
                     <p:column headerText="Total" width="5%" >
                         <comp:outputText value="#{t2.qtdEmDia + t2.qtdAntrasada}"/>
                     </p:column>
-                    <p:column headerText="Ações" width="4%" >
-                        <p:blockUI block="@form" trigger="btnProcs"    >
+                    <p:column headerText="Ações" width="7%" >
+                        <p:blockUI block="@form" trigger="btnProcs,btnEvent"    >
                             <p:graphicImage library="imagens" name="carregar.gif"/>
                         </p:blockUI>
                         <p:commandButton id="btnProcs"  style="width: 22px;height: 22px" actionListener="#{painelHomeMB.listarProcessoFase(t2.fase)}"     title="Processos" oncomplete="PF('dialogPro').show()"  update=":frmConProce:pnlCon:tabela" icon="ui-icon-document" />
