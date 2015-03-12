@@ -38,7 +38,7 @@ public class TipoContrato implements Serializable {
     private String nome;
 
     @NotBlank
-    @Column(name = "tpc_descricao", nullable = false, length = 1024)
+    @Column(name = "tpc_descricao", nullable = false, length = 2048)
     @PecaColetor
     private String descricao;
 
