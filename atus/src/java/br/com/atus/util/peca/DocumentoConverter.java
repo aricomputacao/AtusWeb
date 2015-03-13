@@ -52,16 +52,15 @@ public class DocumentoConverter {
      * @throws java.lang.IllegalAccessException
      * @throws java.io.FileNotFoundException
      */
-    private void substituirPalavra(WordprocessingMLPackage template, String valor, String expressao) {
-        List<Object> texts = getAllElementFromObject(template.getMainDocumentPart(), Text.class);
-        for (Object text : texts) {
-            Text textElement = (Text) text;
-            if (textElement.getValue().equals(expressao)) {
-                textElement.setValue(valor);
-            }
-        }
-    }
-
+    /**
+     * private void substituirPalavra(WordprocessingMLPackage template, String
+     * valor, String expressao) { List<Object> texts =
+     * getAllElementFromObject(template.getMainDocumentPart(), Text.class); for
+     * (Object text : texts) { Text textElement = (Text) text; if
+     * (textElement.getValue().equals(expressao)) { textElement.setValue(valor);
+     * } } }
+     *
+     */
     private static WordprocessingMLPackage getTemplate(String name) throws Docx4JException, FileNotFoundException {
         WordprocessingMLPackage template = WordprocessingMLPackage.load(new File(name));
         return template;
@@ -96,9 +95,9 @@ public class DocumentoConverter {
     public static StreamedContent converterArquivo(InputStream stream, Object entidade, Peca peca) throws Docx4JException, IllegalArgumentException, IllegalAccessException, FileNotFoundException, InvocationTargetException, NoSuchFieldException, ClassNotFoundException {
         WordprocessingMLPackage template = getTemplate(stream);
         List<Object> linhas = getAllElementFromObject(template.getMainDocumentPart(), Text.class);
-        Text tagParte = null;
+        // Text tagParte = null;
         // 0 - sem parte; 1 - parte $; 2 - parte { ; 3 - parte texto ; 4 - parte }
-        int flag = 0;
+        // int flag = 0;
         for (Object text : linhas) {
             Text textElement = (Text) text;
             String texto = textElement.getValue();
@@ -109,9 +108,10 @@ public class DocumentoConverter {
                 for (CampoPersonalizado campo : getListaCampos(entidade.getClass(), "")) {
                     String resposta;
                     if (texto.contains(campo.getTagName())) {
+                        // Correção no caso de um bug
                         Object valor = executaMetodo(campo.getNome(), entidade);
                         resposta = valor.toString();
-                        texto = texto.replaceAll(campo.getReplaceTagName(), resposta);
+                        texto = texto.replaceAll(campo.getReplaceTagName(), Matcher.quoteReplacement(resposta));
                         textElement.setValue(texto);
                         System.out.println(campo.getNome() + " foi substituido por " + valor);
                     }
@@ -145,8 +145,7 @@ public class DocumentoConverter {
                  *
                  * }
                  *
-                 * default: break;
-                }*
+                 * default: break; }*
                  */
             }
         }

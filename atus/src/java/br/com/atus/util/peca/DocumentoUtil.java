@@ -13,7 +13,7 @@ import java.io.Serializable;
  *
  * @author: ari
  */
-public class DocumetoUtil implements Serializable {
+public class DocumentoUtil implements Serializable {
 
     /*
      * IFPA - Instituto Federal de Educação, Ciência e Tecnologia do Pará - Pólo

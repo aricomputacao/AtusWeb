@@ -24,7 +24,7 @@ import br.com.atus.modelo.Profissao;
 import br.com.atus.modelo.TipoTratamento;
 import br.com.atus.modelo.UnidadeFederativa;
 import br.com.atus.util.AssistentedeRelatorio;
-import br.com.atus.util.peca.DocumetoUtil;
+import br.com.atus.util.peca.DocumentoUtil;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
 import java.io.Serializable;
@@ -124,7 +124,7 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
     public void validate(FacesContext fc, UIComponent uic, Object value) {
         String doc = value.toString().replaceAll("[^0-9]", "");
         try {
-            if ((DocumetoUtil.CPF(doc) == false) && (DocumetoUtil.validaCNPJ(doc) == false)) {
+            if ((DocumentoUtil.CPF(doc) == false) && (DocumentoUtil.validaCNPJ(doc) == false)) {
                 ((UIInput) uic).setValid(false);
                 MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("documento_invalido", MenssagemUtil.MENSAGENS));
                 return;

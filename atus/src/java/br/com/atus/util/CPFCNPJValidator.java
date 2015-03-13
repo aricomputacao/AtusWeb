@@ -5,7 +5,7 @@
 package br.com.atus.util;
 
 
-import br.com.atus.util.peca.DocumetoUtil;
+import br.com.atus.util.peca.DocumentoUtil;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -32,9 +32,9 @@ public class CPFCNPJValidator implements Validator {
      */
     @Override
     public void validate(FacesContext fc, UIComponent uic, Object value) throws ValidatorException {
-        doc = DocumetoUtil.removeCaracteresFromString(value.toString(), ".;/;-", ";");
+        doc = DocumentoUtil.removeCaracteresFromString(value.toString(), ".;/;-", ";");
 
-        if ((DocumetoUtil.CPF(doc) == false) && (DocumetoUtil.validaCNPJ(doc) == false)) {
+        if ((DocumentoUtil.CPF(doc) == false) && (DocumentoUtil.validaCNPJ(doc) == false)) {
             FacesMessage msg = new FacesMessage();
             msg.setSeverity(FacesMessage.SEVERITY_FATAL);
             msg.setSummary("Documento invalido");

@@ -171,7 +171,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             setarCliente(processo.getParteInteressadas().get(0).getCliente());
             controller.salvarouAtualizarEditarFase(processo, fase, navegacaoMB.getUsuarioLogado());
             aposSalvar();
-            MenssagemUtil.addMessageInfo(NavegacaoMB.getMsgParametro("salvar_processo", MenssagemUtil.MENSAGENS,processo.getId().toString()));
+            MenssagemUtil.addMessageInfo(NavegacaoMB.getMsgParametro("salvar_processo", MenssagemUtil.MENSAGENS, processo.getId().toString()));
 
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS), ex, "Advogado");
@@ -219,7 +219,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             Calendar prazoFase = Calendar.getInstance();
             if (ultimaMovimentacao != null) {
                 prazoFase.setTime(movimentacaoController.ultimaMovimentacao(p).getDataMovimentacao());
-            }else{
+            } else {
                 Calendar dt = Calendar.getInstance();
                 dt.setTime(p.getDataCadastro());
                 prazoFase.setTime(dt.getTime());
@@ -475,7 +475,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     public StreamedContent downloadModelo(Processo processo, Peca peca) {
         try {
             return pecaController.getModeloDownload(peca, processo);
-        } catch (PecaFileException | FileNotFoundException | Docx4JException | IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchFieldException | ClassNotFoundException e) {
+        } catch (Exception e) {
             MenssagemUtil.addMessageErro(e);
             Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, e);
 
