@@ -9,6 +9,7 @@ import br.com.atus.controller.NotificacaoController;
 import br.com.atus.controller.ProcessoController;
 import br.com.atus.dto.ProcessoAtrasadoDTO;
 import br.com.atus.dto.ProcessoGrupoDiaAtrasadoDTO;
+import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.modelo.Fase;
 import br.com.atus.modelo.Notificacao;
 import br.com.atus.modelo.Processo;
@@ -47,6 +48,8 @@ public class PainelHomeMB implements Serializable {
     private List<ProcessoGrupoDiaAtrasadoDTO> listaGrupoDiaAtrasadoSetorDTOs;
     private List<Processo> listaProcessos;
     private List<Notificacao> listanNotificacao;
+        private List<ProcessoUltimaMovimentacaoDTO> listaUltimaMovimentacaoDTOs;
+
     private Notificacao notificacao;
 
     @PostConstruct
@@ -54,6 +57,7 @@ public class PainelHomeMB implements Serializable {
         listaGrupoDiaAtrasadoGeralDTOs = processoController.processoGrupoDiaAtrasadoGeral();
         listaGrupoDiaAtrasadoSetorDTOs = processoController.processoGrupoDiaAtrasadoSetor(navegacaoMB.getUsuarioLogado());
 //        listanNotificacao = notificacaoController.listaNotificacaoAtiva();
+        listaUltimaMovimentacaoDTOs = new ArrayList<>();
         listaProcessos = new ArrayList<>();
         notificacao = new Notificacao();
     }
@@ -70,9 +74,9 @@ public class PainelHomeMB implements Serializable {
 
     public void imprimirProcessoColaborador(Fase f) {
         listarProcessoFase(f);
-        if (!listaProcessos.isEmpty()) {
+        if (!listaUltimaMovimentacaoDTOs.isEmpty()) {
             Map<String, Object> m = new HashMap<>();
-            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaProcessos, m, "WEB-INF/relatorios/rel_processos.jasper", "Relatório de Processos");
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaUltimaMovimentacaoDTOs, m, "WEB-INF/relatorios/rel_processos.jasper", "Relatório de Processos");
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
 
@@ -83,7 +87,8 @@ public class PainelHomeMB implements Serializable {
     }
 
     public void listarProcessoFase(Fase f) {
-        listaProcessos = processoController.listarPorFase(f);
+        listaProcessos = processoController.listarProcessoDa(f);
+       listaUltimaMovimentacaoDTOs = processoController.ultimasMovimentacoesDe(listaProcessos);
     }
 
     public List<ProcessoGrupoDiaAtrasadoDTO> getListaGrupoDiaAtrasadoGeralDTOs() {
@@ -140,6 +145,14 @@ public class PainelHomeMB implements Serializable {
 
     public void setNotificacao(Notificacao notificacao) {
         this.notificacao = notificacao;
+    }
+
+    public List<ProcessoUltimaMovimentacaoDTO> getListaUltimaMovimentacaoDTOs() {
+        return listaUltimaMovimentacaoDTOs;
+    }
+
+    public void setListaUltimaMovimentacaoDTOs(List<ProcessoUltimaMovimentacaoDTO> listaUltimaMovimentacaoDTOs) {
+        this.listaUltimaMovimentacaoDTOs = listaUltimaMovimentacaoDTOs;
     }
 
 }

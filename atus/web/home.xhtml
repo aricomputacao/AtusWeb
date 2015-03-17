@@ -140,7 +140,7 @@
 
         <p:dialog showEffect="fade"   position="top" id="dialogPro" header="Processos"   modal="true" hideEffect="fade" widgetVar="dialogPro">
             <h:form id="frmConProce">
-                <consultas:ProcessoConsulta id="pnlCon" renderPesquisar="false" dialogMovimen="dialogoEncProce" dialogMovimenUpdate=":frmCadMov"  listaProcessos="#{painelHomeMB.listaProcessos}"  renderGerarPeca="true" renderInfo="false" renderMovimen="true" renderPrintDoc="true" renderSelecionar="false" />
+                <consultas:ProcessoConsulta id="pnlCon" renderPesquisar="false" dialogMovimen="dialogoEncProce" dialogMovimenUpdate=":frmCadMov"  listaProcessos="#{painelHomeMB.listaUltimaMovimentacaoDTOs}"  renderGerarPeca="true" renderInfo="false" renderMovimen="true" renderPrintDoc="true" renderSelecionar="false" />
             </h:form>
         </p:dialog>
 

@@ -11,6 +11,7 @@ import br.com.atus.controller.MovimentacaoController;
 import br.com.atus.controller.ParteInteressadaController;
 import br.com.atus.controller.PecaController;
 import br.com.atus.controller.ProcessoController;
+import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.exceptions.PecaFileException;
 import br.com.atus.modelo.Adversario;
 import br.com.atus.modelo.Cliente;
@@ -72,6 +73,8 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     private Cliente cliente;
     private List<Movimentacao> listaMovimentacaos;
     private List<Processo> listaProcessos;
+    private List<ProcessoUltimaMovimentacaoDTO> listaUltimaMovimentacaoDTOs;
+
     private List<Evento> listaEventos;
     private int i;
     private boolean renderPesquisa;
@@ -92,6 +95,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
         listaMovimentacaos = movimentacaoController.listarPorProcesso(processo);
         listaEventos = eventoController.listarPorProcessos(processo);
+        listaUltimaMovimentacaoDTOs = new ArrayList<>();
         adversario = new Adversario();
         parteInteressada = new ParteInteressada();
         listaProcessos = new ArrayList<>();
@@ -279,6 +283,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
                     break;
 
             }
+            listaUltimaMovimentacaoDTOs = controller.ultimasMovimentacoesDe(listaProcessos);
 
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
@@ -325,9 +330,9 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     }
 
     public void imprimirProcesso() {
-        if (!listaProcessos.isEmpty()) {
+        if (!listaUltimaMovimentacaoDTOs.isEmpty()) {
             Map<String, Object> m = new HashMap<>();
-            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaProcessos, m, "WEB-INF/relatorios/rel_processos.jasper", "Relatório de Processos");
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaUltimaMovimentacaoDTOs, m, "WEB-INF/relatorios/rel_processos.jasper", "Relatório de Processos");
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
 
@@ -497,6 +502,14 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     public void setRenderPesquisa(boolean renderPesquisa) {
         this.renderPesquisa = renderPesquisa;
+    }
+
+    public List<ProcessoUltimaMovimentacaoDTO> getListaUltimaMovimentacaoDTOs() {
+        return listaUltimaMovimentacaoDTOs;
+    }
+
+    public void setListaUltimaMovimentacaoDTOs(List<ProcessoUltimaMovimentacaoDTO> listaUltimaMovimentacaoDTOs) {
+        this.listaUltimaMovimentacaoDTOs = listaUltimaMovimentacaoDTOs;
     }
 
 }

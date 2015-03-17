@@ -69,12 +69,21 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
         }
     }
 
+    public List<ProcessoUltimaMovimentacaoDTO> ultimasMovimentacoesDe(List<Processo> processos) {
+        List<ProcessoUltimaMovimentacaoDTO> ultimaMovimentacaoDTOs = new ArrayList<>();
+
+        for (Processo p : processos) {
+            ultimaMovimentacaoDTOs.add(movimentacaoDAO.ultimaMovimentacaoDTO(p));
+        }
+        return ultimaMovimentacaoDTOs;
+    }
+
     public List<ProcessoUltimaMovimentacaoDTO> listaProcessosAtrasadosRelatorio(Usuario u) {
         List<ProcessosAtrasadoRelatorioDTO> atrasados = dao.listaProcessosAtrasadosRelatorio(u);
         List<ProcessoUltimaMovimentacaoDTO> ultimaMovimentacaoDTOs = new ArrayList<>();
         for (ProcessosAtrasadoRelatorioDTO atra : atrasados) {
             if (u.getId() == null) {
-                ultimaMovimentacaoDTOs.add( movimentacaoDAO.ultimaMovimentacaoDTO(atra.getProcesso()));
+                ultimaMovimentacaoDTOs.add(movimentacaoDAO.ultimaMovimentacaoDTO(atra.getProcesso()));
 
             } else {
                 ultimaMovimentacaoDTOs.add(movimentacaoDAO.ultimaMovimentacaoDTO(atra.getProcesso(), u));
@@ -84,7 +93,17 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
         return ultimaMovimentacaoDTOs;
     }
 
-    public List<Processo> listarPorFase(Fase f) {
+    public List<ProcessoUltimaMovimentacaoDTO> ultimaMovimentacaoNa(Fase f) {
+        List<ProcessoUltimaMovimentacaoDTO> ultimaMovimentacaoDTOs = new ArrayList<>();
+        List<Processo> listaProcessos = new ArrayList<>();
+        listaProcessos = listarProcessoDa(f);
+        for (Processo p : listaProcessos) {
+            ultimaMovimentacaoDTOs.add(movimentacaoDAO.ultimaMovimentacaoDTO(p));
+        }
+        return ultimaMovimentacaoDTOs;
+    }
+
+    public List<Processo> listarProcessoDa(Fase f) {
         return dao.listarPorFase(f);
     }
 
