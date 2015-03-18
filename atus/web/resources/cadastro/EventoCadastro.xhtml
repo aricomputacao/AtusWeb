@@ -24,7 +24,7 @@
                 <h:panelGrid>
                     <p:outputLabel value="Usuário" for="input_componente_usr"/>
                     <h:panelGrid columns="3">
-                        <p:inputText value="#{eventoMB.evento.usuario.nome}" id="input_componente_usr" required="true" readonly="true" size="34"/>
+                        <p:inputText value="#{eventoMB.evento.usuario.login}" id="input_componente_usr" required="true" readonly="true" size="34"/>
                         <p:commandButton icon="ui-icon-search"  onclick="PF('dialogUsr').show()"  immediate="true"/>
                     </h:panelGrid>
                 </h:panelGrid>

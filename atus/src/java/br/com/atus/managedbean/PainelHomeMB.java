@@ -17,6 +17,8 @@ import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.RelatorioSession;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,11 +74,11 @@ public class PainelHomeMB implements Serializable {
         }
     }
 
-    public void imprimirProcessoColaborador(Fase f) {
+    public void imprimirProcessos(Fase f) {
         listarProcessoFase(f);
         if (!listaUltimaMovimentacaoDTOs.isEmpty()) {
             Map<String, Object> m = new HashMap<>();
-            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaUltimaMovimentacaoDTOs, m, "WEB-INF/relatorios/rel_processos.jasper", "Relatório de Processos");
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaUltimaMovimentacaoDTOs, m, "WEB-INF/relatorios/rel_processo_2.jasper", "Relatório de Processos");
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
 
@@ -89,6 +91,7 @@ public class PainelHomeMB implements Serializable {
     public void listarProcessoFase(Fase f) {
         listaProcessos = processoController.listarProcessoDa(f);
        listaUltimaMovimentacaoDTOs = processoController.ultimasMovimentacoesDe(listaProcessos);
+        Collections.sort(listaUltimaMovimentacaoDTOs);
     }
 
     public List<ProcessoGrupoDiaAtrasadoDTO> getListaGrupoDiaAtrasadoGeralDTOs() {

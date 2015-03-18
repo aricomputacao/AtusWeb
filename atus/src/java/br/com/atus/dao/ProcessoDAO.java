@@ -77,7 +77,7 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
 
     public List<Processo> listarPorFase(Fase f) {
         TypedQuery q;
-        q = getEm().createQuery("SELECT p FROM Processo p WHERE p.fase  = :f ", Processo.class)
+        q = getEm().createQuery("SELECT p FROM Processo p WHERE p.fase  = :f ORDER BY p.fase.usuario,p.fase", Processo.class)
                 .setParameter("f", f);
         if (q.getResultList().isEmpty()) {
             return new ArrayList<>();

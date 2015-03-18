@@ -36,7 +36,7 @@
                 <p:blockUI block="@form" trigger=":frmDialogProce:conProce:btnCon:btn">
                     <p:graphicImage library="imagens" name="carregar.gif"/>
                 </p:blockUI>
-                <cons:ProcessoConsulta nomeDialog="dialogProc" renderBtnEditar="false" listaProcessos="#{processoMB.listaProcessos}" renderInfo="false" renderMovimen="false" renderPrintDoc="false" id="conProce" renderSelecionar="true" update_form=":frm_pag:cadFrm:compEvento:input_componente" 
+                <cons:ProcessoConsulta nomeDialog="dialogProc" renderBtnEditar="false" listaProcessos="#{processoMB.listaUltimaMovimentacaoDTOs}" renderInfo="false" renderMovimen="false" renderPrintDoc="false" id="conProce" renderSelecionar="true" update_form=":frm_pag:cadFrm:compEvento:input_componente" 
                                        valorSelecionado="#{eventoMB.evento.processo}">
                     <f:facet name="btnConsultaProcesso">
                         <comp:commandButton_consulta id="btnCon" acao_butao="#{processoMB.listar()}" componente_to_update=":frmDialogProce"/>
