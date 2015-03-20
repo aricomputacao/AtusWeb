@@ -27,6 +27,9 @@
                     <p:menuitem value="Especie Evento" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.especie_evento'])}" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.especie_evento'])}" immediate="true"/>
                     <p:menuitem value="Ramo Juridico" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.ramo_judiciario'])}"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.ramo_judiciario'])}" immediate="true"/>
                     <p:menuitem value="Tipo Tratamento" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.tipo_tratamento'])}"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.tipo_tratamento'])}" immediate="true"/>
+                    <p:menuitem value="Grupo Peça" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.grupo_peca'])}"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.grupo_peca'])}" immediate="true"/>
+                    <p:menuitem value="Sub Grupo Peça" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.sub_grupo_peca'])}"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.sub_grupo_peca'])}" immediate="true"/>
+
                 </p:submenu>
 
                 <p:submenu  label="Atendimento" id="sbAte" rendered="#{navegacaoMB.permissaoModuloCadastro()}"  styleClass="subMenu" >

@@ -34,4 +34,15 @@ public class SubGrupoPecaController extends Controller<SubGrupoPeca, Integer> im
         return dao.listar(grupo);
     }
 
+    public List<SubGrupoPeca> connsultarPor(String campoBusca, String valorBusca) throws Exception {
+        if (campoBusca.equals("nome")) {
+            return dao.listarLike(campoBusca, valorBusca);
+        } else if (campoBusca.equals("grupo")) {
+            return dao.consultarLikeNomeGrupo(valorBusca);
+        } else {
+            return dao.listarTodos("nome");
+        }
+
+    }
+
 }
