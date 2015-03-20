@@ -113,6 +113,22 @@
                 <acao:ImprimirDocumentos />
             </h:form>
         </p:dialog>
+        <p:dialog showEffect="fade" position="center"  id="dialogCadEve" header="Cadastro de Evento"   modal="true" hideEffect="fade" widgetVar="dialogCadEve">
+            <h:form id="frmDialogCadEve">
+                <cadastro:EventoCadastro  />
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="top"   header="Consulta de Usuários" modal="true" hideEffect="fade" widgetVar="dialogUsr">
+            <h:form id="frmDialogUsr">
+                <p:blockUI block="@form" trigger=":frmDialogUsr:conProce:btnCon:btn">
+                    <p:graphicImage library="imagens" name="carregar.gif"/>
+                </p:blockUI>
+                <cons:UsuarioConsulta nomeDialog="dialogUsr" renderExcluir="false" renderEditar="false"  id="conProce" renderSelecionar="true" update_form=":frm_pag" 
+                                      valorSelecionado="#{eventoMB.evento.usuario}">                   
+                    <comp:commandButton_consulta  acao_butao="#{eventoMB.listar()}"  componente_to_update=":frmDialogUsr"/>
+                </cons:UsuarioConsulta>
+            </h:form>
+        </p:dialog>
     </ui:define>
 
 </ui:composition>

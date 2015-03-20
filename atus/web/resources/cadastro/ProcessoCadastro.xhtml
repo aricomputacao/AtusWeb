@@ -15,14 +15,32 @@
         <composite:attribute  name="legend" default="Cadastro" shortDescription="Cabeçalho do fieldset" />
     </composite:interface>
     <composite:implementation  >
+
+
         <p:fieldset id="fieldCad" rendered="#{navegacaoMB.permissaoIncluir(navegacao['pro.processo'])}" legend="#{cc.attrs.legend}"  >            
+
             <h:panelGrid>
                 <h:outputText rendered="#{processoMB.processo.id != null}" style="font-size:20px;font-weight: bold" value="&rsaquo;&rsaquo; Id: #{processoMB.processo.id}"/>
                 <h:outputText rendered="#{processoMB.processo.id != null}" style="font-size:20px;font-weight: bold" value="&rsaquo;&rsaquo; Cliente: #{processoMB.processo.cliente.pessoa.nome}"/>
             </h:panelGrid>
+
+            <p:toolbar   >
+                <p:toolbarGroup style="with:100%">
+                    <p:separator/>
+                    <p:commandButton icon="ui-icon-circle-plus" title="Adicionar Eventos"  oncomplete="PF('dialogCadEve').show()">
+                        
+                    </p:commandButton>
+                                       <p:separator/>
+                    <p:commandButton icon="ui-icon-plus" title="Gerar Peça"  oncomplete="PF('dialogPeca').show()"/>
+                     
+                    <p:separator/>
+
+                </p:toolbarGroup>
+
+            </p:toolbar>
             <p:tabView id="tbView" dynamic="true" >
                 <p:tab id="tabDadosGer" title="Dados Gerais">
-                  
+
                     <h:panelGrid columns="1" >
                         <h:panelGrid columns="2"   >
                             <h:panelGrid >
