@@ -8,22 +8,35 @@ package br.com.atus.dto;
 import br.com.atus.modelo.Movimentacao;
 import br.com.atus.modelo.Processo;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 /**
- *Clase utilizada no relatorio de processos por colaborador
+ * Clase utilizada no relatorio de processos por colaborador
+ *
  * @author Ari
  */
+public class ProcessoUltimaMovimentacaoDTO implements Comparable<ProcessoUltimaMovimentacaoDTO>, Serializable {
 
-public class ProcessoUltimaMovimentacaoDTO implements Comparable<ProcessoUltimaMovimentacaoDTO>,Serializable {
     private Processo processo;
     private Movimentacao movimentacao;
 
     public ProcessoUltimaMovimentacaoDTO() {
     }
 
-    
-    
+    public Date getPrazo() {
+        Calendar c = Calendar.getInstance();
+        if (movimentacao.getDataMovimentacao() == null) {
+            return null;
+        } else {
+            c.setTime(movimentacao.getDataMovimentacao());
+            c.set(Calendar.DAY_OF_MONTH, processo.getFase().getPrazo());
+            return c.getTime();
+        }
+
+    }
+
     public Processo getProcesso() {
         return processo;
     }
@@ -71,12 +84,6 @@ public class ProcessoUltimaMovimentacaoDTO implements Comparable<ProcessoUltimaM
         return true;
     }
 
-  
-
- 
-
-  
-
     @Override
     public int compareTo(ProcessoUltimaMovimentacaoDTO o) {
         if (this.movimentacao.getDataMovimentacao().before(o.getMovimentacao().getDataMovimentacao())) {
@@ -86,8 +93,7 @@ public class ProcessoUltimaMovimentacaoDTO implements Comparable<ProcessoUltimaM
             return 1;
         }
         return 0;
-        
+
     }
-    
-    
+
 }
