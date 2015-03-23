@@ -13,6 +13,8 @@
     <composite:interface id="interCon">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
         <composite:attribute  name="legend" default="Cadastro" shortDescription="Cabeçalho do fieldset" />
+        <composite:attribute  name="update_from_evento" default="@form" shortDescription="Tela de cad evento que deveta ser atualizada " />
+
     </composite:interface>
     <composite:implementation  >
 
@@ -25,18 +27,15 @@
             </h:panelGrid>
 
             <p:toolbar   >
-                <p:toolbarGroup style="with:100%">
+                <p:toolbarGroup>
                     <p:separator/>
-                    <p:commandButton icon="ui-icon-circle-plus" title="Adicionar Eventos"  oncomplete="PF('dialogCadEve').show()">
-                        
+                    <p:commandButton icon="ui-icon-circle-plus" title="Adicionar Eventos"  oncomplete="PF('dialogCadEve').show()"  update="#{cc.attrs.update_from_evento}" >
+                        <f:setPropertyActionListener target="#{eventoMB.evento.processo}" value="#{processoMB.processo}"/>                        
                     </p:commandButton>
-                                       <p:separator/>
-                    <p:commandButton icon="ui-icon-plus" title="Gerar Peça"  oncomplete="PF('dialogPeca').show()"/>
-                     
                     <p:separator/>
-
+                    <p:commandButton icon="ui-icon-plus" title="Gerar Peça"  oncomplete="PF('dialogPeca').show()"/>
+                    <p:separator/>
                 </p:toolbarGroup>
-
             </p:toolbar>
             <p:tabView id="tbView" dynamic="true" >
                 <p:tab id="tabDadosGer" title="Dados Gerais">

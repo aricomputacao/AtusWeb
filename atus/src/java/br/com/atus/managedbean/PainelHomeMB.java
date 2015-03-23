@@ -17,7 +17,6 @@ import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.RelatorioSession;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -50,7 +49,7 @@ public class PainelHomeMB implements Serializable {
     private List<ProcessoGrupoDiaAtrasadoDTO> listaGrupoDiaAtrasadoSetorDTOs;
     private List<Processo> listaProcessos;
     private List<Notificacao> listanNotificacao;
-        private List<ProcessoUltimaMovimentacaoDTO> listaUltimaMovimentacaoDTOs;
+    private List<ProcessoUltimaMovimentacaoDTO> listaUltimaMovimentacaoDTOs;
 
     private Notificacao notificacao;
 
@@ -90,7 +89,7 @@ public class PainelHomeMB implements Serializable {
 
     public void listarProcessoFase(Fase f) {
         listaProcessos = processoController.listarProcessoDa(f);
-       listaUltimaMovimentacaoDTOs = processoController.ultimasMovimentacoesDe(listaProcessos);
+        listaUltimaMovimentacaoDTOs = processoController.ultimasMovimentacoesDe(listaProcessos);
         Collections.sort(listaUltimaMovimentacaoDTOs);
     }
 

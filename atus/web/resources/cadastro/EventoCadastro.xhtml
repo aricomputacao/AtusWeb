@@ -13,7 +13,7 @@
     </composite:interface>
     <composite:implementation id="int2" >
         <p:fieldset id="fieldCad" rendered="#{navegacaoMB.permissaoIncluir(navegacao['pro.evento'])}" legend="Cadastro" style="text-align: left">
-            <h:panelGrid columns="3">
+            <h:panelGrid columns="3" id="grdCad">
                 <h:panelGrid>
                     <p:outputLabel value="Processo" for="input_componente"/>
                     <h:panelGrid columns="3">
@@ -31,7 +31,7 @@
                 <h:panelGrid >
 
                     <h:outputLabel for="inicio" value="Início:" />  
-                    <p:calendar id="inicio" size="15"
+                    <p:calendar id="inicio" size="17"
                                 showButtonPanel="true"
                                 required="true"
                                 value="#{eventoMB.evento.data}" 

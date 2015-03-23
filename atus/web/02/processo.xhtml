@@ -23,7 +23,7 @@
             <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['pro.processo'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['pro.processo'])}" acao_imprimir="#{processoMB.imprimirProcesso()}" acao_limpar="#{processoMB.init()}" acao_salvar="#{processoMB.salvar()}"/>
             <comp:panel_cadastro id="cadFrm" cabecalho_grid="Processo" id_form="frm_pag"  >
                 <h:panelGrid width="100%" rendered="#{navegacaoMB.renderPainelCadastro}"  >
-                    <cadastro:ProcessoCadastro id="compProce"/>
+                    <cadastro:ProcessoCadastro id="compProce" update_from_evento=":frmDialogCadEve:compCadEven:input_componente"/>
                 </h:panelGrid>
                 <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}">
                     <cons:ProcessoConsulta id="compProceConsu" listaProcessos="#{processoMB.listaUltimaMovimentacaoDTOs}" renderPrintDoc="true" dialogInfo="dialogCadProc" renderGerarPeca="true" dialogMovimenUpdate=":frmCadMov" dialogMovimen="dialogoEncProce" renderMovimen="true" dialogUpdade=":frmDialogCadProce:compCadPro:fieldCad" >
@@ -99,7 +99,7 @@
         </p:dialog>
         <p:dialog showEffect="fade" position="top"  id="dialogCadPro" height="650"   modal="true" hideEffect="fade" widgetVar="dialogCadProc">
             <h:form id="frmDialogCadProce" >
-                <cadastro:ProcessoCadastro id="compCadPro" legend="Dados do Processo" />
+                <cadastro:ProcessoCadastro id="compCadPro" legend="Dados do Processo" update_from_evento=":frmDialogCadEve:compCadEven:input_componente" />
             </h:form>
         </p:dialog>
 
@@ -115,7 +115,8 @@
         </p:dialog>
         <p:dialog showEffect="fade" position="center"  id="dialogCadEve" header="Cadastro de Evento"   modal="true" hideEffect="fade" widgetVar="dialogCadEve">
             <h:form id="frmDialogCadEve">
-                <cadastro:EventoCadastro  />
+                <util:menuCadDialogo acao_remoteCommand="#{processoMB.consultarEventosDoProcesso()}" acao_salvar="#{eventoMB.salvar()}" frm_update="@form" render_onclick="true" dialog="dialogCadEve" />
+                <cadastro:EventoCadastro id="compCadEven" />
             </h:form>
         </p:dialog>
         <p:dialog showEffect="fade" position="top"   header="Consulta de Usuários" modal="true" hideEffect="fade" widgetVar="dialogUsr">
@@ -123,12 +124,15 @@
                 <p:blockUI block="@form" trigger=":frmDialogUsr:conProce:btnCon:btn">
                     <p:graphicImage library="imagens" name="carregar.gif"/>
                 </p:blockUI>
-                <cons:UsuarioConsulta nomeDialog="dialogUsr" renderExcluir="false" renderEditar="false"  id="conProce" renderSelecionar="true" update_form=":frm_pag" 
+                <cons:UsuarioConsulta nomeDialog="dialogUsr" renderExcluir="false" renderEditar="false"  id="conProce" renderSelecionar="true" update_form=":frmDialogCadEve:compCadEven:input_componente_usr" 
                                       valorSelecionado="#{eventoMB.evento.usuario}">                   
                     <comp:commandButton_consulta  acao_butao="#{eventoMB.listar()}"  componente_to_update=":frmDialogUsr"/>
                 </cons:UsuarioConsulta>
             </h:form>
         </p:dialog>
+        
+      
+        
     </ui:define>
 
 </ui:composition>

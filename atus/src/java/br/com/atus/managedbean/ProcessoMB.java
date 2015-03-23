@@ -12,7 +12,6 @@ import br.com.atus.controller.ParteInteressadaController;
 import br.com.atus.controller.PecaController;
 import br.com.atus.controller.ProcessoController;
 import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
-import br.com.atus.exceptions.PecaFileException;
 import br.com.atus.modelo.Adversario;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Evento;
@@ -24,9 +23,7 @@ import br.com.atus.modelo.Processo;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
-import java.io.FileNotFoundException;
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,7 +37,6 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
-import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.primefaces.model.StreamedContent;
 
 /**
@@ -110,8 +106,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             fase = processo.getFase();
             listaMovimentacaos = movimentacaoController.listarPorProcesso(processo);
             listaEventos = eventoController.listarPorProcessos(processo);
-            listaEventos = eventoController.listarPorProcessos(processo);
-
+//            listaEventos = eventoController.listarPorProcessos(processo);
             adversario = new Adversario();
             parteInteressada = new ParteInteressada();
             listaProcessos = new ArrayList<>();
@@ -129,6 +124,11 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         } catch (Exception ex) {
             Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void consultarEventosDoProcesso() {
+        listaEventos = eventoController.listarPorProcessos(processo);
+
     }
 
     public void addAdversario() {

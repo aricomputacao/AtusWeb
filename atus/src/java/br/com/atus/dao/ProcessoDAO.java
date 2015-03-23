@@ -10,6 +10,7 @@ import br.com.atus.dto.ProcessoGrupoDiaAtrasadoDTO;
 import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.dto.ProcessosAtrasadoRelatorioDTO;
 import br.com.atus.modelo.Cliente;
+import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Fase;
 import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.Usuario;
@@ -152,6 +153,17 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
         q = getEm().createQuery("SELECT p FROM Processo p ", Processo.class);
 
         return q.getResultList().isEmpty() ? new ArrayList<>() : q.getResultList();
+    }
+
+    public List<Processo> consultaPorColaborador(Colaborador colaborador) {
+          TypedQuery q;
+        q = getEm().createQuery("SELECT p FROM Processo p WHERE p.colaborador  = :c ORDER BY p.colaborador", Processo.class)
+                .setParameter("c", colaborador);
+        if (q.getResultList().isEmpty()) {
+            return new ArrayList<>();
+        } else {
+            return q.getResultList();
+        }
     }
     
     

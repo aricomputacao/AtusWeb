@@ -167,10 +167,15 @@
 
         <p:dialog showEffect="fade" position="top"  id="dialogCadPro" height="650"   modal="true" hideEffect="fade" widgetVar="dialogCadProc">
             <h:form id="frmDialogCadProce" >
-                <cadastro:ProcessoCadastro id="compCadPro"  legend="Dados do Processo" />
+                <cadastro:ProcessoCadastro id="compCadPro"  legend="Dados do Processo" update_from_evento=":frmDialogCadEve:compCadEven:input_componente"/>
             </h:form>
         </p:dialog>
-        
+        <p:dialog showEffect="fade" position="center"  id="dialogCadEve" header="Cadastro de Evento"   modal="true" hideEffect="fade" widgetVar="dialogCadEve">
+            <h:form id="frmDialogCadEve">
+                <util:menuCadDialogo acao_remoteCommand="#{processoMB.consultarEventosDoProcesso()}" acao_salvar="#{eventoMB.salvar()}" frm_update="@form" render_onclick="true" dialog="dialogCadEve" />
+                <cadastro:EventoCadastro id="compCadEven" />
+            </h:form>
+        </p:dialog>
         <p:dialog showEffect="fade" position="top"  header="Encaminhar Processo" id="addEnc" modal="true" hideEffect="fade" widgetVar="dialogoEncProce">
             <h:form id="frmCadMov">
                 <util:menuCadDialogo2 id="menDialog"  frm_update="@form"  acao_salvar="#{processoMB.addMovimentacao()}"  />

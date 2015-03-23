@@ -12,6 +12,7 @@ import br.com.atus.dto.ProcessoGrupoDiaAtrasadoDTO;
 import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.dto.ProcessosAtrasadoRelatorioDTO;
 import br.com.atus.modelo.Cliente;
+import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Fase;
 import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.Usuario;
@@ -133,5 +134,14 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
 
     public List<Processo> listarFase() {
         return dao.listarFase();
+    }
+
+    public List<Processo> consultaPorColaborador(Colaborador colaborador) throws Exception {
+        if (colaborador.getId() != null) {
+            return dao.consultaPorColaborador(colaborador);
+
+        } else {
+            return dao.listarTodos("colaborador");
+        }
     }
 }

@@ -5,12 +5,12 @@
  */
 package br.com.atus.managedbean;
 
-import br.com.atus.controller.MovimentacaoController;
 import br.com.atus.controller.ProcessoController;
 import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.dto.ProcessosAtrasadoRelatorioDTO;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Colaborador;
+import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.Usuario;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.RelatorioSession;
@@ -20,6 +20,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -36,8 +38,7 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
 
     @EJB
     private ProcessoController processoController;
-    @EJB
-    private MovimentacaoController movimentacaoController;
+    
     private List<ProcessosAtrasadoRelatorioDTO> listaProcessosAtrasadoRelatorioDTOs;
     private List<ProcessoUltimaMovimentacaoDTO> listaProcessoUltimaMovimentacaoDTOs;
     private Cliente cliente;
@@ -65,9 +66,14 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
     }
 
     public void listarProcessoColaborador() {
-       
-        listaProcessoUltimaMovimentacaoDTOs.clear();
-        listaProcessoUltimaMovimentacaoDTOs = movimentacaoController.listarProcessosColaboradores(colaborador);
+        try {
+            List<Processo> listaProcessos = processoController.consultaPorColaborador(colaborador);
+            listaProcessoUltimaMovimentacaoDTOs.clear();
+            listaProcessoUltimaMovimentacaoDTOs = processoController.ultimasMovimentacoesDe(listaProcessos);
+            Collections.sort(listaProcessoUltimaMovimentacaoDTOs);
+        } catch (Exception ex) {
+            Logger.getLogger(RelatorioMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void imprimirProcessoColaborador() {
