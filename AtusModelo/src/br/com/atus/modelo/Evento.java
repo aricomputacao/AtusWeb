@@ -30,7 +30,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name = "evento", schema = "processo")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Evento implements Serializable {
+public class Evento implements Serializable, Comparable<Evento> {
 
 
     @Id
@@ -161,5 +161,15 @@ public class Evento implements Serializable {
         return true;
     }
     
-    
+      @Override
+    public int compareTo(Evento o) {
+        if (this.getData().before(o.getData())) {
+            return -1;
+        }
+        if (this.getData().after(o.getData())) {
+            return 1;
+        }
+        return 0;
+
+    }
 }
