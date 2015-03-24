@@ -53,6 +53,7 @@
                 <p:submenu label="Relatório"  rendered="#{navegacaoMB.permissaoModuloRelatorio()}" styleClass="subMenu">
                     <p:menuitem value="Processos Atrasados" styleClass="item" rendered="#{navegacaoMB.permissaoExiste(navegacao['rel.processo_atrasado'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['rel.processo_atrasado'])}" immediate="true"/>
                     <p:menuitem value="Processos Colaborador" styleClass="item" rendered="#{navegacaoMB.permissaoExiste(navegacao['rel.processo_colaborador'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['rel.processo_colaborador'])}" immediate="true"/>
+                    <p:menuitem value="Agenda Colaborador" styleClass="item" rendered="#{navegacaoMB.permissaoExiste(navegacao['rel.agenda_colaborador'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['rel.agenda_colaborador'])}" immediate="true"/>
 
                 </p:submenu>
                 <p:submenu label="Segurança"  rendered="#{navegacaoMB.permissaoModuloSeguranca()}" styleClass="subMenu">

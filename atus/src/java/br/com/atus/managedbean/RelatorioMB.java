@@ -5,11 +5,13 @@
  */
 package br.com.atus.managedbean;
 
+import br.com.atus.controller.EventoController;
 import br.com.atus.controller.ProcessoController;
 import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.dto.ProcessosAtrasadoRelatorioDTO;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Colaborador;
+import br.com.atus.modelo.Evento;
 import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.Usuario;
 import br.com.atus.util.AssistentedeRelatorio;
@@ -17,6 +19,7 @@ import br.com.atus.util.RelatorioSession;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,12 +41,17 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
 
     @EJB
     private ProcessoController processoController;
+    @EJB
+    private EventoController eventoController;
     
     private List<ProcessosAtrasadoRelatorioDTO> listaProcessosAtrasadoRelatorioDTOs;
     private List<ProcessoUltimaMovimentacaoDTO> listaProcessoUltimaMovimentacaoDTOs;
+    private List<Evento> listaEventos;
     private Cliente cliente;
     private Usuario usuario;
     private Colaborador colaborador;
+    private Date dataInicial;
+    private Date dataFinal;
 
     public RelatorioMB() {
         super(ProcessosAtrasadoRelatorioDTO.class);
@@ -53,10 +61,18 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
     public void init() {
         listaProcessosAtrasadoRelatorioDTOs = new ArrayList<>();
         listaProcessoUltimaMovimentacaoDTOs = new ArrayList<>();
+        listaEventos = new ArrayList<>();
         usuario = new Usuario();
         colaborador = new Colaborador();
+        dataInicial = new Date();
+        dataFinal = new Date();
     }
 
+    
+    public void consultaEventoColaborador(){
+        listaEventos = eventoController.consultaEventoColaboradorPor(colaborador,dataInicial,dataFinal);
+    }
+    
     public void listarProcessosAtrasados() {
         listaProcessoUltimaMovimentacaoDTOs.clear();
         listaProcessoUltimaMovimentacaoDTOs = processoController.listaProcessosAtrasadosRelatorio(usuario);
@@ -89,6 +105,16 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
         if (!listaProcessoUltimaMovimentacaoDTOs.isEmpty()) {
             Map<String, Object> m = new HashMap<>();
             byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaProcessoUltimaMovimentacaoDTOs, m, "WEB-INF/relatorios/rel_processos_atrasados.jasper", "Relatório de Processos Atrasados");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        }
+
+    }
+    
+    
+    public void imprimirAgendaColaborador() {
+        if (!listaEventos.isEmpty()) {
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaEventos, m, "WEB-INF/relatorios/rel_agenda_colaborador.jasper", "Agenda do Colaborador");
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
 
@@ -134,4 +160,25 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
         this.listaProcessoUltimaMovimentacaoDTOs = listaProcessoUltimaMovimentacaoDTOs;
     }
 
+    public List<Evento> getListaEventos() {
+        return listaEventos;
+    }
+
+    public Date getDataInicial() {
+        return dataInicial;
+    }
+
+    public Date getDataFinal() {
+        return dataFinal;
+    }
+
+    public void setDataInicial(Date dataInicial) {
+        this.dataInicial = dataInicial;
+    }
+
+    public void setDataFinal(Date dataFinal) {
+        this.dataFinal = dataFinal;
+    }
+
+    
 }

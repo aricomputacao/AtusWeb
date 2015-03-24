@@ -6,10 +6,13 @@
 package br.com.atus.controller;
 
 import br.com.atus.dao.EventoDAO;
+import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Evento;
 import br.com.atus.modelo.Processo;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -42,7 +45,18 @@ public class EventoController extends Controller<Evento, Long> implements Serial
     }
 
     public List<Evento> listarPorPeriodo(Date dataInicial, Date dataFinal) {
-        return dao.listarPorPeriodo(dataInicial, dataFinal);
+        return dao.consultaEventoPor(dataInicial, dataFinal);
+    }
+
+    public List<Evento> consultaEventoColaboradorPor(Colaborador colaborador,Date dataInicial,Date dataFinal) {
+        List<Evento> listaEventos = new ArrayList<>();
+        if (colaborador.getId() != null) {
+            listaEventos = dao.consultaEventoColaboradorPor(colaborador,dataInicial,dataFinal);
+        } else {
+            listaEventos = dao.consultaEventoOrdenadoPorColaboradorPor(dataInicial, dataFinal);
+        }
+        Collections.sort(listaEventos);
+        return listaEventos;
     }
 
 }

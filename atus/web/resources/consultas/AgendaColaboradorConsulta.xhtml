@@ -6,6 +6,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:comp="http://java.sun.com/jsf/composite/comp">
 
     <composite:interface id="interCon">
@@ -21,22 +22,28 @@
     </composite:interface>
     <composite:implementation id="compConCli" >
         <h:panelGrid  width="100%" id="rtt" >
-            <p:fieldset id="fieldCon" rendered="#{navegacaoMB.permissaoConsultar(navegacao['rel.processo_colaborador'])}" legend="#{cc.attrs.nome}" style="font-weight: bold">
+            <p:fieldset id="fieldCon" rendered="#{navegacaoMB.permissaoConsultar(navegacao['rel.agenda_colaborador'])}" legend="#{cc.attrs.nome}" style="font-weight: bold">
                 <h:panelGrid id="grdConsulta" columns="4" rendered="#{cc.attrs.renderPesquisar}">                   
                     <h:panelGrid  id="grdConsulta2">                        
                         <h:panelGrid>
-                            <comp:input_button nome_dialog="dialogoConColaborador" required="false" id="inputCon" input_size="50" nome_label="Colaborador" value_input="#{relatorioMB.colaborador.pessoa.nome}"  />
+                            <comp:input_button nome_dialog="dialogoConColaborador" required="true" id="inputCon" input_size="50" nome_label="Colaborador" value_input="#{relatorioMB.colaborador.pessoa.nome}"  />
                         </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid >
+                        <comp:inputTextCalendar nomeLabel="Data Inicial" valorData="#{relatorioMB.dataInicial}" />
+                    </h:panelGrid>
+                    <h:panelGrid >
+                        <comp:inputTextCalendar nomeLabel="Data Final" valorData="#{relatorioMB.dataFinal}" />
                     </h:panelGrid>
                     <h:panelGrid id="grdConsulta3">
                         <p:spacer width="15"/>
                         <composite:renderFacet name="btnConsultaProcesso" />
                     </h:panelGrid>
                 </h:panelGrid>
-                <p:dataTable value="#{relatorioMB.listaProcessoUltimaMovimentacaoDTOs}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10"
+                <p:dataTable value="#{relatorioMB.listaEventos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10"
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
-                    <p:column headerText="Id" width="5%" sortBy="#{t.processo.id}">
+                    <p:column headerText="Id" width="5%" >
                         <comp:outputText value="#{t.processo.id}"/>
                     </p:column>
                     <p:column headerText="Juizo" width="10%">
@@ -45,32 +52,18 @@
                     <p:column headerText="Número" width="12%" sortBy="#{t.processo.numero}">
                         <comp:outputText value="#{t.processo.numero}"/>
                     </p:column>
-                    <p:column headerText="Objeto" width="20%" >
-                        <comp:outputText value="#{t.processo.objetoProcesso}"/>
+                    <p:column headerText="Tipo de Evento" width="20%" >
+                        <comp:outputText value="#{t.especieEvento.nome}"/>
                     </p:column>
-                    <p:column headerText="Cliente | Documento" sortBy="#{t.processo.cliente.pessoa.nome}" width="15%" >
-                        <comp:outputText value="#{t.processo.cliente.pessoa.nome} | "/>
-                        <h:outputText value="#{t.processo.cliente.cpfCpnj}" converter="#{cpfConverter}"/>
+                    <p:column headerText="Evento"  width="20%" >
+                        <comp:outputText value="#{t.nome}" title="#{t.local}"/>
                     </p:column>
-                    <p:column headerText="Motivo" width="20%"  >
-                        <comp:outputText value="#{t.movimentacao.motivo}" />
+                    <p:column headerText="Colaborador" width="20%" >
+                        <comp:outputText value="#{t.processo.colaborador.pessoa.nome}"/>
                     </p:column>
-                    <p:column headerText="Fase" width="15%" >
-                        <comp:outputText value="#{t.processo.fase.nome}"/>
+                    <p:column headerText="Data" width="15%" >
+                        <comp:outputText value="#{t.data}" tipo="dt"/>
                     </p:column>
-                    <p:column headerText="Desde" width="9%" >
-                        <comp:outputText tipo="d" value="#{t.movimentacao.dataMovimentacao}"/>
-                    </p:column>
-
-                    <p:column headerText="Prazo Final" width="8%" >
-                        <comp:outputText tipo="d" value="#{t.prazo}"/>
-                    </p:column>
-
-                    <p:column headerText="Endereçamento" width="9%" >
-                        <comp:outputText value="#{t.processo.enderecamento.nome}"/>
-                    </p:column>
-
-
                 </p:dataTable>
             </p:fieldset>
 
