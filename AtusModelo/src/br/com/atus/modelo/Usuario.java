@@ -130,5 +130,9 @@ public class Usuario implements Serializable {
     public void setPerfil(Perfil perfil) {
         this.perfil = perfil;
     }
+    
+    public boolean ehColaborador(){
+        return this.perfil.equals(Perfil.COLABORADOR);
+    }
 
 }
