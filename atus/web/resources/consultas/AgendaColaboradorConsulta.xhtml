@@ -14,6 +14,8 @@
         <composite:facet name="btnConsultaProcesso"/>
 
         <composite:attribute name="renderPesquisar" default="true"/>
+        <composite:attribute name="renderPesquisarColaborador" default="true"/>
+
         <composite:attribute name="valorSelecionado" />
         <composite:attribute name="nomeDialog" />
         <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
@@ -24,7 +26,7 @@
         <h:panelGrid  width="100%" id="rtt" >
             <p:fieldset id="fieldCon" rendered="#{navegacaoMB.permissaoConsultar(navegacao['rel.agenda_colaborador'])}" legend="#{cc.attrs.nome}" style="font-weight: bold">
                 <h:panelGrid id="grdConsulta" columns="4" rendered="#{cc.attrs.renderPesquisar}">                   
-                    <h:panelGrid  id="grdConsulta2">                        
+                    <h:panelGrid  id="grdConsulta2" rendered="#{cc.attrs.renderPesquisarColaborador}">                        
                         <h:panelGrid>
                             <comp:input_button nome_dialog="dialogoConColaborador" required="true" id="inputCon" input_size="50" nome_label="Colaborador" value_input="#{relatorioMB.colaborador.pessoa.nome}"  />
                         </h:panelGrid>

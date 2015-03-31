@@ -145,7 +145,7 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
     }
 
     public void listaProcessoCliente(Cliente c) {
-        listaProcessos = processoController.listarPorCliente(c);
+        listaProcessos = processoController.consultarPor(c);
     }
 
     public void setarProf(Profissao p) {
@@ -154,7 +154,7 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
 
     public void setarCliente(Cliente c) {
         cliente = c;
-        listaProcessos = processoController.listarPorCliente(cliente);
+        listaProcessos = processoController.consultarPor(cliente);
 
     }
 

@@ -16,6 +16,7 @@ import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Permissao;
 import br.com.atus.modelo.Usuario;
+import br.com.atus.util.ContextoAplicacao;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -27,7 +28,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -72,14 +72,16 @@ public class NavegacaoMB implements Serializable {
      * consultar
      */
     private boolean renderPainelCadastro;
+    //Variavel para checar se o usuario é comum ou colaborador
+    private boolean ehUsuarioDoEscritorio;
 
     @Inject
     private void init() {
         try {
 
-            FacesContext context = FacesContext.getCurrentInstance();
-            ExternalContext external = context.getExternalContext();
-            usuarioLogado = usuarioController.usuarioLogin(external.getRemoteUser());
+        
+            usuarioLogado = usuarioController.usuarioLogin(ContextoAplicacao.getContexto().getRemoteUser());
+            ehUsuarioDoEscritorio = usuarioController.ehUsuarioDoEscritorio(usuarioLogado);
             listaPermissaos = permissaoController.listar(usuarioLogado);
             popularMenu();
             if (usuarioLogado.getPerfil().equals(Perfil.ADVOGADO)) {
@@ -508,5 +510,11 @@ public class NavegacaoMB implements Serializable {
     public void setColaborador(Colaborador colaborador) {
         this.colaborador = colaborador;
     }
+
+    public boolean isEhUsuarioDoEscritorio() {
+        return ehUsuarioDoEscritorio;
+    }
+
+   
 
 }

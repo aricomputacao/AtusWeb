@@ -49,6 +49,8 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     @Inject
     private NavegacaoMB navegacaoMB;
+    @Inject
+    private UsuarioMB usuarioMB;
     @EJB
     private ProcessoController controller;
     @EJB
@@ -272,14 +274,14 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             switch (getCampoBusca()) {
                 case "id":
                     listaProcessos.clear();
-                    processo = controller.carregar(Long.decode(getValorBusca()));
+                    processo = controller.carregarPor(Long.decode(getValorBusca()),navegacaoMB.getUsuarioLogado());
                     listaProcessos.add(processo);
                     break;
                 case "numero":
-                    listaProcessos = controller.listarLikeNumero(getValorBusca());
+                    listaProcessos = controller.consultaLikePor(getValorBusca(),navegacaoMB.getUsuarioLogado());
                     break;
                 case "cliente":
-                    listaProcessos = controller.listarPorCliente(cliente);
+                    listaProcessos = controller.consultarPor(cliente,navegacaoMB.getUsuarioLogado());
                     break;
 
             }

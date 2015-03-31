@@ -48,13 +48,29 @@ public class EventoController extends Controller<Evento, Long> implements Serial
         return dao.consultaEventoPor(dataInicial, dataFinal);
     }
 
-    public List<Evento> consultaEventoColaboradorPor(Colaborador colaborador,Date dataInicial,Date dataFinal) {
+    public List<Evento> consultaEventoColaboradorPor(Colaborador colaborador, Date dataInicial, Date dataFinal) {
         List<Evento> listaEventos = new ArrayList<>();
         if (colaborador.getId() != null) {
-            listaEventos = dao.consultaEventoColaboradorPor(colaborador,dataInicial,dataFinal);
+            listaEventos = dao.consultaEventoColaboradorPor(colaborador, dataInicial, dataFinal);
         } else {
             listaEventos = dao.consultaEventoOrdenadoPorColaboradorPor(dataInicial, dataFinal);
         }
+        Collections.sort(listaEventos);
+        return listaEventos;
+    }
+
+    public List<Evento> consultaEventoColaboradorPor(Colaborador colaborador, Date dataInicial, Date dataFinal, boolean ehUsuarioDoEscritorio) {
+        List<Evento> listaEventos = new ArrayList<>();
+        if (ehUsuarioDoEscritorio) {
+            if (colaborador.getId() != null) {
+                listaEventos = dao.consultaEventoColaboradorPor(colaborador, dataInicial, dataFinal);
+            } else {
+                listaEventos = dao.consultaEventoOrdenadoPorColaboradorPor(dataInicial, dataFinal);
+            }
+        } else {
+            listaEventos = dao.consultaEventoColaboradorPor(colaborador, dataInicial, dataFinal);
+        }
+
         Collections.sort(listaEventos);
         return listaEventos;
     }

@@ -39,9 +39,9 @@ public class PainelHomeMB implements Serializable {
 
     @Inject
     private NavegacaoMB navegacaoMB;
-    @EJB
+    @Inject
     private ProcessoController processoController;
-    @EJB
+    @Inject
     private NotificacaoController notificacaoController;
     private List<ProcessoAtrasadoDTO> listaAtrasadoUsuario;
     private List<ProcessoAtrasadoDTO> listaAtrasadoGeral;
@@ -88,9 +88,13 @@ public class PainelHomeMB implements Serializable {
     }
 
     public void listarProcessoFase(Fase f) {
-        listaProcessos = processoController.listarProcessoDa(f);
-        listaUltimaMovimentacaoDTOs = processoController.ultimasMovimentacoesDe(listaProcessos);
-        Collections.sort(listaUltimaMovimentacaoDTOs);
+        try {
+            listaProcessos = processoController.consultarProcessoDa(f,navegacaoMB.getUsuarioLogado());
+            listaUltimaMovimentacaoDTOs = processoController.ultimasMovimentacoesDe(listaProcessos);
+            Collections.sort(listaUltimaMovimentacaoDTOs);
+        } catch (Exception ex) {
+            Logger.getLogger(PainelHomeMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public List<ProcessoGrupoDiaAtrasadoDTO> getListaGrupoDiaAtrasadoGeralDTOs() {

@@ -11,6 +11,7 @@ import br.com.atus.dto.ProcessoAtrasadoDTO;
 import br.com.atus.dto.ProcessoGrupoDiaAtrasadoDTO;
 import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.dto.ProcessosAtrasadoRelatorioDTO;
+import br.com.atus.enumerated.Perfil;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Fase;
@@ -22,6 +23,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 /**
  *
@@ -30,12 +32,14 @@ import javax.ejb.Stateless;
 @Stateless
 public class ProcessoController extends Controller<Processo, Long> implements Serializable {
 
-    @EJB
+    @Inject
     private ProcessoDAO dao;
-    @EJB
+    @Inject
     private MovimentacaoDAO movimentacaoDAO;
-    @EJB
+    @Inject
     private MovimentacaoController movimentacaoController;
+    @Inject
+    private ColaboradorController colaboradorController;
 
     @PostConstruct
     @Override
@@ -94,26 +98,30 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
         return ultimaMovimentacaoDTOs;
     }
 
-    public List<ProcessoUltimaMovimentacaoDTO> ultimaMovimentacaoNa(Fase f) {
-        List<ProcessoUltimaMovimentacaoDTO> ultimaMovimentacaoDTOs = new ArrayList<>();
-        List<Processo> listaProcessos = new ArrayList<>();
-        listaProcessos = listarProcessoDa(f);
-        for (Processo p : listaProcessos) {
-            ultimaMovimentacaoDTOs.add(movimentacaoDAO.ultimaMovimentacaoDTO(p));
+//    public List<ProcessoUltimaMovimentacaoDTO> ultimaMovimentacaoNa(Fase f) {
+//        List<ProcessoUltimaMovimentacaoDTO> ultimaMovimentacaoDTOs = new ArrayList<>();
+//        List<Processo> listaProcessos = new ArrayList<>();
+//        listaProcessos = consultarProcessoDa(f);
+//        for (Processo p : listaProcessos) {
+//            ultimaMovimentacaoDTOs.add(movimentacaoDAO.ultimaMovimentacaoDTO(p));
+//        }
+//        return ultimaMovimentacaoDTOs;
+//    }
+    public List<Processo> consultarProcessoDa(Fase f, Usuario usuarioLogado) throws Exception {
+        if (usuarioLogado.ehColaborador()) {
+            Colaborador colaborador = colaboradorController.carregar(usuarioLogado.getReferencia());
+            return dao.consultarPor(f, colaborador);
+        } else {
+            return dao.consultarPor(f);
         }
-        return ultimaMovimentacaoDTOs;
     }
 
-    public List<Processo> listarProcessoDa(Fase f) {
-        return dao.listarPorFase(f);
+    public List<Processo> consultarPor(Cliente c) {
+        return dao.consultarPor(c);
     }
 
-    public List<Processo> listarPorCliente(Cliente c) {
-        return dao.listarPorCliente(c);
-    }
-
-    public List<Processo> listarLikeNumero(String num) {
-        return dao.listarLikeNumero(num);
+    public List<Processo> consultaLikePor(String numero) {
+        return dao.consultaLikePor(numero);
     }
 
     public void salvarouAtualizarEditarFase(Processo processo, Fase fs, Usuario u) throws Exception {
@@ -142,6 +150,40 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
 
         } else {
             return dao.listarTodos("colaborador");
+        }
+    }
+
+    public List<Processo> consultarPor(Cliente cliente, Usuario usuarioLogado) throws Exception {
+        ConsultaDeProcessos deProcessos;
+        if (usuarioLogado.getPerfil().equals(Perfil.COLABORADOR)) {
+            deProcessos = new ConsultaDeProcessoPorColaborador(dao, colaboradorController);
+            return deProcessos.consultaProcessosPor(cliente, usuarioLogado);
+        } else {
+            deProcessos = new ConsultaDeProcessoEscritorio(dao);
+            return deProcessos.consultaProcessosPor(cliente, usuarioLogado);
+        }
+
+    }
+
+    public List<Processo> consultaLikePor(String numero, Usuario usuarioLogado) throws Exception {
+        ConsultaDeProcessos deProcessos;
+        if (usuarioLogado.getPerfil().equals(Perfil.COLABORADOR)) {
+            deProcessos = new ConsultaDeProcessoPorColaborador(dao, colaboradorController);
+            return deProcessos.consultaProcessosPor(numero, usuarioLogado);
+        } else {
+            deProcessos = new ConsultaDeProcessoEscritorio(dao);
+            return deProcessos.consultaProcessosPor(numero, usuarioLogado);
+        }
+    }
+
+    public Processo carregarPor(Long id, Usuario usuarioLogado) throws Exception {
+        ConsultaDeProcessos deProcessos;
+        if (usuarioLogado.getPerfil().equals(Perfil.COLABORADOR)) {
+            deProcessos = new ConsultaDeProcessoPorColaborador(dao, colaboradorController);
+            return deProcessos.consultaProcessosPor(id, usuarioLogado);
+        } else {
+            deProcessos = new ConsultaDeProcessoEscritorio(dao);
+            return deProcessos.consultaProcessosPor(id, usuarioLogado);
         }
     }
 }

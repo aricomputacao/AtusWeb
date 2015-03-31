@@ -29,6 +29,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 
 /**
  * Bean para relatorio
@@ -39,11 +40,12 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> implements Serializable {
 
-    @EJB
+    @Inject
     private ProcessoController processoController;
-    @EJB
+    @Inject
     private EventoController eventoController;
-    
+    @Inject
+    private NavegacaoMB navegacaoMB;
     private List<ProcessosAtrasadoRelatorioDTO> listaProcessosAtrasadoRelatorioDTOs;
     private List<ProcessoUltimaMovimentacaoDTO> listaProcessoUltimaMovimentacaoDTOs;
     private List<Evento> listaEventos;
@@ -70,7 +72,10 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
 
     
     public void consultaEventoColaborador(){
-        listaEventos = eventoController.consultaEventoColaboradorPor(colaborador,dataInicial,dataFinal);
+        listaEventos = eventoController.consultaEventoColaboradorPor(colaborador,dataInicial,dataFinal,navegacaoMB.isEhUsuarioDoEscritorio());
+    }
+    public void consultaEventoUsuarioColaborador(){
+        listaEventos = eventoController.consultaEventoColaboradorPor(navegacaoMB.getColaborador(),dataInicial,dataFinal,navegacaoMB.isEhUsuarioDoEscritorio());
     }
     
     public void listarProcessosAtrasados() {

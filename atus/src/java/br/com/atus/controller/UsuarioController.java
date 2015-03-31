@@ -6,6 +6,7 @@
 package br.com.atus.controller;
 
 import br.com.atus.dao.UsuarioDAO;
+import br.com.atus.enumerated.Perfil;
 import br.com.atus.modelo.Usuario;
 import br.com.atus.util.CriptografiaSenha;
 import java.io.Serializable;
@@ -46,6 +47,10 @@ public class UsuarioController extends Controller<Usuario, Long> implements Seri
 
     public Usuario usuarioLogin(String remoteUser) {
         return dao.usuarioLogin(remoteUser);
+    }
+
+    public boolean ehUsuarioDoEscritorio(Usuario usuarioLogado) {
+        return !usuarioLogado.getPerfil().equals(Perfil.COLABORADOR);
     }
 
 }

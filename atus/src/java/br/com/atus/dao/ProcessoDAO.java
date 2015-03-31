@@ -76,7 +76,7 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
         }
     }
 
-    public List<Processo> listarPorFase(Fase f) {
+    public List<Processo> consultarPor(Fase f) {
         TypedQuery q;
         q = getEm().createQuery("SELECT p FROM Processo p WHERE p.fase  = :f ORDER BY p.fase.usuario,p.fase", Processo.class)
                 .setParameter("f", f);
@@ -87,7 +87,20 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
         }
     }
 
-    public List<Processo> listarPorCliente(Cliente c) {
+    public List<Processo> consultarPor(Fase f, Colaborador colaborador) {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT p FROM Processo p WHERE p.fase  = :f and p.colaborador = :col ORDER BY p.fase.usuario,p.fase", Processo.class)
+                .setParameter("f", f)
+                .setParameter("col", colaborador);
+
+        if (q.getResultList().isEmpty()) {
+            return new ArrayList<>();
+        } else {
+            return q.getResultList();
+        }
+    }
+
+    public List<Processo> consultarPor(Cliente c) {
         TypedQuery q;
         q = getEm().createQuery("SELECT p FROM Processo p WHERE p.cliente  = :c ORDER BY p.fase,p.fase.usuario", Processo.class)
                 .setParameter("c", c);
@@ -98,10 +111,10 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
         }
     }
 
-    public List<Processo> listarLikeNumero(String num) {
+    public List<Processo> consultaLikePor(String numero) {
         TypedQuery q;
         q = getEm().createQuery("SELECT p FROM Processo p WHERE UPPER(p.numero) like :c ORDER BY p.fase.usuario,p.fase", Processo.class)
-                .setParameter("c", "%" + num.toUpperCase() + "%");
+                .setParameter("c", "%" + numero.toUpperCase() + "%");
         if (q.getResultList().isEmpty()) {
             return new ArrayList<>();
         } else {
@@ -147,8 +160,8 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
 
         return q.getResultList().isEmpty() ? new ArrayList<>() : q.getResultList();
     }
-    
-     public List<Processo> listarFase() {
+
+    public List<Processo> listarFase() {
         TypedQuery q;
         q = getEm().createQuery("SELECT p FROM Processo p ", Processo.class);
 
@@ -156,7 +169,7 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
     }
 
     public List<Processo> consultaPorColaborador(Colaborador colaborador) {
-          TypedQuery q;
+        TypedQuery q;
         q = getEm().createQuery("SELECT p FROM Processo p WHERE p.colaborador  = :c ORDER BY p.colaborador", Processo.class)
                 .setParameter("c", colaborador);
         if (q.getResultList().isEmpty()) {
@@ -165,6 +178,42 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
             return q.getResultList();
         }
     }
-    
-    
+
+    public List<Processo> consultaProcessosPor(Cliente cliente, Colaborador colaborador) {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT p FROM Processo p WHERE p.cliente  = :c AND p.colaborador = :col ORDER BY p.fase,p.fase.usuario", Processo.class)
+                .setParameter("c", cliente)
+                .setParameter("col", colaborador);
+        if (q.getResultList().isEmpty()) {
+            return new ArrayList<>();
+        } else {
+            return q.getResultList();
+        }
+    }
+
+    public List<Processo> consultarLikePor(String numero, Colaborador colaborador) {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT p FROM Processo p WHERE UPPER(p.numero) like :c and p.colaborador = :col ORDER BY p.fase.usuario,p.fase", Processo.class)
+                .setParameter("c", "%" + numero.toUpperCase() + "%")
+                .setParameter("col", colaborador);
+
+        if (q.getResultList().isEmpty()) {
+            return new ArrayList<>();
+        } else {
+            return q.getResultList();
+        }
+    }
+
+    public Processo carregarPor(Long id, Colaborador colaborador) {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT p FROM Processo p WHERE p.id  = :id AND p.colaborador = :col ", Processo.class)
+                .setParameter("id", id)
+                .setParameter("col", colaborador);
+        if (q.getResultList().isEmpty()) {
+            return new Processo();
+        } else {
+            return (Processo) q.getSingleResult();
+        }
+    }
+
 }
