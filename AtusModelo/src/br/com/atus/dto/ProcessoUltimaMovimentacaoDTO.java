@@ -88,12 +88,15 @@ public class ProcessoUltimaMovimentacaoDTO implements Comparable<ProcessoUltimaM
 
     @Override
     public int compareTo(ProcessoUltimaMovimentacaoDTO o) {
-        if (this.movimentacao.getDataMovimentacao().before(o.getMovimentacao().getDataMovimentacao())) {
-            return -1;
+        if (this.movimentacao != null) {
+            if (this.movimentacao.getDataMovimentacao().before(o.getMovimentacao().getDataMovimentacao())) {
+                return -1;
+            }
+            if (this.movimentacao.getDataMovimentacao().after(o.getMovimentacao().getDataMovimentacao())) {
+                return 1;
+            }
         }
-        if (this.movimentacao.getDataMovimentacao().after(o.getMovimentacao().getDataMovimentacao())) {
-            return 1;
-        }
+
         return 0;
 
     }
