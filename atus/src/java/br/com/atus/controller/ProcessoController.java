@@ -15,13 +15,14 @@ import br.com.atus.enumerated.Perfil;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Fase;
+import br.com.atus.modelo.Movimentacao;
 import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -40,11 +41,30 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
     private MovimentacaoController movimentacaoController;
     @Inject
     private ColaboradorController colaboradorController;
+    @Inject
+    private UsuarioController usuarioController;
 
     @PostConstruct
     @Override
     protected void inicializaDAO() {
         setDAO(dao);
+    }
+    
+
+    //Criar uma movimetação para corrigir processos que não tem movimentação
+    public void criarMovimentacaoParaProcesso() throws Exception {
+        List<Processo> lista = new ArrayList<>();
+        lista = dao.consultarProcessoSemMovimentacao();
+        for (Processo p : lista) {
+            Movimentacao m = new Movimentacao();
+            m.setDataMovimentacao(new Date());
+            m.setFaseAntiga(p.getFase());
+            m.setFaseNova(p.getFase());
+            m.setMotivo("Ajuste do sistema");
+            m.setProcesso(p);
+            m.setUsuario(usuarioController.gerenciar(new Long(0)));
+            movimentacaoController.salvar(m);
+        }
     }
 
     public List<ProcessoAtrasadoDTO> processoAtrasadoUsuario(Usuario u) {
@@ -76,7 +96,8 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
 
     public List<ProcessoUltimaMovimentacaoDTO> ultimasMovimentacoesDe(List<Processo> processos) {
         List<ProcessoUltimaMovimentacaoDTO> ultimaMovimentacaoDTOs = new ArrayList<>();
-
+        
+        
         for (Processo p : processos) {
             ultimaMovimentacaoDTOs.add(movimentacaoDAO.ultimaMovimentacaoDTO(p));
         }

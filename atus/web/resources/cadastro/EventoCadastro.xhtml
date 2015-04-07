@@ -10,22 +10,23 @@
 
     <composite:interface id="int">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+        <composite:attribute id="btnPesq" name="btnPesq" default="true" />
     </composite:interface>
     <composite:implementation id="int2" >
         <p:fieldset id="fieldCad" rendered="#{navegacaoMB.permissaoIncluir(navegacao['pro.evento'])}" legend="Cadastro" style="text-align: left">
             <h:panelGrid columns="3" id="grdCad">
                 <h:panelGrid>
-                    <p:outputLabel value="Processo" for="input_componente"/>
+                    <p:outputLabel value="Id Processo" for="input_componente"/>
                     <h:panelGrid columns="3">
-                        <p:inputText value="#{eventoMB.evento.processo.numero}" id="input_componente" required="true" readonly="true" size="34"/>
-                        <p:commandButton icon="ui-icon-search"  onclick="PF('dialogProc').show()"  immediate="true"/>
+                        <p:inputText value="#{eventoMB.evento.processo.id}" id="input_componente" required="true" readonly="true" size="34"/>
+                        <p:commandButton icon="ui-icon-search" rendered="#{cc.attrs.btnPesq}"  onclick="PF('dialogProc').show()"  immediate="true"/>
                     </h:panelGrid>
                 </h:panelGrid>
                 <h:panelGrid>
                     <p:outputLabel value="Usuário" for="input_componente_usr"/>
                     <h:panelGrid columns="3">
                         <p:inputText value="#{eventoMB.evento.usuario.login}" id="input_componente_usr" required="true" readonly="true" size="34"/>
-                        <p:commandButton icon="ui-icon-search"  onclick="PF('dialogUsr').show()"  immediate="true"/>
+                        <p:commandButton icon="ui-icon-search"   onclick="PF('dialogUsr').show()"  immediate="true"/>
                     </h:panelGrid>
                 </h:panelGrid>
                 <h:panelGrid >

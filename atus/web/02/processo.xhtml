@@ -116,7 +116,7 @@
         <p:dialog showEffect="fade" position="center"  id="dialogCadEve" header="Cadastro de Evento"   modal="true" hideEffect="fade" widgetVar="dialogCadEve">
             <h:form id="frmDialogCadEve">
                 <util:menuCadDialogo acao_remoteCommand="#{processoMB.consultarEventosDoProcesso()}" acao_salvar="#{eventoMB.salvar()}" frm_update="@form" render_onclick="true" dialog="dialogCadEve" />
-                <cadastro:EventoCadastro id="compCadEven" />
+                <cadastro:EventoCadastro id="compCadEven" btnPesq="false" />
             </h:form>
         </p:dialog>
         <p:dialog showEffect="fade" position="top"   header="Consulta de Usuários" modal="true" hideEffect="fade" widgetVar="dialogUsr">

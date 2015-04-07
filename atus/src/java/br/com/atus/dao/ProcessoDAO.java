@@ -86,6 +86,17 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
             return q.getResultList();
         }
     }
+    
+    public List<Processo> consultarProcessoSemMovimentacao() {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT p FROM Processo p WHERE p.id  NOT IN (SELECT m.processo.id FROM Movimentacao m)", Processo.class);
+              
+        if (q.getResultList().isEmpty()) {
+            return new ArrayList<>();
+        } else {
+            return q.getResultList();
+        }
+    }
 
     public List<Processo> consultarPor(Fase f, Colaborador colaborador) {
         TypedQuery q;

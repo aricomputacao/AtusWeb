@@ -11,12 +11,24 @@
     <ui:define name="corpo">
         <comp:panel_cadastro rendered="#{navegacaoMB.permissaoModuloUtilitarios()}" id_form="frm_pag" cabecalho_grid="Utilitarios do Sistema" >
             <h:form id="frm_pag" prependId="false" >
-                <p:blockUI block="@form" trigger="btnFase"    >
+                <p:blockUI block="@form" trigger="btnFase btnMovime"    >
                     <p:graphicImage library="imagens" name="carregar.gif"/>
                 </p:blockUI> 
-                <p:commandButton  id="btnFase" actionListener="#{utilitariosMB.setarFaseProcesso()}" immediate="true" value="Importar Fases" >
-                    <p:confirm  header="Importar Fases" message="Tem certeza que deseja fazer isso?" icon="alert"  />
-                </p:commandButton>
+                <p:panel>
+                    <h:panelGrid  cellspacing="25"  >
+                        <p:separator/>
+
+                        <p:commandButton  id="btnFase" actionListener="#{utilitariosMB.setarFaseProcesso()}" immediate="true" value="Importar Fases" >
+                            <p:confirm  header="Importar Fases" message="Tem certeza que deseja fazer isso?" icon="alert"  />
+                        </p:commandButton>
+                        <p:separator/>
+                        <p:commandButton  id="btnMovime" actionListener="#{utilitariosMB.addMovimentacaoProcesso()}"  value="Add Movimentações" >
+                            <p:confirm  header="Importar Fases" message="Tem certeza que deseja fazer isso?" icon="alert"  />
+                        </p:commandButton>
+                        <p:separator/>
+
+                    </h:panelGrid>
+                </p:panel>
             </h:form>
         </comp:panel_cadastro>
     </ui:define>

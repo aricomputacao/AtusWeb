@@ -9,8 +9,11 @@ import br.com.atus.controller.MovimentacaoController;
 import br.com.atus.controller.ProcessoController;
 import br.com.atus.modelo.Movimentacao;
 import br.com.atus.modelo.Processo;
+import br.com.atus.util.MenssagemUtil;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -43,6 +46,17 @@ public class UtilitariosMB {
 
         }
 
+    }
+
+    public void addMovimentacaoProcesso() {
+        try {
+            processoController.criarMovimentacaoParaProcesso();
+            MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("procedimento_sucesso", MenssagemUtil.MENSAGENS));
+        } catch (Exception ex) {
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("procedimento_falha", MenssagemUtil.MENSAGENS));
+
+            Logger.getLogger(UtilitariosMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
