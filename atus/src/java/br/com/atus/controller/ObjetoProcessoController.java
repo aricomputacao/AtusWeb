@@ -6,6 +6,7 @@
 
 package br.com.atus.controller;
 
+import br.com.atua.interfaces.Controller;
 import br.com.atus.dao.ObjetoProcessoDAO;
 import br.com.atus.modelo.ObjetoProcesso;
 import java.io.Serializable;

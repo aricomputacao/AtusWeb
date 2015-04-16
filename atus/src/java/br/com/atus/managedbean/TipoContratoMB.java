@@ -46,7 +46,7 @@ public class TipoContratoMB extends BeanGenerico<TipoContratoMB> implements Seri
     public void init() {
         try {
             tipoContrado = (TipoContrato) navegacaoMB.getRegistroMapa("tipo_contrato", new TipoContrato());
-            listaTipoContrados = controller.listarTodos("nome");
+            listaTipoContrados = controller.consultarTodos("nome");
         } catch (Exception ex) {
             Logger.getLogger(TipoContratoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -66,9 +66,9 @@ public class TipoContratoMB extends BeanGenerico<TipoContratoMB> implements Seri
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaTipoContrados = controller.listarTodos("nome");
+                listaTipoContrados = controller.consultarTodos("nome");
             } else {
-                listaTipoContrados = controller.listarLike("nome", getValorBusca());
+                listaTipoContrados = controller.consultarLike("nome", getValorBusca());
                 MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
             }

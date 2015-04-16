@@ -6,6 +6,7 @@
 
 package br.com.atus.controller;
 
+import br.com.atua.interfaces.Controller;
 import br.com.atus.dao.AdversarioDAO;
 import br.com.atus.modelo.Adversario; 
 import java.io.Serializable;

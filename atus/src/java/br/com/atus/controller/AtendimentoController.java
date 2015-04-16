@@ -6,6 +6,7 @@
 
 package br.com.atus.controller;
 
+import br.com.atua.interfaces.Controller;
 import br.com.atus.dao.AtendimentoDAO;
 import br.com.atus.modelo.Atendimento;
 import br.com.atus.modelo.Usuario;

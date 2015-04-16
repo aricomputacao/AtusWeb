@@ -44,7 +44,7 @@ public class EnderecamentoMB extends BeanGenerico<Enderecamento> implements Seri
         try {
             enderecamento = (Enderecamento) navegacaoMB.getRegistroMapa("enderecamento", new Enderecamento());
             
-            listaEnderecamentos = controller.listarTodos("nome");
+            listaEnderecamentos = controller.consultarTodos("nome");
         } catch (Exception ex) {
             Logger.getLogger(EnderecamentoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -70,9 +70,9 @@ public class EnderecamentoMB extends BeanGenerico<Enderecamento> implements Seri
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaEnderecamentos = controller.listarTodos("nome");
+                listaEnderecamentos = controller.consultarTodos("nome");
             } else {
-                listaEnderecamentos = controller.listarLike("nome", getValorBusca());
+                listaEnderecamentos = controller.consultarLike("nome", getValorBusca());
 
             }
         } catch (Exception ex) {

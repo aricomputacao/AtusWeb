@@ -43,8 +43,8 @@ public class UnidadeFederativaMB extends BeanGenerico<UnidadeFederativa> impleme
     public void init() {
         try {
             federativa = new UnidadeFederativa();
-            listaUnidadeFederativas = controller.listarTodos("nome");
-            listaCidades = cidadeController.listarTodos("nome");
+            listaUnidadeFederativas = controller.consultarTodos("nome");
+            listaCidades = cidadeController.consultarTodos("nome");
         } catch (Exception ex) {
             Logger.getLogger(UnidadeFederativaMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -57,7 +57,7 @@ public class UnidadeFederativaMB extends BeanGenerico<UnidadeFederativa> impleme
     public void setarCidadeEstado(Pessoa p){
         try {
             init();
-            listaUnidadeFederativas = controller.listarTodos("nome");
+            listaUnidadeFederativas = controller.consultarTodos("nome");
             federativa = p.getCidade().getUnidadeFederativa();
             listaCidades = cidadeController.listaPorUf(federativa);
             

@@ -54,9 +54,9 @@ public class RamoJudiciarioMB extends BeanGenerico<RamoJudiciario> implements Se
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaRamoJudiciario = controller.listarTodos("nome");
+                listaRamoJudiciario = controller.consultarTodos("nome");
             } else {
-                listaRamoJudiciario = controller.listarLike(getCampoBusca(), getValorBusca());
+                listaRamoJudiciario = controller.consultarLike(getCampoBusca(), getValorBusca());
                 MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
             }

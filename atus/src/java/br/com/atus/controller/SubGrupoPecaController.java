@@ -5,6 +5,7 @@
  */
 package br.com.atus.controller;
 
+import br.com.atua.interfaces.Controller;
 import br.com.atus.dao.SubGrupoPecaDAO;
 import br.com.atus.modelo.GrupoPeca;
 import br.com.atus.modelo.SubGrupoPeca;
@@ -36,11 +37,11 @@ public class SubGrupoPecaController extends Controller<SubGrupoPeca, Integer> im
 
     public List<SubGrupoPeca> connsultarPor(String campoBusca, String valorBusca) throws Exception {
         if (campoBusca.equals("nome")) {
-            return dao.listarLike(campoBusca, valorBusca);
+            return dao.consultarLike(campoBusca, valorBusca);
         } else if (campoBusca.equals("grupo")) {
             return dao.consultarLikeNomeGrupo(valorBusca);
         } else {
-            return dao.listarTodos("nome");
+            return dao.consultarTodos("nome");
         }
 
     }

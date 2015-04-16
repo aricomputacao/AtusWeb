@@ -57,7 +57,7 @@ public class AtendimentoMB extends BeanGenerico<Atendimento> implements Serializ
             atendimento = (Atendimento) navegacaoMB.getRegistroMapa("atendimento", new Atendimento());
             listaAtendimentosFrente = controller.listarAtendFrente();
             listaAtendimentosFundo = controller.listarAtendFundo(navegacaoMB.getUsuarioLogado());
-            listaUsuarios = usuarioController.listarTodos("login");
+            listaUsuarios = usuarioController.consultarTodos("login");
             if (atendimento.getId() == null) {
                 atendimento.setDataAbertura(new Date());
 
@@ -113,9 +113,9 @@ public class AtendimentoMB extends BeanGenerico<Atendimento> implements Serializ
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaAtendimentos = controller.listarTodos("nome");
+                listaAtendimentos = controller.consultarTodos("nome");
             } else {
-                listaAtendimentos = controller.listarLike(getCampoBusca(), getValorBusca());
+                listaAtendimentos = controller.consultarLike(getCampoBusca(), getValorBusca());
                 MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
             }

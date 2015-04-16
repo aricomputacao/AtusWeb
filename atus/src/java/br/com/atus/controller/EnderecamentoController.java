@@ -6,6 +6,7 @@
 
 package br.com.atus.controller;
 
+import br.com.atua.interfaces.Controller;
 import br.com.atus.dao.EnderecamentoDAO;
 import br.com.atus.modelo.Enderecamento;
 import java.io.Serializable;

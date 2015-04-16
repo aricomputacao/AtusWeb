@@ -56,7 +56,7 @@ public class PermissaoMB extends BeanGenerico<Permissao> implements Serializable
     @PostConstruct
     private void init() {
         try {
-            listaModulos = moduloController.listarTodos("nome");
+            listaModulos = moduloController.consultarTodos("nome");
             renderSelecionarUrs = true;
             usuario = new Usuario();
         } catch (Exception ex) {

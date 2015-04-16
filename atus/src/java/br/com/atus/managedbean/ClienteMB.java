@@ -90,11 +90,11 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
         try {
             uf = new UnidadeFederativa();
             listaClientes = new ArrayList<>();
-            listaNacionalidades = nacionalidadeController.listarTodos("nome");
-            listaTratamentos = tipoTratamentoController.listarTodos("nome");
-            listaProfissaos = profissaoController.listarTodos("nome");
-            listaUnidadeFederativas = unidadeFederativaController.listarTodos("nome");
-            listaCidades = cidadeController.listarTodos("nome");
+            listaNacionalidades = nacionalidadeController.consultarTodos("nome");
+            listaTratamentos = tipoTratamentoController.consultarTodos("nome");
+            listaProfissaos = profissaoController.consultarTodos("nome");
+            listaUnidadeFederativas = unidadeFederativaController.consultarTodos("nome");
+            listaCidades = cidadeController.consultarTodos("nome");
             listaProcessos = new ArrayList<>();
             cliente = (Cliente) navegacaoMB.getRegistroMapa("cliente", new Cliente());
             profissao = new Profissao();
@@ -175,12 +175,12 @@ public class ClienteMB extends BeanGenerico<Cliente> implements Serializable {
         try {
 
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaClientes = controller.listarTodos("pessoa.nome");
+                listaClientes = controller.consultarTodos("pessoa.nome");
             } else {
                 if (getCampoBusca().equals("nome")) {
-                    listaClientes = controller.listarLike("pessoa.nome", getValorBusca());
+                    listaClientes = controller.consultarLike("pessoa.nome", getValorBusca());
                 } else {
-                    listaClientes = controller.listarLike("cpfCpnj", getValorBusca());
+                    listaClientes = controller.consultarLike("cpfCpnj", getValorBusca());
                 }
 
             }

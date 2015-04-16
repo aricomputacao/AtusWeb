@@ -63,23 +63,40 @@
                 </h:panelGrid>
                 <p:fieldset legend="Conteúdo do arquivo" style="font-weight: bold;text-align: left" id="fieldTextos">
                     <h:panelGrid id="textos">
-                        <p:dataTable rendered="#{pecaMB.textos != null}" value="#{pecaMB.textos}" var="tag" rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" 
-                                     rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+
+                        <p:commandButton style="float: right"  actionListener="#{pecaMB.apagarListaDeTextos()}" value="Apagar Linhas" 
+                                         icon="ui-icon-trash" update="tblPec" rendered="#{pecaMB.textos != null}">
+                            <p:confirm header="Confirmação" message="Excluir textos?"   icon="ui-icon-alert"/>
+                        </p:commandButton>
+
+                        <p:dataTable id="tblPec" rendered="#{pecaMB.textos != null}" value="#{pecaMB.textos}" selectionMode="multiple" selection="#{pecaMB.itensSel}" 
+                                     var="tag" rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" 
+                                     rowIndexVar="rowIx" rowKey="#{tag.value}" emptyMessage="#{mensagens['consulta.vazia']}">
+
+                            <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                             <p:column width="90%">
                                 <h:outputText value="#{tag.value}"/>
                             </p:column>
                             <p:column width="10%">     
-                                <p:commandButton icon="ui-icon-circle-arrow-w" title="Corrigir tag" style="width: 22px;height: 22px" update=":frm_pag:cadFrm:cad:fieldTextos" actionListener="#{pecaMB.corrigirTexto(tag)}"  immediate="true"/>
+                                <p:commandButton icon="ui-icon-circle-arrow-w" title="Corrigir tag" style="width: 22px;height: 22px" 
+                                                 update=":frm_pag:cadFrm:cad:fieldTextos" 
+                                                 actionListener="#{pecaMB.corrigirTexto(tag)}"  immediate="true"/>
 
-                                <p:commandButton icon="ui-icon-pencil" style="width: 22px;height: 22px" title="Editar tag" update=":frmedt" onclick="PF('editTag').show();" immediate="true">
+                                <p:commandButton icon="ui-icon-pencil" style="width: 22px;height: 22px" 
+                                                 title="Editar tag" update=":frmedt" onclick="PF('editTag').show();"
+                                                 immediate="true">
                                     <f:setPropertyActionListener value="#{tag}" target="#{pecaMB.tag}"/>
                                 </p:commandButton>
-                                <comp:commandButton_excluir classe="Texto" acao_butao="#{pecaMB.apagarTexto(tag)}" form_to_update=":frm_pag:cadFrm:cad:fieldTextos" immediate="true" />
 
-
+                                <comp:commandButton_excluir classe="Texto" acao_butao="#{pecaMB.apagarTexto(tag)}" 
+                                                            form_to_update=":frm_pag:cadFrm:cad:fieldTextos" immediate="true" />
 
                             </p:column>
                         </p:dataTable>
+                          <p:commandButton style="float: right"  actionListener="#{pecaMB.apagarListaDeTextos()}" value="Apagar Linhas" 
+                                         icon="ui-icon-trash" update="tblPec" rendered="#{pecaMB.textos != null}">
+                            <p:confirm header="Confirmação" message="Excluir textos?"   icon="ui-icon-alert"/>
+                        </p:commandButton>
                     </h:panelGrid>
                 </p:fieldset>
                 <p:fieldset id="tags" legend="Tags válidas" >

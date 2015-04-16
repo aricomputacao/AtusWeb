@@ -46,7 +46,7 @@ public class MateriaMB extends BeanGenerico<Materia> implements Serializable {
     public void init() {
         try {
             materia = (Materia) navegacaoMB.getRegistroMapa("materia", new Materia());
-            listaMaterias = controller.listarTodos("nome");
+            listaMaterias = controller.consultarTodos("nome");
         } catch (Exception ex) {
             Logger.getLogger(MateriaMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -66,9 +66,9 @@ public class MateriaMB extends BeanGenerico<Materia> implements Serializable {
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaMaterias = controller.listarTodos("nome");
+                listaMaterias = controller.consultarTodos("nome");
             } else {
-                listaMaterias = controller.listarLike(getCampoBusca(), getValorBusca());
+                listaMaterias = controller.consultarLike(getCampoBusca(), getValorBusca());
                 MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
             }

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.atus.controller;
+package br.com.atua.interfaces;
 
 import br.com.atus.dao.DAO;
 import java.io.Serializable;
@@ -105,8 +105,8 @@ public abstract class Controller<T, PK extends Serializable> implements Serializ
      * @return
      * @throws Exception
      */
-    public List<T> listarTodos(String ordem, String campo, String valor) throws Exception {
-        return dao.listarTodos(ordem, campo, valor);
+    public List<T> consultarTodos(String ordem, String campo, String valor) throws Exception {
+        return dao.consultarTodos(ordem, campo, valor);
     }
 
     /**
@@ -115,8 +115,8 @@ public abstract class Controller<T, PK extends Serializable> implements Serializ
      * @return
      * @throws Exception
      */
-    public List<T> listarTodos(String ordem) throws Exception {
-        return dao.listarTodos(ordem);
+    public List<T> consultarTodos(String ordem) throws Exception {
+        return dao.consultarTodos(ordem);
     }
     
     /**
@@ -126,7 +126,7 @@ public abstract class Controller<T, PK extends Serializable> implements Serializ
      * @return
      * @throws Exception 
      */
-     public List<T> listarLike(String campo,String valor) throws Exception {
-        return dao.listarLike(campo, valor);
+     public List<T> consultarLike(String campo,String valor) throws Exception {
+        return dao.consultarLike(campo, valor);
     }
 }

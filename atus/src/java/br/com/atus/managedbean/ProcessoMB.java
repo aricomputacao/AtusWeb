@@ -311,7 +311,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
      */
     public void utilitarioSetarFase() {
         try {
-            listaProcessos = controller.listarTodos("id");
+            listaProcessos = controller.consultarTodos("id");
             for (Processo p : listaProcessos) {
                 listaMovimentacaos = movimentacaoController.listarPorProcesso(p);
                 if (!listaMovimentacaos.isEmpty()) {

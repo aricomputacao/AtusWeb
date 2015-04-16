@@ -6,7 +6,7 @@
 
 package br.com.atus.dao;
 
-import br.com.atus.controller.Controller;
+import br.com.atua.interfaces.Controller;
 import br.com.atus.modelo.ObjetoProcesso;
 import java.io.Serializable;
 import javax.ejb.Stateless;

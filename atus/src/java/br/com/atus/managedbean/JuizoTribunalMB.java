@@ -46,7 +46,7 @@ public class JuizoTribunalMB extends BeanGenerico<JuizoTribunal> implements Seri
     public void init() {
         try {
             juizoTribunal = (JuizoTribunal) navegacaoMB.getRegistroMapa("juizo_tribunal", new JuizoTribunal());
-            listaJuizoTribunals = controller.listarTodos("nome");
+            listaJuizoTribunals = controller.consultarTodos("nome");
         } catch (Exception ex) {
             Logger.getLogger(JuizoTribunalMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -67,9 +67,9 @@ public class JuizoTribunalMB extends BeanGenerico<JuizoTribunal> implements Seri
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaJuizoTribunals = controller.listarTodos("nome");
+                listaJuizoTribunals = controller.consultarTodos("nome");
             } else {
-                listaJuizoTribunals = controller.listarLike(getCampoBusca(), getValorBusca());
+                listaJuizoTribunals = controller.consultarLike(getCampoBusca(), getValorBusca());
 
             }
         } catch (Exception ex) {

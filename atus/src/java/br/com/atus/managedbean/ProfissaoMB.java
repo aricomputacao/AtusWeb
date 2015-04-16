@@ -64,9 +64,9 @@ public class ProfissaoMB extends BeanGenerico<Profissao> implements Serializable
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaProfissaos = controller.listarTodos("nome");
+                listaProfissaos = controller.consultarTodos("nome");
             } else {
-                listaProfissaos = controller.listarLike("nome", getValorBusca());
+                listaProfissaos = controller.consultarLike("nome", getValorBusca());
 
             }
         } catch (Exception ex) {

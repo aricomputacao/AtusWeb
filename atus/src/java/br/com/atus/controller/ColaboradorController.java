@@ -6,6 +6,7 @@
 
 package br.com.atus.controller;
 
+import br.com.atua.interfaces.Controller;
 import br.com.atus.dao.ColaboradorDAO;
 import br.com.atus.modelo.Colaborador;
 import java.io.Serializable;

@@ -62,9 +62,9 @@ public class OrgaoMB extends BeanGenerico<Orgao> implements Serializable {
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaOrgaos = controller.listarTodos("nome");
+                listaOrgaos = controller.consultarTodos("nome");
             } else {
-                listaOrgaos = controller.listarLike(getCampoBusca(), getValorBusca());
+                listaOrgaos = controller.consultarLike(getCampoBusca(), getValorBusca());
                 MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
             }

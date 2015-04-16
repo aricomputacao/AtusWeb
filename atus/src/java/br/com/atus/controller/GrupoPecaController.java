@@ -5,6 +5,7 @@
  */
 package br.com.atus.controller;
 
+import br.com.atua.interfaces.Controller;
 import br.com.atus.dao.GrupoPecaDAO;
 import br.com.atus.modelo.GrupoPeca;
 import java.io.Serializable;

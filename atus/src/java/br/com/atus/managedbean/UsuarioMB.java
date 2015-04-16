@@ -153,9 +153,9 @@ public class UsuarioMB extends BeanGenerico<Usuario> implements Serializable {
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaUsuarios = controller.listarTodos("nome");
+                listaUsuarios = controller.consultarTodos("nome");
             } else {
-                listaUsuarios = controller.listarLike("nome", getValorBusca());
+                listaUsuarios = controller.consultarLike("nome", getValorBusca());
                 MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
             }

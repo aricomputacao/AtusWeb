@@ -67,7 +67,7 @@ public class TarefaMB extends BeanGenerico<Tarefa> implements Serializable {
 
     public void listar() {
         try {
-            lista = controller.listarLike(getCampoBusca(), getValorBusca());
+            lista = controller.consultarLike(getCampoBusca(), getValorBusca());
             if (lista.isEmpty()) {
                 MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
             }
@@ -79,7 +79,7 @@ public class TarefaMB extends BeanGenerico<Tarefa> implements Serializable {
 
     public void atualizarListaModulos() {
         try {
-            listaModulos = moduloController.listarTodos("nome");
+            listaModulos = moduloController.consultarTodos("nome");
         } catch (Exception e) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
             Logger.getLogger(ClienteMB.class.getName()).log(Level.SEVERE, null, e);

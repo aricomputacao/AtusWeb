@@ -46,7 +46,7 @@ public class EspecieEventoMB extends BeanGenerico<EspecieEvento> implements Seri
     @PostConstruct
     public void init() {
         try {
-            listaEspecieEventos = controller.listarTodos("nome");
+            listaEspecieEventos = controller.consultarTodos("nome");
             especieEvento = (EspecieEvento) navegacaoMB.getRegistroMapa("especie_evento", new EspecieEvento());
         } catch (Exception ex) {
             Logger.getLogger(EspecieEventoMB.class.getName()).log(Level.SEVERE, null, ex);
@@ -68,9 +68,9 @@ public class EspecieEventoMB extends BeanGenerico<EspecieEvento> implements Seri
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaEspecieEventos = controller.listarTodos("nome");
+                listaEspecieEventos = controller.consultarTodos("nome");
             } else {
-                listaEspecieEventos = controller.listarLike("nome", getValorBusca());
+                listaEspecieEventos = controller.consultarLike("nome", getValorBusca());
                 MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
             }

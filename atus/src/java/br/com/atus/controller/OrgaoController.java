@@ -6,6 +6,7 @@
 
 package br.com.atus.controller;
 
+import br.com.atua.interfaces.Controller;
 import br.com.atus.dao.OrgaoDAO;
 import br.com.atus.modelo.Orgao;
 import java.io.Serializable;

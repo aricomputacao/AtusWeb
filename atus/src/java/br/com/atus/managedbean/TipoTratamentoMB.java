@@ -39,7 +39,7 @@ public class TipoTratamentoMB extends BeanGenerico<TipoTratamento> implements Se
     public void init() {
         try {
             tipoTratamento = new TipoTratamento();
-            listaTipoTratamentos = controller.listarTodos("nome");
+            listaTipoTratamentos = controller.consultarTodos("nome");
         } catch (Exception ex) {
             Logger.getLogger(TipoTratamentoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -59,9 +59,9 @@ public class TipoTratamentoMB extends BeanGenerico<TipoTratamento> implements Se
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaTipoTratamentos = controller.listarTodos("nome");
+                listaTipoTratamentos = controller.consultarTodos("nome");
             } else {
-                listaTipoTratamentos = controller.listarLike("nome", getValorBusca());
+                listaTipoTratamentos = controller.consultarLike("nome", getValorBusca());
                 MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
             }

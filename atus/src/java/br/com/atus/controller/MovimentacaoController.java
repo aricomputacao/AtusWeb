@@ -5,6 +5,7 @@
  */
 package br.com.atus.controller;
 
+import br.com.atua.interfaces.Controller;
 import br.com.atus.dao.MovimentacaoDAO;
 import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.modelo.Colaborador;

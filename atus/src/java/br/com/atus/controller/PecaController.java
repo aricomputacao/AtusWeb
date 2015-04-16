@@ -5,6 +5,7 @@
  */
 package br.com.atus.controller;
 
+import br.com.atua.interfaces.Controller;
 import br.com.atus.dao.PecaDAO;
 import br.com.atus.exceptions.PecaFileException;
 import br.com.atus.modelo.Peca;

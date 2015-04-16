@@ -69,7 +69,7 @@ public class ConfigurarSistemaMB implements Serializable {
 
         try {
             CriptografiaSenha cs = new CriptografiaSenha();
-            listaTarefas = tarefaController.listarTodos("id");
+            listaTarefas = tarefaController.consultarTodos("id");
 
             if (usuario.getId() == null) {
                 System.out.print("-------------------------------- Inicio Registrando usuário administrador ---------------------------------------");

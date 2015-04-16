@@ -57,7 +57,7 @@ public class GrupoPecaMB extends BeanGenerico<GrupoPeca> implements Serializable
 
     public void consultaTodos() {
         try {
-            listaGrupoPecas = grupoPecaController.listarTodos("nome");
+            listaGrupoPecas = grupoPecaController.consultarTodos("nome");
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("consulta_erro", MenssagemUtil.MENSAGENS));
             Logger.getLogger(GrupoPecaMB.class.getName()).log(Level.SEVERE, null, ex);

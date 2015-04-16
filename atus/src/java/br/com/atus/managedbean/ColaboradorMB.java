@@ -59,7 +59,7 @@ public class ColaboradorMB extends BeanGenerico<Colaborador> implements Serializ
             listaColaboradors = controller.listaOrdenadoPorNome();
             listaCidades = new ArrayList<>();
             uf = new UnidadeFederativa();
-            listaCidades = cidadeController.listarTodos("nome");
+            listaCidades = cidadeController.consultarTodos("nome");
             colaborador = (Colaborador) navegacaoMB.getRegistroMapa("colaborador", new Colaborador());
             if (colaborador.getId() == null) {
                 colaborador.setPessoa(new Pessoa());
@@ -89,9 +89,9 @@ public class ColaboradorMB extends BeanGenerico<Colaborador> implements Serializ
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaColaboradors = controller.listarTodos("pessoa.nome");
+                listaColaboradors = controller.consultarTodos("pessoa.nome");
             } else {
-                listaColaboradors = controller.listarLike("pessoa.nome", getValorBusca());
+                listaColaboradors = controller.consultarLike("pessoa.nome", getValorBusca());
 
             }
         } catch (Exception ex) {

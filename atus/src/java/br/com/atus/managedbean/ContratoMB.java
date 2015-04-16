@@ -61,7 +61,7 @@ public class ContratoMB extends BeanGenerico<Contrato> implements Serializable {
 
     public void listar() {
         try {
-            listaContratos = controller.listarLike(getCampoBusca(), getValorBusca());
+            listaContratos = controller.consultarLike(getCampoBusca(), getValorBusca());
             if (listaContratos.isEmpty()) {
                 MenssagemUtil.addMessageInfo("Nenhum resultado encontrado");
             }

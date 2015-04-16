@@ -68,9 +68,9 @@ public class FaseMB extends BeanGenerico<Fase> implements Serializable {
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaFases = controller.listarTodos("nome");
+                listaFases = controller.consultarTodos("nome");
             } else {
-                listaFases = controller.listarLike("nome", getValorBusca());
+                listaFases = controller.consultarLike("nome", getValorBusca());
 
             }
         } catch (Exception ex) {

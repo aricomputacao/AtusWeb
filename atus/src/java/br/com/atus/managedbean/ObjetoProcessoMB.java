@@ -64,9 +64,9 @@ public class ObjetoProcessoMB extends BeanGenerico<ObjetoProcesso> implements Se
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaObjetoProcessos = controller.listarTodos("nome");
+                listaObjetoProcessos = controller.consultarTodos("nome");
             } else {
-                listaObjetoProcessos = controller.listarLike("nome", getValorBusca());
+                listaObjetoProcessos = controller.consultarLike("nome", getValorBusca());
                 MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
             }

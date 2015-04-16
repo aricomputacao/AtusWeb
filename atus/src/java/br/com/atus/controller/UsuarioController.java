@@ -5,6 +5,7 @@
  */
 package br.com.atus.controller;
 
+import br.com.atua.interfaces.Controller;
 import br.com.atus.dao.UsuarioDAO;
 import br.com.atus.enumerated.Perfil;
 import br.com.atus.modelo.Usuario;

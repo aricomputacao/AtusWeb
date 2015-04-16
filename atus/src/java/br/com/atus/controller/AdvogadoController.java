@@ -5,6 +5,7 @@
  */
 package br.com.atus.controller;
 
+import br.com.atua.interfaces.Controller;
 import br.com.atus.dao.AdvogadoDAO;
 import br.com.atus.modelo.Advogado;
 import java.io.Serializable;

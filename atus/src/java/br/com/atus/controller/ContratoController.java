@@ -5,6 +5,7 @@
  */
 package br.com.atus.controller;
 
+import br.com.atua.interfaces.Controller;
 import br.com.atus.dao.ContratoDAO;
 import br.com.atus.modelo.Contrato;
 import java.io.Serializable;

@@ -14,6 +14,7 @@ import br.com.atus.modelo.Peca;
 import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.SubGrupoPeca;
 import br.com.atus.util.MenssagemUtil;
+import br.com.atus.util.TextDataModel;
 import br.com.atus.util.peca.CampoPersonalizado;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
@@ -29,6 +30,7 @@ import javax.inject.Inject;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.wml.Text;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.SelectableDataModel;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
@@ -59,6 +61,7 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
     private List<CampoPersonalizado> lisProcesso = new ArrayList<>();
     private List<CampoPersonalizado> lisCliente = new ArrayList<>();
     private List<Text> textos;
+    private List<Text> itensSel;
     private Text tag;
     private WordprocessingMLPackage template;
 
@@ -74,10 +77,18 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
             atualizaListaSubGrupos();
         }
         try {
-            listaGrupoPecas = grupoPecaController.listarTodos("nome");
+            listaGrupoPecas = grupoPecaController.consultarTodos("nome");
         } catch (Exception ex) {
             listaGrupoPecas = new ArrayList<>();
         }
+
+    }
+
+    public void apagarListaDeTextos() {
+        for (Text it : itensSel) {
+            textos.remove(it);
+        }
+        itensSel.clear();
 
     }
 
@@ -131,7 +142,7 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
 
     public void listar() {
         try {
-            listaPecas = controller.listarLike(getCampoBusca(), getValorBusca());
+            listaPecas = controller.consultarLike(getCampoBusca(), getValorBusca());
             if (listaPecas.isEmpty()) {
                 MenssagemUtil.addMessageInfo("Nenhum resultado encontrado");
             }
@@ -200,7 +211,6 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
             file = event.getFile();
             template = controller.getTemplate(file);
             textos = (List<Text>) controller.getPartes(template);
-
             MenssagemUtil.addMessageInfo("Arquivo enviado com sucesso!" + file.getFileName());
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro("Erro ao fazer upload do arquivo", ex, this.getClass().getName());
@@ -305,6 +315,14 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
 
     public void setTag(Text tag) {
         this.tag = tag;
+    }
+
+    public List<Text> getItensSel() {
+        return itensSel;
+    }
+
+    public void setItensSel(List<Text> itensSel) {
+        this.itensSel = itensSel;
     }
 
 }

@@ -6,6 +6,7 @@
 
 package br.com.atus.controller;
 
+import br.com.atua.interfaces.Controller;
 import br.com.atus.dao.MateriaDAO;
 import br.com.atus.modelo.Materia;
 import java.io.Serializable;

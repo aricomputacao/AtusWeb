@@ -5,6 +5,8 @@
  */
 package br.com.atus.controller;
 
+import br.com.atua.interfaces.Controller;
+import br.com.atua.interfaces.ConsultaDeProcessos;
 import br.com.atus.dao.MovimentacaoDAO;
 import br.com.atus.dao.ProcessoDAO;
 import br.com.atus.dto.ProcessoAtrasadoDTO;
@@ -170,7 +172,7 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
             return dao.consultaPorColaborador(colaborador);
 
         } else {
-            return dao.listarTodos("colaborador");
+            return dao.consultarTodos("colaborador");
         }
     }
 

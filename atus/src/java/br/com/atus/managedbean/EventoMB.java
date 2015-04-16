@@ -90,9 +90,9 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaEventos = controller.listarTodos("nome");
+                listaEventos = controller.consultarTodos("nome");
             } else {
-                listaEventos = controller.listarLike("nome", getValorBusca());
+                listaEventos = controller.consultarLike("nome", getValorBusca());
 
             }
         } catch (Exception ex) {

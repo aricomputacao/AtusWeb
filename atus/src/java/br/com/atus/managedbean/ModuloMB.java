@@ -62,7 +62,7 @@ public class ModuloMB extends BeanGenerico<Modulo> implements Serializable {
 
     public void listar() {
         try {
-            lista = controller.listarLike(getCampoBusca(), getValorBusca());
+            lista = controller.consultarLike(getCampoBusca(), getValorBusca());
             if (lista.isEmpty()) {
                 MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
             }

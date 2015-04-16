@@ -47,7 +47,7 @@ public class SubGrupoPecaMB extends BeanGenerico<SubGrupoPecaMB> implements Seri
     public void init() {
         try {
             subGrupoPeca = (SubGrupoPeca) navegacaoMB.getRegistroMapa("sub_grupo_peca", new SubGrupoPeca());
-            listaGrupoPecas = grupoPecaController.listarTodos("nome");
+            listaGrupoPecas = grupoPecaController.consultarTodos("nome");
             listaSubGrupoPecas = new ArrayList<>();
         } catch (Exception ex) {
             Logger.getLogger(SubGrupoPecaMB.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,7 +67,7 @@ public class SubGrupoPecaMB extends BeanGenerico<SubGrupoPecaMB> implements Seri
 
     public void consultaTodos() {
         try {
-            listaSubGrupoPecas = controller.listarTodos("nome");
+            listaSubGrupoPecas = controller.consultarTodos("nome");
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("consulta_erro", MenssagemUtil.MENSAGENS));
             Logger.getLogger(SubGrupoPecaMB.class.getName()).log(Level.SEVERE, null, ex);

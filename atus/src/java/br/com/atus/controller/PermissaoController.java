@@ -5,6 +5,7 @@
  */
 package br.com.atus.controller;
 
+import br.com.atua.interfaces.Controller;
 import br.com.atus.dao.PermissaoDAO;
 import br.com.atus.modelo.Modulo;
 import br.com.atus.modelo.Permissao;
@@ -44,7 +45,7 @@ public class PermissaoController extends Controller<Permissao, Long> implements 
     }
 
     public List<Permissao> listar(Usuario usuario, Modulo modulo, Tarefa tarefa) {
-        return getDAO().listar(usuario, modulo, tarefa);
+        return getDAO().consultarPermissoes(usuario, modulo, tarefa);
     }
 
     public List<Permissao> listar(Usuario usuario) {

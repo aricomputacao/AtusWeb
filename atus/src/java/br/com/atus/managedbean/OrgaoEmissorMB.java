@@ -42,7 +42,7 @@ public class OrgaoEmissorMB extends BeanGenerico<OrgaoEmissor> implements Serial
     public void init(){
         try {
             orgaoEmissor = (OrgaoEmissor) navegacaoMB.getRegistroMapa("orgao_emissor",new OrgaoEmissor());
-            listaOrgaoEmissors = controller.listarTodos("nome");
+            listaOrgaoEmissors = controller.consultarTodos("nome");
         } catch (Exception ex) {
             Logger.getLogger(OrgaoEmissorMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -62,9 +62,9 @@ public class OrgaoEmissorMB extends BeanGenerico<OrgaoEmissor> implements Serial
     public void listar() {
         try {
             if (getValorBusca() == null || getValorBusca().equals("")) {
-                listaOrgaoEmissors = controller.listarTodos("nome");
+                listaOrgaoEmissors = controller.consultarTodos("nome");
             } else {
-                listaOrgaoEmissors = controller.listarLike(getCampoBusca(), getValorBusca());
+                listaOrgaoEmissors = controller.consultarLike(getCampoBusca(), getValorBusca());
                 MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
             }

@@ -5,6 +5,7 @@
  */
 package br.com.atus.controller;
 
+import br.com.atua.interfaces.ConsultaDeProcessos;
 import br.com.atus.dao.ProcessoDAO;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Colaborador;

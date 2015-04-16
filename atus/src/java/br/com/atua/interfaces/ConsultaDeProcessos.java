@@ -1,4 +1,4 @@
-package br.com.atus.controller;
+package br.com.atua.interfaces;
 
 
 import br.com.atus.modelo.Cliente;

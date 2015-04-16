@@ -4,7 +4,7 @@
  */
 package br.com.atus.managedbean;
 
-import br.com.atus.controller.Controller;
+import br.com.atua.interfaces.Controller;
 import br.com.atus.util.MenssagemUtil;
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -52,56 +52,7 @@ public abstract class BeanGenerico<T> implements Serializable {
         valorBusca = "";
     }
 
-    /**
-     *
-     * @param key
-     * @return
-     */
-    protected T getValueSession(String key) {
-        return (T) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(key);
-    }
-
-    /**
-     *
-     * @param key
-     * @return
-     */
-    protected Object removeValueSession(String key) {
-        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(key);
-    }
-
-    /**
-     *
-     * @param key
-     * @param value
-     */
-    protected void setValueSession(String key, T value) {
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(key, value);
-    }
-
-    protected List<T> listar(Controller controller) {
-        try {
-            List<T> lista;
-            if (getCampoBusca() != null) {
-                if (!getCampoBusca().equals("")) {
-                    lista = controller.listarTodos(getCampoOrdem(), getCampoBusca(), getValorBusca());
-                    if (lista.isEmpty()) {
-                        MenssagemUtil.addMessageInfo("Nenhum registro encontrado.");
-                    }
-                } else {
-                    MenssagemUtil.addMessageInfo("não ha campo para pesquisar");
-                    lista = new ArrayList<>();
-                }
-            } else {
-                MenssagemUtil.addMessageInfo("não ha campo para pesquisar");
-                lista = new ArrayList<>();
-            }
-            return lista;
-        } catch (Exception e) {
-            MenssagemUtil.addMessageErro("Erro ao fazer a consulta" , e,this.getClass().getName());
-            return new ArrayList<>();
-        }
-    }
+   
 
     public String getCampoBusca() {
         return campoBusca;
@@ -140,17 +91,7 @@ public abstract class BeanGenerico<T> implements Serializable {
         return msg;
     }
 
-    public String getMsgLabel(String messageId) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        String msg = "";
-        Locale locale = facesContext.getViewRoot().getLocale();
-        ResourceBundle bundle = ResourceBundle.getBundle("label", locale);
-        try {
-            msg = bundle.getString(messageId);
-        } catch (Exception e) {
-        }
-        return msg;
-    }
+    
 
     private void pegarListadeCampos(Class entidade) {
         campos = new ArrayList<>();
