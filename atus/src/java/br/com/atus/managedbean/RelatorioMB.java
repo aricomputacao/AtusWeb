@@ -6,12 +6,15 @@
 package br.com.atus.managedbean;
 
 import br.com.atus.controller.EventoController;
+import br.com.atus.controller.MovimentacaoController;
 import br.com.atus.controller.ProcessoController;
 import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.dto.ProcessosAtrasadoRelatorioDTO;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Evento;
+import br.com.atus.modelo.Fase;
+import br.com.atus.modelo.Movimentacao;
 import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.Usuario;
 import br.com.atus.util.AssistentedeRelatorio;
@@ -46,9 +49,13 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
     private EventoController eventoController;
     @Inject
     private NavegacaoMB navegacaoMB;
+    @Inject
+    private MovimentacaoController movimentacaoController;
     private List<ProcessosAtrasadoRelatorioDTO> listaProcessosAtrasadoRelatorioDTOs;
     private List<ProcessoUltimaMovimentacaoDTO> listaProcessoUltimaMovimentacaoDTOs;
     private List<Evento> listaEventos;
+    private List<Movimentacao> listaMovimentacaos;
+    private List<Fase> listaFasesSelection;
     private Cliente cliente;
     private Usuario usuario;
     private Colaborador colaborador;
@@ -64,12 +71,16 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
         listaProcessosAtrasadoRelatorioDTOs = new ArrayList<>();
         listaProcessoUltimaMovimentacaoDTOs = new ArrayList<>();
         listaEventos = new ArrayList<>();
+        listaMovimentacaos = new ArrayList<>();
         usuario = new Usuario();
         colaborador = new Colaborador();
         dataInicial = new Date();
         dataFinal = new Date();
     }
 
+    public void consultaMovimentacaoFase(){
+        listaMovimentacaos = movimentacaoController.consultarMovimentacaoPor(listaFasesSelection,dataInicial,dataFinal);
+    }
     
     public void consultaEventoColaborador(){
         listaEventos = eventoController.consultaEventoColaboradorPor(colaborador,dataInicial,dataFinal,navegacaoMB.isEhUsuarioDoEscritorio());
@@ -124,6 +135,16 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
         }
 
     }
+    
+    public void imprimirMovimentacoesFAse() {
+        if (!listaMovimentacaos.isEmpty()) {
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaMovimentacaos, m, "WEB-INF/relatorios/rel_movimentacao_fase.jasper", "Movimentações da Fase");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        }
+
+    }
+   
 
     public List<ProcessosAtrasadoRelatorioDTO> getListaProcessosAtrasadoRelatorioDTOs() {
         return listaProcessosAtrasadoRelatorioDTOs;
@@ -183,6 +204,24 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
 
     public void setDataFinal(Date dataFinal) {
         this.dataFinal = dataFinal;
+    }
+
+    public List<Movimentacao> getListaMovimentacaos() {
+        return listaMovimentacaos;
+    }
+
+    public void setListaMovimentacaos(List<Movimentacao> listaMovimentacaos) {
+        this.listaMovimentacaos = listaMovimentacaos;
+    }
+
+ 
+
+    public List<Fase> getListaFasesSelection() {
+        return listaFasesSelection;
+    }
+
+    public void setListaFasesSelection(List<Fase> listaFasesSelection) {
+        this.listaFasesSelection = listaFasesSelection;
     }
 
     

@@ -62,8 +62,8 @@ public class Evento implements Serializable, Comparable<Evento> {
     @Column(name = "eve_nome",nullable = false)
     private String nome;
     
-    @NotBlank
-    @Column(name = "eve_observacao",nullable = false,length = 1024)
+    
+    @Column(name = "eve_observacao",nullable = true,length = 1024)
     private String observacao;
     
     @Column(name = "eve_local",length = 1024)

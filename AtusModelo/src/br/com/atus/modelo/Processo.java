@@ -437,6 +437,7 @@ public class Processo implements Serializable {
         this.motivoFase = motivoFase;
     }
 
+   
     
     @Override
     public int hashCode() {

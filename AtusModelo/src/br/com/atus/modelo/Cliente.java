@@ -10,6 +10,7 @@ import br.com.atus.enumerated.Sexo;
 import br.com.atus.util.peca.PecaColetor;
 import br.com.atus.util.peca.TipoMascara;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -181,6 +182,21 @@ public class Cliente implements Serializable {
     public void setProfissao(Profissao profissao) {
         this.profissao = profissao;
     }
+    
+    public String getNome(){
+        return this.pessoa.getNome();
+    }
+    public String getEmail(){
+        return this.pessoa.getEmail();
+    }
+    public String getTelefone(){
+        return this.pessoa.getCelular();
+    }
+    public Date getDataNascimento(){
+        return this.pessoa.getDataNascimento();
+    }
+    
+    
 
     @Override
     public int hashCode() {

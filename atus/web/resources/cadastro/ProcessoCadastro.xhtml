@@ -297,7 +297,7 @@
 
                 </p:tab>
                 <p:tab id="tabMov" title="Movimentações">
-                    <consultas:MovimentacaoConsulta />
+                    <consultas:MovimentacaoConsulta listaDeMovimentacoes="#{processoMB.listaMovimentacaos}" />
                 </p:tab>
                 <p:tab id="tabEvent" title="Eventos">
                     <p:dataTable value="#{processoMB.listaEventos}" id="tabelaEven" paginatorAlwaysVisible="false"  paginator="true" var="ev" rows="10" 

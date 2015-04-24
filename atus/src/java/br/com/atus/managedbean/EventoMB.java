@@ -62,11 +62,8 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
 
     public void salvar() {
         try {
-            if (evento.getId() == null) {
-                controller.salvar(evento);
-            } else {
-                controller.salvarouAtualizar(evento);
-            }
+
+            controller.adicionarEvento(evento,navegacaoMB.getUsuarioLogado());
             agendaController.addAgenda(evento);
             init();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
@@ -84,8 +81,6 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
 
         }
     }
-
-  
 
     public void listar() {
         try {
@@ -117,7 +112,7 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
 
     public void imprimir() {
         if (!listaEventos.isEmpty()) {
-           
+
             Map<String, Object> m = new HashMap<>();
             byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaEventos, m, "WEB-INF/relatorios/rel_eventos.jasper", "Relatório de Eventos");
             RelatorioSession.setBytesRelatorioInSession(rel);

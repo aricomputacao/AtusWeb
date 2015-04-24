@@ -65,6 +65,7 @@ public abstract class Controller<T, PK extends Serializable> implements Serializ
      * @throws Exception
      */
     public void salvarouAtualizar(T t) throws Exception {
+       
         dao.atualizar(t);
     }
 

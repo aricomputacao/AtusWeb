@@ -10,6 +10,7 @@ import br.com.atus.dao.EventoDAO;
 import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Evento;
 import br.com.atus.modelo.Processo;
+import br.com.atus.modelo.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,29 +27,29 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class EventoController extends Controller<Evento, Long> implements Serializable {
-
+    
     @EJB
     private EventoDAO dao;
-
+    
     @PostConstruct
     @Override
     protected void inicializaDAO() {
         setDAO(dao);
     }
-
+    
     public List<Evento> listarPorProcessos(Processo processo) {
         if (processo.getId() == null) {
             return new ArrayList<>();
         } else {
             return dao.listarPorProcesso(processo);
-
+            
         }
     }
-
+    
     public List<Evento> listarPorPeriodo(Date dataInicial, Date dataFinal) {
         return dao.consultaEventoPor(dataInicial, dataFinal);
     }
-
+    
     public List<Evento> consultaEventoColaboradorPor(Colaborador colaborador, Date dataInicial, Date dataFinal) {
         List<Evento> listaEventos = new ArrayList<>();
         if (colaborador.getId() != null) {
@@ -59,7 +60,7 @@ public class EventoController extends Controller<Evento, Long> implements Serial
         Collections.sort(listaEventos);
         return listaEventos;
     }
-
+    
     public List<Evento> consultaEventoColaboradorPor(Colaborador colaborador, Date dataInicial, Date dataFinal, boolean ehUsuarioDoEscritorio) {
         List<Evento> listaEventos = new ArrayList<>();
         if (ehUsuarioDoEscritorio) {
@@ -71,9 +72,22 @@ public class EventoController extends Controller<Evento, Long> implements Serial
         } else {
             listaEventos = dao.consultaEventoColaboradorPor(colaborador, dataInicial, dataFinal);
         }
-
+        
         Collections.sort(listaEventos);
         return listaEventos;
     }
-
+    
+    public void adicionarEvento(Evento evento, Usuario usuarioLogado) throws Exception {
+        
+        if (evento.getId() == null) {
+            if (evento.getObservacao().equals("") || evento.getObservacao() == null) {
+                evento.setObservacao("---");
+            }
+            evento.setUsuario(usuarioLogado);
+            dao.salvar(evento);
+        } else {
+            dao.atualizar(evento);
+        }
+    }
+    
 }

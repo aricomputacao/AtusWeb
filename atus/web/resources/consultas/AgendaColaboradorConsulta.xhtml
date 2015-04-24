@@ -61,7 +61,10 @@
                         <comp:outputText value="#{t.nome}" title="#{t.local}"/>
                     </p:column>
                     <p:column headerText="Colaborador" width="20%" >
-                        <comp:outputText value="#{t.processo.colaborador.pessoa.nome}"/>
+                        <comp:outputText value="#{t.processo.colaborador.nome}"/>
+                    </p:column>
+                    <p:column headerText="Cliente"  width="20%">
+                        <comp:outputText value="#{t.processo.cliente.nome}"/>
                     </p:column>
                     <p:column headerText="Data" width="15%" >
                         <comp:outputText value="#{t.data}" tipo="dt"/>

@@ -19,16 +19,10 @@
                     <p:outputLabel value="Id Processo" for="input_componente"/>
                     <h:panelGrid columns="3">
                         <p:inputText value="#{eventoMB.evento.processo.id}" id="input_componente" required="true" readonly="true" size="34"/>
-                        <p:commandButton icon="ui-icon-search" rendered="#{cc.attrs.btnPesq}"  onclick="PF('dialogProc').show()"  immediate="true"/>
+                        <p:commandButton icon="ui-icon-newwin" title="Pesquisar" rendered="#{cc.attrs.btnPesq}"  onclick="PF('dialogProc').show()"  immediate="true"/>
                     </h:panelGrid>
                 </h:panelGrid>
-                <h:panelGrid>
-                    <p:outputLabel value="Usuário" for="input_componente_usr"/>
-                    <h:panelGrid columns="3">
-                        <p:inputText value="#{eventoMB.evento.usuario.login}" id="input_componente_usr" required="true" readonly="true" size="34"/>
-                        <p:commandButton icon="ui-icon-search"   onclick="PF('dialogUsr').show()"  immediate="true"/>
-                    </h:panelGrid>
-                </h:panelGrid>
+               
                 <h:panelGrid >
 
                     <h:outputLabel for="inicio" value="Início:" />  
@@ -53,7 +47,7 @@
                     <h:outputLabel for="tit" value="Titulo:" /> 
                     <p:inputText 
                         id="tit" 
-                        size="63"
+                        size="87"
                         maxlength="60"
                         required="true"
                         value="#{eventoMB.evento.nome}" />  
@@ -78,7 +72,7 @@
                     rows="5"
                     cols="103"
                     maxlength="1024"
-                    required="true"
+                   
                     value="#{eventoMB.evento.observacao}" />  
             </h:panelGrid>
 

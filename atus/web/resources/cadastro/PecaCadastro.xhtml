@@ -69,8 +69,9 @@
                             <p:confirm header="Confirmação" message="Excluir textos?"   icon="ui-icon-alert"/>
                         </p:commandButton>
 
-                        <p:dataTable id="tblPec" rendered="#{pecaMB.textos != null}" value="#{pecaMB.textos}" selectionMode="multiple" selection="#{pecaMB.itensSel}" 
-                                     var="tag" rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" 
+                        <p:dataTable id="tblPec" rendered="#{pecaMB.textos != null}" value="#{pecaMB.textos}"  
+                                     selection="#{pecaMB.itensSel}" var="tag" 
+                                     rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" 
                                      rowIndexVar="rowIx" rowKey="#{tag.value}" emptyMessage="#{mensagens['consulta.vazia']}">
 
                             <p:column selectionMode="multiple" style="width:16px;text-align:center"/>

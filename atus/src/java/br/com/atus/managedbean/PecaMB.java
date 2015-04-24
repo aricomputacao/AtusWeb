@@ -14,7 +14,6 @@ import br.com.atus.modelo.Peca;
 import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.SubGrupoPeca;
 import br.com.atus.util.MenssagemUtil;
-import br.com.atus.util.TextDataModel;
 import br.com.atus.util.peca.CampoPersonalizado;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
@@ -30,7 +29,6 @@ import javax.inject.Inject;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.wml.Text;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.SelectableDataModel;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 

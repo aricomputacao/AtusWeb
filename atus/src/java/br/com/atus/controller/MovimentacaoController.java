@@ -90,4 +90,8 @@ public class MovimentacaoController extends Controller<Movimentacao, Long> imple
         }
     }
 
+    public List<Movimentacao> consultarMovimentacaoPor(List<Fase> listaFasesSelection,Date dtIni, Date dtFim) {
+       return dao.consultaMovimentacaoPor(listaFasesSelection,dtIni,dtFim);
+    }
+
 }

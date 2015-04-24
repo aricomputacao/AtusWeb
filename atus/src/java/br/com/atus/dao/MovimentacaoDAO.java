@@ -8,11 +8,14 @@ package br.com.atus.dao;
 import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Colaborador;
+import br.com.atus.modelo.Fase;
 import br.com.atus.modelo.Movimentacao;
 import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.Usuario;
+import br.com.atus.util.MetodosUtilitarios;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
@@ -88,6 +91,16 @@ public class MovimentacaoDAO extends DAO<Movimentacao, Long> implements Serializ
         TypedQuery q;
         q = getEm().createQuery("SELECT new br.com.atus.dto.ProcessoUltimaMovimentacaoDTO(m.processo,MAX(m))  FROM Movimentacao m WHERE m.processo.colaborador = :col GROUP BY m.processo,m.processo.colaborador ORDER BY m.processo.colaborador ", ProcessoUltimaMovimentacaoDTO.class)
                 .setParameter("col", c);
+
+        return q.getResultList().isEmpty() ? new ArrayList<>() : q.getResultList();
+    }
+
+    public List<Movimentacao> consultaMovimentacaoPor(List<Fase> list, Date dtIni, Date dtFim) {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT m  FROM Movimentacao m WHERE m.dataMovimentacao BETWEEN :dtIni and :dtFim and m.faseAntiga IN (:fas)  ORDER BY m.faseAntiga,m.usuario,m.dataMovimentacao ", Movimentacao.class)
+                .setParameter("fas", list)
+                .setParameter("dtIni", MetodosUtilitarios.processarDataInicial(dtIni))
+                .setParameter("dtFim", MetodosUtilitarios.processarDataFinal(dtFim));
 
         return q.getResultList().isEmpty() ? new ArrayList<>() : q.getResultList();
     }

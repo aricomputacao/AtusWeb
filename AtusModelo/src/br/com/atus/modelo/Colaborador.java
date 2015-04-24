@@ -63,6 +63,10 @@ public class Colaborador implements Serializable {
     @Column(name = "col_observacao", length = 1024)
     @PecaColetor
     private String observacao;
+    
+    public String getNome(){
+        return this.pessoa.getNome();
+    }
 
     public String getObservacao() {
         return observacao;
