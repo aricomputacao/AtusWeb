@@ -9,6 +9,7 @@ import br.com.atus.modelo.Permissao;
 import br.com.atus.modelo.Tarefa;
 import br.com.atus.modelo.Usuario;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -47,8 +48,6 @@ public abstract class DAO<T, PK extends Serializable> implements Serializable {
         em.merge(t);
     }
 
-   
-
     public T carregar(PK id) throws Exception {
         return (T) em.find(getEntityClass(), id);
     }
@@ -58,8 +57,9 @@ public abstract class DAO<T, PK extends Serializable> implements Serializable {
     }
 
     public List<T> consultarTodos(String ordem) throws Exception {
-        return em.createQuery("FROM " + getEntityClass().getName() + " order by :ordem")
-                .setParameter("ordem", ordem).getResultList();
+        Query q = em.createQuery("FROM " + getEntityClass().getName() + " order by :ordem")
+                .setParameter("ordem", ordem);
+        return q.getResultList().isEmpty() ? new ArrayList<T>()  : q.getResultList();
     }
 
     public List<T> consultarLike(String nomeCampo, String valor) throws Exception {
@@ -67,19 +67,14 @@ public abstract class DAO<T, PK extends Serializable> implements Serializable {
                 .setParameter("vl", "%" + valor.toUpperCase() + "%").getResultList();
     }
 
-   
-
     public List<T> consultarTodos(String ordem, String campo, String valor) throws Exception {
         return em.createQuery("SELECT a FROM " + getEntityClass().getName() + " a WHERE a." + campo + " like :valor order by a." + ordem).setParameter("valor", valor + "%").getResultList();
     }
-
- 
 
     public List<T> pesquisaAutoComplete(String ordem, String campo, String sugest, int numeroResultados) throws Exception {
         return getEm().createQuery("SELECT t FROM " + getEntityClass().getName() + " t WHERE t." + campo + " like :sugest ORDER BY t." + campo).setParameter("sugest", sugest + "%").setMaxResults(numeroResultados).getResultList();
     }
 
-    
     protected Class getEntityClass() {
         return entityClass;
     }

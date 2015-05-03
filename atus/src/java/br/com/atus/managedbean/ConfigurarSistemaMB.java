@@ -5,6 +5,7 @@
  */
 package br.com.atus.managedbean;
 
+import br.com.atus.controller.AtendimentoController;
 import br.com.atus.controller.ModuloController;
 import br.com.atus.controller.PermissaoController;
 import br.com.atus.controller.TarefaController;
@@ -24,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
@@ -44,10 +46,17 @@ public class ConfigurarSistemaMB implements Serializable {
     private UsuarioController usuarioController;
     @EJB
     private PermissaoController permissaoController;
+    @EJB
+    private AtendimentoController atendimentoController;
     private Usuario usuario;
     private List<Tarefa> listaTarefas;
-    private List<Permissao> listaPermissoes;
-
+   
+    @Schedule(hour="23", minute="30")
+    public void zerarAntendimentos(){
+            System.out.println("------------------------Apagando atendimenteos-----------------------------");
+            atendimentoController.apagarTodosAtendimentos();
+    }
+    
     @Inject
     private void zerarPermissao() {
         try {

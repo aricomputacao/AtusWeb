@@ -40,6 +40,10 @@ public class AtendimentoController extends Controller<Atendimento, Long> impleme
        return dao.listarAtendFundo(usuarioLogado);
     }
 
+    public void apagarTodosAtendimentos()  {
+       dao.apagarTodosAtendimentos();
+    }
+
    
     
 }

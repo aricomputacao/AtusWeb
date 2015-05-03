@@ -6,8 +6,10 @@
 package br.com.atus.controller;
 
 import br.com.atua.interfaces.Controller;
+import br.com.atus.dao.EspecieEventoDAO;
 import br.com.atus.dao.EventoDAO;
 import br.com.atus.modelo.Colaborador;
+import br.com.atus.modelo.EspecieEvento;
 import br.com.atus.modelo.Evento;
 import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.Usuario;
@@ -30,6 +32,8 @@ public class EventoController extends Controller<Evento, Long> implements Serial
     
     @EJB
     private EventoDAO dao;
+    @EJB
+    private EspecieEventoDAO especieEventoDAO;
     
     @PostConstruct
     @Override
@@ -62,15 +66,16 @@ public class EventoController extends Controller<Evento, Long> implements Serial
     }
     
     public List<Evento> consultaEventoColaboradorPor(Colaborador colaborador, Date dataInicial, Date dataFinal, boolean ehUsuarioDoEscritorio) {
-        List<Evento> listaEventos = new ArrayList<>();
+        List<Evento> listaEventos;
+        List<EspecieEvento> listaEspecieEventos = especieEventoDAO.consultarTiposParaRelatorio();
         if (ehUsuarioDoEscritorio) {
             if (colaborador.getId() != null) {
-                listaEventos = dao.consultaEventoColaboradorPor(colaborador, dataInicial, dataFinal);
+                listaEventos = dao.consultaEventoColaboradorPor(colaborador, dataInicial, dataFinal,listaEspecieEventos);
             } else {
-                listaEventos = dao.consultaEventoOrdenadoPorColaboradorPor(dataInicial, dataFinal);
+                listaEventos = dao.consultaEventoOrdenadoPorColaboradorPor(dataInicial, dataFinal,listaEspecieEventos);
             }
         } else {
-            listaEventos = dao.consultaEventoColaboradorPor(colaborador, dataInicial, dataFinal);
+            listaEventos = dao.consultaEventoColaboradorPor(colaborador, dataInicial, dataFinal,listaEspecieEventos);
         }
         
         Collections.sort(listaEventos);

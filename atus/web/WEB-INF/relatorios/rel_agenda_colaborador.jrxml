@@ -45,7 +45,7 @@
 		<groupHeader>
 			<band height="20">
 				<rectangle>
-					<reportElement uuid="082d68bc-5432-42cd-a095-b8c7d210d317" x="0" y="0" width="803" height="20"/>
+					<reportElement uuid="082d68bc-5432-42cd-a095-b8c7d210d317" x="0" y="0" width="801" height="20"/>
 				</rectangle>
 				<textField>
 					<reportElement uuid="7d9a6187-5311-4f2d-bbe7-4dcc6aeb7bb2" x="101" y="0" width="281" height="20"/>
@@ -85,10 +85,10 @@
 	<columnHeader>
 		<band height="20">
 			<rectangle>
-				<reportElement uuid="32134496-10da-4920-9596-39f7ba04938a" x="0" y="0" width="803" height="20"/>
+				<reportElement uuid="32134496-10da-4920-9596-39f7ba04938a" x="0" y="0" width="801" height="20"/>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="8104bb1e-1c86-41dc-b6bf-8518bd06376f" x="1" y="0" width="47" height="20"/>
+				<reportElement uuid="8104bb1e-1c86-41dc-b6bf-8518bd06376f" x="1" y="0" width="34" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -109,7 +109,7 @@
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="18581a5d-803a-4e8f-85ef-0b25d9656827" x="49" y="0" width="70" height="20"/>
+				<reportElement uuid="18581a5d-803a-4e8f-85ef-0b25d9656827" x="36" y="0" width="83" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -152,7 +152,7 @@
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="7d962444-a47d-413d-929b-56e32bb95204" x="1" y="0" width="47" height="20"/>
+				<reportElement uuid="7d962444-a47d-413d-929b-56e32bb95204" x="1" y="0" width="34" height="20"/>
 				<textElement verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{processo}.getId()]]></textFieldExpression>
 			</textField>
@@ -161,8 +161,8 @@
 				<textElement verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{processo}.getCliente().getPessoa().getNome()]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="true">
-				<reportElement uuid="57b8ea18-e48c-4d1d-ac5b-c70c6b1efaca" x="48" y="0" width="71" height="20"/>
+			<textField pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
+				<reportElement uuid="57b8ea18-e48c-4d1d-ac5b-c70c6b1efaca" x="35" y="0" width="84" height="20"/>
 				<textElement verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
 			</textField>
