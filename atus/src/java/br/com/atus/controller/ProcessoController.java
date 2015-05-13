@@ -51,7 +51,6 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
     protected void inicializaDAO() {
         setDAO(dao);
     }
-    
 
     //Criar uma movimetação para corrigir processos que não tem movimentação
     public void criarMovimentacaoParaProcesso() throws Exception {
@@ -98,8 +97,7 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
 
     public List<ProcessoUltimaMovimentacaoDTO> ultimasMovimentacoesDe(List<Processo> processos) {
         List<ProcessoUltimaMovimentacaoDTO> ultimaMovimentacaoDTOs = new ArrayList<>();
-        
-        
+
         for (Processo p : processos) {
             ultimaMovimentacaoDTOs.add(movimentacaoDAO.ultimaMovimentacaoDTO(p));
         }
@@ -142,6 +140,8 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
     public List<Processo> consultarPor(Cliente c) {
         return dao.consultarPor(c);
     }
+
+    
 
     public List<Processo> consultaLikePor(String numero) {
         return dao.consultaLikePor(numero);
@@ -196,6 +196,18 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
         } else {
             deProcessos = new ConsultaDeProcessoEscritorio(dao);
             return deProcessos.consultaProcessosPor(numero, usuarioLogado);
+        }
+    }
+    
+    
+    public List<Processo> consultaPorLike(String nomeDoCliente, Usuario usuarioLogado) throws Exception {
+        ConsultaDeProcessos deProcessos;
+        if (usuarioLogado.getPerfil().equals(Perfil.COLABORADOR)) {
+            deProcessos = new ConsultaDeProcessoPorColaborador(dao, colaboradorController);
+            return deProcessos.consultaProcessosPorLike(nomeDoCliente, usuarioLogado);
+        } else {
+            deProcessos = new ConsultaDeProcessoEscritorio(dao);
+            return deProcessos.consultaProcessosPorLike(nomeDoCliente, usuarioLogado);
         }
     }
 

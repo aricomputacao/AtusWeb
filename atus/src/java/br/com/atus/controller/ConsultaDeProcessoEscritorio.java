@@ -39,6 +39,11 @@ public class ConsultaDeProcessoEscritorio implements ConsultaDeProcessos{
     public Processo consultaProcessosPor(Long id, Usuario usuarioLogado) throws Exception {
         return dao.carregar(id);
     }
+
+    @Override
+    public List<Processo> consultaProcessosPorLike(String nomeCliente, Usuario usuarioLogado) throws Exception {
+      return dao.consultaProcessosPorLike(nomeCliente);
+    }
     
    
 }

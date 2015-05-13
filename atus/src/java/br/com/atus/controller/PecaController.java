@@ -13,6 +13,7 @@ import br.com.atus.modelo.SubGrupoPeca;
 import br.com.atus.util.peca.ArquivoUtil;
 import br.com.atus.util.peca.CampoPersonalizado;
 import br.com.atus.util.peca.DocumentoConverter;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -123,6 +124,7 @@ public class PecaController extends Controller<Peca, Long> implements Serializab
 
     public List getPartes(WordprocessingMLPackage f) throws NoSuchFieldException {
         try {
+            
             return DocumentoConverter.getAllElementFromObject(f.getMainDocumentPart(), Text.class);
         } catch (Exception ex) {
             Logger.getLogger(PecaController.class.getName()).log(Level.SEVERE, null, ex);

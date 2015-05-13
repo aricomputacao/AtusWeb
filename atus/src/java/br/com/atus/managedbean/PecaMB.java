@@ -63,6 +63,10 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
     private Text tag;
     private WordprocessingMLPackage template;
 
+    public PecaMB() {
+        super(Peca.class);
+    }
+
     @PostConstruct
     public void init() {
         listaPecas = new ArrayList<>();
@@ -83,9 +87,12 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
     }
 
     public void apagarListaDeTextos() {
-        for (Text it : itensSel) {
-            textos.remove(it);
+        for (int i = 0; i < itensSel.size(); i++) {
+            textos.remove(i);
+            itensSel.remove(i);
+            i = 0;
         }
+
         itensSel.clear();
 
     }
@@ -106,32 +113,26 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
 
     }
 
-    public PecaMB() {
-        super(Peca.class);
-    }
+    public void uploadArquivo(FileUploadEvent event) {
+        try {
 
-    public UploadedFile getFile() {
-        return file;
-    }
+            file = event.getFile();
+            template = controller.getTemplate(file);
 
-    public void setFile(UploadedFile file) {
-        this.file = file;
-    }
+            textos = (List<Text>) controller.getPartes(template);
 
-    public Peca getPeca() {
-        return peca;
-    }
+            for (int i = 0; i < textos.size(); i++) {
+                if (textos.get(i).getValue().trim().equals("$") || textos.get(i).getValue().trim().equals("{") || textos.get(i).getValue().trim().equals("}")) {
+                    textos.get(i).setValue("");
+                    textos.remove(i);
+                    i = 0;
+                }
+            }
 
-    public void setPeca(Peca peca) {
-        this.peca = peca;
-    }
-
-    public List<Peca> getListaPecas() {
-        return listaPecas;
-    }
-
-    public void setListaPecas(List<Peca> listaPecas) {
-        this.listaPecas = listaPecas;
+            MenssagemUtil.addMessageInfo("Arquivo enviado com sucesso!" + file.getFileName());
+        } catch (Exception ex) {
+            MenssagemUtil.addMessageErro("Erro ao fazer upload do arquivo", ex, this.getClass().getName());
+        }
     }
 
     public void excluirArquivo() {
@@ -201,17 +202,6 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
             MenssagemUtil.addMessageInfo("Registro salvo");
         } catch (Exception e) {
             MenssagemUtil.addMessageErro("Erro ao salvar.");
-        }
-    }
-
-    public void uploadArquivo(FileUploadEvent event) {
-        try {
-            file = event.getFile();
-            template = controller.getTemplate(file);
-            textos = (List<Text>) controller.getPartes(template);
-            MenssagemUtil.addMessageInfo("Arquivo enviado com sucesso!" + file.getFileName());
-        } catch (Exception ex) {
-            MenssagemUtil.addMessageErro("Erro ao fazer upload do arquivo", ex, this.getClass().getName());
         }
     }
 
@@ -321,6 +311,30 @@ public class PecaMB extends BeanGenerico<Peca> implements Serializable {
 
     public void setItensSel(List<Text> itensSel) {
         this.itensSel = itensSel;
+    }
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    public Peca getPeca() {
+        return peca;
+    }
+
+    public void setPeca(Peca peca) {
+        this.peca = peca;
+    }
+
+    public List<Peca> getListaPecas() {
+        return listaPecas;
+    }
+
+    public void setListaPecas(List<Peca> listaPecas) {
+        this.listaPecas = listaPecas;
     }
 
 }

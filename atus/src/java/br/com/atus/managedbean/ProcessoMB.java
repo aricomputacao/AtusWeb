@@ -281,7 +281,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
                     listaProcessos = controller.consultaLikePor(getValorBusca(),navegacaoMB.getUsuarioLogado());
                     break;
                 case "cliente":
-                    listaProcessos = controller.consultarPor(cliente,navegacaoMB.getUsuarioLogado());
+                    listaProcessos = controller.consultaPorLike(getValorBusca(),navegacaoMB.getUsuarioLogado());
                     break;
 
             }

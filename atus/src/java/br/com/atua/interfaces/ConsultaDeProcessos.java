@@ -18,6 +18,7 @@ import java.util.List;
 public interface ConsultaDeProcessos {
 
     public List<Processo> consultaProcessosPor(Cliente cliente,Usuario usuarioLogado) throws Exception ;
+    public List<Processo> consultaProcessosPorLike(String nomeCliente,Usuario usuarioLogado) throws Exception ;
 
     public List<Processo> consultaProcessosPor(String numero,Usuario usuarioLogado) throws Exception ;
 

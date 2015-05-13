@@ -43,13 +43,8 @@
                         </p:selectOneMenu>
                     </h:panelGrid>
                     <h:panelGrid  id="grdConsulta2">
-                        <h:panelGrid rendered="#{not processoMB.renderPesquisa}" >
-                            <p:outputLabel value="Buscar por"/>
-                            <p:inputText value="#{processoMB.valorBusca}" />
-                        </h:panelGrid>
-                        <h:panelGrid rendered="#{processoMB.renderPesquisa}">
-                            <comp:input_button nome_dialog="dialogoConCliente" id="inputCon" input_size="50" nome_label="Cliente" value_input="#{processoMB.cliente.pessoa.nome}"  />
-                        </h:panelGrid>
+                        <p:outputLabel value="Buscar por"/>
+                        <p:inputText value="#{processoMB.valorBusca}"  size="50"/>
 
                     </h:panelGrid>
                     <h:panelGrid id="grdConsulta3">

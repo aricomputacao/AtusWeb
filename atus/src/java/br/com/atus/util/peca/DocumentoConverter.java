@@ -113,7 +113,7 @@ public class DocumentoConverter {
                         resposta = valor.toString();
                         texto = texto.replaceAll(campo.getReplaceTagName(), Matcher.quoteReplacement(resposta));
                         textElement.setValue(texto);
-                        System.out.println(campo.getNome() + " foi substituido por " + valor);
+//                        System.out.println(campo.getNome() + " foi substituido por " + valor);
                     }
                 }
             } else {

@@ -227,4 +227,16 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
         }
     }
 
+    public List<Processo> consultaProcessosPorLike(String nomeCliente) {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT p FROM Processo p WHERE UPPER(p.cliente.pessoa.nome) like :c  ORDER BY p.fase.usuario,p.fase", Processo.class)
+                .setParameter("c", "%" + nomeCliente.toUpperCase() + "%");
+
+        if (q.getResultList().isEmpty()) {
+            return new ArrayList<>();
+        } else {
+            return q.getResultList();
+        }
+    }
+
 }

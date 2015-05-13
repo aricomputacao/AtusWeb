@@ -17,26 +17,23 @@ import java.util.List;
  *
  * @author Ari
  */
-
 public class ConsultaDeProcessoPorColaborador implements ConsultaDeProcessos {
+
     private final ColaboradorController colaboradorControlerr;
     private final ProcessoDAO dao;
-        private Colaborador colaborador;
+    private Colaborador colaborador;
 
-
-    public ConsultaDeProcessoPorColaborador(ProcessoDAO dao,ColaboradorController colaboradorController) {
+    public ConsultaDeProcessoPorColaborador(ProcessoDAO dao, ColaboradorController colaboradorController) {
         this.dao = dao;
         this.colaboradorControlerr = colaboradorController;
     }
-
-   
 
     private void carregarColaboradorPor(Usuario usuarioLogado) throws Exception {
         colaborador = this.colaboradorControlerr.carregar(usuarioLogado.getReferencia());
     }
 
     @Override
-    public List<Processo> consultaProcessosPor(Cliente cliente, Usuario usuarioLogado) throws Exception  {
+    public List<Processo> consultaProcessosPor(Cliente cliente, Usuario usuarioLogado) throws Exception {
         carregarColaboradorPor(usuarioLogado);
         return this.dao.consultaProcessosPor(cliente, colaborador);
     }
@@ -44,12 +41,18 @@ public class ConsultaDeProcessoPorColaborador implements ConsultaDeProcessos {
     @Override
     public List<Processo> consultaProcessosPor(String numero, Usuario usuarioLogado) throws Exception {
         carregarColaboradorPor(usuarioLogado);
-        return dao.consultarLikePor(numero,colaborador);
+        return dao.consultarLikePor(numero, colaborador);
     }
+
     @Override
     public Processo consultaProcessosPor(Long id, Usuario usuarioLogado) throws Exception {
         carregarColaboradorPor(usuarioLogado);
-        return dao.carregarPor(id,colaborador);
+        return dao.carregarPor(id, colaborador);
+    }
+
+    @Override
+    public List<Processo> consultaProcessosPorLike(String nomeCliente, Usuario usuarioLogado) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
