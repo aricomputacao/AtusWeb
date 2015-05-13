@@ -53,13 +53,13 @@
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
 
                     <p:column headerText="Cliente">
-                        <comp:outputText value="#{t.cliente.pessoa.nome}"/>
+                        <p:commandLink value="#{t.cliente.pessoa.nome}" style="text-decoration: none" />
 
                     </p:column>
                     <p:column headerText="Visitante">
-                        <comp:outputText value="#{t.visitante}"/>
+                        <p:commandLink value="#{t.visitante}" style="text-decoration: none" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.processo'], 'nomeCliente', t.visitante)}" />
+                            
                         <p:outputLabel style="font-weight: bold"  rendered="#{t.clienteNovo}" value="  &rArr; Cliente novo" />
-
                     </p:column>
                     <p:column headerText="Assunto" >
                         <comp:outputText value="#{t.assunto}"/>
@@ -67,7 +67,6 @@
                     <p:column headerText="Abertura" width="8%">
                         <comp:outputText tipo="dt" value="#{t.dataAbertura}"/>
                     </p:column>
-
 
                     <p:column headerText="Ação" width="10%" style="text-align: center">
                         <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.atendimento'],'atendimento',t)}" />
