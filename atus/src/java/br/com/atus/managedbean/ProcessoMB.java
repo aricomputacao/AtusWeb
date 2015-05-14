@@ -96,12 +96,12 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             fase = processo.getFase();
         }
 
+        listaProcessos = new ArrayList<>();
         listaMovimentacaos = movimentacaoController.listarPorProcesso(processo);
         listaEventos = eventoController.listarPorProcessos(processo);
         listaUltimaMovimentacaoDTOs = new ArrayList<>();
         adversario = new Adversario();
         parteInteressada = new ParteInteressada();
-        listaProcessos = new ArrayList<>();
         i = 0;
     }
 

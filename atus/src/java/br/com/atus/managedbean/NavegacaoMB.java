@@ -78,7 +78,6 @@ public class NavegacaoMB implements Serializable {
     @Inject
     private void init() {
         try {
-
         
             usuarioLogado = usuarioController.usuarioLogin(ContextoAplicacao.getContexto().getRemoteUser());
             ehUsuarioDoEscritorio = usuarioController.ehUsuarioDoEscritorio(usuarioLogado);

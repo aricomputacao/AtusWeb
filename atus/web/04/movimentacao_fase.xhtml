@@ -18,7 +18,6 @@
             <comp:menuPanel   id="menuPanel" disable_adicionar="true" disable_novo="true" disable_consultar="true" disable_salvar="true"  acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['rel.movimentacao_fase'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['rel.movimentacao_fase'])}" acao_imprimir="#{relatorioMB.imprimirMovimentacoesFAse()}" acao_limpar="#{relatorioMB.init()}" acao_salvar="#{relatorioMB.init()}"/>
 
             <comp:panel_cadastro id="cadFrm"  cabecalho_grid="Movimentação Fase" id_form="frm_pag"  >               
-                   
                 <cons:MovimentacaoFaseConsulta id="compCons" listaDeMovimentacoes="#{relatorioMB.listaMovimentacaos}" />
             </comp:panel_cadastro>
         </h:form>

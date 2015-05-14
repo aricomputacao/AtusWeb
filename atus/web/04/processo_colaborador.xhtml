@@ -31,20 +31,15 @@
 
     </ui:define>
     <ui:define name="dialogs">
-
-
         <p:dialog showEffect="fade" position="top"   header="Consulta de Pessoas" id="conPesCli" modal="true" hideEffect="fade" widgetVar="dialogoConColaborador">
             <h:form id="frmConCliente" prependId="false">
                 <cons:ColaboradorConsulta renderEditar="false" id="tblCli" renderExcluir="false" renderSelecionar="true"   nomeDialog="dialogoConColaborador" update_form=":frm_pag:cadFrm:compProceConsu:inputCon:input_componente" valorSelecionado="#{relatorioMB.colaborador}" >
                     <f:facet name="btnConCola">
                         <comp:commandButton_consulta acao_butao="#{colaboradorMB.listar()}" componente_to_update=":frmConCliente"/>
                     </f:facet>
-
                 </cons:ColaboradorConsulta>
             </h:form>
         </p:dialog>
-
     </ui:define>
-
 </ui:composition>
 

@@ -24,7 +24,7 @@
         <composite:attribute name="lista" shortDescription="Lista de objetos a ser listada" required="true" />
     </composite:interface>
     <composite:implementation  >
-
+       
         <h:panelGrid  width="100%" id="rtt" >
             <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" rendered="#{navegacaoMB.permissaoConsultar(navegacao['cad.atendimento'])}"  style="font-weight: bold">
                 <h:panelGrid rendered="#{cc.attrs.renderGrdConsulta}" id="grdConsulta" columns="4">
@@ -53,12 +53,10 @@
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
 
                     <p:column headerText="Cliente">
-                        <p:commandLink value="#{t.cliente.pessoa.nome}" style="text-decoration: none" />
-
+                        <p:commandLink value="#{t.cliente.pessoa.nome}"  styleClass="link" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.processo'], 'nomeCliente', t.cliente.pessoa.nome)}"/>
                     </p:column>
                     <p:column headerText="Visitante">
-                        <p:commandLink value="#{t.visitante}" style="text-decoration: none" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.processo'], 'nomeCliente', t.visitante)}" />
-                            
+                        <p:commandLink value="#{t.visitante}"  styleClass="link" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.processo'], 'nomeCliente', t.visitante)}" />
                         <p:outputLabel style="font-weight: bold"  rendered="#{t.clienteNovo}" value="  &rArr; Cliente novo" />
                     </p:column>
                     <p:column headerText="Assunto" >

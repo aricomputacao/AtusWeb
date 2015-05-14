@@ -14,6 +14,7 @@
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
         <composite:attribute  name="legend" default="Cadastro" shortDescription="Cabeçalho do fieldset" />
         <composite:attribute  name="update_from_evento" default="@form" shortDescription="Tela de cad evento que deveta ser atualizada " />
+        <composite:attribute  name="render_btns_addEvento_gerarPeca" default="true" shortDescription="renderizar btns de add evento e imprimir peça " />
 
     </composite:interface>
     <composite:implementation  >
@@ -26,7 +27,7 @@
                 <h:outputText rendered="#{processoMB.processo.id != null}" style="font-size:20px;font-weight: bold" value="&rsaquo;&rsaquo; Cliente: #{processoMB.processo.cliente.pessoa.nome}"/>
             </h:panelGrid>
 
-            <p:toolbar   >
+            <p:toolbar  rendered="#{cc.attrs.render_btns_addEvento_gerarPeca}" >
                 <p:toolbarGroup>
                     <p:separator/>
                     <p:commandButton icon="ui-icon-circle-plus" title="Adicionar Eventos"  oncomplete="PF('dialogCadEve').show()"  update="#{cc.attrs.update_from_evento}" >
@@ -189,7 +190,7 @@
                                             <comp:outputText value="#{t.representante}"/>
                                         </p:column>
                                         <p:column headerText="Ação" width="10%"  style="text-align: center">
-                                            <p:commandButton actionListener="#{clienteMB.setarCliente(t.cliente)}"   style="width: 22px;height: 22px" rendered="true" title="Informações"  update=":fic" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
+                                            <p:commandButton actionListener="#{clienteMB.setarCliente(t.cliente)}"   style="width: 22px;height: 22px" rendered="true" title="Informações"  update="@this" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
                                             <comp:commandButton_excluir acao_butao="#{processoMB.delInteressado(t, processoMB.processo)}" classe="Interessado" form_to_update="@form"/>
                                         </p:column>
                                     </p:dataTable>
@@ -222,7 +223,7 @@
                                             <comp:outputText value="#{t2.representante}"/>
                                         </p:column>
                                         <p:column headerText="Ação" width="10%" style="text-align: center">
-                                            <p:commandButton actionListener="#{clienteMB.setarCliente(t2.cliente)}"   style="width: 22px;height: 22px" rendered="true" title="Informações"  update=":fic" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
+                                            <p:commandButton actionListener="#{clienteMB.setarCliente(t2.cliente)}"   style="width: 22px;height: 22px" rendered="true" title="Informações"  update="@this" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
                                             <comp:commandButton_excluir acao_butao="#{processoMB.delAdversario(t2, processoMB.processo)}" classe="Adversário" form_to_update="@form"/>
                                         </p:column>
                                     </p:dataTable>

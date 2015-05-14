@@ -20,7 +20,7 @@
                     <cadastro:EventoCadastro id="compEvento"/>
                 </h:panelGrid>       
                 <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}"> 
-                    <cons:EventoConsulta id="compConEvento" renderInfo="true">
+                    <cons:EventoConsulta id="compConEvento" renderInfo="true" dialogUpdade=":frmDialogCadProce" dialogInfo="dialogCadProc">
                         <f:facet name="btnConsultaEvento">
                             <comp:commandButton_consulta acao_butao="#{eventoMB.listarPorPeriodo()}" componente_to_update="@form"  />
                         </f:facet>
@@ -57,7 +57,7 @@
         </p:dialog>
         <p:dialog showEffect="fade" position="top"     modal="true" hideEffect="fade" widgetVar="dialogCadProc">
             <h:form id="frmDialogCadProce">
-                <cadastro:ProcessoCadastro id="compCadPro" legend="Dados do Processo" />
+                <cadastro:ProcessoCadastro id="compCadPro" legend="Dados do Processo"  render_btns_addEvento_gerarPeca="false" />
             </h:form>
         </p:dialog>
     </ui:define>

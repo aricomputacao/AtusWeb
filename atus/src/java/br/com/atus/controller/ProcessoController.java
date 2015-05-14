@@ -221,4 +221,8 @@ public class ProcessoController extends Controller<Processo, Long> implements Se
             return deProcessos.consultaProcessosPor(id, usuarioLogado);
         }
     }
+
+    public List<Processo> consultaPorColaborador(Colaborador colaborador, List<Fase> listaFasesSelection) {
+       return dao.consultaPorColaborador(colaborador,listaFasesSelection);
+    }
 }
