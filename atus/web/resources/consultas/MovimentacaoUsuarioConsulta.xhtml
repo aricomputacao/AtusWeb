@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+
+    <composite:interface id="interCon">
+        <composite:attribute name="listaDeMovimentacoes"  default="listaMovimentacaos" />
+    </composite:interface>
+    <composite:implementation id="compConCli" >
+        <h:panelGrid  width="100%" id="rtt" >
+            <p:fieldset id="fieldCon" legend="Consulta"  style="font-weight: bold">
+                <h:panelGrid columns="3">
+                    <h:panelGrid>
+                        <p:outputLabel value="Fases" />
+                        <p:selectCheckboxMenu label="Selecione as fases" required="true" value="#{relatorioMB.listaDeUsuariosSelection}" filter="true" 
+                                              filterMatchMode="startsWith" panelStyle="width:350px" converter="#{indexConverter}">
+                            <f:selectItems value="#{relatorioMB.listaDeUsuarios}" var="f" itemLabel="#{f.login} -- #{f.nome}" itemValue="#{f}" />
+                        </p:selectCheckboxMenu>
+
+                    </h:panelGrid>
+                    <h:panelGrid columns="3">
+                        <comp:inputTextCalendar nomeLabel="Data Inicial" valorData="#{relatorioMB.dataInicial}" />
+                        <comp:inputTextCalendar nomeLabel="Data Final" valorData="#{relatorioMB.dataFinal}" />
+                    </h:panelGrid>
+                    <h:panelGrid>
+                        <p:spacer width="15"/>
+                        <comp:commandButton_consulta acao_butao="#{relatorioMB.consultarMovimentacaoPorUsuarios()}" id="btnPesq" componente_to_update="@form"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <p:dataTable value="#{cc.attrs.listaDeMovimentacoes}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10" 
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                    <p:column headerText="Processo" width="5%" >
+                        <comp:outputText value="#{t.processo.id}"/>
+                    </p:column>
+                    <p:column headerText="Fase Antinga"  width="20%" >
+                        <comp:outputText value="#{t.faseAntiga.nome}" />
+                    </p:column>
+                    <p:column headerText="Fase Nova"  width="20%" >
+                        <comp:outputText value="#{t.faseNova.nome}" />
+                    </p:column>
+                    <p:column headerText="Motivo" width="20%" >
+                        <comp:outputText value="#{t.motivo} "/>
+                    </p:column>
+                    <p:column headerText="Data" width="10%" >
+                        <comp:outputText value="#{t.dataMovimentacao}" tipo="dt"/>
+                    </p:column>
+                    <p:column headerText="Usuário" width="10%" >
+                        <comp:outputText value="#{t.usuario.login}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+
+        </h:panelGrid>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

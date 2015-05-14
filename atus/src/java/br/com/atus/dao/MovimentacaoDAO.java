@@ -105,4 +105,14 @@ public class MovimentacaoDAO extends DAO<Movimentacao, Long> implements Serializ
         return q.getResultList().isEmpty() ? new ArrayList<>() : q.getResultList();
     }
 
+    public List<Movimentacao> consultarMovimentacaoPorUsarios(List<Usuario> list, Date dtIni, Date dtFim) {
+           TypedQuery q;
+        q = getEm().createQuery("SELECT m  FROM Movimentacao m WHERE m.dataMovimentacao BETWEEN :dtIni and :dtFim and m.usuario IN (:usrs)  ORDER BY m.usuario,m.faseAntiga,m.dataMovimentacao ", Movimentacao.class)
+                .setParameter("usrs", list)
+                .setParameter("dtIni", MetodosUtilitarios.processarDataInicial(dtIni))
+                .setParameter("dtFim", MetodosUtilitarios.processarDataFinal(dtFim));
+
+        return q.getResultList().isEmpty() ? new ArrayList<>() : q.getResultList();
+    }
+
 }

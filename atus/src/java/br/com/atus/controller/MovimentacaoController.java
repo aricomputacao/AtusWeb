@@ -94,4 +94,8 @@ public class MovimentacaoController extends Controller<Movimentacao, Long> imple
        return dao.consultaMovimentacaoPor(listaFasesSelection,dtIni,dtFim);
     }
 
+    public List<Movimentacao> consultarMovimentacaoPorUsarios(List<Usuario> listaDeUsuariosSelection, Date dataInicial, Date dataFinal) {
+        return dao.consultarMovimentacaoPorUsarios(listaDeUsuariosSelection, dataInicial, dataFinal);
+    }
+
 }
