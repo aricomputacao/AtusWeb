@@ -12,7 +12,7 @@
     <composite:implementation>
         <h:form id="#{cc.attrs.id}" prependId="false">
             <p:menubar id="menBar" styleClass="menu"  >
-                <p:menuitem styleClass="item" id="menIni" icon="fa fa-home fa-lg" value="Início"  actionListener="#{navegacaoMB.index()}"  />
+                <p:menuitem styleClass="item" id="menIni" icon="fa fa-home fa-lg"   actionListener="#{navegacaoMB.index()}"  />
                 <p:submenu styleClass="subMenu" id="sbCad" icon="fa fa-sign-in fa-lg" rendered="#{navegacaoMB.permissaoModuloCadastro()}" style="font-weight: bolder;"  label="Cadastro" >
                     <p:submenu  label="Pessoa" id="sbPes"  >
                         <p:menuitem value="Clientes" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.cliente'])}"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.cliente'])}" immediate="true"/>

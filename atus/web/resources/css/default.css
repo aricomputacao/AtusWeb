@@ -94,10 +94,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007db9e8', e
     color: #C8C8C8 !important;
 
 }
+/*icones do menu principal*/
 .ui-menu .ui-menuitem-link .ui-menuitem-icon{
     color: #D8D8D8  !important;
     margin-right: 2px !important;
 }
+.ui-button-icon-left .ui-icon .ui-c .fa{
+        color: black  !important;
+
+}
+
 
 
 .painelLogin{
