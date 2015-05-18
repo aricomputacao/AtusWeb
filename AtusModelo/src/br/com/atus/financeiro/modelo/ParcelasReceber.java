@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Calendar;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
@@ -30,7 +32,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * @author Ari
  */
 @Entity
-@Table(name = "parcela_receber", schema = "financeiro")
+@Table(name = "parcela_receber", schema = "financeiro",uniqueConstraints = @UniqueConstraint(columnNames = {"ctr_id","par_numero"}))
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ParcelasReceber implements Serializable {
 
@@ -68,6 +70,13 @@ public class ParcelasReceber implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "par_data_pagamento", nullable = false)
     private Calendar dataPagamento;
+    
+    @NotNull
+    @Column(name = "par_numero", nullable = false)
+    private int numeroDaParcela;
+    
+    
+    
 
     //finalizar parcela
     public BigDecimal getValorDonoDoProcesso() {
@@ -84,4 +93,94 @@ public class ParcelasReceber implements Serializable {
         BigDecimal percent = this.contaReceber.getPercentualColaborador().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
         return this.valorPago.multiply(percent);
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public ContaReceber getContaReceber() {
+        return contaReceber;
+    }
+
+    public void setContaReceber(ContaReceber contaReceber) {
+        this.contaReceber = contaReceber;
+    }
+
+    public Advogado getAdvogadoQueRecebeu() {
+        return advogadoQueRecebeu;
+    }
+
+    public void setAdvogadoQueRecebeu(Advogado advogadoQueRecebeu) {
+        this.advogadoQueRecebeu = advogadoQueRecebeu;
+    }
+
+    public BigDecimal getValorParcela() {
+        return valorParcela;
+    }
+
+    public void setValorParcela(BigDecimal valorParcela) {
+        this.valorParcela = valorParcela;
+    }
+
+    public BigDecimal getValorPago() {
+        return valorPago;
+    }
+
+    public void setValorPago(BigDecimal valorPago) {
+        this.valorPago = valorPago;
+    }
+
+    public Calendar getVencimento() {
+        return vencimento;
+    }
+
+    public void setVencimento(Calendar vencimento) {
+        this.vencimento = vencimento;
+    }
+
+    public Calendar getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(Calendar dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    public int getNumeroDaParcela() {
+        return numeroDaParcela;
+    }
+
+    public void setNumeroDaParcela(int numeroDaParcela) {
+        this.numeroDaParcela = numeroDaParcela;
+    }
+    
+    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ParcelasReceber other = (ParcelasReceber) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

@@ -437,6 +437,15 @@ public class Processo implements Serializable {
         this.motivoFase = motivoFase;
     }
 
+    
+    public String getNomeDoCliente(){
+        return this.cliente.getNome();
+    }
+    
+    
+    public String getNomeDoColaborador(){
+        return this.colaborador.getNome();
+    }
    
     
     @Override
