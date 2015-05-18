@@ -160,18 +160,18 @@
 				<text><![CDATA[Motivo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ed3873b5-a097-4144-84b8-bac2833b2322" x="746" y="0" width="54" height="20"/>
+				<reportElement uuid="1001ec71-6f1c-488f-9d95-f70e26f2b8a1" x="763" y="0" width="38" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Enderec.]]></text>
+				<text><![CDATA[Edere.]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="34" splitType="Stretch">
+		<band height="48" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="2098b39d-d50a-426a-ab75-9569160f3679" style="zebra" x="-1" y="0" width="800" height="34"/>
+				<reportElement uuid="2098b39d-d50a-426a-ab75-9569160f3679" style="zebra" x="-1" y="0" width="800" height="48"/>
 				<graphicElement>
 					<pen lineWidth="0.25" lineColor="#FFFFFF"/>
 				</graphicElement>
@@ -233,14 +233,14 @@
 				<textFieldExpression><![CDATA[$F{movimentacao}.getDataMovimentacao()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="b74b4f65-1ab1-4f48-b78d-38531ad7d4c2" x="613" y="0" width="132" height="34"/>
+				<reportElement uuid="b74b4f65-1ab1-4f48-b78d-38531ad7d4c2" x="613" y="0" width="143" height="48"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{movimentacao}.getMotivo()]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="c1e6dbd8-a7aa-458e-991c-c01b62b442e6" x="746" y="0" width="56" height="34"/>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="ef447ff8-e759-4cc9-8d05-011499d9501f" x="763" y="0" width="38" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{processo}.getEnderecamento().getNome()]]></textFieldExpression>
 			</textField>

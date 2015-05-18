@@ -6,23 +6,30 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:composite="http://java.sun.com/jsf/composite"
-                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:f="http://java.sun.com/jsf/core">
 
     <composite:interface id="interCon">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
         <composite:facet name="btnConsultaProcesso"/>
-
         <composite:attribute name="renderPesquisar" default="true"/>
         <composite:attribute name="valorSelecionado" />
         <composite:attribute name="nomeDialog" />
         <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
         <composite:attribute name="dialogUpdade" default=":frmDialogCadProce:compCadPro:tbView"/>
-
     </composite:interface>
     <composite:implementation id="compConCli" >
         <h:panelGrid  width="100%" id="rtt" >
             <p:fieldset id="fieldCon" rendered="#{navegacaoMB.permissaoConsultar(navegacao['rel.processo_colaborador'])}" legend="#{cc.attrs.nome}" style="font-weight: bold">
                 <h:panelGrid id="grdConsulta" columns="4" rendered="#{cc.attrs.renderPesquisar}">                   
+                    <h:panelGrid>
+                        <p:outputLabel value="Fases" />
+                        <p:selectCheckboxMenu label="Selecione as fases" required="true" value="#{relatorioMB.listaFasesSelection}" filter="true" 
+                                              filterMatchMode="startsWith" panelStyle="width:350px" converter="#{indexConverter}">
+                            <f:selectItems value="#{faseMB.listaFases}" var="f" itemLabel="#{f.nome} -- #{f.usuario.login}" itemValue="#{f}" />
+                        </p:selectCheckboxMenu>
+
+                    </h:panelGrid>
                     <h:panelGrid  id="grdConsulta2">                        
                         <h:panelGrid>
                             <comp:input_button nome_dialog="dialogoConColaborador" required="false" id="inputCon" input_size="50" nome_label="Colaborador" value_input="#{relatorioMB.colaborador.pessoa.nome}"  />
@@ -61,16 +68,12 @@
                     <p:column headerText="Desde" width="9%" >
                         <comp:outputText tipo="d" value="#{t.movimentacao.dataMovimentacao}"/>
                     </p:column>
-
                     <p:column headerText="Prazo Final" width="8%" >
                         <comp:outputText tipo="d" value="#{t.prazo}"/>
                     </p:column>
-
                     <p:column headerText="Endereçamento" width="9%" >
                         <comp:outputText value="#{t.processo.enderecamento.nome}"/>
                     </p:column>
-
-
                 </p:dataTable>
             </p:fieldset>
 

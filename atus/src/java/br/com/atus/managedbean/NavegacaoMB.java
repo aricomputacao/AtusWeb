@@ -78,7 +78,6 @@ public class NavegacaoMB implements Serializable {
     @Inject
     private void init() {
         try {
-
         
             usuarioLogado = usuarioController.usuarioLogin(ContextoAplicacao.getContexto().getRemoteUser());
             ehUsuarioDoEscritorio = usuarioController.ehUsuarioDoEscritorio(usuarioLogado);
@@ -243,6 +242,23 @@ public class NavegacaoMB implements Serializable {
         redirecionarCadastro(pag);
     }
 
+    /**
+     * Esse metodo redireciona e passa um parametro para o bean de destino no
+     * caso um objeto de um determinado modelo a ser editado
+     *
+     * @param pag
+     * @param key - chave de um valor a ser adicionado na sessão
+     * @param valor - valor a ser adiocionado na sessão
+     */
+    public void redirecionarConsulta(String pag, String key, Object valor) {
+        try {
+            map.put(key, valor);
+        } catch (Exception e) {
+            Logger.getLogger(NavegacaoMB.class.getName()).log(Level.SEVERE, null, e);
+        }
+        redirecionarConsulta(pag);
+    }
+    
     /**
      * Retorna a mensagem do bundle
      *

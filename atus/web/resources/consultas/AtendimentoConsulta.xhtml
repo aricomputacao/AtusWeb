@@ -24,7 +24,7 @@
         <composite:attribute name="lista" shortDescription="Lista de objetos a ser listada" required="true" />
     </composite:interface>
     <composite:implementation  >
-
+       
         <h:panelGrid  width="100%" id="rtt" >
             <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" rendered="#{navegacaoMB.permissaoConsultar(navegacao['cad.atendimento'])}"  style="font-weight: bold">
                 <h:panelGrid rendered="#{cc.attrs.renderGrdConsulta}" id="grdConsulta" columns="4">
@@ -53,13 +53,11 @@
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
 
                     <p:column headerText="Cliente">
-                        <comp:outputText value="#{t.cliente.pessoa.nome}"/>
-
+                        <p:commandLink value="#{t.cliente.pessoa.nome}"  styleClass="link" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.processo'], 'nomeCliente', t.cliente.pessoa.nome)}"/>
                     </p:column>
                     <p:column headerText="Visitante">
-                        <comp:outputText value="#{t.visitante}"/>
+                        <p:commandLink value="#{t.visitante}"  styleClass="link" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.processo'], 'nomeCliente', t.visitante)}" />
                         <p:outputLabel style="font-weight: bold"  rendered="#{t.clienteNovo}" value="  &rArr; Cliente novo" />
-
                     </p:column>
                     <p:column headerText="Assunto" >
                         <comp:outputText value="#{t.assunto}"/>
@@ -67,7 +65,6 @@
                     <p:column headerText="Abertura" width="8%">
                         <comp:outputText tipo="dt" value="#{t.dataAbertura}"/>
                     </p:column>
-
 
                     <p:column headerText="Ação" width="10%" style="text-align: center">
                         <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.atendimento'],'atendimento',t)}" />

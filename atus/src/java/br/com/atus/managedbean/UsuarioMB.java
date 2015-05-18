@@ -127,7 +127,6 @@ public class UsuarioMB extends BeanGenerico<Usuario> implements Serializable {
     public void salvar() {
         try {
             if (usuario.getId() == null) {
-
                 if (renderAdvogado) {
                     usuario.setReferencia(advogado.getId().longValue());
                     usuario.setNome(advogado.getNome());

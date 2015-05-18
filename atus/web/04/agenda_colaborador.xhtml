@@ -11,23 +11,19 @@
 
     <ui:define name="corpo">
         <h:outputScript name="sonumero.js"  library="js"/>
-
         <h:form id="frm_pag" prependId="false" >
             <p:blockUI block="@form" trigger="cadFrm:compProceConsu2:btnCon:btn cadFrm:compProceConsu:btnConCol">
                 <p:graphicImage library="imagens" name="carregar.gif"/>
             </p:blockUI>
             <comp:menuPanel   id="menuPanel" disable_adicionar="true" disable_novo="true" disable_consultar="true" disable_salvar="true"  acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['pro.processo'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['rel.agenda_colaborador'])}" acao_imprimir="#{relatorioMB.imprimirAgendaColaborador()}" acao_limpar="#{relatorioMB.init()}" acao_salvar="#{relatorioMB.init()}"/>
-
             <comp:panel_cadastro id="cadFrm"  cabecalho_grid="Agenda Colaborador" id_form="frm_pag"  >               
                 <h:panelGrid >
                     <cons:AgendaColaboradorConsulta id="compProceConsu"  rendered="#{not navegacaoMB.ehUsuarioDoEscritorio}" renderPesquisarColaborador="#{navegacaoMB.ehUsuarioDoEscritorio}"  dialogUpdade=":frmDialogCadProce:compCadPro:fieldCad" >
                         <f:facet id="f1" name="btnConsultaProcesso">
                             <comp:commandButton_consulta id="btnConCol"  acao_butao="#{relatorioMB.consultaEventoUsuarioColaborador()}" rendered="#{not navegacaoMB.ehUsuarioDoEscritorio}"  componente_to_update=":frm_pag:cadFrm:compProceConsu:tabela"/>
                         </f:facet>
-                        
                     </cons:AgendaColaboradorConsulta>
                     <cons:AgendaColaboradorConsulta id="compProceConsu2"  rendered="#{navegacaoMB.ehUsuarioDoEscritorio}" renderPesquisarColaborador="#{navegacaoMB.ehUsuarioDoEscritorio}"  dialogUpdade=":frmDialogCadProce:compCadPro:fieldCad" >
-                        
                         <f:facet id="f2" name="btnConsultaProcesso" rendered="#{navegacaoMB.ehUsuarioDoEscritorio}">
                             <comp:commandButton_consulta id="btnCon" acao_butao="#{relatorioMB.consultaEventoColaborador()}" rendered="#{navegacaoMB.ehUsuarioDoEscritorio}"  componente_to_update=":frm_pag:cadFrm:compProceConsu2:tabela"/>
                         </f:facet>
@@ -35,7 +31,6 @@
                 </h:panelGrid>
             </comp:panel_cadastro>
         </h:form>
-
     </ui:define>
     <ui:define name="dialogs">
         <p:dialog showEffect="fade" position="top"   header="Consulta de Pessoas" id="conPesCli" modal="true" hideEffect="fade" widgetVar="dialogoConColaborador">
@@ -44,12 +39,9 @@
                     <f:facet name="btnConCola">
                         <comp:commandButton_consulta acao_butao="#{colaboradorMB.listar()}" componente_to_update=":frmConCliente"/>
                     </f:facet>
-
                 </cons:ColaboradorConsulta>
             </h:form>
         </p:dialog>
-
     </ui:define>
-
 </ui:composition>
 

@@ -49,8 +49,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     @Inject
     private NavegacaoMB navegacaoMB;
-    @Inject
-    private UsuarioMB usuarioMB;
+
     @EJB
     private ProcessoController controller;
     @EJB
@@ -79,6 +78,12 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     @PostConstruct
     public void init() {
+        
+        setValorBusca((String) navegacaoMB.getRegistroMapa("nomeCliente", ""));
+        if (!getValorBusca().equals("")) {
+            setCampoBusca("cliente");
+        }
+        
         processo = (Processo) navegacaoMB.getRegistroMapa("processo", new Processo());
         movimentacao = new Movimentacao();
         cliente = new Cliente();
@@ -91,12 +96,12 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             fase = processo.getFase();
         }
 
+        listaProcessos = new ArrayList<>();
         listaMovimentacaos = movimentacaoController.listarPorProcesso(processo);
         listaEventos = eventoController.listarPorProcessos(processo);
         listaUltimaMovimentacaoDTOs = new ArrayList<>();
         adversario = new Adversario();
         parteInteressada = new ParteInteressada();
-        listaProcessos = new ArrayList<>();
         i = 0;
     }
 
@@ -274,14 +279,14 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             switch (getCampoBusca()) {
                 case "id":
                     listaProcessos.clear();
-                    processo = controller.carregarPor(Long.decode(getValorBusca()),navegacaoMB.getUsuarioLogado());
+                    processo = controller.carregarPor(Long.decode(getValorBusca()), navegacaoMB.getUsuarioLogado());
                     listaProcessos.add(processo);
                     break;
                 case "numero":
-                    listaProcessos = controller.consultaLikePor(getValorBusca(),navegacaoMB.getUsuarioLogado());
+                    listaProcessos = controller.consultaLikePor(getValorBusca(), navegacaoMB.getUsuarioLogado());
                     break;
                 case "cliente":
-                    listaProcessos = controller.consultaPorLike(getValorBusca(),navegacaoMB.getUsuarioLogado());
+                    listaProcessos = controller.consultaPorLike(getValorBusca(), navegacaoMB.getUsuarioLogado());
                     break;
 
             }
@@ -304,6 +309,19 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("excluir.falha", MenssagemUtil.MENSAGENS));
             Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void navegarDeAtendimentoParaConsultaDeProcesso(String nomeCliente) {
+        try {
+            navegacaoMB.redirecionarConsulta("pro.processo");
+            listaProcessos = controller.consultaPorLike(nomeCliente, navegacaoMB.getUsuarioLogado());
+            listaUltimaMovimentacaoDTOs = controller.ultimasMovimentacoesDe(listaProcessos);
+        } catch (Exception ex) {
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
+
+            Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**

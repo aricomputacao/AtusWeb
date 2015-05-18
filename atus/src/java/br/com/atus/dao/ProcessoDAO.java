@@ -239,4 +239,16 @@ public class ProcessoDAO extends DAO<Processo, Long> implements Serializable {
         }
     }
 
+    public List<Processo> consultaPorColaborador(Colaborador colaborador, List<Fase> listaFasesSelection) {
+        TypedQuery q;
+        q = getEm().createQuery("SELECT p FROM Processo p WHERE p.colaborador  = :c AND p.fase IN (:fs) ORDER BY p.colaborador,p.fase", Processo.class)
+                .setParameter("c", colaborador)
+                .setParameter("fs", listaFasesSelection);
+        if (q.getResultList().isEmpty()) {
+            return new ArrayList<>();
+        } else {
+            return q.getResultList();
+        }
+    }
+
 }

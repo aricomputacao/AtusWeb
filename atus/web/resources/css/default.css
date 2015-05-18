@@ -79,19 +79,32 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007db9e8', e
 .item{
     color: #C8C8C8 !important;
 
-
-
 }
+.subMenu{
+    margin-right: 10px !important;
+    margin-left: 10px !important;
+}
+
 .subMenu  .item .ui-menuitem-text{
     color: white !important;
-
+   
 }
 
 .subMenu .ui-menuitem-text{
     color: #C8C8C8 !important;
 
+}
+/*icones do menu principal*/
+.ui-menu .ui-menuitem-link .ui-menuitem-icon{
+    color: #D8D8D8  !important;
+    margin-right: 2px !important;
+}
+.ui-button-icon-left .ui-icon .ui-c .fa{
+        color: black  !important;
 
 }
+
+
 
 .painelLogin{
     background: #eeeeee; /* Old browsers */

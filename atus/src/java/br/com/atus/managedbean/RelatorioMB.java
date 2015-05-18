@@ -115,7 +115,7 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
 
     public void listarProcessoColaborador() {
         try {
-            List<Processo> listaProcessos = processoController.consultaPorColaborador(colaborador);
+            List<Processo> listaProcessos = processoController.consultaPorColaborador(colaborador,listaFasesSelection);
             listaProcessoUltimaMovimentacaoDTOs.clear();
             listaProcessoUltimaMovimentacaoDTOs = processoController.ultimasMovimentacoesDe(listaProcessos);
             Collections.sort(listaProcessoUltimaMovimentacaoDTOs);

@@ -148,37 +148,51 @@
 			</rectangle>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="5df13d5a-6633-475a-b961-08f2ea788130" x="532" y="0" width="115" height="20"/>
-				<textElement verticalAlignment="Top"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="7d962444-a47d-413d-929b-56e32bb95204" x="1" y="0" width="34" height="20"/>
-				<textElement verticalAlignment="Top"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getId()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="f072d7cf-c9ea-4504-a8d9-8b0e46ba6ba2" x="649" y="0" width="152" height="20"/>
-				<textElement verticalAlignment="Top"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getCliente().getPessoa().getNome()]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
 				<reportElement uuid="57b8ea18-e48c-4d1d-ac5b-c70c6b1efaca" x="35" y="0" width="84" height="20"/>
-				<textElement verticalAlignment="Top"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="8e502254-2441-489b-b411-7597b83aac62" x="119" y="0" width="155" height="20"/>
-				<textElement/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getJuizoTribunal().getNome()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="192af6c6-b8d4-4b40-92dc-517ef7399da6" x="276" y="0" width="145" height="20"/>
-				<textElement/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getNumero()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="4fafa038-40b3-48ad-ba3a-cc0923947c5d" x="421" y="0" width="110" height="20"/>
-				<textElement/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{especieEvento}.getNome()]]></textFieldExpression>
 			</textField>
 		</band>

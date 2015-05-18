@@ -37,8 +37,8 @@
                         <p:blockUI block="@form" trigger="btnProcs,btnEvent"    >
                             <p:graphicImage library="imagens" name="carregar.gif"/>
                         </p:blockUI>
-                        <p:commandButton id="btnProcs"  style="width: 22px;height: 22px" actionListener="#{painelHomeMB.listarProcessoFase(t2.fase)}"     title="Processos" oncomplete="PF('dialogPro').show()"  update=":frmConProce:pnlCon:tabela" icon="ui-icon-document" />
-                        <p:commandButton  style="width: 22px;height: 22px" actionListener="#{painelHomeMB.imprimirProcessos(t2.fase)}"   oncomplete="popup('/atus/RelatorioServlet.pdf');" id="btnEvent" icon="ui-icon-print" />
+                        <p:commandButton id="btnProcs"  style="width: 22px;height: 22px" actionListener="#{painelHomeMB.listarProcessoFase(t2.fase)}"     title="Processos" oncomplete="PF('dialogPro').show()"  update=":frmConProce:pnlCon:tabela" icon="fa fa-search" />
+                        <p:commandButton  style="width: 22px;height: 22px" actionListener="#{painelHomeMB.imprimirProcessos(t2.fase)}"   oncomplete="popup('/atus/RelatorioServlet.pdf');" id="btnEvent" icon="fa fa-print" />
 
                     </p:column>
                 </p:dataTable>
