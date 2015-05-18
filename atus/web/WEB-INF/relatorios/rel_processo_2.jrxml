@@ -159,6 +159,13 @@
 				</textElement>
 				<text><![CDATA[Motivo]]></text>
 			</staticText>
+			<staticText>
+				<reportElement uuid="ed3873b5-a097-4144-84b8-bac2833b2322" x="746" y="0" width="54" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Enderec.]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -226,11 +233,16 @@
 				<textFieldExpression><![CDATA[$F{movimentacao}.getDataMovimentacao()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="b74b4f65-1ab1-4f48-b78d-38531ad7d4c2" x="613" y="0" width="189" height="34"/>
+				<reportElement uuid="b74b4f65-1ab1-4f48-b78d-38531ad7d4c2" x="613" y="0" width="132" height="34"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{movimentacao}.getMotivo()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c1e6dbd8-a7aa-458e-991c-c01b62b442e6" x="746" y="0" width="56" height="34"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{processo}.getEnderecamento().getNome()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

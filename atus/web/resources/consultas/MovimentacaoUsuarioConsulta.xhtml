@@ -17,8 +17,8 @@
             <p:fieldset id="fieldCon" legend="Consulta"  style="font-weight: bold">
                 <h:panelGrid columns="3">
                     <h:panelGrid>
-                        <p:outputLabel value="Fases" />
-                        <p:selectCheckboxMenu label="Selecione as fases" required="true" value="#{relatorioMB.listaDeUsuariosSelection}" filter="true" 
+                        <p:outputLabel value="Usuários" />
+                        <p:selectCheckboxMenu label="Selecione os usuários" required="true" value="#{relatorioMB.listaDeUsuariosSelection}" filter="true" 
                                               filterMatchMode="startsWith" panelStyle="width:350px" converter="#{indexConverter}">
                             <f:selectItems value="#{relatorioMB.listaDeUsuarios}" var="f" itemLabel="#{f.login} -- #{f.nome}" itemValue="#{f}" />
                         </p:selectCheckboxMenu>
