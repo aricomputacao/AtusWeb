@@ -22,7 +22,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name = "modulo", schema = "seguranca")
-
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Modulo implements Serializable {
 

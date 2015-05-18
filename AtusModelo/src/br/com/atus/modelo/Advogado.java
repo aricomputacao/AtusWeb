@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -25,6 +27,7 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 @Entity
 @Table(name = "advogado", schema = "cadastro")
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Advogado implements Serializable {
 
     @Id
