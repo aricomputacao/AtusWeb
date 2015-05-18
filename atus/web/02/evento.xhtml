@@ -60,6 +60,9 @@
                 <cadastro:ProcessoCadastro id="compCadPro" legend="Dados do Processo"  render_btns_addEvento_gerarPeca="false" />
             </h:form>
         </p:dialog>
+         <p:dialog  position="top" width="600" height="400"  header="Ficha de Cliente" id="fic" modal="true" widgetVar="dialogFicha">
+            <util:dadosCliente  id="dadCli"/>
+        </p:dialog>
     </ui:define>
 
 </ui:composition>

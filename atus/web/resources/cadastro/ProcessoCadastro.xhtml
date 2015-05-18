@@ -190,7 +190,7 @@
                                             <comp:outputText value="#{t.representante}"/>
                                         </p:column>
                                         <p:column headerText="Ação" width="10%"  style="text-align: center">
-                                            <p:commandButton actionListener="#{clienteMB.setarCliente(t.cliente)}"   style="width: 22px;height: 22px" rendered="true" title="Informações"  update="@this" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
+                                            <p:commandButton actionListener="#{clienteMB.setarCliente(t.cliente)}"   style="width: 22px;height: 22px" rendered="true" title="Informações"  update="fic" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
                                             <comp:commandButton_excluir acao_butao="#{processoMB.delInteressado(t, processoMB.processo)}" classe="Interessado" form_to_update="@form"/>
                                         </p:column>
                                     </p:dataTable>
@@ -223,7 +223,7 @@
                                             <comp:outputText value="#{t2.representante}"/>
                                         </p:column>
                                         <p:column headerText="Ação" width="10%" style="text-align: center">
-                                            <p:commandButton actionListener="#{clienteMB.setarCliente(t2.cliente)}"   style="width: 22px;height: 22px" rendered="true" title="Informações"  update="@this" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
+                                            <p:commandButton actionListener="#{clienteMB.setarCliente(t2.cliente)}"   style="width: 22px;height: 22px" rendered="true" title="Informações"  update="fic" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
                                             <comp:commandButton_excluir acao_butao="#{processoMB.delAdversario(t2, processoMB.processo)}" classe="Adversário" form_to_update="@form"/>
                                         </p:column>
                                     </p:dataTable>
