@@ -19,7 +19,7 @@
 
     </composite:interface>
     <composite:implementation>
-        <p:commandButton id="#{cc.attrs.id}" title="Excluir" immediate="#{cc.attrs.immediate}"  actionListener="#{cc.attrs.acao_butao}" update="#{cc.attrs.form_to_update}" icon="ui-icon-trash" style="width: 20px;height: 20px;" >
+        <p:commandButton id="#{cc.attrs.id}" title="Excluir" immediate="#{cc.attrs.immediate}"  actionListener="#{cc.attrs.acao_butao}" update="#{cc.attrs.form_to_update}" icon="fa fa-trash fa-lg"  >
             <p:confirm header="Confirmação" message="Excluir #{cc.attrs.classe}?"   icon="ui-icon-alert"/>
         </p:commandButton>
     </composite:implementation>

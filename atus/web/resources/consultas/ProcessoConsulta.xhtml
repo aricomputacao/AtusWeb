@@ -81,13 +81,13 @@
                         <comp:outputText value="#{t.processo.colaborador.pessoa.nome}"/>
                     </p:column>
 
-                    <p:column headerText="Ação" width="8%" style="text-align: center;font-size: 10px" >
-                        <p:commandButton  style="width: 22px;height: 22px" actionListener="#{processoMB.setarProcesso(t.processo)}"  update="#{cc.attrs.dialogUpdade}"  rendered="#{cc.attrs.renderInfo}" title="Informações" oncomplete="PF('#{cc.attrs.dialogInfo}').show()"  id="btnInfo" icon="ui-icon-info" />
+                    <p:column headerText="Ação" width="8%" style="text-align: center;" >
+                        <p:commandButton  actionListener="#{processoMB.setarProcesso(t.processo)}"  update="#{cc.attrs.dialogUpdade}"  rendered="#{cc.attrs.renderInfo}" title="Informações" oncomplete="PF('#{cc.attrs.dialogInfo}').show()"  id="btnInfo" icon="fa fa-info-circle fa-lg" />
                         <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t.processo}" />
-                        <p:commandButton  style="width: 22px;height: 22px" actionListener="#{processoMB.setarProcesso(t.processo)}"  update="#{cc.attrs.dialogMovimenUpdate}"  rendered="#{cc.attrs.renderMovimen}" title="Encaminhar" oncomplete="PF('#{cc.attrs.dialogMovimen}').show()"  id="btnMov" icon="ui-icon-carat-1-e" />
-                        <p:commandButton  style="width: 22px;height: 22px" actionListener="#{processoMB.setarProcesso(t.processo)}"    rendered="#{cc.attrs.renderPrintDoc}" title="Imprimir Documentos" oncomplete="PF('dialogPrintDoc').show()"  id="btnPrintDoc" icon="ui-icon-carat-1-n" />
+                        <p:commandButton   actionListener="#{processoMB.setarProcesso(t.processo)}"  update="#{cc.attrs.dialogMovimenUpdate}"  rendered="#{cc.attrs.renderMovimen}" title="Encaminhar" oncomplete="PF('#{cc.attrs.dialogMovimen}').show()"  id="btnMov" icon="fa fa-arrow-circle-up fa-lg" />
+                        <p:commandButton  actionListener="#{processoMB.setarProcesso(t.processo)}"    rendered="#{cc.attrs.renderPrintDoc}" title="Imprimir Documentos" oncomplete="PF('dialogPrintDoc').show()"  id="btnPrintDoc" icon="fa fa-download fa-lg" />
                         <comp:commandButton_editar id="btnEditaProc" rendered="#{cc.attrs.renderBtnEditar}" acao_butao="#{navegacaoMB.redirecionar(navegacao['pro.processo'],'processo',t.processo)}" />
-                        <p:commandButton  style="width: 22px;height: 22px" title="Gerar Peça"  oncomplete="PF('dialogPeca').show()" rendered="#{cc.attrs.renderGerarPeca}" icon="ui-icon-plus" >
+                        <p:commandButton   title="Gerar Peça"  oncomplete="PF('dialogPeca').show()" rendered="#{cc.attrs.renderGerarPeca}" icon="fa fa-folder-open fa-lg" >
                             <f:setPropertyActionListener value="#{t.processo}" target="#{processoMB.processo}" />
                         </p:commandButton>
 

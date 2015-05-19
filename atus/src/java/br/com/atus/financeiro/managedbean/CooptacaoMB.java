@@ -5,7 +5,6 @@
  */
 package br.com.atus.financeiro.managedbean;
 
-import br.com.atus.cadastro.managedbean.AdvogadoMB;
 import br.com.atus.financeiro.controller.CooptacaoController;
 import br.com.atus.financeiro.modelo.Cooptacao;
 import br.com.atus.util.MenssagemUtil;
@@ -45,16 +44,35 @@ public class CooptacaoMB extends BeanGenerico<Cooptacao> implements Serializable
 
     public void salvar() {
         try {
-            controller.salvar(cooptacao);
+            controller.criticarValorDasPorcentagens(cooptacao);
+            controller.atualizar(cooptacao);
             init();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
 
         } catch (Exception ex) {
-            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS), ex, "Cooptação");
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS).concat(" "+ex.getMessage()), ex, "Cooptação");
             Logger.getLogger(CooptacaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    public void consultarTodos(){
+        try {
+            listaDeCooptacaos = controller.consultarLike(getCampoBusca(), getValorBusca());
+        } catch (Exception ex) {
+            Logger.getLogger(CooptacaoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void excluir(Cooptacao c){
+        try {
+            cooptacao  = controller.gerenciar(c.getId());
+            controller.excluir(cooptacao);
+            listaDeCooptacaos.remove(cooptacao);
+        } catch (Exception ex) {
+            Logger.getLogger(CooptacaoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public CooptacaoMB() {
         super(Cooptacao.class);
     }

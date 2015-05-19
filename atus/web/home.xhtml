@@ -54,7 +54,7 @@
                                     <p:graphicImage library="imagens" name="carregar.gif"/>
                                 </p:blockUI>
                                 <comp:commandButton_consulta acao_butao="#{eventoMB.listarPorPeriodo()}" componente_to_update="@form"  />
-                                <p:commandButton id="btnPrint" actionListener="#{eventoMB.imprimir()}" value="Imprimir" oncomplete="popup('/atus/RelatorioServlet.pdf');"  icon="ui-icon-print" />
+                                <p:commandButton id="btnPrint" actionListener="#{eventoMB.imprimir()}" value="Imprimir" oncomplete="popup('/atus/RelatorioServlet.pdf');"  icon="fa fa-print fa-lg" />
                             </f:facet>
                         </consultas:EventoConsulta>
                     </p:panel>

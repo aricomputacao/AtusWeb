@@ -22,26 +22,26 @@
                     </h:panelGrid>
                     <p:inputText value="#{cooptacaoMB.cooptacao.nome}" placeholder="Descreva a caracteristica da cooptação" id="nome" size="50" required="true" requiredMessage="#{mensagens['require']}"/>
                 </h:panelGrid>
-
                 <h:panelGrid columns="2">
                     <h:panelGrid >
                         <h:panelGrid columns="2" >
-                            <p:outputLabel value="Percentual do Dono" for="dn"/>
+                            <p:outputLabel value="Percent. Dono" for="dn"/>
                             <p:message for="dn"/>
                         </h:panelGrid>
-                        <p:inputText value="#{cooptacaoMB.cooptacao.percentDono}"   id="dn" converter="#{converterBigDecimal}" size="10" title="Percentual direcionado ao advogado que é reponsável pelo processo"
+                        <p:inputText value="#{cooptacaoMB.cooptacao.percentDono}"   id="dn"  size="10" converter="#{converterBigDecimal}"  styleClass="edtMoeda" onfocus="mascaraPercentInputs();" 
+                                     title="Percentual direcionado ao advogado que é reponsável pelo processo" onkeypress="return soNumero()" 
                                      required="true" requiredMessage="#{mensagens['require']}">
-                            <f:convertNumber type="number"/>
+                           
                         </p:inputText>
                     </h:panelGrid>
                     <h:panelGrid >
                         <h:panelGrid columns="2" >
-                            <p:outputLabel value="Percentual do Sócio" for="sc"/>
+                            <p:outputLabel value="Percent. Sócio" for="sc"/>
                             <p:message for="sc"/>
                         </h:panelGrid>
-                        <p:inputText value="#{cooptacaoMB.cooptacao.percentSocio}" id="sc" size="10" title="Percentual direcionado ao sócio"
-                                   converter="#{converterBigDecimal}"  required="true" requiredMessage="#{mensagens['require']}">
-                            <f:convertNumber type="number"/>
+                        <p:inputText value="#{cooptacaoMB.cooptacao.percentSocio}" onkeypress="return soNumero()" id="sc" size="10" placeholder="0,00"
+                                      converter="#{converterBigDecimal}"  styleClass="edtMoeda" onfocus="mascaraPercentInputs();"  required="true" requiredMessage="#{mensagens['require']}" > 
+                           
                         </p:inputText>
                     </h:panelGrid>
                    

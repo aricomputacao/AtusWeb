@@ -12,7 +12,9 @@
     <composite:implementation>
         <h:form id="#{cc.attrs.id}" prependId="false">
             <p:menubar id="menBar" styleClass="menu"  >
-                <p:menuitem styleClass="item" id="menIni" icon="fa fa-home fa-lg"  value="Início"  actionListener="#{navegacaoMB.index()}"  />
+                <p:menuitem icon="fa fa-ellipsis-v fa-lg"  styleClass="itemSep"  />
+                <p:menuitem styleClass="item" id="menIni" style="margin-right: 12px" icon="fa fa-home fa-lg"  value="Início"  actionListener="#{navegacaoMB.index()}"  />
+                <p:menuitem icon="fa fa-ellipsis-v fa-lg" styleClass="itemSep"  />
                 <p:submenu styleClass="subMenu" id="sbCad" icon="fa fa-sign-in fa-lg" rendered="#{navegacaoMB.permissaoModuloCadastro()}" style="font-weight: bolder;"  label="Cadastro" >
                     <p:submenu  label="Pessoa" id="sbPes"  >
                         <p:menuitem value="Clientes" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.cliente'])}"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.cliente'])}" immediate="true"/>
@@ -31,6 +33,7 @@
                     <p:menuitem value="Sub Grupo Peça" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.sub_grupo_peca'])}"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.sub_grupo_peca'])}" immediate="true"/>
 
                 </p:submenu>
+                <p:menuitem icon="fa fa-ellipsis-v fa-lg" styleClass="itemSep"/>
 
                 <p:submenu  label="Atendimento" icon="fa fa-hand-o-right fa-lg" id="sbAte" rendered="#{navegacaoMB.permissaoModuloCadastro()}"  styleClass="subMenu" >
                     <p:menuitem styleClass="item" id="menAte" value="Atendimento" rendered="#{navegacaoMB.permissaoExiste(navegacao['cad.atendimento'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['cad.atendimento'])}" immediate="true"/>
@@ -40,15 +43,18 @@
 
                     </p:submenu>
                 </p:submenu>
+                <p:menuitem icon="fa fa-ellipsis-v fa-lg" styleClass="itemSep"/>
                 <p:submenu label="Processo" rendered="#{navegacaoMB.permissaoModuloProcesso()}" icon="fa fa-file-text fa-lg" styleClass="subMenu">
                     <p:menuitem value="Fases" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['pro.fase'])}" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.fase'])}" immediate="true"/>
                     <p:menuitem value="Endereçamentos" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['pro.enderecamento'])}" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.enderecamento'])}" immediate="true"/>
                     <p:menuitem value="Peças" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['pro.peca'])}" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.peca'])}" immediate="true"/>
                     <p:menuitem value="Processos" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['pro.processo'])}" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.processo'])}" immediate="true"/>
                 </p:submenu>
+                <p:menuitem icon="fa fa-ellipsis-v fa-lg" styleClass="itemSep"/>
                 <p:submenu label="Agenda" icon="fa  fa-calendar fa-lg" rendered="#{navegacaoMB.permissaoModuloProcesso()}" styleClass="subMenu">
                     <p:menuitem value="Eventos" styleClass="item" update="@form"  rendered="#{navegacaoMB.permissaoExiste(navegacao['pro.evento'])}"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.evento'])}" immediate="true"/>
                 </p:submenu>
+                <p:menuitem icon="fa fa-ellipsis-v fa-lg" styleClass="itemSep"/>
                 <p:submenu label="Relatório" icon="fa fa-list fa-lg" rendered="#{navegacaoMB.permissaoModuloRelatorio()}" styleClass="subMenu">
                     <p:menuitem value="Processos Atrasados" styleClass="item" rendered="#{navegacaoMB.permissaoExiste(navegacao['rel.processo_atrasado'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['rel.processo_atrasado'])}" immediate="true"/>
                     <p:submenu  label="Colaboraor" id="sbCol"  >
@@ -60,16 +66,20 @@
                         <p:menuitem value="Usuário" styleClass="item" rendered="#{navegacaoMB.permissaoExiste(navegacao['rel.movimentacao_usuario'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['rel.movimentacao_usuario'])}" immediate="true"/>
                     </p:submenu>
                 </p:submenu>
+                <p:menuitem icon="fa fa-ellipsis-v fa-lg" styleClass="itemSep"/>
                 <p:submenu  label="Financeiro" icon="fa fa-money fa-lg" id="sbFin" rendered="#{navegacaoMB.permissaoModuloFinanceiro()}"  styleClass="subMenu" >
                     <p:menuitem styleClass="item" id="menCoo" value="Cooptação" rendered="#{navegacaoMB.permissaoExiste(navegacao['fin.cooptacao'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['fin.cooptacao'])}" immediate="true"/>
-                    
+                    <p:menuitem styleClass="item" id="menCre" value="Contas Receber" rendered="#{navegacaoMB.permissaoExiste(navegacao['fin.conta_receber'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['fin.conta_receber'])}" immediate="true"/>
                 </p:submenu>
+                <p:menuitem icon="fa fa-ellipsis-v fa-lg" styleClass="itemSep"/>
                 <p:submenu label="Segurança" icon="fa fa-unlock-alt fa-lg"  rendered="#{navegacaoMB.permissaoModuloSeguranca()}" styleClass="subMenu">
                     <p:menuitem value="Módulo" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['seg.modulo'])}" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['seg.modulo'])}" immediate="true"/>
                     <p:menuitem value="Tarefa" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['seg.tarefa'])}" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['seg.tarefa'])}" immediate="true"/>
                     <p:menuitem value="Permissões" styleClass="item" update="@form" rendered="#{navegacaoMB.permissaoExiste(navegacao['seg.permissao'])}" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['seg.permissao'])}" immediate="true"/>
                 </p:submenu>
-                <p:menuitem value="Utilitários" icon="fa fa-cog fa-lg"  styleClass="item" update="@form"  rendered="#{navegacaoMB.permissaoExiste(navegacao['uti.utilitarios'])}" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['uti.utilitarios'])}" immediate="true"/>
+                <p:menuitem icon="fa fa-ellipsis-v fa-lg" styleClass="itemSep"/>
+                <p:menuitem value="Utilitários" icon="fa fa-cog fa-lg"  style="margin-right: 12px" styleClass="item" update="@form"  rendered="#{navegacaoMB.permissaoExiste(navegacao['uti.utilitarios'])}" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['uti.utilitarios'])}" immediate="true"/>
+                <p:menuitem icon="fa fa-ellipsis-v fa-lg"  styleClass="itemSep"  />
 
             </p:menubar>
         </h:form>

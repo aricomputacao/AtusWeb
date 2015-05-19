@@ -18,6 +18,7 @@
         <h:outputStylesheet library="css" name="agenda.css"/>
         <h:outputScript name="calendario_pt_BR.js" library="js" />
         <h:outputScript library="js" name="navegacao.js" />
+    
         <title>#{label['nome.sistema']}</title>
     </h:head>
     <h:body styleClass="boby">
@@ -60,8 +61,9 @@
         </ui:insert>
         <ui:insert name="confirme">
             <p:confirmDialog global="true" >
-                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check-circle fa-lg"/>
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times fa-lg"/>
             </p:confirmDialog>
         </ui:insert>
     </h:body>

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:cons="http://java.sun.com/jsf/composite/consultas"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro"
+                xmlns:util="http://java.sun.com/jsf/composite/util">
+
+    <ui:define name="corpo">
+        <h:outputScript name="maskMoney.js" library="js" />
+        <h:outputScript name="edtMoeda.js"  library="js"/>
+        <h:form id="frm_pag" prependId="false" >
+
+            <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['fin.conta_receber'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['pro.evento'])}" acao_imprimir="#{eventoMB.imprimir()}" acao_limpar="#{eventoMB.init()}" acao_salvar="#{contaReceberMB.salvar()}"/>
+         
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Evento" id_form="frm_pag"  >               
+                <h:panelGrid width="100%" rendered="#{navegacaoMB.renderPainelCadastro}"  >
+                    <cadastro:ContaReceberCadastro id="compConta" />
+                </h:panelGrid>       
+
+            </comp:panel_cadastro>
+        </h:form>
+
+    </ui:define>
+    <ui:define name="dialogs">
+        <p:dialog showEffect="fade" position="top"   header="Consulta de Processos" id="adv" modal="true" hideEffect="fade" widgetVar="dialogoConProce">
+            <h:form id="frmDialogProce">
+                <p:blockUI block="@form" trigger=":frmDialogProce:conProce:btnCon:btn">
+                    <p:graphicImage library="imagens" name="carregar.gif"/>
+                </p:blockUI>
+                <cons:ProcessoConsulta nomeDialog="dialogoConProce" renderBtnEditar="false" listaProcessos="#{processoMB.listaUltimaMovimentacaoDTOs}" renderInfo="false" renderMovimen="false" 
+                                       renderPrintDoc="false" id="conProce" renderSelecionar="true" update_form=":cadFrm:compConta:inputCon:input_componente" 
+                                       valorSelecionado="#{contaReceberMB.contaReceber.processo}">
+                    <f:facet name="btnConsultaProcesso">
+                        <comp:commandButton_consulta id="btnCon" acao_butao="#{processoMB.listar()}" componente_to_update=":frmDialogProce"/>
+                    </f:facet>
+                </cons:ProcessoConsulta>
+            </h:form>
+        </p:dialog>
+
+
+    </ui:define>
+
+</ui:composition>
+
+
+
+
+

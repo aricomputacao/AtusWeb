@@ -9,15 +9,20 @@
                 xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro">
 
     <ui:define name="corpo">
+        <h:outputScript name="sonumero.js"  library="js"/>
+        <h:outputScript name="maskMoney.js" library="js" />
+        <h:outputScript name="edtMoeda.js"  library="js"/>
         <h:form id="frm_pag" prependId="false" >
             <comp:menuPanel id="menuPanel" acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['fin.cooptacao'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['fin.cooptacao'])}" acao_imprimir="#{navegacaoMB.index()}" acao_limpar="#{cooptacaoMB.init()}" acao_salvar="#{cooptacaoMB.salvar()}"/>
-            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Módulo" id_form="frm_ram"  >
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Cooptação" id_form="frm_ram"  >
                 <h:panelGrid width="100%" id="grdComAdv" rendered="#{navegacaoMB.renderPainelCadastro}"  >
                     <cadastro:CooptacaoCadastro id="coopCad"/>
                 </h:panelGrid>
-
-
+                <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}">
+                    <cons:CooptacaoConsulta renderSelecionar="false"/>
+                </h:panelGrid>
             </comp:panel_cadastro>
+
         </h:form>
 
     </ui:define>

@@ -1,13 +1,13 @@
 .body{
-    
+
     background:  #c7e6fb;
-/*background: -moz-linear-gradient(top,  rgba(125,185,232,0) 0%, rgba(125,185,232,0.21) 21%, rgba(30,87,153,1) 100%);  FF3.6+ 
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(125,185,232,0)), color-stop(21%,rgba(125,185,232,0.21)), color-stop(100%,rgba(30,87,153,1)));  Chrome,Safari4+ 
-background: -webkit-linear-gradient(top,  rgba(125,185,232,0) 0%,rgba(125,185,232,0.21) 21%,rgba(30,87,153,1) 100%);  Chrome10+,Safari5.1+ 
-background: -o-linear-gradient(top,  rgba(125,185,232,0) 0%,rgba(125,185,232,0.21) 21%,rgba(30,87,153,1) 100%);  Opera 11.10+ 
-background: -ms-linear-gradient(top,  rgba(125,185,232,0) 0%,rgba(125,185,232,0.21) 21%,rgba(30,87,153,1) 100%);  IE10+ 
-background: linear-gradient(to bottom,  rgba(125,185,232,0) 0%,rgba(125,185,232,0.21) 21%,rgba(30,87,153,1) 100%);  W3C 
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007db9e8', endColorstr='#1e5799',GradientType=0 );  IE6-9 */
+    /*background: -moz-linear-gradient(top,  rgba(125,185,232,0) 0%, rgba(125,185,232,0.21) 21%, rgba(30,87,153,1) 100%);  FF3.6+ 
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(125,185,232,0)), color-stop(21%,rgba(125,185,232,0.21)), color-stop(100%,rgba(30,87,153,1)));  Chrome,Safari4+ 
+    background: -webkit-linear-gradient(top,  rgba(125,185,232,0) 0%,rgba(125,185,232,0.21) 21%,rgba(30,87,153,1) 100%);  Chrome10+,Safari5.1+ 
+    background: -o-linear-gradient(top,  rgba(125,185,232,0) 0%,rgba(125,185,232,0.21) 21%,rgba(30,87,153,1) 100%);  Opera 11.10+ 
+    background: -ms-linear-gradient(top,  rgba(125,185,232,0) 0%,rgba(125,185,232,0.21) 21%,rgba(30,87,153,1) 100%);  IE10+ 
+    background: linear-gradient(to bottom,  rgba(125,185,232,0) 0%,rgba(125,185,232,0.21) 21%,rgba(30,87,153,1) 100%);  W3C 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007db9e8', endColorstr='#1e5799',GradientType=0 );  IE6-9 */
 
 
 
@@ -78,16 +78,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007db9e8', e
 
 .item{
     color: #C8C8C8 !important;
+    margin-left: 0px !important;
 
 }
 .subMenu{
-    margin-right: 10px !important;
-    margin-left: 10px !important;
+    margin-right: 13px !important;
+
 }
 
 .subMenu  .item .ui-menuitem-text{
     color: white !important;
-   
+
 }
 
 .subMenu .ui-menuitem-text{
@@ -95,13 +96,21 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007db9e8', e
 
 }
 /*icones do menu principal*/
-.ui-menu .ui-menuitem-link .ui-menuitem-icon{
+.ui-menu .subMenu .ui-menuitem-link   .ui-menuitem-icon{
     color: #D8D8D8  !important;
     margin-right: 2px !important;
 }
 .ui-button-icon-left .ui-icon .ui-c .fa{
-        color: black  !important;
+    color: black  !important;
 
+}
+
+
+
+.itemSep {
+    pointer-events: none;
+    color: #5bc0de  !important;
+   
 }
 
 

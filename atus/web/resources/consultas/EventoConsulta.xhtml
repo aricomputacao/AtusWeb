@@ -62,8 +62,8 @@
                     </p:column>
                     
                     <p:column headerText="Ação" id="acao" width="7%" style="text-align: center">
-                        <p:commandButton  style="width: 22px;height: 22px" actionListener="#{eventoMB.imprimirEvento(t)}"  oncomplete="popup('/atus/RelatorioServlet.pdf');" id="btnEvent" icon="ui-icon-print" />
-                        <p:commandButton  style="width: 22px;height: 22px" actionListener="#{processoMB.setarProcesso(t.processo)}" update="#{cc.attrs.dialogUpdade}"  rendered="#{cc.attrs.renderInfo}" title="Informações" oncomplete="PF('#{cc.attrs.dialogInfo}').show()"  id="btnInfo" icon="ui-icon-info" />
+                        <p:commandButton  actionListener="#{eventoMB.imprimirEvento(t)}"  oncomplete="popup('/atus/RelatorioServlet.pdf');" id="btnEvent" icon="fa fa-print fa-lg" />
+                        <p:commandButton  actionListener="#{processoMB.setarProcesso(t.processo)}" update="#{cc.attrs.dialogUpdade}"  rendered="#{cc.attrs.renderInfo}" title="Informações" oncomplete="PF('#{cc.attrs.dialogInfo}').show()"  id="btnInfo" icon="fa fa-info-circle fa-lg" />
                         <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderBtnEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['pro.evento'],'evento',t)}" />
                         <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
                         <comp:commandButton_excluir acao_butao="#{eventoMB.excluir(t)}" classe="Evento" form_to_update="@form"/>
