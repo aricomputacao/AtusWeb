@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+    </composite:interface>
+    <composite:implementation  >
+        <p:fieldset id="fieldCad" legend="Cadastro"  rendered="#{navegacaoMB.permissaoIncluir(navegacao['fin.cooptacao'])}" style="font-weight: bold">
+            <h:panelGrid columns="1"  >
+                <h:panelGrid id="griPrin3">
+                    <h:panelGrid columns="2" id="grd03">
+                        <p:outputLabel value="Nome" for="nome"/>
+                        <p:message for="nome"/>
+                    </h:panelGrid>
+                    <p:inputText value="#{cooptacaoMB.cooptacao.nome}" placeholder="Descreva a caracteristica da cooptação" id="nome" size="50" required="true" requiredMessage="#{mensagens['require']}"/>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:panelGrid >
+                        <h:panelGrid columns="2" >
+                            <p:outputLabel value="Percentual do Dono" for="dn"/>
+                            <p:message for="dn"/>
+                        </h:panelGrid>
+                        <p:inputText value="#{cooptacaoMB.cooptacao.percentDono}"   id="dn" converter="#{converterBigDecimal}" size="10" title="Percentual direcionado ao advogado que é reponsável pelo processo"
+                                     required="true" requiredMessage="#{mensagens['require']}">
+                            <f:convertNumber type="number"/>
+                        </p:inputText>
+                    </h:panelGrid>
+                    <h:panelGrid >
+                        <h:panelGrid columns="2" >
+                            <p:outputLabel value="Percentual do Sócio" for="sc"/>
+                            <p:message for="sc"/>
+                        </h:panelGrid>
+                        <p:inputText value="#{cooptacaoMB.cooptacao.percentSocio}" id="sc" size="10" title="Percentual direcionado ao sócio"
+                                   converter="#{converterBigDecimal}"  required="true" requiredMessage="#{mensagens['require']}">
+                            <f:convertNumber type="number"/>
+                        </p:inputText>
+                    </h:panelGrid>
+                   
+                </h:panelGrid>
+            </h:panelGrid>
+        </p:fieldset>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

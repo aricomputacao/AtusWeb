@@ -4,7 +4,7 @@
  */
 package br.com.atus.util;
 
-import br.com.atus.managedbean.NavegacaoMB;
+import br.com.atus.util.managedbean.NavegacaoMB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
