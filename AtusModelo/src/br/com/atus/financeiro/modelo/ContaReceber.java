@@ -10,10 +10,10 @@ import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Processo;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -36,7 +36,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * @author Ari
  */
 @Entity
-@Table(name = "conta_receber", schema = "finaneiro")
+@Table(name = "conta_receber", schema = "financeiro")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ContaReceber implements Serializable {
 
@@ -68,7 +68,7 @@ public class ContaReceber implements Serializable {
     @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "ctr_data_lancamento", nullable = false)
-    private Calendar dataCadastro;
+    private Date dataCadastro;
 
     @NotNull
     @Min(value = 0)
@@ -87,15 +87,11 @@ public class ContaReceber implements Serializable {
     @Column(name = "ctr_percent_colaborador", nullable = false)
     private BigDecimal percentualColaborador;
     
-    private final List<ParcelasReceber> parcelas;
-
-    public ContaReceber(List<ParcelasReceber> parcelas) {
-        this.parcelas = parcelas;
-    }
-
-    public ContaReceber() {
-        parcelas = new ArrayList<>();
-    }
+    
+    @Column(name = "ctr_observacao")
+    private String observacao;
+    
+   
 
     public BigDecimal getValorDonoDoProcesso() {
         BigDecimal percent = cooptacao.getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
@@ -112,9 +108,14 @@ public class ContaReceber implements Serializable {
         return this.getValor().multiply(percent);
     }
 
-    public List getParcelas() {
-        // exemplo de imutabilidade; esta lista não pode ser alterada externamente
-        return Collections.unmodifiableList(parcelas);
+    public BigDecimal getValorRestanteReceber(List<ParcelasReceber> prs){
+        BigDecimal vl = new BigDecimal(BigInteger.ZERO);
+        for (ParcelasReceber pr : prs) {
+            if (pr.getDataPagamento() == null) {
+                vl.add(pr.getValorPago());
+            }
+        }
+        return vl;
     }
 
     public Long getId() {
@@ -153,11 +154,11 @@ public class ContaReceber implements Serializable {
         this.advogado = advogado;
     }
 
-    public Calendar getDataCadastro() {
+    public Date getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Calendar dataCadastro) {
+    public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
@@ -199,6 +200,16 @@ public class ContaReceber implements Serializable {
         hash = 13 * hash + Objects.hashCode(this.id);
         return hash;
     }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+    
+    
 
     @Override
     public boolean equals(Object obj) {
