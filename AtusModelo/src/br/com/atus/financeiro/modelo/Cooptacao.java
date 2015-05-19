@@ -47,9 +47,9 @@ public class Cooptacao implements Serializable {
     @Min(value = 0)
     @Column(name = "coo_percent_socio", nullable = false)
     private BigDecimal percentSocio;
-    
+
     @NotNull
-    @Column(name = "coop_ativo",nullable = false,columnDefinition = "default boolean true")
+    @Column(name = "coop_ativo", nullable = false, columnDefinition = "boolean default  true")
     private boolean ativo;
 
     public String getNome() {
@@ -113,7 +113,5 @@ public class Cooptacao implements Serializable {
         }
         return true;
     }
-    
-    
 
 }

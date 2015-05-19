@@ -5,6 +5,7 @@
  */
 package br.com.atus.modelo;
 
+import br.com.atus.modelo.Usuario;
 import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;

@@ -5,6 +5,8 @@
  */
 package br.com.atus.modelo;
 
+import br.com.atus.modelo.Usuario;
+import br.com.atus.modelo.EspecieEvento;
 import br.com.atus.enumerated.TipoAgenda;
 import java.io.Serializable;
 import java.util.Date;

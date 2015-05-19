@@ -4,6 +4,7 @@
  */
 package br.com.atus.modelo;
 
+import br.com.atus.modelo.Usuario;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.CascadeType;
