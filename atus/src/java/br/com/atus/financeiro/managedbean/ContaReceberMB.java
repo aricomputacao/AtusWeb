@@ -9,6 +9,7 @@ import br.com.atus.cadastro.controller.AdvogadoController;
 import br.com.atus.cadastro.controller.ColaboradorController;
 import br.com.atus.financeiro.controller.ContaReceberController;
 import br.com.atus.financeiro.controller.CooptacaoController;
+import br.com.atus.financeiro.dto.ContaReceberParcelasDTO;
 import br.com.atus.financeiro.modelo.ContaReceber;
 import br.com.atus.financeiro.modelo.Cooptacao;
 import br.com.atus.modelo.Advogado;
@@ -54,6 +55,7 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
     private List<Processo> listaDeProcessos;
     private List<Colaborador> listaDeColaboradores;
     private List<Cooptacao> listaDeCooptacao;
+    private List<ContaReceberParcelasDTO> listaContaReceberParcelasDTOs;
     
     @PostConstruct
     public void init() {
@@ -64,7 +66,8 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
             listaDeCooptacao = cooptacaoController.consultarTodos("nome");
             listaDeProcessos = new ArrayList<>();
             listaDeColaboradores = colaboradorController.consultarTodos("nome");
-            if (contaReceber.getId() != null) {
+            listaContaReceberParcelasDTOs = new ArrayList<>();
+            if (contaReceber.getId() == null) {
                 contaReceber.setDataCadastro(new Date());
                 contaReceber.setQuantidadeParcelas(1);
             }
@@ -75,13 +78,17 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
     
     public void salvar() {
         try {
-            controller.salvar(contaReceber);
+            controller.addContasReceber(contaReceber);
             init();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS));
             Logger.getLogger(ContaReceberMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void consultarTodasContasReceberDoCliente(){
+        listaContaReceberParcelasDTOs = controller.consultarTodasContasReceberAbertasDo(getValorBusca());
     }
     
     public ContaReceberMB() {
@@ -130,6 +137,10 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
     
     public List<Cooptacao> getListaDeCooptacao() {
         return listaDeCooptacao;
+    }
+
+    public List<ContaReceberParcelasDTO> getListaContaReceberParcelasDTOs() {
+        return listaContaReceberParcelasDTOs;
     }
     
 }

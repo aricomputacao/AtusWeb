@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+        <composite:attribute name="acao_consultar" default="#{contaReceberMB.consultarTodasContasReceberDoCliente()}" shortDescription="Metodo de consulta "  method-signature="java.lang.Void action()" />
+        <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
+
+
+    </composite:interface>
+    <composite:implementation id="compConCli" >
+
+        <h:panelGrid  width="100%" id="rtt" >
+            <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" rendered="#{navegacaoMB.permissaoConsultar(navegacao['fin.conta_receber'])}" style="font-weight: bold">
+                <h:panelGrid id="grdConsulta" columns="4">
+                    <h:panelGrid id="grdConsulta1">
+                        <p:outputLabel value="Campo"/>
+                        <p:selectOneMenu id="selectOne" value="#{contaReceberMB.campoBusca}" styleClass="lista">
+                            <f:selectItem itemLabel="Cliente" itemValue="cliente" />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <h:panelGrid id="grdConsulta2">
+                        <p:outputLabel value="Buscar por"/>
+                        <p:inputText value="#{contaReceberMB.valorBusca}" />
+                    </h:panelGrid>
+                    <h:panelGrid id="grdConsulta3">
+                        <p:spacer width="15"/>
+                        <comp:commandButton_consulta acao_butao="#{cc.attrs.acao_consultar}" componente_to_update="#{cc.attrs.update_form}" />
+                    </h:panelGrid>
+                </h:panelGrid>
+                <p:dataTable value="#{contaReceberMB.listaContaReceberParcelasDTOs}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10" 
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+
+                    <f:facet name="header">
+                        <comp:outputText value="Contas a Receber"/>
+                    </f:facet>
+                    <p:columnGroup type="header" >
+                        <p:row>
+                            <p:column rowspan="2" headerText="Cliente | Advogado | Colaborador"/>
+                            <p:column colspan="2" headerText="Dados do Processo"/>                        
+                        </p:row>
+
+                        <p:row>
+                            <p:column  headerText="Vencimento"/>
+                            <p:column  headerText="Valor"/>                        
+                        </p:row>
+
+
+                    </p:columnGroup>
+
+                    <p:subTable value="#{t.parcelasRecebers}" var="p" >
+                        <f:facet name="header">
+                            <p:row>
+                                <h:outputText value=" &lowast; #{t.contaReceber.nomeDoCliente} &lowast; #{t.contaReceber.nomeDoAdvogado}  &lowast; #{t.contaReceber.nomeDoColaborador}"  />                           
+                            </p:row>
+                        </f:facet>
+
+                        <p:column>
+                            <comp:outputText value="#{p.contaReceber.processo.numero}" />
+                        </p:column>
+                        <p:column>
+                            <comp:outputText value="&bull; #{p.numeroDaParcela} &rArr; #{p.vencimento}" tipo="d"/>
+                        </p:column>
+                        <p:column>
+                            <comp:outputText value="#{p.valorParcela}" tipo="c"/>
+                        </p:column>
+
+                        <p:columnGroup type="footer">
+                            <p:row>
+                                <p:column rowspan="2"  footerText="Totais"/>
+
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1"  footerText="Totais1"/>
+
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1"  footerText="Totais1"/>
+
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1"  footerText="Totais1"/>
+
+                            </p:row>
+
+                            <p:row>
+                                <p:column  footerText="Vencimento">
+
+                                </p:column>
+                                <p:column  footerText="Valor"/>  
+
+                            </p:row>
+
+                        </p:columnGroup>
+
+                    </p:subTable>
+
+                </p:dataTable>
+            </p:fieldset>
+
+        </h:panelGrid>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

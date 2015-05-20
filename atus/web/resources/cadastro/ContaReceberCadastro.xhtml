@@ -20,15 +20,19 @@
                     <comp:inputTextCalendar nomeLabel="Data Lançamento" require="true" valorData="#{contaReceberMB.contaReceber.dataCadastro}"/>
                 </h:panelGrid>
                 <h:panelGrid  >
-                    <p:outputLabel value="Qtd. Parcelas" for="qtd"/>
-                    <p:inputText value="#{contaReceberMB.contaReceber.quantidadeParcelas}" onkeypress="return soNumero()"  id="qtd"  required="false" requiredMessage="#{mensagens['require']}"/>
+                    <p:outputLabel value="Qtd.Parcelas" for="qtd"/>
+                    <p:inputText value="#{contaReceberMB.contaReceber.quantidadeParcelas}" onkeypress="return soNumero()" size="3" id="qtd"  required="false" requiredMessage="#{mensagens['require']}"/>
                 </h:panelGrid>
                 <h:panelGrid  >
                     <p:outputLabel value="Valor" for="var"/>
                     <p:inputText value="#{contaReceberMB.contaReceber.valor}"  id="var" size="15"  converter="#{converterBigDecimal}"  styleClass="edtMoeda" onfocus="mascaraInputs();" 
                                  required="true" requiredMessage="#{mensagens['require']}"/>
                 </h:panelGrid>
-
+                <h:panelGrid  >
+                    <p:outputLabel value="Percent. Colaborador" for="cv"/>
+                    <p:inputText value="#{contaReceberMB.contaReceber.percentualColaborador}"  id="cv" size="15"  converter="#{converterBigDecimal}"  styleClass="edtMoeda" onfocus="mascaraPercentInputs();" 
+                                 required="true" requiredMessage="#{mensagens['require']}"/>
+                </h:panelGrid>
 
             </h:panelGrid>
             <h:panelGrid columns="2" >
@@ -64,13 +68,9 @@
                         </p:selectOneMenu>
                     </h:panelGrid>
                 </h:panelGrid>
-                <h:panelGrid  >
-                    <p:outputLabel value="Percent. Colaborador" for="cv"/>
-                    <p:inputText value="#{contaReceberMB.contaReceber.percentualColaborador}"  id="cv" size="15"  converter="#{converterBigDecimal}"  styleClass="edtMoeda" onfocus="mascaraPercentInputs();" 
-                                 required="true" requiredMessage="#{mensagens['require']}"/>
-                </h:panelGrid>
+
             </h:panelGrid>
-            <comp:inputTextArea nomeLabel="Observações" value="#{contaReceberMB.contaReceber.observacao}" coluna="50" linha="10" />
+            <comp:inputTextArea nomeLabel="Observações" value="#{contaReceberMB.contaReceber.observacao}" coluna="95" linha="10" />
 
         </p:fieldset>
     </composite:implementation>

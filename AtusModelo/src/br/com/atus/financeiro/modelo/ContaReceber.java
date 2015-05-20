@@ -117,6 +117,10 @@ public class ContaReceber implements Serializable {
         }
         return vl;
     }
+    
+    public String getNomeDoAdvogado(){
+      return this.getAdvogado().getNome();
+    }
 
     public Long getId() {
         return id;

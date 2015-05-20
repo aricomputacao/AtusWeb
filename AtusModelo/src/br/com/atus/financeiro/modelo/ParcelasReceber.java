@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,9 +47,9 @@ public class ParcelasReceber implements Serializable {
     @JoinColumn(name = "ctr_id", nullable = false, referencedColumnName = "ctr_id")
     private ContaReceber contaReceber;
 
-    @NotNull
+   
     @ManyToOne
-    @JoinColumn(name = "adv_id", nullable = false, referencedColumnName = "adv_id")
+    @JoinColumn(name = "adv_id",  referencedColumnName = "adv_id")
     private Advogado advogadoQueRecebeu;
 
     @NotNull
@@ -56,20 +57,19 @@ public class ParcelasReceber implements Serializable {
     @Column(name = "par_valor_parcela", nullable = false)
     private BigDecimal valorParcela;
 
-    @NotNull
+   
     @Min(value = 0)
-    @Column(name = "par_valor_recebido", nullable = false)
+    @Column(name = "par_valor_recebido")
     private BigDecimal valorPago;
 
     @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "par_vencimento", nullable = false)
-    private Calendar vencimento;
+    private Date vencimento;
 
-    @NotNull
     @Temporal(TemporalType.DATE)
-    @Column(name = "par_data_pagamento", nullable = false)
-    private Calendar dataPagamento;
+    @Column(name = "par_data_pagamento")
+    private Date dataPagamento;
     
     @NotNull
     @Column(name = "par_numero", nullable = false)
@@ -134,19 +134,19 @@ public class ParcelasReceber implements Serializable {
         this.valorPago = valorPago;
     }
 
-    public Calendar getVencimento() {
+    public Date getVencimento() {
         return vencimento;
     }
 
-    public void setVencimento(Calendar vencimento) {
+    public void setVencimento(Date vencimento) {
         this.vencimento = vencimento;
     }
 
-    public Calendar getDataPagamento() {
+    public Date getDataPagamento() {
         return dataPagamento;
     }
 
-    public void setDataPagamento(Calendar dataPagamento) {
+    public void setDataPagamento(Date dataPagamento) {
         this.dataPagamento = dataPagamento;
     }
 
