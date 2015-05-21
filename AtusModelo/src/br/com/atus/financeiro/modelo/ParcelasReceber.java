@@ -75,6 +75,9 @@ public class ParcelasReceber implements Serializable {
     @Column(name = "par_numero", nullable = false)
     private int numeroDaParcela;
     
+    @Column(name = "par_observacao",length = 1024)
+    private String observcao;
+    
     
     
 
@@ -94,6 +97,10 @@ public class ParcelasReceber implements Serializable {
         return this.valorPago.multiply(percent);
     }
 
+    public String getNomeDoCliente(){
+        return this.contaReceber.getNomeDoCliente();
+    }
+    
     public Long getId() {
         return id;
     }
@@ -156,6 +163,14 @@ public class ParcelasReceber implements Serializable {
 
     public void setNumeroDaParcela(int numeroDaParcela) {
         this.numeroDaParcela = numeroDaParcela;
+    }
+
+    public String getObservcao() {
+        return observcao;
+    }
+
+    public void setObservcao(String observcao) {
+        this.observcao = observcao;
     }
     
     

@@ -6,11 +6,13 @@
 package br.com.atus.financeiro.controller;
 
 import br.com.atus.financeiro.dao.ParcelaReceberDAO;
+import br.com.atus.financeiro.dto.ContaReceberParcelasDTO;
 import br.com.atus.financeiro.modelo.ContaReceber;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.interfaces.Controller;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,6 +54,66 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
         }
     }
 
+    public void fazerPagamento(ContaReceberParcelasDTO dto, ParcelasReceber pr, BigDecimal valorPago) throws Exception {
+        BigDecimal restante = BigDecimal.ZERO;
+        restante = fazerPagamentoDeParcelaEspecifica(dto, pr, valorPago);
+        while (restante.compareTo(BigDecimal.ZERO) > 0) {
+            ParcelasReceber ultimaParcela = retornaUltimaParcelaAberta(dto.getParcelasRecebers());
+            ultimaParcela.setAdvogadoQueRecebeu(pr.getAdvogadoQueRecebeu());
+            ultimaParcela.setObservcao(pr.getObservcao());
+            restante = fazerPagamentoDeParcelaEspecifica(dto, ultimaParcela, restante);
+        }
+    }
+
+    private BigDecimal fazerPagamentoDeParcelaEspecifica(ContaReceberParcelasDTO dto, ParcelasReceber pr, BigDecimal valorPago) throws Exception {
+        BigDecimal vlRestante = new BigDecimal(BigInteger.ZERO);
+        BigDecimal vlNovo = new BigDecimal(BigInteger.ZERO);
+        ParcelasReceber pr1 = new ParcelasReceber();
+
+        if (pr.getValorParcela().compareTo(valorPago) > 0) {
+            //Dimunui o valor restante na ultima parcela
+            vlRestante = pr.getValorParcela().subtract(valorPago);
+
+            pr1 = retornaUltimaParcelaAberta(dto.getParcelasRecebers());
+            vlNovo = vlRestante.add(pr1.getValorParcela());
+            pr1.setValorParcela(vlNovo);
+
+            dao.atualizar(pr1);
+            dto.getParcelasRecebers().add(pr1);
+
+            pr.setDataPagamento(new Date());
+            pr.setValorPago(valorPago);
+            dao.atualizar(pr);
+
+        } else if (pr.getValorParcela().compareTo(valorPago) < 0) {
+            //Aumenta o valor restante na ultima parcela
+            vlRestante = valorPago.subtract(pr.getValorParcela());
+
+            pr.setDataPagamento(new Date());
+            pr.setValorPago(pr.getValorParcela());
+            dao.atualizar(pr);
+
+        } else {
+            //quita a parcela
+            pr.setDataPagamento(new Date());
+            pr.setValorPago(valorPago);
+            dao.atualizar(pr);
+        }
+
+        return vlRestante;
+    }
+
+    private ParcelasReceber retornaUltimaParcelaAberta(List<ParcelasReceber> prs) {
+        for (int i = prs.size(); i > 0; i--) {
+            if (prs.get(i - 1).getDataPagamento() == null) {
+                return prs.remove(i - 1);
+            }
+
+        }
+        return null;
+
+    }
+
     public List<ParcelasReceber> consultaParcelasAbertasDo(ContaReceber cr) {
         return dao.consultaParcelasAbertasDo(cr);
     }
@@ -91,5 +153,15 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
             }
         }
         return parcelas;
+    }
+
+    public void estornarPagamento(ParcelasReceber pr) throws Exception {
+        pr.setAdvogadoQueRecebeu(null);
+        pr.setDataPagamento(null);
+        pr.setObservcao(null);
+        pr.setValorParcela(pr.getValorPago());
+        pr.setValorPago(BigDecimal.ZERO);
+
+        dao.atualizar(pr);
     }
 }

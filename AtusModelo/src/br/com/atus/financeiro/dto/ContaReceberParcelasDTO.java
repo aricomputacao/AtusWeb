@@ -84,6 +84,11 @@ public class ContaReceberParcelasDTO implements Serializable {
         }
         return vlPg;
     }
+    
+    public BigDecimal getValorDoDono(){
+       return contaReceber.getValorDonoDoProcesso();
+    }
+    
 
     @Override
     public int hashCode() {

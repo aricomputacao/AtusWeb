@@ -94,18 +94,18 @@ public class ContaReceber implements Serializable {
    
 
     public BigDecimal getValorDonoDoProcesso() {
-        BigDecimal percent = cooptacao.getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
-        return this.getValor().multiply(percent).subtract(getValorDoColaborador());
+        BigDecimal percent = cooptacao.getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.CEILING);
+        return this.getValor().multiply(percent).subtract(getValorDoColaborador()).setScale(2);
     }
 
     public BigDecimal getValorSocioDoProcesso() {
-        BigDecimal percent = cooptacao.getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
-        return this.getValor().multiply(percent).subtract(getValorDoColaborador());
+        BigDecimal percent = cooptacao.getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.CEILING);
+        return this.getValor().multiply(percent).subtract(getValorDoColaborador()).setScale(2);
     }
     
     public BigDecimal getValorDoColaborador() {
-        BigDecimal percent = this.percentualColaborador.divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
-        return this.getValor().multiply(percent);
+        BigDecimal percent = this.percentualColaborador.divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.CEILING);
+        return this.getValor().multiply(percent).setScale(2);
     }
 
     public BigDecimal getValorRestanteReceber(List<ParcelasReceber> prs){

@@ -9,9 +9,11 @@ import br.com.atus.cadastro.controller.AdvogadoController;
 import br.com.atus.cadastro.controller.ColaboradorController;
 import br.com.atus.financeiro.controller.ContaReceberController;
 import br.com.atus.financeiro.controller.CooptacaoController;
+import br.com.atus.financeiro.controller.ParcelaReceberController;
 import br.com.atus.financeiro.dto.ContaReceberParcelasDTO;
 import br.com.atus.financeiro.modelo.ContaReceber;
 import br.com.atus.financeiro.modelo.Cooptacao;
+import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.modelo.Advogado;
 import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Processo;
@@ -19,8 +21,8 @@ import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.managedbean.BeanGenerico;
 import br.com.atus.util.managedbean.NavegacaoMB;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -38,7 +40,7 @@ import javax.inject.Inject;
 @ManagedBean
 @ViewScoped
 public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serializable {
-    
+
     @Inject
     private NavegacaoMB navegacaoMB;
     @EJB
@@ -49,24 +51,32 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
     private CooptacaoController cooptacaoController;
     @EJB
     private ColaboradorController colaboradorController;
+    @EJB
+    private ParcelaReceberController parcelaReceberController;
     private List<ContaReceber> listaContaReceber;
     private ContaReceber contaReceber;
+    private ParcelasReceber parcelasReceber;
+    private ContaReceberParcelasDTO contaReceberParcelaDTO;
     private List<Advogado> listaDeAdvogados;
     private List<Processo> listaDeProcessos;
     private List<Colaborador> listaDeColaboradores;
     private List<Cooptacao> listaDeCooptacao;
     private List<ContaReceberParcelasDTO> listaContaReceberParcelasDTOs;
-    
+    private BigDecimal valorPagamento;
+
     @PostConstruct
     public void init() {
         try {
             contaReceber = (ContaReceber) navegacaoMB.getRegistroMapa("conta_receber", new ContaReceber());
+            contaReceberParcelaDTO = new ContaReceberParcelasDTO();
+            parcelasReceber = new ParcelasReceber();
             listaContaReceber = new ArrayList<>();
             listaDeAdvogados = advogadoController.consultarTodos("nome");
             listaDeCooptacao = cooptacaoController.consultarTodos("nome");
             listaDeProcessos = new ArrayList<>();
             listaDeColaboradores = colaboradorController.consultarTodos("nome");
             listaContaReceberParcelasDTOs = new ArrayList<>();
+            valorPagamento = BigDecimal.ZERO;
             if (contaReceber.getId() == null) {
                 contaReceber.setDataCadastro(new Date());
                 contaReceber.setQuantidadeParcelas(1);
@@ -75,7 +85,7 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
             Logger.getLogger(ContaReceberMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void salvar() {
         try {
             controller.addContasReceber(contaReceber);
@@ -86,55 +96,88 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
             Logger.getLogger(ContaReceberMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void consultarTodasContasReceberDoCliente(){
+
+    public void fazerPagamento() {
+        try {
+            parcelaReceberController.fazerPagamento(contaReceberParcelaDTO, parcelasReceber,valorPagamento);
+            MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("pagamento_sucesso", MenssagemUtil.MENSAGENS));
+         
+        } catch (Exception ex) {
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("pagamento_falha", MenssagemUtil.MENSAGENS));
+            Logger.getLogger(ContaReceberMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void estornarPagamento(ParcelasReceber pr) {
+        try {
+            parcelasReceber = pr;
+           
+            parcelaReceberController.estornarPagamento(pr);
+            MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("pagamento_estorno_sucesso", MenssagemUtil.MENSAGENS));
+
+        } catch (Exception ex) {
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("pagamento_estorno_falha", MenssagemUtil.MENSAGENS));
+            Logger.getLogger(ContaReceberMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void setarContaParcelaDTO(ContaReceberParcelasDTO dto, ParcelasReceber pr) {
+        this.contaReceberParcelaDTO = dto;
+        this.parcelasReceber = pr;
+    }
+
+    public boolean renderBtnPagar(ParcelasReceber pr) {
+        return pr.getDataPagamento() == null;
+    }
+
+    public void consultarTodasContasReceberDoCliente() {
         listaContaReceberParcelasDTOs = controller.consultarTodasContasReceberAbertasDo(getValorBusca());
     }
-    
+
     public ContaReceberMB() {
         super(ContaReceber.class);
     }
-    
+
     public List<ContaReceber> getListaContaReceber() {
         return listaContaReceber;
     }
-    
+
     public void setListaContaReceber(List<ContaReceber> listaContaReceber) {
         this.listaContaReceber = listaContaReceber;
     }
-    
+
     public List<Advogado> getListaDeAdvogados() {
         return listaDeAdvogados;
     }
-    
+
     public void setListaDeAdvogados(List<Advogado> listaDeAdvogados) {
         this.listaDeAdvogados = listaDeAdvogados;
     }
-    
+
     public List<Processo> getListaDeProcessos() {
         return listaDeProcessos;
     }
-    
+
     public void setListaDeProcessos(List<Processo> listaDeProcessos) {
         this.listaDeProcessos = listaDeProcessos;
     }
-    
+
     public List<Colaborador> getListaDeColaboradores() {
         return listaDeColaboradores;
     }
-    
+
     public void setListaDeColaboradores(List<Colaborador> listaDeColaboradores) {
         this.listaDeColaboradores = listaDeColaboradores;
     }
-    
+
     public ContaReceber getContaReceber() {
         return contaReceber;
     }
-    
+
     public void setContaReceber(ContaReceber contaReceber) {
         this.contaReceber = contaReceber;
     }
-    
+
     public List<Cooptacao> getListaDeCooptacao() {
         return listaDeCooptacao;
     }
@@ -142,5 +185,29 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
     public List<ContaReceberParcelasDTO> getListaContaReceberParcelasDTOs() {
         return listaContaReceberParcelasDTOs;
     }
-    
+
+    public ContaReceberParcelasDTO getContaReceberParcelaDTO() {
+        return contaReceberParcelaDTO;
+    }
+
+    public void setContaReceberParcelaDTO(ContaReceberParcelasDTO contaReceberParcelaDTO) {
+        this.contaReceberParcelaDTO = contaReceberParcelaDTO;
+    }
+
+    public ParcelasReceber getParcelasReceber() {
+        return parcelasReceber;
+    }
+
+    public void setParcelasReceber(ParcelasReceber parcelasReceber) {
+        this.parcelasReceber = parcelasReceber;
+    }
+
+    public BigDecimal getValorPagamento() {
+        return valorPagamento;
+    }
+
+    public void setValorPagamento(BigDecimal valorPagamento) {
+        this.valorPagamento = valorPagamento;
+    }
+
 }

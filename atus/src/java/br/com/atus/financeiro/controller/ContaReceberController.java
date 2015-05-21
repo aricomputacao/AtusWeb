@@ -8,9 +8,11 @@ package br.com.atus.financeiro.controller;
 import br.com.atus.financeiro.dao.ContaReceberDAO;
 import br.com.atus.financeiro.dto.ContaReceberParcelasDTO;
 import br.com.atus.financeiro.modelo.ContaReceber;
+import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.interfaces.Controller;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -51,6 +53,6 @@ public class ContaReceberController extends Controller<ContaReceber, Long> imple
         return listaDTO;
     }
 
-    
+   
 
 }

@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:util="http://java.sun.com/jsf/composite/util">
+
+    <composite:interface id="int">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+        <composite:attribute  name="nomeDialog" default="dialogoPag" shortDescription="Nome do dialog que esta a tela de realizar pagamento" />
+    </composite:interface>
+    <composite:implementation id="int2" >
+       
+        <p:fieldset legend="Dados da Parcela" id="fieldAtend" style="text-align: left" >
+            <h:panelGrid columns="2">
+                <h:outputText style="font-weight: bold" value="&bull; Parcela:"/>
+                <comp:outputText value="#{contaReceberMB.parcelasReceber.numeroDaParcela}"/>
+            </h:panelGrid>
+            <h:panelGrid columns="2">
+                <h:outputText style="font-weight: bold" value="&bull; Cliente:"/>
+                <comp:outputText value="#{contaReceberMB.parcelasReceber.contaReceber.nomeDoCliente}"/>
+            </h:panelGrid>
+            <h:panelGrid columns="2">
+                <h:outputText style="font-weight: bold" value="&bull; Processo:"/>
+                <h:outputText value="#{contaReceberMB.contaReceber.processo.numero}"/>
+            </h:panelGrid>
+            <h:panelGrid columns="2"> 
+                <h:outputText style="font-weight: bold" value="&bull; Valor:"/>
+                <comp:outputText tipo="c" value="#{contaReceberMB.parcelasReceber.valorParcela}"/>
+            </h:panelGrid>  
+
+        </p:fieldset>
+        <p:fieldset legend="Dados do Pagamento" id="fieldPag" style="text-align: left" >
+            <h:panelGrid columns="2"> 
+                <h:panelGrid >
+                    <h:outputText style="font-weight: bold"  value="Recebido Por:"/>
+                    <p:selectOneMenu id="usr" effectSpeed="fade" style="width: 335px" converter="#{indexConverter}" value="#{contaReceberMB.parcelasReceber.advogadoQueRecebeu}">
+                        <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="-----Selecione-----" itemValue="#{null}"/>
+                        <f:selectItems value="#{contaReceberMB.listaDeAdvogados}" itemValue="#{u}" var="u" itemLabel="#{u.nome}" />
+                    </p:selectOneMenu>
+                </h:panelGrid>
+
+                <h:panelGrid > 
+                    <h:outputText style="font-weight: bold" value="Valor Pago:"/>
+                    <p:inputText value="#{contaReceberMB.valorPagamento}"  id="var" size="15"  converter="#{converterBigDecimal}"  styleClass="edtMoeda" onfocus="mascaraInputs();" 
+                                 required="true" requiredMessage="#{mensagens['require']}"/>
+                </h:panelGrid>  
+            </h:panelGrid>  
+
+            <h:panelGrid  >
+                <comp:inputTextArea nomeLabel="Observação" value="#{contaReceberMB.parcelasReceber.observcao}" coluna="60" linha="10" /> 
+            </h:panelGrid>
+        </p:fieldset>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

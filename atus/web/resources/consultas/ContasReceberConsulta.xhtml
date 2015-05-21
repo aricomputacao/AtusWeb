@@ -46,12 +46,16 @@
                     <p:columnGroup type="header" >
                         <p:row>
                             <p:column rowspan="2" headerText="Cliente | Advogado | Colaborador"/>
-                            <p:column colspan="2" headerText="Dados do Processo"/>                        
+                            <p:column colspan="6" headerText="Dados do Processo"/>                        
                         </p:row>
 
                         <p:row>
                             <p:column  headerText="Vencimento"/>
-                            <p:column  headerText="Valor"/>                        
+                            <p:column  headerText="Valor Parcela"/>                        
+                            <p:column  headerText="Valor Pago"/>                        
+                            <p:column  headerText="Data Pagamento"/>                        
+                            <p:column  headerText="Recebido Por"/>                        
+                            <p:column  headerText="Ação" width="5%"/>                        
                         </p:row>
 
 
@@ -60,50 +64,52 @@
                     <p:subTable value="#{t.parcelasRecebers}" var="p" >
                         <f:facet name="header">
                             <p:row>
-                                <h:outputText value=" &lowast; #{t.contaReceber.nomeDoCliente} &lowast; #{t.contaReceber.nomeDoAdvogado}  &lowast; #{t.contaReceber.nomeDoColaborador}"  />                           
+                                <h:outputText value=" &lowast; Cliente: #{t.contaReceber.nomeDoCliente} &lowast; Advogado: #{t.contaReceber.nomeDoAdvogado}  &lowast;  #{t.contaReceber.nomeDoColaborador}"  />                           
                             </p:row>
                         </f:facet>
 
                         <p:column>
-                            <comp:outputText value="#{p.contaReceber.processo.numero}" />
+                            <comp:outputText value="&rArr; Id: #{p.contaReceber.processo.id}  &rArr; Parcela: #{p.numeroDaParcela}"  />
                         </p:column>
-                        <p:column>
-                            <comp:outputText value="&bull; #{p.numeroDaParcela} &rArr; #{p.vencimento}" tipo="d"/>
+                        <p:column >
+                            <comp:outputText value="#{p.vencimento}" tipo="d"/>
                         </p:column>
                         <p:column>
                             <comp:outputText value="#{p.valorParcela}" tipo="c"/>
                         </p:column>
+                        <p:column>
+                            <comp:outputText value="#{p.valorPago}" tipo="c"/>
+                        </p:column>
+                        <p:column>
+                            <comp:outputText value="#{p.dataPagamento}" tipo="d"/>
+                        </p:column>
+                        <p:column>
+                            <comp:outputText value="#{p.advogadoQueRecebeu.nome}"/>
+                        </p:column>
+                        <p:column >
+                            <p:commandButton title="Selecionar" rendered="#{contaReceberMB.renderBtnPagar(p)}" immediate="true" actionListener="#{contaReceberMB.setarContaParcelaDTO(t, p)}" oncomplete="PF('dialogoPag').show();"
+                                             icon="fa fa-check-square fa-lg"  update=":frmPagamento"/>
+                            <p:commandButton title="Estornar" rendered="#{not contaReceberMB.renderBtnPagar(p)}" immediate="true" actionListener="#{contaReceberMB.estornarPagamento(p)}" 
+                                             icon="fa fa fa-eraser fa-lg"  update="@(.ui-datatable)">
+                                <p:confirm header="Estornar pagamento" message="Está certo disso?" icon="fa fa fa-info fa-lg" />
+                            </p:commandButton>
+                        </p:column>
 
                         <p:columnGroup type="footer">
                             <p:row>
-                                <p:column rowspan="2"  footerText="Totais"/>
-
-                            </p:row>
-                            <p:row>
-                                <p:column colspan="1"  footerText="Totais1"/>
-
-                            </p:row>
-                            <p:row>
-                                <p:column colspan="1"  footerText="Totais1"/>
-
-                            </p:row>
-                            <p:row>
-                                <p:column colspan="1"  footerText="Totais1"/>
-
+                                <p:column rowspan="2" colspan="2" footerText="Total R$ #{t.total}"/>
+                                <p:column colspan="1" footerText="&bull; Total Pago: R$ #{t.totalPago}"/>                        
+                                <p:column  colspan="2" footerText="&bull; Total Vencido: R$ #{t.totalVencido}"/>                        
+                                <p:column colspan="2" footerText="&bull; Total Aberto: R$ #{t.totalAberto}"/>                        
                             </p:row>
 
                             <p:row>
-                                <p:column  footerText="Vencimento">
-
-                                </p:column>
-                                <p:column  footerText="Valor"/>  
-
+                                <p:column  footerText="&bull; Valor Advogado: R$ #{t.contaReceber.valorDonoDoProcesso}"/>
+                                <p:column colspan="2" footerText="&bull; Valor Sócio: R$ #{t.contaReceber.valorSocioDoProcesso}"/>                        
+                                <p:column colspan="2" footerText="&bull; Valor Colaborador: R$ #{t.contaReceber.valorDoColaborador}"/>                        
                             </p:row>
-
                         </p:columnGroup>
-
                     </p:subTable>
-
                 </p:dataTable>
             </p:fieldset>
 
