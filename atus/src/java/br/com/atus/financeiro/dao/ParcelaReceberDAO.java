@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -109,6 +110,14 @@ public class ParcelaReceberDAO extends DAO<ParcelasReceber, Long> implements Ser
                
 
         return tq.getResultList().isEmpty() ? new ArrayList<ParcelasReceber>() : tq.getResultList();
+    }
+    public int pegarNumeroDaUltimaParcelaDo(ContaReceber cr) {
+         Query tq;
+        tq = getEm().createQuery("SELECT MAX(p.numeroDaParcela) from ParcelasReceber p WHERE p.contaReceber = :ctr  ")
+                .setParameter("ctr", cr);
+               
+
+        return  (int) (tq.getResultList().isEmpty() ? new Integer(0).intValue() :  tq.getSingleResult());
     }
     
     

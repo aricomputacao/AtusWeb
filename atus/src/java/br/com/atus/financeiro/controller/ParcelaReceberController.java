@@ -21,6 +21,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 /**
  *
@@ -69,20 +72,39 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
         BigDecimal vlRestante = new BigDecimal(BigInteger.ZERO);
         BigDecimal vlNovo = new BigDecimal(BigInteger.ZERO);
         ParcelasReceber pr1 = new ParcelasReceber();
+        dto.getParcelasRecebers().remove(pr);
 
         if (pr.getValorParcela().compareTo(valorPago) > 0) {
             //Dimunui o valor restante na ultima parcela
-            vlRestante = pr.getValorParcela().subtract(valorPago);
+//            vlRestante = pr.getValorParcela().subtract(valorPago);
 
             pr1 = retornaUltimaParcelaAberta(dto.getParcelasRecebers());
-            vlNovo = vlRestante.add(pr1.getValorParcela());
-            pr1.setValorParcela(vlNovo);
+            //se pr1 for nulo criar uma parcela com o valor restante
+            if (pr1.getId() == null) {
+                pr1.setAdvogadoQueRecebeu(pr.getAdvogadoQueRecebeu());
+                pr1.setContaReceber(pr.getContaReceber());
+                pr1.setDataPagamento(new Date());
+                pr1.setNumeroDaParcela(dao.pegarNumeroDaUltimaParcelaDo(pr.getContaReceber()) + 1);
+                pr1.setObservcao("Parcela criado com o valor restante de um pagamento");
+                pr1.setValorPago(valorPago);
+                pr1.setValorParcela(valorPago);
+                pr1.setVencimento(pr.getVencimento());
+
+                pr.setValorParcela(pr.getValorParcela().subtract(valorPago));
+                vlRestante = vlRestante.subtract(valorPago);
+
+            } else {
+                vlNovo = vlRestante.add(pr1.getValorParcela());
+                pr1.setValorParcela(vlNovo);
+                pr.setDataPagamento(new Date());
+                pr.setValorPago(valorPago);
+
+                vlRestante = valorPago.subtract(pr.getValorParcela());
+            }
 
             dao.atualizar(pr1);
             dto.getParcelasRecebers().add(pr1);
 
-            pr.setDataPagamento(new Date());
-            pr.setValorPago(valorPago);
             dao.atualizar(pr);
 
         } else if (pr.getValorParcela().compareTo(valorPago) < 0) {
@@ -99,7 +121,7 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
             pr.setValorPago(valorPago);
             dao.atualizar(pr);
         }
-
+        dto.getParcelasRecebers().add(pr);
         return vlRestante;
     }
 
@@ -110,7 +132,7 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
             }
 
         }
-        return null;
+        return new ParcelasReceber();
 
     }
 

@@ -5,6 +5,7 @@
  */
 package br.com.atus.financeiro.dto;
 
+import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.financeiro.modelo.ContaReceber;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
 import java.io.Serializable;
@@ -18,7 +19,7 @@ import java.util.Objects;
  *
  * @author ari
  */
-public class ContaReceberParcelasDTO implements Serializable {
+public class ContaReceberParcelasDTO implements  Serializable {
 
     private ContaReceber contaReceber;
     private List<ParcelasReceber> parcelasRecebers;
@@ -51,7 +52,7 @@ public class ContaReceberParcelasDTO implements Serializable {
         BigDecimal vlPg = new BigDecimal(BigInteger.ZERO);
         for (ParcelasReceber pa : parcelasRecebers) {
             if (pa.getDataPagamento() != null) {
-             vlPg =    vlPg.add(pa.getValorPago());
+                vlPg = vlPg.add(pa.getValorPago());
             }
         }
         return vlPg;
@@ -61,7 +62,7 @@ public class ContaReceberParcelasDTO implements Serializable {
         BigDecimal vlPg = new BigDecimal(BigInteger.ZERO);
         for (ParcelasReceber pa : parcelasRecebers) {
             if (pa.getDataPagamento() == null) {
-             vlPg =    vlPg.add(pa.getValorParcela());
+                vlPg = vlPg.add(pa.getValorParcela());
             }
         }
         return vlPg;
@@ -71,7 +72,7 @@ public class ContaReceberParcelasDTO implements Serializable {
         BigDecimal vlPg = new BigDecimal(BigInteger.ZERO);
         for (ParcelasReceber pa : parcelasRecebers) {
             if (pa.getDataPagamento() == null && pa.getVencimento().before(new Date())) {
-             vlPg =    vlPg.add(pa.getValorParcela());
+                vlPg = vlPg.add(pa.getValorParcela());
             }
         }
         return vlPg;
@@ -80,15 +81,14 @@ public class ContaReceberParcelasDTO implements Serializable {
     public BigDecimal getTotal() {
         BigDecimal vlPg = new BigDecimal(BigInteger.ZERO);
         for (ParcelasReceber pa : parcelasRecebers) {
-          vlPg =  vlPg.add(pa.getValorParcela());
+            vlPg = vlPg.add(pa.getValorParcela());
         }
         return vlPg;
     }
-    
-    public BigDecimal getValorDoDono(){
-       return contaReceber.getValorDonoDoProcesso();
+
+    public BigDecimal getValorDoDono() {
+        return contaReceber.getValorDonoDoProcesso();
     }
-    
 
     @Override
     public int hashCode() {
@@ -116,4 +116,5 @@ public class ContaReceberParcelasDTO implements Serializable {
         return true;
     }
 
+  
 }

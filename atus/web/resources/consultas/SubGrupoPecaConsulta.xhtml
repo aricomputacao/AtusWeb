@@ -58,7 +58,7 @@
                     </p:column>
 
 
-                    <p:column headerText="Ação" width="6%" style="text-align: center">
+                    <p:column headerText="Ação" width="7%" style="text-align: center">
                         <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.sub_grupo_peca'],'sub_grupo_peca',t)}" />
                         <comp:commandButton_excluir acao_butao="#{subGrupoPecaMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Sub Grupo Peça" form_to_update="@form"/>
                     </p:column>

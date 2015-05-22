@@ -48,7 +48,7 @@
                 <h:panelGrid > 
                     <h:outputText style="font-weight: bold" value="Valor Pago:"/>
                     <p:inputText value="#{contaReceberMB.valorPagamento}"  id="var" size="15"  converter="#{converterBigDecimal}"  styleClass="edtMoeda" onfocus="mascaraInputs();" 
-                                 required="true" requiredMessage="#{mensagens['require']}"/>
+                                 validator="#{contaReceberMB.validarValorDoPagamento}"  required="true" requiredMessage="#{mensagens['require']}"/>
                 </h:panelGrid>  
             </h:panelGrid>  
 

@@ -81,7 +81,7 @@
                         <comp:outputText value="#{t.processo.colaborador.pessoa.nome}"/>
                     </p:column>
 
-                    <p:column headerText="Ação" width="8%" style="text-align: center;" >
+                    <p:column headerText="Ação" width="10%" style="text-align: center;" >
                         <p:commandButton  actionListener="#{processoMB.setarProcesso(t.processo)}"  update="#{cc.attrs.dialogUpdade}"  rendered="#{cc.attrs.renderInfo}" title="Informações" oncomplete="PF('#{cc.attrs.dialogInfo}').show()"  id="btnInfo" icon="fa fa-info-circle fa-lg" />
                         <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t.processo}" />
                         <p:commandButton   actionListener="#{processoMB.setarProcesso(t.processo)}"  update="#{cc.attrs.dialogMovimenUpdate}"  rendered="#{cc.attrs.renderMovimen}" title="Encaminhar" oncomplete="PF('#{cc.attrs.dialogMovimen}').show()"  id="btnMov" icon="fa fa-arrow-circle-up fa-lg" />

@@ -45,7 +45,7 @@
                     <p:column headerText="Descrição" sortBy="#{t.referencia}">
                         <comp:outputText value="#{t.referencia}"/>
                     </p:column>
-                    <p:column headerText="Ação" width="6%" style="text-align: center">
+                    <p:column headerText="Ação" width="8%" style="text-align: center">
                         <ui:insert name="acaoContrato" >
                             <p:commandButton title="Detalhes" immediate="true" update=":infoContratoForm" icon="ui-icon-info" onclick="PF('dialogInfo').show();" style="width: 20px;height: 20px;">
                                 <f:setPropertyActionListener value="#{t}" target="#{contratoMB.contrato}"/>

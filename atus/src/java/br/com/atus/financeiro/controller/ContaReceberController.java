@@ -12,6 +12,8 @@ import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.interfaces.Controller;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -46,7 +48,9 @@ public class ContaReceberController extends Controller<ContaReceber, Long> imple
         List<ContaReceber> listaContaRecebers = dao.consultarTodasContasReceberDo(cliente);
         List<ContaReceberParcelasDTO> listaDTO = new ArrayList<>();
         for (ContaReceber cr : listaContaRecebers) {
-            dto = new ContaReceberParcelasDTO(cr, parcelaReceberController.consultaTodasParcelasDo(cr));
+            List<ParcelasReceber> listaDeParcelasReceber = parcelaReceberController.consultaTodasParcelasDo(cr);
+            Collections.sort(listaDeParcelasReceber);
+            dto = new ContaReceberParcelasDTO(cr,  listaDeParcelasReceber);
             listaDTO.add(dto);
         }
 

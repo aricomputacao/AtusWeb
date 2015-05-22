@@ -51,7 +51,7 @@
                     </p:column>
                    
 
-                    <p:column headerText="Ação" width="6%" style="text-align: center">
+                    <p:column headerText="Ação" width="8%" style="text-align: center">
                         <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['pro.enderecamento'],'enderecamento',t)}" />
                         <comp:commandButton_excluir acao_butao="#{enderecamentoMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Endereçãmento" form_to_update="@form"/>
                         <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />

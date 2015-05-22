@@ -62,7 +62,7 @@
                     </p:column>
 
 
-                    <p:column headerText="Ação" width="7%" style="text-align: center">
+                    <p:column headerText="Ação" width="9%" style="text-align: center">
                         <ui:insert name="acaoOrgao" >
                             <comp:commandButton_editar id="btnEdita" rendered="#{cc.attrs.renderEditar}" acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.colaborador'],'colaborador',t)}" />
                             <comp:commandButton_excluir acao_butao="#{colaboradorMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Colaborador" form_to_update="@form"/>

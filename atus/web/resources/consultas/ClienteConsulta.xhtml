@@ -65,8 +65,8 @@
                     </p:column>
 
 
-                    <p:column headerText="Ação" width="5%" style="text-align: center">
-                        <p:commandButton actionListener="#{clienteMB.setarCliente(t)}" action="#{clienteMB.listaProcessoCliente(t)}" style="width: 22px;height: 22px" rendered="#{cc.attrs.renderInfo}" title="Informações"  update=":fic" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
+                    <p:column headerText="Ação" width="7%" style="text-align: center">
+                        <p:commandButton actionListener="#{clienteMB.setarCliente(t)}" action="#{clienteMB.listaProcessoCliente(t)}"  rendered="#{cc.attrs.renderInfo}" title="Informações"  update=":fic" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="fa fa-info-circle fa-lg" />
                         <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderBtnEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.cliente'],'cliente',t)}" />
                         <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
 

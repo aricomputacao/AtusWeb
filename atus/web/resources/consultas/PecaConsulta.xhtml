@@ -52,7 +52,7 @@
                         <comp:outputText value="#{t.arquivo}"/>
                     </p:column>
 
-                    <p:column headerText="Ação" width="7%" style="text-align: center">
+                    <p:column headerText="Ação" width="8%" style="text-align: center">
                         <ui:insert name="acaoPeca" >
                             <comp:commandButton_editar id="btnEditaRamo"  acao_butao="#{navegacaoMB.redirecionar(navegacao['pro.peca'],'peca',t)}" />
                             <comp:commandButton_excluir acao_butao="#{pecaMB.excluir(t)}" classe="Peca" form_to_update="@form"/>

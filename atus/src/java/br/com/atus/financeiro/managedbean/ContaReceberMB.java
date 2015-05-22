@@ -29,8 +29,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 
 /**
@@ -99,10 +103,13 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
 
     public void fazerPagamento() {
         try {
-            parcelaReceberController.fazerPagamento(contaReceberParcelaDTO, parcelasReceber,valorPagamento);
+            parcelaReceberController.fazerPagamento(contaReceberParcelaDTO, parcelasReceber, valorPagamento);
+            consultarTodasContasReceberDoCliente();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("pagamento_sucesso", MenssagemUtil.MENSAGENS));
-         
+            valorPagamento = BigDecimal.ZERO;
         } catch (Exception ex) {
+            consultarTodasContasReceberDoCliente();
+            valorPagamento = BigDecimal.ZERO;
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("pagamento_falha", MenssagemUtil.MENSAGENS));
             Logger.getLogger(ContaReceberMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -111,7 +118,6 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
     public void estornarPagamento(ParcelasReceber pr) {
         try {
             parcelasReceber = pr;
-           
             parcelaReceberController.estornarPagamento(pr);
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("pagamento_estorno_sucesso", MenssagemUtil.MENSAGENS));
 
@@ -124,6 +130,7 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
     public void setarContaParcelaDTO(ContaReceberParcelasDTO dto, ParcelasReceber pr) {
         this.contaReceberParcelaDTO = dto;
         this.parcelasReceber = pr;
+        this.valorPagamento = pr.getValorParcela();
     }
 
     public boolean renderBtnPagar(ParcelasReceber pr) {
@@ -132,6 +139,20 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
 
     public void consultarTodasContasReceberDoCliente() {
         listaContaReceberParcelasDTOs = controller.consultarTodasContasReceberAbertasDo(getValorBusca());
+        
+    }
+
+    public void validarValorDoPagamento(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
+        BigDecimal vl = (BigDecimal) value;
+        if (vl.compareTo(contaReceberParcelaDTO.getTotalAberto()) > 0 ) {
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso: ",
+                    NavegacaoMB.getMsg("pagamento_invalido", MenssagemUtil.MENSAGENS)));
+        }
+        if (vl.compareTo(BigDecimal.ZERO) <= 0 ) {
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso: ",
+                   NavegacaoMB.getMsg("pagamento_igual_zero", MenssagemUtil.MENSAGENS)));
+        }
     }
 
     public ContaReceberMB() {

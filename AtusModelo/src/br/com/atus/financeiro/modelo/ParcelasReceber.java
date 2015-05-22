@@ -33,9 +33,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * @author Ari
  */
 @Entity
-@Table(name = "parcela_receber", schema = "financeiro",uniqueConstraints = @UniqueConstraint(columnNames = {"ctr_id","par_numero"}))
+@Table(name = "parcela_receber", schema = "financeiro"
+        ,uniqueConstraints = @UniqueConstraint(columnNames = {"ctr_id","par_numero"}))
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ParcelasReceber implements Serializable {
+public class ParcelasReceber implements Comparable<ParcelasReceber>,Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -196,6 +197,16 @@ public class ParcelasReceber implements Serializable {
         }
         return true;
     }
+
+    @Override
+    public int compareTo(ParcelasReceber o) {
+        if (this.numeroDaParcela > o.numeroDaParcela) {
+            return 1;
+        }else{
+            return -1;
+        }
+    }
+    
     
     
 }

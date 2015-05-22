@@ -61,7 +61,7 @@
                         <comp:outputText value="#{t.processo.cliente.pessoa.nome}"/>
                     </p:column>
                     
-                    <p:column headerText="Ação" id="acao" width="7%" style="text-align: center">
+                    <p:column headerText="Ação" id="acao" width="8%" style="text-align: center">
                         <p:commandButton  actionListener="#{eventoMB.imprimirEvento(t)}"  oncomplete="popup('/atus/RelatorioServlet.pdf');" id="btnEvent" icon="fa fa-print fa-lg" />
                         <p:commandButton  actionListener="#{processoMB.setarProcesso(t.processo)}" update="#{cc.attrs.dialogUpdade}"  rendered="#{cc.attrs.renderInfo}" title="Informações" oncomplete="PF('#{cc.attrs.dialogInfo}').show()"  id="btnInfo" icon="fa fa-info-circle fa-lg" />
                         <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderBtnEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['pro.evento'],'evento',t)}" />

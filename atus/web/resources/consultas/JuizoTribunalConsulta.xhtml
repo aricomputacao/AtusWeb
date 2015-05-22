@@ -47,7 +47,7 @@
                     <p:column headerText="Instância" >
                         <comp:outputText value="#{t.instancia1}"/>
                     </p:column>
-                     <p:column headerText="Ação" width="6%" style="text-align: center">
+                     <p:column headerText="Ação" width="7%" style="text-align: center">
                         <ui:insert name="acaoJuizoTribunal" >
                             <comp:commandButton_editar id="btnEditaRamo"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.juizo_tribunal'],'juizo_tribunal',t)}" />
                             <comp:commandButton_excluir acao_butao="#{juizoTribunalMB.excluir(t)}" classe="Juizo e Tribunal" form_to_update="@form"/>

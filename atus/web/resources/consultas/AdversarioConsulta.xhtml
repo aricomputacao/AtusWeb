@@ -53,7 +53,7 @@
                     <p:column headerText="Cidade/UF" width="15%" >
                         <comp:outputText value="#{t2.pessoa.cidade.nome}-#{t2.pessoa.cidade.unidadeFederativa.abreviacao}"/>
                     </p:column>
-                    <p:column headerText="Ação" width="5%" style="text-align: center">
+                    <p:column headerText="Ação" width="7%" style="text-align: center">
                         <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t2}" />
                     </p:column>
                 </p:dataTable>
