@@ -59,8 +59,10 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
 
     public void fazerPagamento(ContaReceberParcelasDTO dto, ParcelasReceber pr, BigDecimal valorPago) throws Exception {
         BigDecimal restante = BigDecimal.ZERO;
+        //faz o pagamento da parcela selecionada e retorna se tiver valor restante
         restante = fazerPagamentoDeParcelaEspecifica(dto, pr, valorPago);
         while (restante.compareTo(BigDecimal.ZERO) > 0) {
+            //Pega parcela que ainda está aberta
             ParcelasReceber ultimaParcela = retornaUltimaParcelaAberta(dto.getParcelasRecebers());
             ultimaParcela.setAdvogadoQueRecebeu(pr.getAdvogadoQueRecebeu());
             ultimaParcela.setObservcao(pr.getObservcao());
@@ -73,13 +75,13 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
         BigDecimal vlNovo = new BigDecimal(BigInteger.ZERO);
         ParcelasReceber pr1 = new ParcelasReceber();
         dto.getParcelasRecebers().remove(pr);
-
+        
+        //Se o valor da parcela for mais que o valor pago
         if (pr.getValorParcela().compareTo(valorPago) > 0) {
-            //Dimunui o valor restante na ultima parcela
-//            vlRestante = pr.getValorParcela().subtract(valorPago);
-
+ 
+            //Paga outra parcelaca que ainda esteja aberta pra saber se a parcela em questão é a ultima
             pr1 = retornaUltimaParcelaAberta(dto.getParcelasRecebers());
-            //se pr1 for nulo criar uma parcela com o valor restante
+            //se pr1 for a ultima criar uma parcela com o valor restante
             if (pr1.getId() == null) {
                 pr1.setAdvogadoQueRecebeu(pr.getAdvogadoQueRecebeu());
                 pr1.setContaReceber(pr.getContaReceber());
@@ -90,16 +92,39 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
                 pr1.setValorParcela(valorPago);
                 pr1.setVencimento(pr.getVencimento());
 
+                //Seta o valor da parcela em questão subtraindo o valor pago
                 pr.setValorParcela(pr.getValorParcela().subtract(valorPago));
                 vlRestante = vlRestante.subtract(valorPago);
-
+                
+            //se pr1 não for a ultima processa o valor da parcela em questão e e cria outra com o valor restante    
             } else {
                 vlNovo = vlRestante.add(pr1.getValorParcela());
                 pr1.setValorParcela(vlNovo);
-                pr.setDataPagamento(new Date());
-                pr.setValorPago(valorPago);
 
-                vlRestante = valorPago.subtract(pr.getValorParcela());
+                
+                if (valorPago.compareTo(pr.getValorParcela()) >= 0) {
+                    pr.setDataPagamento(new Date());
+                    pr.setValorPago(valorPago);
+                    vlRestante = valorPago.subtract(pr.getValorParcela());
+                } else {
+                    ParcelasReceber pr2 = new ParcelasReceber();
+                    pr2.setValorParcela(pr.getValorParcela().subtract(valorPago));
+                    
+                    pr2.setContaReceber(pr.getContaReceber());
+                    pr2.setNumeroDaParcela(dao.pegarNumeroDaUltimaParcelaDo(pr.getContaReceber()) + 1);
+                    pr2.setObservcao("Parcela criado com o valor restante de um pagamento");
+                    pr2.setVencimento(pr.getVencimento());
+                    
+                    pr.setDataPagamento(new Date());
+                    pr.setValorPago(valorPago);
+                    pr.setValorParcela(valorPago);
+
+
+                    dao.salvar(pr2);
+
+                    vlRestante = BigDecimal.ZERO;
+                }
+
             }
 
             dao.atualizar(pr1);
@@ -130,10 +155,8 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
             if (prs.get(i - 1).getDataPagamento() == null) {
                 return prs.remove(i - 1);
             }
-
         }
         return new ParcelasReceber();
-
     }
 
     public List<ParcelasReceber> consultaParcelasAbertasDo(ContaReceber cr) {
