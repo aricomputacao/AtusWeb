@@ -9,13 +9,16 @@ import br.com.atus.financeiro.dao.ParcelaReceberDAO;
 import br.com.atus.financeiro.dto.ContaReceberParcelasDTO;
 import br.com.atus.financeiro.modelo.ContaReceber;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
+import br.com.atus.financeiro.modelo.Recibo;
 import br.com.atus.interfaces.Controller;
+import br.com.atus.util.NumeroPorExtenso;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -34,11 +37,15 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
 
     @EJB
     private ParcelaReceberDAO dao;
+    @EJB
+    private ReciboController reciboController;
+    private List<ParcelasReceber> listaDeParcelasPagas;
 
     @Override
     @PostConstruct
     protected void inicializaDAO() {
         setDAO(dao);
+
     }
 
     public void addListaDeParcelas(ContaReceber cr) throws Exception {
@@ -57,8 +64,9 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
         }
     }
 
-    public void fazerPagamento(ContaReceberParcelasDTO dto, ParcelasReceber pr, BigDecimal valorPago) throws Exception {
+    public Recibo fazerPagamento(ContaReceberParcelasDTO dto, ParcelasReceber pr, BigDecimal valorPago) throws Exception {
         BigDecimal restante = BigDecimal.ZERO;
+        listaDeParcelasPagas = new ArrayList<>();
         //faz o pagamento da parcela selecionada e retorna se tiver valor restante
         restante = fazerPagamentoDeParcelaEspecifica(dto, pr, valorPago);
         while (restante.compareTo(BigDecimal.ZERO) > 0) {
@@ -68,6 +76,8 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
             ultimaParcela.setObservcao(pr.getObservcao());
             restante = fazerPagamentoDeParcelaEspecifica(dto, ultimaParcela, restante);
         }
+        return reciboController.addRecibo(listaDeParcelasPagas);
+
     }
 
     private BigDecimal fazerPagamentoDeParcelaEspecifica(ContaReceberParcelasDTO dto, ParcelasReceber pr, BigDecimal valorPago) throws Exception {
@@ -75,10 +85,10 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
         BigDecimal vlNovo = new BigDecimal(BigInteger.ZERO);
         ParcelasReceber pr1 = new ParcelasReceber();
         dto.getParcelasRecebers().remove(pr);
-        
+
         //Se o valor da parcela for mais que o valor pago
         if (pr.getValorParcela().compareTo(valorPago) > 0) {
- 
+
             //Paga outra parcelaca que ainda esteja aberta pra saber se a parcela em questão é a ultima
             pr1 = retornaUltimaParcelaAberta(dto.getParcelasRecebers());
             //se pr1 for a ultima criar uma parcela com o valor restante
@@ -91,34 +101,40 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
                 pr1.setValorPago(valorPago);
                 pr1.setValorParcela(valorPago);
                 pr1.setVencimento(pr.getVencimento());
+                //Add parcela paga
+                listaDeParcelasPagas.add(pr1);
 
                 //Seta o valor da parcela em questão subtraindo o valor pago
                 pr.setValorParcela(pr.getValorParcela().subtract(valorPago));
                 vlRestante = vlRestante.subtract(valorPago);
-                
-            //se pr1 não for a ultima processa o valor da parcela em questão e e cria outra com o valor restante    
+
+                //se pr1 não for a ultima processa o valor da parcela em questão e e cria outra com o valor restante    
             } else {
                 vlNovo = vlRestante.add(pr1.getValorParcela());
                 pr1.setValorParcela(vlNovo);
 
-                
                 if (valorPago.compareTo(pr.getValorParcela()) >= 0) {
                     pr.setDataPagamento(new Date());
                     pr.setValorPago(valorPago);
                     vlRestante = valorPago.subtract(pr.getValorParcela());
+                    //Add parcela paga
+                    listaDeParcelasPagas.add(pr);
+
                 } else {
                     ParcelasReceber pr2 = new ParcelasReceber();
                     pr2.setValorParcela(pr.getValorParcela().subtract(valorPago));
-                    
+
                     pr2.setContaReceber(pr.getContaReceber());
                     pr2.setNumeroDaParcela(dao.pegarNumeroDaUltimaParcelaDo(pr.getContaReceber()) + 1);
                     pr2.setObservcao("Parcela criado com o valor restante de um pagamento");
                     pr2.setVencimento(pr.getVencimento());
-                    
+
                     pr.setDataPagamento(new Date());
                     pr.setValorPago(valorPago);
                     pr.setValorParcela(valorPago);
 
+                    //Add parcela paga
+                    listaDeParcelasPagas.add(pr);
 
                     dao.salvar(pr2);
 
@@ -139,12 +155,17 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
             pr.setDataPagamento(new Date());
             pr.setValorPago(pr.getValorParcela());
             dao.atualizar(pr);
+            //Add parcela paga
+            listaDeParcelasPagas.add(pr);
 
         } else {
             //quita a parcela
             pr.setDataPagamento(new Date());
             pr.setValorPago(valorPago);
             dao.atualizar(pr);
+            //Add parcela paga
+            listaDeParcelasPagas.add(pr);
+
         }
         dto.getParcelasRecebers().add(pr);
         return vlRestante;
@@ -209,4 +230,16 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
 
         dao.atualizar(pr);
     }
+
+    private String numeroPorExtenso(BigDecimal numero) {
+        NumeroPorExtenso n = NumeroPorExtenso.getDefaultInstance();
+        n = new NumeroPorExtenso(true, true, true);
+        return n.converteMoeda(numero);
+
+    }
+
+    public List<ParcelasReceber> getListaDeParcelasPagas() {
+        return Collections.unmodifiableList(listaDeParcelasPagas);
+    }
+
 }

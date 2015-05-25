@@ -48,8 +48,12 @@
         </p:dialog>
         <p:dialog showEffect="fade" position="top"   header="Pagamento" id="pag" modal="true" hideEffect="fade" widgetVar="dialogoPag">
             <h:form id="frmPagamento" prependId="false">
+                 <p:blockUI block="@form" trigger=":frmPagamento:menSal2">
+                    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+                </p:blockUI>
+               
                 <p:menubar id="menCadDia"  style="margin-top: 20px" >
-                    <p:menuitem id="menSal2"  oncomplete="PF('dialogoPag').hide()"  styleClass="menuPanel"  icon="ui-icon-disk" title="Finalizar pagamento"  
+                    <p:menuitem id="menSal2"  oncomplete="PF('dialogoPag').hide(), popup('/atus/RelatorioServlet.pdf');"  styleClass="menuPanel"  icon="ui-icon-disk" title="Finalizar pagamento"  
                                 actionListener="#{contaReceberMB.fazerPagamento()}" update="@(.ui-datatable)" />
                 </p:menubar>
                 <acao:RealizarPagamento id="compPag"/>

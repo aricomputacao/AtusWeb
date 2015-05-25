@@ -14,17 +14,24 @@ import br.com.atus.financeiro.dto.ContaReceberParcelasDTO;
 import br.com.atus.financeiro.modelo.ContaReceber;
 import br.com.atus.financeiro.modelo.Cooptacao;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
+import br.com.atus.financeiro.modelo.Recibo;
 import br.com.atus.modelo.Advogado;
 import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Processo;
+import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
+import br.com.atus.util.RelatorioSession;
 import br.com.atus.util.managedbean.BeanGenerico;
 import br.com.atus.util.managedbean.NavegacaoMB;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -57,9 +64,11 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
     private ColaboradorController colaboradorController;
     @EJB
     private ParcelaReceberController parcelaReceberController;
+
     private List<ContaReceber> listaContaReceber;
     private ContaReceber contaReceber;
     private ParcelasReceber parcelasReceber;
+    private Recibo recibo;
     private ContaReceberParcelasDTO contaReceberParcelaDTO;
     private List<Advogado> listaDeAdvogados;
     private List<Processo> listaDeProcessos;
@@ -74,6 +83,7 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
             contaReceber = (ContaReceber) navegacaoMB.getRegistroMapa("conta_receber", new ContaReceber());
             contaReceberParcelaDTO = new ContaReceberParcelasDTO();
             parcelasReceber = new ParcelasReceber();
+            recibo = new Recibo();
             listaContaReceber = new ArrayList<>();
             listaDeAdvogados = advogadoController.consultarTodos("nome");
             listaDeCooptacao = cooptacaoController.consultarTodos("nome");
@@ -103,10 +113,12 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
 
     public void fazerPagamento() {
         try {
-            parcelaReceberController.fazerPagamento(contaReceberParcelaDTO, parcelasReceber, valorPagamento);
+            recibo = parcelaReceberController.fazerPagamento(contaReceberParcelaDTO, parcelasReceber, valorPagamento);
+            imprimirRecibo();
             consultarTodasContasReceberDoCliente();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("pagamento_sucesso", MenssagemUtil.MENSAGENS));
             valorPagamento = BigDecimal.ZERO;
+            parcelasReceber = new ParcelasReceber();
         } catch (Exception ex) {
             consultarTodasContasReceberDoCliente();
             valorPagamento = BigDecimal.ZERO;
@@ -139,19 +151,37 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
 
     public void consultarTodasContasReceberDoCliente() {
         listaContaReceberParcelasDTOs = controller.consultarTodasContasReceberAbertasDo(getValorBusca());
-        
+
+    }
+
+    public void imprimirRecibo() {
+        if (!recibo.getListaDeParcelasReceber().isEmpty()) {
+            Map<String, Object> m = new HashMap<>();
+
+            m.put("nome_cliente", recibo.getNomeCliente());
+            m.put("adv_rec",recibo.getAdivogadoQueRecebeu());
+            m.put("data_pagamento",recibo.getDataDePAgamento());
+            m.put("valor_extenso", recibo.getValorTotalExtenso());
+            m.put("valor_total", recibo.getValorTotal());
+            m.put("id_processo", recibo.getIdDoProcesso());
+            m.put("id_recibo", recibo.getId());
+            
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(recibo.getListaDeParcelasReceber(), m, "WEB-INF/relatorios/recibo.jasper", "Recibo de Pagamento");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        }
+
     }
 
     public void validarValorDoPagamento(FacesContext context, UIComponent component,
             Object value) throws ValidatorException {
         BigDecimal vl = (BigDecimal) value;
-        if (vl.compareTo(contaReceberParcelaDTO.getTotalAberto()) > 0 ) {
+        if (vl.compareTo(contaReceberParcelaDTO.getTotalAberto()) > 0) {
             throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso: ",
                     NavegacaoMB.getMsg("pagamento_invalido", MenssagemUtil.MENSAGENS)));
         }
-        if (vl.compareTo(BigDecimal.ZERO) <= 0 ) {
+        if (vl.compareTo(BigDecimal.ZERO) <= 0) {
             throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso: ",
-                   NavegacaoMB.getMsg("pagamento_igual_zero", MenssagemUtil.MENSAGENS)));
+                    NavegacaoMB.getMsg("pagamento_igual_zero", MenssagemUtil.MENSAGENS)));
         }
     }
 
