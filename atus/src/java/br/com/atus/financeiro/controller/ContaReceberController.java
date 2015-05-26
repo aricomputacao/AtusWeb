@@ -10,7 +10,10 @@ import br.com.atus.financeiro.dto.ContaReceberParcelasDTO;
 import br.com.atus.financeiro.modelo.ContaReceber;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.interfaces.Controller;
+import br.com.atus.util.MenssagemUtil;
+import br.com.atus.util.managedbean.NavegacaoMB;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -39,10 +42,19 @@ public class ContaReceberController extends Controller<ContaReceber, Long> imple
     }
 
     public void addContasReceber(ContaReceber contaReceber) throws Exception {
+        validarPorcentagens(contaReceber);
         dao.salvar(contaReceber);
         parcelaReceberController.addListaDeParcelas(contaReceber);
     }
 
+    
+    public void validarPorcentagens(ContaReceber cr) throws Exception{
+        BigDecimal bd = cr.getPercentualColaborador().add(cr.getCooptacao().getPercentDono()).add(cr.getCooptacao().getPercentSocio());
+        if (bd.compareTo(new BigDecimal(100)) > 0) {
+            throw new Exception(NavegacaoMB.getMsg("falha_soma_cooptacao", MenssagemUtil.MENSAGENS));
+        }
+    }
+    
     public List<ContaReceberParcelasDTO> consultarTodasContasReceberAbertasDo(String cliente) {
         ContaReceberParcelasDTO dto;
         List<ContaReceber> listaContaRecebers = dao.consultarTodasContasReceberDo(cliente);

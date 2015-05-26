@@ -38,8 +38,8 @@
 				<reportElement uuid="bb8d820e-0d3e-4987-bfc3-43ac1bb19b2f" x="0" y="0" width="832" height="38"/>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="d9a58e22-6e92-464f-9b89-02042d8fe729" x="639" y="18" width="61" height="20"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
+				<reportElement uuid="d9a58e22-6e92-464f-9b89-02042d8fe729" x="656" y="18" width="45" height="20"/>
+				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Valor:]]></text>
@@ -52,8 +52,8 @@
 				<textFieldExpression><![CDATA[$P{valor_total}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="b87e6710-79df-46a8-b59f-4a794f7b7a5e" x="639" y="0" width="61" height="18"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
+				<reportElement uuid="b87e6710-79df-46a8-b59f-4a794f7b7a5e" x="656" y="0" width="45" height="18"/>
+				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Recibo:]]></text>
@@ -122,7 +122,7 @@
 				<text><![CDATA[A importância de:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="01e7cfcc-32da-4834-b181-b7ab2ccede4d" x="106" y="26" width="714" height="19"/>
+				<reportElement uuid="01e7cfcc-32da-4834-b181-b7ab2ccede4d" x="106" y="25" width="714" height="19"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>

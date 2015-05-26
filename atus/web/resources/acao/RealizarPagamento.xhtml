@@ -39,7 +39,7 @@
             <h:panelGrid columns="2"> 
                 <h:panelGrid >
                     <h:outputText style="font-weight: bold"  value="Recebido Por:"/>
-                    <p:selectOneMenu id="usr" effectSpeed="fade" style="width: 335px" converter="#{indexConverter}" value="#{contaReceberMB.parcelasReceber.advogadoQueRecebeu}">
+                    <p:selectOneMenu id="usr" effectSpeed="fade" style="width: 335px" converter="#{indexConverter}" value="#{contaReceberMB.recibo.advogadoQueRecebeu}">
                         <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="-----Selecione-----" itemValue="#{null}"/>
                         <f:selectItems value="#{contaReceberMB.listaDeAdvogados}" itemValue="#{u}" var="u" itemLabel="#{u.nome}" />
                     </p:selectOneMenu>

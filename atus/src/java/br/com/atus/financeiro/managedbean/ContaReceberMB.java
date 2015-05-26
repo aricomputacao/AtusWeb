@@ -26,8 +26,6 @@ import br.com.atus.util.managedbean.NavegacaoMB;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -106,22 +104,29 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
             init();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
         } catch (Exception ex) {
-            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS));
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha"+" "+ex.getMessage(), MenssagemUtil.MENSAGENS));
             Logger.getLogger(ContaReceberMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    public void aposFazerPagamento() {
+        valorPagamento = BigDecimal.ZERO;
+        parcelasReceber = new ParcelasReceber();
+        recibo = new Recibo();
+        consultarTodasContasReceberDoCliente();
+
+    }
+
     public void fazerPagamento() {
         try {
-            recibo = parcelaReceberController.fazerPagamento(contaReceberParcelaDTO, parcelasReceber, valorPagamento);
+            recibo.setUsuarioQueRecebeu(navegacaoMB.getUsuarioLogado());
+            parcelaReceberController.fazerPagamento(contaReceberParcelaDTO, parcelasReceber, valorPagamento,recibo);
             imprimirRecibo();
-            consultarTodasContasReceberDoCliente();
+            aposFazerPagamento();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("pagamento_sucesso", MenssagemUtil.MENSAGENS));
-            valorPagamento = BigDecimal.ZERO;
-            parcelasReceber = new ParcelasReceber();
+
         } catch (Exception ex) {
-            consultarTodasContasReceberDoCliente();
-            valorPagamento = BigDecimal.ZERO;
+            aposFazerPagamento();
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("pagamento_falha", MenssagemUtil.MENSAGENS));
             Logger.getLogger(ContaReceberMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -159,13 +164,13 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
             Map<String, Object> m = new HashMap<>();
 
             m.put("nome_cliente", recibo.getNomeCliente());
-            m.put("adv_rec",recibo.getAdivogadoQueRecebeu());
-            m.put("data_pagamento",recibo.getDataDePAgamento());
+            m.put("usr_rec", recibo.getUsuarioQueRecebeu().getNome());
+            m.put("data_pagamento", recibo.getDataDePAgamento());
             m.put("valor_extenso", recibo.getValorTotalExtenso());
             m.put("valor_total", recibo.getValorTotal());
             m.put("id_processo", recibo.getIdDoProcesso());
             m.put("id_recibo", recibo.getId());
-            
+
             byte[] rel = new AssistentedeRelatorio().relatorioemByte(recibo.getListaDeParcelasReceber(), m, "WEB-INF/relatorios/recibo.jasper", "Recibo de Pagamento");
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
@@ -184,6 +189,9 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
                     NavegacaoMB.getMsg("pagamento_igual_zero", MenssagemUtil.MENSAGENS)));
         }
     }
+    
+    
+    
 
     public ContaReceberMB() {
         super(ContaReceber.class);
@@ -261,4 +269,13 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
         this.valorPagamento = valorPagamento;
     }
 
+    public Recibo getRecibo() {
+        return recibo;
+    }
+
+    public void setRecibo(Recibo recibo) {
+        this.recibo = recibo;
+    }
+
+    
 }

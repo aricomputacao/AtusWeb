@@ -11,6 +11,8 @@ import br.com.atus.financeiro.modelo.ContaReceber;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.financeiro.modelo.Recibo;
 import br.com.atus.interfaces.Controller;
+import br.com.atus.modelo.Advogado;
+import br.com.atus.modelo.Usuario;
 import br.com.atus.util.NumeroPorExtenso;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -64,19 +66,20 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
         }
     }
 
-    public Recibo fazerPagamento(ContaReceberParcelasDTO dto, ParcelasReceber pr, BigDecimal valorPago) throws Exception {
+    public void fazerPagamento(ContaReceberParcelasDTO dto, ParcelasReceber pr, BigDecimal valorPago,Recibo recibo) throws Exception {
         BigDecimal restante = BigDecimal.ZERO;
         listaDeParcelasPagas = new ArrayList<>();
+        
         //faz o pagamento da parcela selecionada e retorna se tiver valor restante
         restante = fazerPagamentoDeParcelaEspecifica(dto, pr, valorPago);
         while (restante.compareTo(BigDecimal.ZERO) > 0) {
             //Pega parcela que ainda está aberta
             ParcelasReceber ultimaParcela = retornaUltimaParcelaAberta(dto.getParcelasRecebers());
-            ultimaParcela.setAdvogadoQueRecebeu(pr.getAdvogadoQueRecebeu());
             ultimaParcela.setObservcao(pr.getObservcao());
             restante = fazerPagamentoDeParcelaEspecifica(dto, ultimaParcela, restante);
         }
-        return reciboController.addRecibo(listaDeParcelasPagas);
+       reciboController.addRecibo(listaDeParcelasPagas,recibo);
+//        return reciboController.addRecibo(listaDeParcelasPagas,recibo);
 
     }
 
@@ -93,14 +96,16 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
             pr1 = retornaUltimaParcelaAberta(dto.getParcelasRecebers());
             //se pr1 for a ultima criar uma parcela com o valor restante
             if (pr1.getId() == null) {
-                pr1.setAdvogadoQueRecebeu(pr.getAdvogadoQueRecebeu());
+
                 pr1.setContaReceber(pr.getContaReceber());
                 pr1.setDataPagamento(new Date());
                 pr1.setNumeroDaParcela(dao.pegarNumeroDaUltimaParcelaDo(pr.getContaReceber()) + 1);
-                pr1.setObservcao("Parcela criado com o valor restante de um pagamento");
                 pr1.setValorPago(valorPago);
                 pr1.setValorParcela(valorPago);
                 pr1.setVencimento(pr.getVencimento());
+
+                pr1 = dao.atualizarGerenciar(pr1);
+
                 //Add parcela paga
                 listaDeParcelasPagas.add(pr1);
 
@@ -113,9 +118,12 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
                 vlNovo = vlRestante.add(pr1.getValorParcela());
                 pr1.setValorParcela(vlNovo);
 
+                pr1 = dao.atualizarGerenciar(pr1);
+
                 if (valorPago.compareTo(pr.getValorParcela()) >= 0) {
                     pr.setDataPagamento(new Date());
                     pr.setValorPago(valorPago);
+
                     vlRestante = valorPago.subtract(pr.getValorParcela());
                     //Add parcela paga
                     listaDeParcelasPagas.add(pr);
@@ -143,7 +151,6 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
 
             }
 
-            dao.atualizar(pr1);
             dto.getParcelasRecebers().add(pr1);
 
             dao.atualizar(pr);
@@ -154,6 +161,7 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
 
             pr.setDataPagamento(new Date());
             pr.setValorPago(pr.getValorParcela());
+
             dao.atualizar(pr);
             //Add parcela paga
             listaDeParcelasPagas.add(pr);
@@ -162,6 +170,7 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
             //quita a parcela
             pr.setDataPagamento(new Date());
             pr.setValorPago(valorPago);
+
             dao.atualizar(pr);
             //Add parcela paga
             listaDeParcelasPagas.add(pr);
@@ -222,7 +231,7 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
     }
 
     public void estornarPagamento(ParcelasReceber pr) throws Exception {
-        pr.setAdvogadoQueRecebeu(null);
+     
         pr.setDataPagamento(null);
         pr.setObservcao(null);
         pr.setValorParcela(pr.getValorPago());

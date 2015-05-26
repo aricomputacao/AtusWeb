@@ -48,6 +48,10 @@ public abstract class DAO<T, PK extends Serializable> implements Serializable {
         em.merge(t);
     }
 
+    public T atualizarGerenciar(T t){
+        return em.merge(t);
+    }
+    
     public T carregar(PK id) throws Exception {
         return (T) em.find(getEntityClass(), id);
     }

@@ -15,7 +15,7 @@
     </composite:interface>
     <composite:implementation id="int2" >
         <p:fieldset id="fieldCad" rendered="#{navegacaoMB.permissaoIncluir(navegacao['fin.conta_receber'])}" legend="Cadastro" style="text-align: left">
-            <h:panelGrid columns="4" >
+            <h:panelGrid columns="5" >
                 <h:panelGrid  >
                     <comp:inputTextCalendar nomeLabel="Data Lançamento" require="true" valorData="#{contaReceberMB.contaReceber.dataCadastro}"/>
                 </h:panelGrid>
@@ -29,33 +29,27 @@
                                  required="true" requiredMessage="#{mensagens['require']}"/>
                 </h:panelGrid>
                 <h:panelGrid  >
-                    <p:outputLabel value="Percent. Colaborador" for="cv"/>
-                    <p:inputText value="#{contaReceberMB.contaReceber.percentualColaborador}"  id="cv" size="15"  converter="#{converterBigDecimal}"  styleClass="edtMoeda" onfocus="mascaraPercentInputs();" 
-                                 required="true" requiredMessage="#{mensagens['require']}"/>
-                </h:panelGrid>
-
-            </h:panelGrid>
-            <h:panelGrid columns="2" >
-                <h:panelGrid  >
                     <p:outputLabel  value="Cooptação" for="coo"/>
                     <p:selectOneMenu id="coo" effectSpeed="fade" style="width: 318px" converter="#{indexConverter}" value="#{contaReceberMB.contaReceber.cooptacao}">
                         <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="-----Selecione-----" itemValue="#{null}"/>
                         <f:selectItems value="#{contaReceberMB.listaDeCooptacao}" itemValue="#{c}" var="c" itemLabel="#{c.nome}" />
                     </p:selectOneMenu>
                 </h:panelGrid>
+                <h:panelGrid  >
+                    <p:outputLabel value="Percent. Colaborador" for="cv"/>
+                    <p:inputText value="#{contaReceberMB.contaReceber.percentualColaborador}" id="cv" size="15"  converter="#{converterBigDecimal}"  styleClass="edtMoeda" onfocus="mascaraPercentInputs();" 
+                                 required="true" requiredMessage="#{mensagens['require']}"/>
+                </h:panelGrid>
+
+            </h:panelGrid>
+            <h:panelGrid columns="2" >
+
                 <h:panelGrid width="50%" >
                     <p:outputLabel  value="Advogado" for="usr"/>
-                    <p:selectOneMenu id="usr" effectSpeed="fade" style="width: 335px" converter="#{indexConverter}" value="#{contaReceberMB.contaReceber.advogado}">
+                    <p:selectOneMenu id="usr" effectSpeed="fade" style="width: 310px" converter="#{indexConverter}" value="#{contaReceberMB.contaReceber.advogado}">
                         <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="-----Selecione-----" itemValue="#{null}"/>
                         <f:selectItems value="#{contaReceberMB.listaDeAdvogados}" itemValue="#{u}" var="u" itemLabel="#{u.nome}" />
                     </p:selectOneMenu>
-                </h:panelGrid>
-            </h:panelGrid>
-
-            <h:panelGrid id="grdUsr"  columns="3" >
-                <h:panelGrid >
-                    <comp:input_button nome_dialog="dialogoConProce" required="false" id="inputCon" input_size="50" nome_label="Processo(Id | Número)" 
-                                       value_input="#{contaReceberMB.contaReceber.processo.id} | #{contaReceberMB.contaReceber.processo.numero}"  />
                 </h:panelGrid>
                 <h:panelGrid>
                     <h:panelGrid columns="2" >
@@ -68,6 +62,14 @@
                         </p:selectOneMenu>
                     </h:panelGrid>
                 </h:panelGrid>
+            </h:panelGrid>
+
+            <h:panelGrid id="grdUsr"  columns="3" >
+                <h:panelGrid >
+                    <comp:input_button nome_dialog="dialogoConProce" required="false" id="inputCon" input_size="50" nome_label="Processo(Id | Número)" 
+                                       value_input="#{contaReceberMB.contaReceber.processo.id} | #{contaReceberMB.contaReceber.processo.numero}"  />
+                </h:panelGrid>
+
 
             </h:panelGrid>
             <comp:inputTextArea nomeLabel="Observações" value="#{contaReceberMB.contaReceber.observacao}" coluna="95" linha="10" />

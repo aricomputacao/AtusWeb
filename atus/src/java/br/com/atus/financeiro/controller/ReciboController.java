@@ -34,8 +34,8 @@ public class ReciboController extends Controller<Recibo, Long> implements Serial
         setDAO(dao);
     }
     
-    public Recibo addRecibo(List<ParcelasReceber> parcelas) throws Exception{
-        Recibo r = new Recibo();
+    public void addRecibo(List<ParcelasReceber> parcelas,Recibo r) throws Exception{
+      
         r.setListaDeParcelasReceber(new ArrayList<ParcelasReceber>());
         ParcelasReceber pr;
         for (ParcelasReceber p : parcelas) {
@@ -45,6 +45,6 @@ public class ReciboController extends Controller<Recibo, Long> implements Serial
         }
         
         dao.salvar(r);
-        return r;
+//        return r;
     }
 }
