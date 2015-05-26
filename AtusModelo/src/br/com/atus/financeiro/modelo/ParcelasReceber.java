@@ -6,6 +6,7 @@
 package br.com.atus.financeiro.modelo;
 
 import br.com.atus.modelo.Advogado;
+import br.com.atus.modelo.Usuario;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -33,10 +34,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * @author Ari
  */
 @Entity
-@Table(name = "parcela_receber", schema = "financeiro"
-        ,uniqueConstraints = @UniqueConstraint(columnNames = {"ctr_id","par_numero"}))
+@Table(name = "parcela_receber", schema = "financeiro", uniqueConstraints = @UniqueConstraint(columnNames = {"ctr_id", "par_numero"}))
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ParcelasReceber implements Comparable<ParcelasReceber>,Serializable {
+public class ParcelasReceber implements Comparable<ParcelasReceber>, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,17 +48,12 @@ public class ParcelasReceber implements Comparable<ParcelasReceber>,Serializable
     @JoinColumn(name = "ctr_id", nullable = false, referencedColumnName = "ctr_id")
     private ContaReceber contaReceber;
 
-   
-    @ManyToOne
-    @JoinColumn(name = "adv_id",  referencedColumnName = "adv_id")
-    private Advogado advogadoQueRecebeu;
-
+  
     @NotNull
     @Min(value = 0)
     @Column(name = "par_valor_parcela", nullable = false)
     private BigDecimal valorParcela;
 
-   
     @Min(value = 0)
     @Column(name = "par_valor_recebido")
     private BigDecimal valorPago;
@@ -71,17 +66,17 @@ public class ParcelasReceber implements Comparable<ParcelasReceber>,Serializable
     @Temporal(TemporalType.DATE)
     @Column(name = "par_data_pagamento")
     private Date dataPagamento;
-    
+
     @NotNull
     @Column(name = "par_numero", nullable = false)
     private int numeroDaParcela;
-    
-    @Column(name = "par_observacao",length = 1024)
-    private String observcao;
-    
-    
-    
 
+    @Column(name = "par_observacao", length = 1024)
+    private String observcao;
+
+  
+
+   
     //finalizar parcela
     public BigDecimal getValorDonoDoProcesso() {
         BigDecimal percent = this.contaReceber.getCooptacao().getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
@@ -98,10 +93,10 @@ public class ParcelasReceber implements Comparable<ParcelasReceber>,Serializable
         return this.valorPago.multiply(percent);
     }
 
-    public String getNomeDoCliente(){
+    public String getNomeDoCliente() {
         return this.contaReceber.getNomeDoCliente();
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -118,13 +113,7 @@ public class ParcelasReceber implements Comparable<ParcelasReceber>,Serializable
         this.contaReceber = contaReceber;
     }
 
-    public Advogado getAdvogadoQueRecebeu() {
-        return advogadoQueRecebeu;
-    }
-
-    public void setAdvogadoQueRecebeu(Advogado advogadoQueRecebeu) {
-        this.advogadoQueRecebeu = advogadoQueRecebeu;
-    }
+   
 
     public BigDecimal getValorParcela() {
         return valorParcela;
@@ -173,8 +162,8 @@ public class ParcelasReceber implements Comparable<ParcelasReceber>,Serializable
     public void setObservcao(String observcao) {
         this.observcao = observcao;
     }
-    
-    
+
+ 
 
     @Override
     public int hashCode() {
@@ -202,11 +191,9 @@ public class ParcelasReceber implements Comparable<ParcelasReceber>,Serializable
     public int compareTo(ParcelasReceber o) {
         if (this.numeroDaParcela > o.numeroDaParcela) {
             return 1;
-        }else{
+        } else {
             return -1;
         }
     }
-    
-    
-    
+
 }

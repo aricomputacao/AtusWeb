@@ -5,6 +5,8 @@
  */
 package br.com.atus.financeiro.modelo;
 
+import br.com.atus.modelo.Advogado;
+import br.com.atus.modelo.Usuario;
 import br.com.atus.util.NumeroPorExtenso;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -23,6 +25,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
@@ -34,7 +37,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name = "recibo", schema = "financeiro")
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Recibo implements Serializable {
 
     @Id
@@ -47,6 +50,52 @@ public class Recibo implements Serializable {
         @JoinColumn(name = "rec_id", referencedColumnName = "rec_id")}, inverseJoinColumns = {
         @JoinColumn(name = "par_id", referencedColumnName = "par_id")})
     private List<ParcelasReceber> listaDeParcelasReceber;
+
+    @ManyToOne
+    @JoinColumn(name = "adv_id", referencedColumnName = "adv_id")
+    private Advogado advogadoQueRecebeu;
+
+    @ManyToOne
+    @JoinColumn(name = "usr_id", referencedColumnName = "usr_id")
+    private Usuario usuarioQueRecebeu;
+
+    @Column(name = "par_confirmacao_recebimento", columnDefinition = "boolean default false")
+    private boolean confirmacaoRecebimento;
+
+    @Column(name = "par_prestado_conta", columnDefinition = "boolean default false")
+    private boolean prestadoConta;
+
+    public Advogado getAdvogadoQueRecebeu() {
+        return advogadoQueRecebeu;
+    }
+
+    public void setAdvogadoQueRecebeu(Advogado advogadoQueRecebeu) {
+        this.advogadoQueRecebeu = advogadoQueRecebeu;
+    }
+
+    public Usuario getUsuarioQueRecebeu() {
+        return usuarioQueRecebeu;
+    }
+
+    public void setUsuarioQueRecebeu(Usuario usuarioQueRecebeu) {
+        this.usuarioQueRecebeu = usuarioQueRecebeu;
+    }
+
+    public boolean isConfirmacaoRecebimento() {
+        return confirmacaoRecebimento;
+    }
+
+    public void setConfirmacaoRecebimento(boolean confirmacaoRecebimento) {
+        this.confirmacaoRecebimento = confirmacaoRecebimento;
+    }
+
+    public boolean isPrestadoConta() {
+        return prestadoConta;
+    }
+
+    public void setPrestadoConta(boolean prestadoConta) {
+        this.prestadoConta = prestadoConta;
+    }
 
     public Recibo() {
     }
@@ -71,10 +120,6 @@ public class Recibo implements Serializable {
 
     public String getNomeCliente() {
         return listaDeParcelasReceber.get(0).getNomeDoCliente();
-    }
-
-    public String getAdivogadoQueRecebeu() {
-        return listaDeParcelasReceber.get(0).getAdvogadoQueRecebeu().getNome();
     }
 
     public Date getDataDePAgamento() {
