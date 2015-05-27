@@ -33,7 +33,7 @@ public class Advogado implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "adv_id", nullable = false)
-    private Integer id;
+    private Long id;
     @NotBlank
     @Column(name = "adv_nome", nullable = false, unique = true)
     @PecaColetor
@@ -47,11 +47,11 @@ public class Advogado implements Serializable {
     @PecaColetor(isEntidade = true)
     private UnidadeFederativa uf;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -82,7 +82,7 @@ public class Advogado implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -100,5 +100,7 @@ public class Advogado implements Serializable {
         }
         return true;
     }
+
+   
 
 }

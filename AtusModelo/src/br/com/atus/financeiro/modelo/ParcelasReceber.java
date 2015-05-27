@@ -80,17 +80,17 @@ public class ParcelasReceber implements Comparable<ParcelasReceber>, Serializabl
     //finalizar parcela
     public BigDecimal getValorDonoDoProcesso() {
         BigDecimal percent = this.contaReceber.getCooptacao().getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
-        return this.valorPago.multiply(percent).subtract(getValorDoColaborador());
+        return this.valorPago.multiply(percent).setScale(2);
     }
 
     public BigDecimal getValorSocioDoProcesso() {
         BigDecimal percent = this.contaReceber.getCooptacao().getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
-        return valorPago.multiply(percent).subtract(getValorDoColaborador());
+        return valorPago.multiply(percent).setScale(2);
     }
 
     public BigDecimal getValorDoColaborador() {
         BigDecimal percent = this.contaReceber.getPercentualColaborador().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
-        return this.valorPago.multiply(percent);
+        return this.valorPago.multiply(percent).setScale(2);
     }
 
     public String getNomeDoCliente() {

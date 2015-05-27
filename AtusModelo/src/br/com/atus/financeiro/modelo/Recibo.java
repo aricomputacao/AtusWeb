@@ -7,9 +7,11 @@ package br.com.atus.financeiro.modelo;
 
 import br.com.atus.modelo.Advogado;
 import br.com.atus.modelo.Usuario;
+import br.com.atus.util.FormatadorDeNumeros;
 import br.com.atus.util.NumeroPorExtenso;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -55,6 +57,8 @@ public class Recibo implements Serializable {
     @ManyToOne
     @JoinColumn(name = "adv_id", referencedColumnName = "adv_id")
     private Advogado advogadoQueRecebeu;
+    
+   
 
     @ManyToOne
     @JoinColumn(name = "usr_id", referencedColumnName = "usr_id")
@@ -66,17 +70,16 @@ public class Recibo implements Serializable {
     @Column(name = "rec_prestado_conta", columnDefinition = "boolean default false")
     private boolean prestadoConta;
     
-    @NotNull
     @Temporal(TemporalType.DATE)
-    @Column(name = "rec_data_pagamento",nullable = false)
-    private Date dataPagamento;
+    @Column(name = "rec_data_confirmacao")
+    private Date dataConfirmacao;
 
-    public Date getDataPagamento() {
-        return dataPagamento;
+    public Date getDataConfirmacao() {
+        return dataConfirmacao;
     }
 
-    public void setDataPagamento(Date dataPagamento) {
-        this.dataPagamento = dataPagamento;
+    public void setDataConfirmacao(Date dataPagamento) {
+        this.dataConfirmacao = dataPagamento;
     }
     
     public Advogado getAdvogadoQueRecebeu() {
@@ -126,6 +129,35 @@ public class Recibo implements Serializable {
         NumeroPorExtenso n = new NumeroPorExtenso(true, true, true);
         return n.converteMoeda(getValorTotal());
     }
+    
+    public BigDecimal getValorDonoDoProcesso() {
+        BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getCooptacao().getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
+        return this.getValorTotal().multiply(percent).setScale(2);
+    }
+
+    public String getValorTotalFormatado(){
+        return FormatadorDeNumeros.converterBigDecimalEmStrng(getValorTotal());
+    }
+
+    public String getValorDonoDoProcessoFormatado(){
+        return FormatadorDeNumeros.converterBigDecimalEmStrng(getValorDonoDoProcesso());
+    }
+    public String getValorSocioDoProcessoFormatado(){
+        return FormatadorDeNumeros.converterBigDecimalEmStrng(getValorSocioDoProcesso());
+    }
+    public String getValorDoColaboradorFormatado(){
+        return FormatadorDeNumeros.converterBigDecimalEmStrng(getValorDoColaborador());
+    }
+    
+    public BigDecimal getValorSocioDoProcesso() {
+        BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getCooptacao().getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
+        return getValorTotal().multiply(percent).setScale(2);
+    }
+
+    public BigDecimal getValorDoColaborador() {
+        BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getPercentualColaborador().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
+        return this.getValorTotal().multiply(percent);
+    }
 
     public Long getIdDoProcesso() {
         return listaDeParcelasReceber.get(0).getContaReceber().getProcesso().getId();
@@ -169,6 +201,9 @@ public class Recibo implements Serializable {
     public void setListaDeParcelasReceber(List<ParcelasReceber> listaDeParcelasReceber) {
         this.listaDeParcelasReceber = listaDeParcelasReceber;
     }
+
+   
+    
 
     @Override
     public int hashCode() {
