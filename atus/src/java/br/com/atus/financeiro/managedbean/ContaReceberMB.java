@@ -21,6 +21,7 @@ import br.com.atus.modelo.Processo;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
+import br.com.atus.util.exceptions.PorcentagemException;
 import br.com.atus.util.managedbean.BeanGenerico;
 import br.com.atus.util.managedbean.NavegacaoMB;
 import java.io.Serializable;
@@ -103,8 +104,12 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
             controller.addContasReceber(contaReceber);
             init();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
+        } catch (PorcentagemException ex) {
+            MenssagemUtil.addMessageErro(ex.getMessage());
+            Logger.getLogger(ContaReceberMB.class.getName()).log(Level.SEVERE, null, ex);
+        
         } catch (Exception ex) {
-            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha"+" "+ex.getMessage(), MenssagemUtil.MENSAGENS));
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS));
             Logger.getLogger(ContaReceberMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -165,7 +170,7 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
 
             m.put("nome_cliente", recibo.getNomeCliente());
             m.put("usr_rec", recibo.getUsuarioQueRecebeu().getNome());
-            m.put("data_pagamento", recibo.getDataDePAgamento());
+            m.put("data_pagamento", recibo.getDataDePagamento());
             m.put("valor_extenso", recibo.getValorTotalExtenso());
             m.put("valor_total", recibo.getValorTotal());
             m.put("id_processo", recibo.getIdDoProcesso());

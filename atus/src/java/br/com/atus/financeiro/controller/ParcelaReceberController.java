@@ -79,7 +79,6 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
             restante = fazerPagamentoDeParcelaEspecifica(dto, ultimaParcela, restante);
         }
        reciboController.addRecibo(listaDeParcelasPagas,recibo);
-//        return reciboController.addRecibo(listaDeParcelasPagas,recibo);
 
     }
 

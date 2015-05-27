@@ -9,8 +9,10 @@ import br.com.atus.financeiro.dao.ReciboDAO;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.financeiro.modelo.Recibo;
 import br.com.atus.interfaces.Controller;
+import br.com.atus.modelo.Advogado;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -37,14 +39,21 @@ public class ReciboController extends Controller<Recibo, Long> implements Serial
     public void addRecibo(List<ParcelasReceber> parcelas,Recibo r) throws Exception{
       
         r.setListaDeParcelasReceber(new ArrayList<ParcelasReceber>());
+        r.setConfirmacaoRecebimento(false);
+        r.setPrestadoConta(false);
+        r.setDataPagamento(new Date());
         ParcelasReceber pr;
         for (ParcelasReceber p : parcelas) {
             pr = new ParcelasReceber();
             pr = parcelaReceberController.gerenciar(p.getId());
             r.addParcela(pr);
+            
         }
         
         dao.salvar(r);
-//        return r;
+    }
+
+    public List<Recibo> consultarRecibosAbertos(Advogado advogado) {
+        return  dao.consultarRecibosAbertos(advogado);
     }
 }

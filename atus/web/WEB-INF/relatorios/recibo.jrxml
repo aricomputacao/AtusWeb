@@ -18,7 +18,7 @@
 	<parameter name="valor_extenso" class="java.lang.String"/>
 	<parameter name="numero_recibo" class="java.lang.Long"/>
 	<parameter name="id_processo" class="java.lang.Long"/>
-	<parameter name="adv_rec" class="java.lang.String"/>
+	<parameter name="usr_rec" class="java.lang.String"/>
 	<parameter name="id_recibo" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
@@ -115,7 +115,7 @@
 				<textFieldExpression><![CDATA[$P{nome_cliente}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="315dd7c8-c421-4369-baaf-95d32fee1dba" x="2" y="25" width="104" height="20"/>
+				<reportElement uuid="315dd7c8-c421-4369-baaf-95d32fee1dba" x="2" y="25" width="104" height="19"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -148,21 +148,21 @@
 			<staticText>
 				<reportElement uuid="4c8ce91e-e611-4242-be82-eeebfdfd2313" x="5" y="65" width="63" height="20"/>
 				<textElement verticalAlignment="Middle">
-					<font size="10"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Número]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="0d9920bb-54e5-4cb7-ba36-6bf7ec32ee57" x="132" y="65" width="63" height="20"/>
 				<textElement verticalAlignment="Middle">
-					<font size="10"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Vencimento]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="a47efd09-ef6b-4289-a5d5-7aea14e63d4c" x="358" y="65" width="202" height="20"/>
 				<textElement verticalAlignment="Middle">
-					<font size="10"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Valor]]></text>
 			</staticText>
@@ -214,14 +214,14 @@
 				<reportElement uuid="a3cea721-c175-4995-ac9e-d680aa29b6c3" x="0" y="0" width="803" height="1"/>
 			</line>
 			<textField evaluationTime="Report">
-				<reportElement uuid="c4e56b4e-dcd0-44f8-bc92-a5baf3bb381e" x="769" y="26" width="33" height="20"/>
+				<reportElement uuid="c4e56b4e-dcd0-44f8-bc92-a5baf3bb381e" x="796" y="26" width="33" height="20"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="9dae17b1-6a57-4e40-9d5d-bb2472a052ec" x="689" y="26" width="80" height="20"/>
+				<reportElement uuid="9dae17b1-6a57-4e40-9d5d-bb2472a052ec" x="716" y="26" width="80" height="20"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font size="8"/>
 				</textElement>
@@ -235,7 +235,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isItalic="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{adv_rec}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{usr_rec}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

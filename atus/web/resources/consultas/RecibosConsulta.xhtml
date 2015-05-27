@@ -11,7 +11,7 @@
 
     <composite:interface id="interCon">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
-        <composite:attribute name="acao_consultar" default="#{contaReceberMB.consultarTodasContasReceberDoCliente()}" shortDescription="Metodo de consulta "  method-signature="java.lang.Void action()" />
+        <composite:attribute name="acao_consultar" default="#{reciboMB.consultarRecibosNaoConferidos()}" shortDescription="Metodo de consulta "  method-signature="java.lang.Void action()" />
         <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
 
 
@@ -19,29 +19,26 @@
     <composite:implementation id="compConCli" >
 
         <h:panelGrid  width="100%" id="rtt" >
-            <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" rendered="#{navegacaoMB.permissaoConsultar(navegacao['fin.conta_receber'])}" style="font-weight: bold">
+            <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" rendered="#{navegacaoMB.permissaoConsultar(navegacao['fin.recibo'])}" style="font-weight: bold">
                 <h:panelGrid id="grdConsulta" columns="4">
                     <h:panelGrid id="grdConsulta1">
                         <p:outputLabel value="Campo"/>
-                        <p:selectOneMenu id="selectOne" value="#{contaReceberMB.campoBusca}" styleClass="lista">
-                            <f:selectItem itemLabel="Cliente" itemValue="cliente" />
+                        <p:selectOneMenu id="selectOne" value="#{reciboMB.advogado}" styleClass="lista" converter="#{indexConverter}">
+                            <f:selectItems value="#{reciboMB.listaDeAdvogados}" var="a" itemLabel="#{a.nome}" itemValue="#{a}"/>
                         </p:selectOneMenu>
                     </h:panelGrid>
-                    <h:panelGrid id="grdConsulta2">
-                        <p:outputLabel value="Buscar por"/>
-                        <p:inputText value="#{contaReceberMB.valorBusca}" />
-                    </h:panelGrid>
+                    
                     <h:panelGrid id="grdConsulta3">
                         <p:spacer width="15"/>
                         <comp:commandButton_consulta acao_butao="#{cc.attrs.acao_consultar}" componente_to_update="#{cc.attrs.update_form}" />
                     </h:panelGrid>
                 </h:panelGrid>
-                <p:dataTable value="#{contaReceberMB.listaContaReceberParcelasDTOs}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10" 
+                <p:dataTable value="#{reciboMB.listaDeRecibos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10" 
                              rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
 
                     <f:facet name="header">
-                        <comp:outputText value="Contas a Receber"/>
+                        <comp:outputText value="Recibos"/>
                     </f:facet>
                     <p:columnGroup type="header" >
                         <p:row>
@@ -60,10 +57,10 @@
 
                     </p:columnGroup>
 
-                    <p:subTable value="#{t.parcelasRecebers}" var="p" >
+                    <p:subTable value="#{t.listaDeParcelasReceber}" var="p" >
                         <f:facet name="header">
                             <p:row>
-                                <h:outputText value=" &lowast; Cliente: #{t.contaReceber.nomeDoCliente} &lowast; Advogado: #{t.contaReceber.nomeDoAdvogado}  &lowast;  #{t.contaReceber.nomeDoColaborador}"  />                           
+                                <h:outputText value=" &lowast; Cliente: #{t.nomeCliente} &lowast; Advogado: #{t.nomeDoAdvogadot}  &lowast;  #{t.nomeDoColaborador}"  />                           
                             </p:row>
                         </f:facet>
 
@@ -94,16 +91,16 @@
 
                         <p:columnGroup type="footer">
                             <p:row>
-                                <p:column rowspan="2" colspan="1" footerText="Total R$ #{t.total}"/>
-                                <p:column colspan="1" footerText="&bull; Total Pago: R$ #{t.totalPago}"/>                        
-                                <p:column  colspan="2" footerText="&bull; Total Vencido: R$ #{t.totalVencido}"/>                        
-                                <p:column colspan="2" footerText="&bull; Total Aberto: R$ #{t.totalAberto}"/>                        
+                                <p:column rowspan="2" colspan="1" footerText="Total R$ #{t.valorTotal}"/>
+                                <p:column colspan="1" footerText="&bull; Total Pago: R$ "/>                        
+                                <p:column  colspan="2" footerText="&bull; Total Vencido: R$ "/>                        
+                                <p:column colspan="2" footerText="&bull; Total Aberto: R$ "/>                        
                             </p:row>
 
                             <p:row>
-                                <p:column  footerText="&bull; Vl. Advogado: R$ #{t.contaReceber.valorDonoDoProcesso}"/>
-                                <p:column colspan="2" footerText="&bull; Vl. Sócio: R$ #{t.contaReceber.valorSocioDoProcesso}"/>                        
-                                <p:column colspan="2" footerText="&bull; Vl. Colaborador: R$ #{t.contaReceber.valorDoColaborador}"/>                        
+                                <p:column  footerText="&bull; Vl. Advogado: R$ "/>
+                                <p:column colspan="2" footerText="&bull; Vl. Sócio: R$ "/>                        
+                                <p:column colspan="2" footerText="&bull; Vl. Colaborador: R$ "/>                        
                             </p:row>
                         </p:columnGroup>
                     </p:subTable>
@@ -113,6 +110,7 @@
         </h:panelGrid>
     </composite:implementation>
 </ui:composition>
+
 
 
 

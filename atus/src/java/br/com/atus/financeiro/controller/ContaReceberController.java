@@ -11,6 +11,7 @@ import br.com.atus.financeiro.modelo.ContaReceber;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.interfaces.Controller;
 import br.com.atus.util.MenssagemUtil;
+import br.com.atus.util.exceptions.PorcentagemException;
 import br.com.atus.util.managedbean.NavegacaoMB;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -41,7 +42,7 @@ public class ContaReceberController extends Controller<ContaReceber, Long> imple
         setDAO(dao);
     }
 
-    public void addContasReceber(ContaReceber contaReceber) throws Exception {
+    public void addContasReceber(ContaReceber contaReceber) throws PorcentagemException,Exception {
         validarPorcentagens(contaReceber);
         dao.salvar(contaReceber);
         parcelaReceberController.addListaDeParcelas(contaReceber);
@@ -51,7 +52,7 @@ public class ContaReceberController extends Controller<ContaReceber, Long> imple
     public void validarPorcentagens(ContaReceber cr) throws Exception{
         BigDecimal bd = cr.getPercentualColaborador().add(cr.getCooptacao().getPercentDono()).add(cr.getCooptacao().getPercentSocio());
         if (bd.compareTo(new BigDecimal(100)) > 0) {
-            throw new Exception(NavegacaoMB.getMsg("falha_soma_cooptacao", MenssagemUtil.MENSAGENS));
+            throw new PorcentagemException(NavegacaoMB.getMsg("falha_soma_cooptacao", MenssagemUtil.MENSAGENS));
         }
     }
     
