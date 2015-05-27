@@ -11,8 +11,6 @@ import br.com.atus.financeiro.modelo.ContaReceber;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.financeiro.modelo.Recibo;
 import br.com.atus.interfaces.Controller;
-import br.com.atus.modelo.Advogado;
-import br.com.atus.modelo.Usuario;
 import br.com.atus.util.NumeroPorExtenso;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -26,9 +24,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
 
 /**
  *

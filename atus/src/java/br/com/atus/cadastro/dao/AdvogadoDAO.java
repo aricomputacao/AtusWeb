@@ -16,7 +16,7 @@ import javax.ejb.Stateless;
  * @author Ari
  */
 @Stateless
-public class AdvogadoDAO extends DAO<Advogado, Integer> implements Serializable{
+public class AdvogadoDAO extends DAO<Advogado, Long> implements Serializable{
 
     public AdvogadoDAO() {
         super(Advogado.class);

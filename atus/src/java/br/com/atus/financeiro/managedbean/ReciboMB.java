@@ -10,14 +10,16 @@ import br.com.atus.enumerated.Perfil;
 import br.com.atus.financeiro.controller.ReciboController;
 import br.com.atus.financeiro.modelo.Recibo;
 import br.com.atus.modelo.Advogado;
+import br.com.atus.util.FormatadorDeNumeros;
+import br.com.atus.util.MetodosUtilitarios;
 import br.com.atus.util.managedbean.NavegacaoMB;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
@@ -40,6 +42,10 @@ public class ReciboMB implements Serializable {
     private Advogado advogado;
     private List<Recibo> listaDeRecibos;
     private List<Advogado> listaDeAdvogados;
+    private BigDecimal totalRecibos = BigDecimal.ZERO;
+    private BigDecimal totalColaborador = BigDecimal.ZERO;
+    private BigDecimal totalRepasseSocio = BigDecimal.ZERO;
+    private BigDecimal totalAdvogado = BigDecimal.ZERO;
 
     @PostConstruct
     public void init() {
@@ -48,7 +54,7 @@ public class ReciboMB implements Serializable {
             listaDeRecibos = new ArrayList<>();
             listaDeAdvogados = advogadoController.consultarTodos("nome");
             if (navegacaoMB.getUsuarioLogado().getPerfil().equals(Perfil.ADVOGADO)) {
-                advogado = advogadoController.gerenciar( Integer.getInteger(navegacaoMB.getUsuarioLogado().getReferencia().toString()));
+                advogado = advogadoController.carregar(navegacaoMB.getUsuarioLogado().getReferencia());
             }else{
                 advogado = new Advogado();
             }
@@ -56,9 +62,20 @@ public class ReciboMB implements Serializable {
             Logger.getLogger(ReciboMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void calcularValoresDoRecibo(){
+        List<BigDecimal> valores = reciboController.calcularValoresDoRecibo(listaDeRecibos);
+        totalRecibos = valores.get(0);
+        totalColaborador = valores.get(1);
+        totalRepasseSocio = valores.get(2);
+        totalAdvogado = valores.get(3);
+        
+    }
+    
 
     public void consultarRecibosNaoConferidos() {
         listaDeRecibos = reciboController.consultarRecibosAbertos(advogado);
+        calcularValoresDoRecibo();
     }
 
     public List<Recibo> getListaDeRecibos() {
@@ -83,6 +100,22 @@ public class ReciboMB implements Serializable {
 
     public void setAdvogado(Advogado advogado) {
         this.advogado = advogado;
+    }
+
+    public String getTotalRecibos() {
+        return FormatadorDeNumeros.converterBigDecimalEmStrng(totalRecibos);
+    }
+
+    public String getTotalColaborador() {
+        return FormatadorDeNumeros.converterBigDecimalEmStrng(totalColaborador);
+    }
+
+    public String getTotalRepasseSocio() {
+        return FormatadorDeNumeros.converterBigDecimalEmStrng(totalRepasseSocio);
+    }
+
+    public String getTotalAdvogado() {
+        return FormatadorDeNumeros.converterBigDecimalEmStrng(totalAdvogado);
     }
     
     

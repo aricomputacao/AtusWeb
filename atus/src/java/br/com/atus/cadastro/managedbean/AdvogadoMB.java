@@ -16,14 +16,12 @@ import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
@@ -38,9 +36,9 @@ public class AdvogadoMB extends BeanGenerico<Advogado> implements Serializable{
 
     @Inject
     private NavegacaoMB navegacaoMB;
-    @EJB
+    @Inject
     private AdvogadoController controller;
-    @EJB
+    @Inject
     private UnidadeFederativaController unidadeFederativaController;
     private List<Advogado> listaAdvogados;
     private List<UnidadeFederativa> listaUnidadeFederativas;

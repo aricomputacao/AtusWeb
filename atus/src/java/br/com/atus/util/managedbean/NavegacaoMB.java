@@ -84,7 +84,7 @@ public class NavegacaoMB implements Serializable {
             listaPermissaos = permissaoController.listar(usuarioLogado);
             popularMenu();
             if (usuarioLogado.getPerfil().equals(Perfil.ADVOGADO)) {
-                advogado = advogadoController.carregar(usuarioLogado.getReferencia().intValue());
+                advogado = advogadoController.carregar(usuarioLogado.getReferencia());
 
             }
             if (usuarioLogado.getPerfil().equals(Perfil.CLIENTE)) {

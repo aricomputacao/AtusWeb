@@ -88,7 +88,7 @@ public class UsuarioMB extends BeanGenerico<Usuario> implements Serializable {
                 usuario.setAtivo(true);
             } else {
                 if (usuario.getPerfil().equals(Perfil.ADVOGADO)) {
-                    advogado = advogadoController.carregar(usuario.getReferencia().intValue());
+                    advogado = advogadoController.carregar(usuario.getReferencia());
                 }
                 if (usuario.getPerfil().equals(Perfil.CLIENTE)) {
                     cliente = clienteController.carregar(usuario.getReferencia());
@@ -128,19 +128,17 @@ public class UsuarioMB extends BeanGenerico<Usuario> implements Serializable {
 
     public void salvar() {
         try {
-            if (usuario.getId() == null) {
-                if (renderAdvogado) {
-                    usuario.setReferencia(advogado.getId().longValue());
-                    usuario.setNome(advogado.getNome());
-                }
-                if (renderColaborador) {
-                    usuario.setReferencia(colaborador.getId());
-                    usuario.setNome(colaborador.getPessoa().getNome());
-                }
-                if (renderCliente) {
-                    usuario.setReferencia(cliente.getId());
-                    usuario.setNome(cliente.getPessoa().getNome());
-                }
+            if (renderAdvogado) {
+                usuario.setReferencia(advogado.getId());
+                usuario.setNome(advogado.getNome());
+            }
+            if (renderColaborador) {
+                usuario.setReferencia(colaborador.getId());
+                usuario.setNome(colaborador.getPessoa().getNome());
+            }
+            if (renderCliente) {
+                usuario.setReferencia(cliente.getId());
+                usuario.setNome(cliente.getPessoa().getNome());
             }
             controller.salvarouAtualizar(usuario);
             init();

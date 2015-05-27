@@ -18,7 +18,7 @@ import javax.ejb.Stateless;
  * @author Ari
  */
 @Stateless
-public class AdvogadoController extends Controller<Advogado, Integer> implements Serializable {
+public class AdvogadoController extends Controller<Advogado, Long> implements Serializable {
 
     @EJB
     private AdvogadoDAO dao;
