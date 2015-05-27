@@ -10,8 +10,6 @@ import br.com.atus.modelo.Usuario;
 import br.com.atus.util.NumeroPorExtenso;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +26,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -59,12 +60,25 @@ public class Recibo implements Serializable {
     @JoinColumn(name = "usr_id", referencedColumnName = "usr_id")
     private Usuario usuarioQueRecebeu;
 
-    @Column(name = "par_confirmacao_recebimento", columnDefinition = "boolean default false")
+    @Column(name = "rec_confirmacao_recebimento", columnDefinition = "boolean default false")
     private boolean confirmacaoRecebimento;
 
-    @Column(name = "par_prestado_conta", columnDefinition = "boolean default false")
+    @Column(name = "rec_prestado_conta", columnDefinition = "boolean default false")
     private boolean prestadoConta;
+    
+    @NotNull
+    @Temporal(TemporalType.DATE)
+    @Column(name = "rec_data_pagamento",nullable = false)
+    private Date dataPagamento;
 
+    public Date getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(Date dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+    
     public Advogado getAdvogadoQueRecebeu() {
         return advogadoQueRecebeu;
     }
@@ -122,7 +136,15 @@ public class Recibo implements Serializable {
         return listaDeParcelasReceber.get(0).getNomeDoCliente();
     }
 
-    public Date getDataDePAgamento() {
+    public String getNomeDoAdvogadot(){
+        return this.advogadoQueRecebeu.getNome();
+    }
+    
+    public String getNomeDoColaborador(){
+       return listaDeParcelasReceber.get(0).getContaReceber().getNomeDoColaborador();
+    }
+    
+    public Date getDataDePagamento() {
         return listaDeParcelasReceber.get(0).getDataPagamento();
 
     }
