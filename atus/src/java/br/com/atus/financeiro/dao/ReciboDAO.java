@@ -36,14 +36,11 @@ public class ReciboDAO extends DAO<Recibo, Long> implements Serializable{
         return tq.getResultList().isEmpty() ? new ArrayList<Recibo>() : tq.getResultList();
     }
     
-    public List<Recibo> consultarRecibosParaPrestarContas(Advogado advogado,Date dtIni,Date dtFim) {
+    public List<Recibo> consultarRecibosParaPrestarContas(Advogado advogado) {
         TypedQuery<Recibo> tq;
-        tq = getEm().createQuery("SELECT r FROM Recibo r WHERE r.advogadoQueRecebeu = :ad "
-                + "and r.prestadoConta = false and r.dataPagamento BETWEEN :dtIni AND :dtFim "
-                + "and r.confirmacaoRecebimento = false ORDER BY r.id", Recibo.class);
+        tq = getEm().createQuery("SELECT r FROM Recibo r WHERE r.advogadoQueRecebeu = :adv and "
+                                        + "r.prestadoConta = false and r.confirmacaoRecebimento = true ORDER BY r.id", Recibo.class);
         tq.setParameter("adv", advogado);
-        tq.setParameter("dtIni", MetodosUtilitarios.processarDataInicial(dtIni));
-        tq.setParameter("dtFim", MetodosUtilitarios.processarDataFinal(dtFim));
         return tq.getResultList().isEmpty() ? new ArrayList<Recibo>() : tq.getResultList();
     }
     

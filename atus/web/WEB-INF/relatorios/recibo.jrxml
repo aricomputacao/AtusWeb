@@ -148,21 +148,21 @@
 			<staticText>
 				<reportElement uuid="4c8ce91e-e611-4242-be82-eeebfdfd2313" x="5" y="65" width="63" height="20"/>
 				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
+					<font size="10" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Número]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="0d9920bb-54e5-4cb7-ba36-6bf7ec32ee57" x="132" y="65" width="63" height="20"/>
 				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
+					<font size="10" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Vencimento]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="a47efd09-ef6b-4289-a5d5-7aea14e63d4c" x="358" y="65" width="202" height="20"/>
 				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
+					<font size="10" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Valor]]></text>
 			</staticText>
@@ -171,13 +171,13 @@
 	<detail>
 		<band height="21" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="8d847d5b-2c5d-40f2-a106-311c15265c2f" style="zebra" x="0" y="0" width="820" height="16"/>
+				<reportElement uuid="8d847d5b-2c5d-40f2-a106-311c15265c2f" style="zebra" x="2" y="0" width="818" height="16"/>
 				<graphicElement>
 					<pen lineWidth="0.0"/>
 				</graphicElement>
 			</rectangle>
 			<line>
-				<reportElement uuid="4d555f21-53ea-4104-b3e8-97ce8f45031a" x="0" y="-1" width="1" height="22"/>
+				<reportElement uuid="4d555f21-53ea-4104-b3e8-97ce8f45031a" x="-1" y="-1" width="1" height="21"/>
 			</line>
 			<textField>
 				<reportElement uuid="37fd9e34-a2fc-4966-b065-a9e40ab30347" x="5" y="0" width="63" height="15"/>
@@ -210,9 +210,6 @@
 			<rectangle>
 				<reportElement uuid="1e7b4727-4fe1-4b8c-a3dc-99134f718bce" x="0" y="1" width="832" height="45"/>
 			</rectangle>
-			<line>
-				<reportElement uuid="a3cea721-c175-4995-ac9e-d680aa29b6c3" x="0" y="0" width="803" height="1"/>
-			</line>
 			<textField evaluationTime="Report">
 				<reportElement uuid="c4e56b4e-dcd0-44f8-bc92-a5baf3bb381e" x="796" y="26" width="33" height="20"/>
 				<textElement verticalAlignment="Bottom">

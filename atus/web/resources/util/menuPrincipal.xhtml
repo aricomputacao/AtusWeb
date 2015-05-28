@@ -75,6 +75,7 @@
                     <p:menuitem styleClass="item" id="menCoo" value="Cooptação" rendered="#{navegacaoMB.permissaoExiste(navegacao['fin.cooptacao'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['fin.cooptacao'])}" immediate="true"/>
                     <p:menuitem styleClass="item" id="menCre" value="Contas Receber" rendered="#{navegacaoMB.permissaoExiste(navegacao['fin.conta_receber'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['fin.conta_receber'])}" immediate="true"/>
                     <p:menuitem styleClass="item" id="menRec" value="Confirmar Recibo" rendered="#{navegacaoMB.permissaoExiste(navegacao['fin.recibo'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['fin.recibo'])}" immediate="true"/>
+                    <p:menuitem styleClass="item" id="menPre" value="Prestação de Conta" rendered="#{navegacaoMB.permissaoExiste(navegacao['fin.prestacao.conta'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['fin.prestacao.conta'])}" immediate="true"/>
                 </p:submenu>
                 
                 <p:menuitem icon="fa fa-ellipsis-v fa-lg" styleClass="itemSep"/>

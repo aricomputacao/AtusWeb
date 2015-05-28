@@ -94,16 +94,16 @@
 
                         <p:columnGroup type="footer">
                             <p:row>
-                                <p:column rowspan="2" colspan="1" footerText="Total R$ #{t.total}"/>
-                                <p:column colspan="1" footerText="&bull; Total Pago: R$ #{t.totalPago}"/>                        
-                                <p:column  colspan="2" footerText="&bull; Total Vencido: R$ #{t.totalVencido}"/>                        
-                                <p:column colspan="2" footerText="&bull; Total Aberto: R$ #{t.totalAberto}"/>                        
+                                <p:column rowspan="2" colspan="1" footerText="Total R$ #{t.totalFormatado}"/>
+                                <p:column colspan="1" footerText="&bull; Total Pago: R$ #{t.totalPagoFormatado}"/>                        
+                                <p:column  colspan="2" footerText="&bull; Total Vencido: R$ #{t.totalVencidoFormatado}"/>                        
+                                <p:column colspan="2" footerText="&bull; Total Aberto: R$ #{t.totalAbertoFormatado}"/>                        
                             </p:row>
 
                             <p:row>
-                                <p:column  footerText="&bull; Vl. Advogado: R$ #{t.contaReceber.valorDonoDoProcesso}"/>
-                                <p:column colspan="2" footerText="&bull; Vl. Sócio: R$ #{t.contaReceber.valorSocioDoProcesso}"/>                        
-                                <p:column colspan="2" footerText="&bull; Vl. Colaborador: R$ #{t.contaReceber.valorDoColaborador}"/>                        
+                                <p:column  footerText="&bull; Vl. Advogado: R$ #{t.valorDoDonoFormatado}"/>
+                                <p:column colspan="2" footerText="&bull; Vl. Sócio: R$ #{t.valorDoSocioFormatado}"/>                        
+                                <p:column colspan="2" footerText="&bull; Vl. Colaborador: R$ #{t.valorDoColaboradorFormatado}"/>                        
                             </p:row>
                         </p:columnGroup>
                     </p:subTable>

@@ -11,8 +11,6 @@ import br.com.atus.financeiro.controller.ReciboController;
 import br.com.atus.financeiro.modelo.Recibo;
 import br.com.atus.modelo.Advogado;
 import br.com.atus.util.FormatadorDeNumeros;
-import br.com.atus.util.MenssagemUtil;
-import br.com.atus.util.MetodosUtilitarios;
 import br.com.atus.util.managedbean.NavegacaoMB;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -27,11 +25,11 @@ import javax.inject.Inject;
 
 /**
  *
- * @author Ari
+ * @author ari
  */
 @ManagedBean
 @ViewScoped
-public class ReciboMB implements Serializable {
+public class PrestacaoDeContaMB implements Serializable {
 
     @Inject
     private NavegacaoMB navegacaoMB;
@@ -39,22 +37,21 @@ public class ReciboMB implements Serializable {
     private ReciboController reciboController;
     @Inject
     private AdvogadoController advogadoController;
-    private Recibo recibo;
     private Advogado advogado;
-    private List<Recibo> listaDeRecibos;
+    private List<Recibo> listaDeRecibosConferidos;
     private List<Recibo> listaDeRecibosSelecionados;
     private List<Advogado> listaDeAdvogados;
     private BigDecimal totalRecibos = BigDecimal.ZERO;
     private BigDecimal totalColaborador = BigDecimal.ZERO;
     private BigDecimal totalRepasseSocio = BigDecimal.ZERO;
     private BigDecimal totalAdvogado = BigDecimal.ZERO;
-    private BigDecimal totalRepasseDonoProcesso = BigDecimal.ZERO;
+    private BigDecimal totalRepasseAoDono = BigDecimal.ZERO;
 
+    
     @PostConstruct
     public void init() {
         try {
-            recibo = (Recibo) navegacaoMB.getRegistroMapa("recibo", new Recibo());
-            listaDeRecibos = new ArrayList<>();
+            listaDeRecibosConferidos = new ArrayList<>();
             listaDeRecibosSelecionados = new ArrayList<>();
             listaDeAdvogados = advogadoController.consultarTodos("nome");
             if (navegacaoMB.getUsuarioLogado().getPerfil().equals(Perfil.ADVOGADO)) {
@@ -63,61 +60,23 @@ public class ReciboMB implements Serializable {
                 advogado = new Advogado();
             }
         } catch (Exception ex) {
-            Logger.getLogger(ReciboMB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PrestacaoDeContaMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    
-    public void confirmarRecebimentos(){
-        try {
-            reciboController.confirmarRecebimentos(listaDeRecibosSelecionados,navegacaoMB.getUsuarioLogado());
-            consultarRecibosNaoConferidos();
-            MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("recibo_confirmado_sucesso", MenssagemUtil.MENSAGENS));
-        } catch (Exception ex) {
-            consultarRecibosNaoConferidos();
-            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("recibo_confirmado_falha", MenssagemUtil.MENSAGENS));
-            Logger.getLogger(ReciboMB.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void consultaRecibosParaPrestacaoDeconta() {
+        listaDeRecibosConferidos = reciboController.consultaRecibosParaPrestacaoDeConta(advogado);
+        calcularValoresDoRecibo();
     }
-    
-    private void calcularValoresDoRecibo(){
-        List<BigDecimal> valores = reciboController.calcularValoresDoRecibo(listaDeRecibos);
+
+    private void calcularValoresDoRecibo() {
+        List<BigDecimal> valores = reciboController.calcularValoresDoRecibo(listaDeRecibosConferidos);
         totalRecibos = valores.get(0);
         totalColaborador = valores.get(1);
         totalRepasseSocio = valores.get(2);
         totalAdvogado = valores.get(3);
-        totalRepasseDonoProcesso = valores.get(4);
-        
-    }
-    
+        totalRepasseAoDono = valores.get(4);
 
-    public void consultarRecibosNaoConferidos() {
-        listaDeRecibos = reciboController.consultarRecibosAbertos(advogado);
-        calcularValoresDoRecibo();
-    }
-
-    public List<Recibo> getListaDeRecibos() {
-        return listaDeRecibos;
-    }
-
-    public List<Advogado> getListaDeAdvogados() {
-        return listaDeAdvogados;
-    }
-
-    public Recibo getRecibo() {
-        return recibo;
-    }
-
-    public void setRecibo(Recibo recibo) {
-        this.recibo = recibo;
-    }
-
-    public Advogado getAdvogado() {
-        return advogado;
-    }
-
-    public void setAdvogado(Advogado advogado) {
-        this.advogado = advogado;
     }
 
     public String getTotalRecibos() {
@@ -131,12 +90,12 @@ public class ReciboMB implements Serializable {
     public String getTotalRepasseSocio() {
         return FormatadorDeNumeros.converterBigDecimalEmStrng(totalRepasseSocio);
     }
-    public String getTotalRepasseDonoProcesso() {
-        return FormatadorDeNumeros.converterBigDecimalEmStrng(totalRepasseDonoProcesso);
-    }
 
     public String getTotalAdvogado() {
         return FormatadorDeNumeros.converterBigDecimalEmStrng(totalAdvogado);
+    }
+    public String getTotalRepassaAoDono() {
+        return FormatadorDeNumeros.converterBigDecimalEmStrng(totalRepasseAoDono);
     }
 
     public List<Recibo> getListaDeRecibosSelecionados() {
@@ -146,7 +105,25 @@ public class ReciboMB implements Serializable {
     public void setListaDeRecibosSelecionados(List<Recibo> listaDeRecibosSelecionados) {
         this.listaDeRecibosSelecionados = listaDeRecibosSelecionados;
     }
-    
-    
+
+    public List<Recibo> getListaDeRecibosConferidos() {
+        return listaDeRecibosConferidos;
+    }
+
+    public List<Advogado> getListaDeAdvogados() {
+        return listaDeAdvogados;
+    }
+
+    public Advogado getAdvogado() {
+        return advogado;
+    }
+
+    public void setAdvogado(Advogado advogado) {
+        this.advogado = advogado;
+    }
+
+    public void setListaDeAdvogados(List<Advogado> listaDeAdvogados) {
+        this.listaDeAdvogados = listaDeAdvogados;
+    }
 
 }

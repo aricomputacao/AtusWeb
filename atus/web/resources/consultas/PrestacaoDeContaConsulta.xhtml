@@ -11,20 +11,18 @@
 
     <composite:interface id="interCon">
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
-        <composite:attribute name="acao_consultar" default="#{reciboMB.consultarRecibosNaoConferidos()}" shortDescription="Metodo de consulta "  method-signature="java.lang.Void action()" />
+        <composite:attribute name="acao_consultar" default="#{prestacaoDeContaMB.consultaRecibosParaPrestacaoDeconta()}" shortDescription="Metodo de consulta "  method-signature="java.lang.Void action()" />
         <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
-
-
     </composite:interface>
     <composite:implementation id="compConCli" >
 
         <h:panelGrid  width="100%" id="rtt" >
-            <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" rendered="#{navegacaoMB.permissaoConsultar(navegacao['fin.recibo'])}" style="font-weight: bold">
+            <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" rendered="#{navegacaoMB.permissaoConsultar(navegacao['fin.prestacao.conta'])}" style="font-weight: bold">
                 <h:panelGrid id="grdConsulta" columns="4">
                     <h:panelGrid id="grdConsulta1">
                         <p:outputLabel value="Advogado"/>
-                        <p:selectOneMenu id="selectOne" value="#{reciboMB.advogado}" styleClass="lista" converter="#{indexConverter}">
-                            <f:selectItems value="#{reciboMB.listaDeAdvogados}" var="a" itemLabel="#{a.nome}" itemValue="#{a}"/>
+                        <p:selectOneMenu id="selectOne" value="#{prestacaoDeContaMB.advogado}" styleClass="lista" converter="#{indexConverter}">
+                            <f:selectItems value="#{prestacaoDeContaMB.listaDeAdvogados}" var="a" itemLabel="#{a.nome}" itemValue="#{a}"/>
                         </p:selectOneMenu>
                     </h:panelGrid>
 
@@ -39,15 +37,15 @@
                         </p:commandButton>
                     </h:panelGrid>
                 </h:panelGrid>
-                <p:dataTable value="#{reciboMB.listaDeRecibos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10" 
-                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" rowKey="#{t.id}"  selection="#{reciboMB.listaDeRecibosSelecionados}"
+                <p:dataTable value="#{prestacaoDeContaMB.listaDeRecibosConferidos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10" 
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" rowKey="#{t.id}"  selection="#{prestacaoDeContaMB.listaDeRecibosSelecionados}"
                              rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
 
                     <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                     <p:column style="width:16px">
                         <p:rowToggler />
                     </p:column>
-                    <p:column headerText="Id" width="5%">
+                    <p:column headerText="Id" width="3%">
                         <comp:outputText value="#{t.id}" />
                     </p:column>
 
@@ -86,7 +84,7 @@
                                     <p:column  headerText="Id Processo | Número Parcela"/>
                                     <p:column  headerText="Vencimento"/>                        
                                     <p:column  headerText="Data Pagamento"/>                        
-                                                          
+                                                        
                                     <p:column  headerText="Valor Pago"/>                        
                                 </p:row>
                             </p:columnGroup>
@@ -104,18 +102,18 @@
                             <p:column>
                                 <comp:outputText value="#{p.valorPago}" tipo="c"/>
                             </p:column>
-                          
+                           
 
                         </p:dataTable>
                     </p:rowExpansion>
                     <p:columnGroup type="footer">
                         <p:row>
                             <p:column colspan="6"  footerText="&diams; Valores referentes aos recibos listados acima"/>                        
-                            <p:column  colspan="1" footerText="&diams; Repasse = R$ #{reciboMB.totalRepasseDonoProcesso}"/>
-                            <p:column  colspan="1" footerText="&diams; Advogado = R$ #{reciboMB.totalAdvogado}"/>
-                            <p:column  colspan="1" footerText="&diams; Sócio = R$ #{reciboMB.totalRepasseSocio}"/>
-                            <p:column  colspan="1" footerText="&diams; Colaborador = R$ #{reciboMB.totalColaborador}"/>
-                            <p:column  colspan="1" footerText="&diams; Geral = R$ #{reciboMB.totalRecibos}"/>
+                            <p:column  colspan="1" footerText="&diams; Total Dono  = R$ #{prestacaoDeContaMB.totalRepassaAoDono}"/>
+                            <p:column  colspan="1" footerText="&diams; Total Advogado = R$ #{prestacaoDeContaMB.totalAdvogado}"/>
+                            <p:column  colspan="1" footerText="&diams; Total Sócio = R$ #{prestacaoDeContaMB.totalRepasseSocio}"/>
+                            <p:column  colspan="1" footerText="&diams; Total Colaborador = R$ #{prestacaoDeContaMB.totalColaborador}"/>
+                            <p:column  colspan="1" footerText="&diams; Total Geral = R$ #{prestacaoDeContaMB.totalRecibos}"/>
                         </p:row>
 
                     </p:columnGroup>

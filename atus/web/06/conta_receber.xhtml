@@ -17,7 +17,7 @@
         <h:outputScript name="edtMoeda.js"  library="js"/>
         <h:form id="frm_pag" prependId="false" >
 
-            <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['fin.conta_receber'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['fin.conta_receber'])}" acao_imprimir="#{eventoMB.imprimir()}" acao_limpar="#{contaReceberMB.init()}" acao_salvar="#{contaReceberMB.salvar()}"/>
+            <comp:menuPanel   id="menuPanel"   disable_imprimir="true" acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['fin.conta_receber'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['fin.conta_receber'])}" acao_imprimir="#{eventoMB.imprimir()}" acao_limpar="#{contaReceberMB.init()}" acao_salvar="#{contaReceberMB.salvar()}"/>
 
             <comp:panel_cadastro id="cadFrm" cabecalho_grid="Contas a Receber" id_form="frm_pag"  >               
                 <h:panelGrid width="100%" rendered="#{navegacaoMB.renderPainelCadastro}"  >
