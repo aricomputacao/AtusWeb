@@ -30,7 +30,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -57,22 +56,28 @@ public class Recibo implements Serializable {
     @ManyToOne
     @JoinColumn(name = "adv_id", referencedColumnName = "adv_id")
     private Advogado advogadoQueRecebeu;
-    
-   
 
     @ManyToOne
-    @JoinColumn(name = "usr_id", referencedColumnName = "usr_id")
+    @JoinColumn(name = "rec_usr_recebeu", referencedColumnName = "usr_id")
     private Usuario usuarioQueRecebeu;
+
+    @ManyToOne
+    @JoinColumn(name = "rec_usr_confirmou", referencedColumnName = "usr_id")
+    private Usuario usuarioQueConfirmouRecibo;
 
     @Column(name = "rec_confirmacao_recebimento", columnDefinition = "boolean default false")
     private boolean confirmacaoRecebimento;
 
     @Column(name = "rec_prestado_conta", columnDefinition = "boolean default false")
     private boolean prestadoConta;
-    
+
     @Temporal(TemporalType.DATE)
     @Column(name = "rec_data_confirmacao")
     private Date dataConfirmacao;
+
+    public Advogado getAdvogadoDonoProcesso() {
+        return listaDeParcelasReceber.get(0).getContaReceber().getAdvogado();
+    }
 
     public Date getDataConfirmacao() {
         return dataConfirmacao;
@@ -81,7 +86,7 @@ public class Recibo implements Serializable {
     public void setDataConfirmacao(Date dataPagamento) {
         this.dataConfirmacao = dataPagamento;
     }
-    
+
     public Advogado getAdvogadoQueRecebeu() {
         return advogadoQueRecebeu;
     }
@@ -129,26 +134,45 @@ public class Recibo implements Serializable {
         NumeroPorExtenso n = new NumeroPorExtenso(true, true, true);
         return n.converteMoeda(getValorTotal());
     }
-    
+
     public BigDecimal getValorDonoDoProcesso() {
+        BigDecimal vlDon = BigDecimal.ZERO;
+        for (ParcelasReceber pa : listaDeParcelasReceber) {
+            if (this.advogadoQueRecebeu.equals(pa.getContaReceber().getAdvogado())) {
+                vlDon = vlDon.add(pa.getValorPago());
+            }
+        }
         BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getCooptacao().getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
-        return this.getValorTotal().multiply(percent).setScale(2);
+        return vlDon.multiply(percent).setScale(2);
+    }
+    
+    public BigDecimal getValorRepasseDonoDoProcesso() {
+        BigDecimal vlDon = BigDecimal.ZERO;
+        for (ParcelasReceber pa : listaDeParcelasReceber) {
+            if (!this.advogadoQueRecebeu.equals(pa.getContaReceber().getAdvogado())) {
+                vlDon = vlDon.add(pa.getValorPago());
+            }
+        }
+        BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getCooptacao().getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
+        return vlDon.multiply(percent).setScale(2);
     }
 
-    public String getValorTotalFormatado(){
+    public String getValorTotalFormatado() {
         return FormatadorDeNumeros.converterBigDecimalEmStrng(getValorTotal());
     }
 
-    public String getValorDonoDoProcessoFormatado(){
+    public String getValorDonoDoProcessoFormatado() {
         return FormatadorDeNumeros.converterBigDecimalEmStrng(getValorDonoDoProcesso());
     }
-    public String getValorSocioDoProcessoFormatado(){
+
+    public String getValorSocioDoProcessoFormatado() {
         return FormatadorDeNumeros.converterBigDecimalEmStrng(getValorSocioDoProcesso());
     }
-    public String getValorDoColaboradorFormatado(){
+
+    public String getValorDoColaboradorFormatado() {
         return FormatadorDeNumeros.converterBigDecimalEmStrng(getValorDoColaborador());
     }
-    
+
     public BigDecimal getValorSocioDoProcesso() {
         BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getCooptacao().getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
         return getValorTotal().multiply(percent).setScale(2);
@@ -168,14 +192,18 @@ public class Recibo implements Serializable {
         return listaDeParcelasReceber.get(0).getNomeDoCliente();
     }
 
-    public String getNomeDoAdvogadot(){
+    public String getNomeDoAdvogadoQueRecebeu() {
         return this.advogadoQueRecebeu.getNome();
     }
-    
-    public String getNomeDoColaborador(){
-       return listaDeParcelasReceber.get(0).getContaReceber().getNomeDoColaborador();
+
+    public String getNomeDoAdvogadoDonoDoProcesso() {
+        return this.getAdvogadoDonoProcesso().getNome();
     }
-    
+
+    public String getNomeDoColaborador() {
+        return listaDeParcelasReceber.get(0).getContaReceber().getNomeDoColaborador();
+    }
+
     public Date getDataDePagamento() {
         return listaDeParcelasReceber.get(0).getDataPagamento();
 
@@ -202,8 +230,13 @@ public class Recibo implements Serializable {
         this.listaDeParcelasReceber = listaDeParcelasReceber;
     }
 
-   
-    
+    public Usuario getUsuarioQueConfirmouRecibo() {
+        return usuarioQueConfirmouRecibo;
+    }
+
+    public void setUsuarioQueConfirmouRecibo(Usuario usuarioQueConfirmouRecibo) {
+        this.usuarioQueConfirmouRecibo = usuarioQueConfirmouRecibo;
+    }
 
     @Override
     public int hashCode() {

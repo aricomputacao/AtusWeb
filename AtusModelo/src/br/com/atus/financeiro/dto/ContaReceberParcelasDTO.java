@@ -8,6 +8,7 @@ package br.com.atus.financeiro.dto;
 import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.financeiro.modelo.ContaReceber;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
+import br.com.atus.util.FormatadorDeNumeros;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -19,7 +20,7 @@ import java.util.Objects;
  *
  * @author ari
  */
-public class ContaReceberParcelasDTO implements  Serializable {
+public class ContaReceberParcelasDTO implements Serializable {
 
     private ContaReceber contaReceber;
     private List<ParcelasReceber> parcelasRecebers;
@@ -58,6 +59,10 @@ public class ContaReceberParcelasDTO implements  Serializable {
         return vlPg;
     }
 
+    public String getTotalPagoFormatado() {
+        return FormatadorDeNumeros.converterBigDecimalEmStrng(getTotalPago());
+    }
+
     public BigDecimal getTotalAberto() {
         BigDecimal vlPg = new BigDecimal(BigInteger.ZERO);
         for (ParcelasReceber pa : parcelasRecebers) {
@@ -66,6 +71,10 @@ public class ContaReceberParcelasDTO implements  Serializable {
             }
         }
         return vlPg;
+    }
+
+    public String getTotalAbertoFormatado() {
+        return FormatadorDeNumeros.converterBigDecimalEmStrng(getTotalAberto());
     }
 
     public BigDecimal getTotalVencido() {
@@ -78,6 +87,10 @@ public class ContaReceberParcelasDTO implements  Serializable {
         return vlPg;
     }
 
+    public String getTotalVencidoFormatado() {
+        return FormatadorDeNumeros.converterBigDecimalEmStrng(getTotalVencido());
+    }
+
     public BigDecimal getTotal() {
         BigDecimal vlPg = new BigDecimal(BigInteger.ZERO);
         for (ParcelasReceber pa : parcelasRecebers) {
@@ -86,8 +99,24 @@ public class ContaReceberParcelasDTO implements  Serializable {
         return vlPg;
     }
 
+    public String getTotalFormatado() {
+        return FormatadorDeNumeros.converterBigDecimalEmStrng(getTotal());
+    }
+
     public BigDecimal getValorDoDono() {
         return contaReceber.getValorDonoDoProcesso();
+    }
+
+    public String getValorDoDonoFormatado() {
+        return FormatadorDeNumeros.converterBigDecimalEmStrng(getValorDoDono());
+    }
+    
+    public String getValorDoSocioFormatado(){
+        return FormatadorDeNumeros.converterBigDecimalEmStrng(contaReceber.getValorSocioDoProcesso());
+    }
+    
+    public String getValorDoColaboradorFormatado(){
+        return FormatadorDeNumeros.converterBigDecimalEmStrng(contaReceber.getValorDoColaborador());
     }
 
     @Override
@@ -116,5 +145,4 @@ public class ContaReceberParcelasDTO implements  Serializable {
         return true;
     }
 
-  
 }
