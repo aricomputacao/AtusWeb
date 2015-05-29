@@ -24,106 +24,106 @@
                     <h:panelGrid id="grdConsulta1">
                         <p:outputLabel value="Advogado"/>
                         <p:selectOneMenu id="selectOne" value="#{reciboMB.advogado}" styleClass="lista" converter="#{indexConverter}">
+                            <f:selectItem itemLabel="------Selecione------" itemValue="#{null}" noSelectionOption="true"/>
                             <f:selectItems value="#{reciboMB.listaDeAdvogados}" var="a" itemLabel="#{a.nome}" itemValue="#{a}"/>
-                        </p:selectOneMenu>
-                    </h:panelGrid>
+                            <p:ajax event="change" listener="#{reciboMB.consultarRecibosNaoConferidos}" update="tabela"/>
 
-                    <h:panelGrid id="grdConsulta3">
-                        <p:spacer width="15"/>
-                        <comp:commandButton_consulta acao_butao="#{cc.attrs.acao_consultar}" componente_to_update="#{cc.attrs.update_form}" />
-                    </h:panelGrid>
-                    <h:panelGrid id="grdConsulta4">
-                        <p:spacer width="15"/>
-                        <p:commandButton value="Confirmar Recebimento" actionListener="#{reciboMB.confirmarRecebimentos()}" update="tabela" icon="fa fa-arrow-circle-down fa-lg">
-                            <p:confirm message="Esta certo disso?" header="Confirmar recebimentos" icon="fa fa-info fa-lg" />
-                        </p:commandButton>
-                    </h:panelGrid>
+                    </p:selectOneMenu>
                 </h:panelGrid>
-                <p:dataTable value="#{reciboMB.listaDeRecibos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10" 
-                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" rowKey="#{t.id}"  selection="#{reciboMB.listaDeRecibosSelecionados}"
-                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
 
-                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
-                    <p:column style="width:16px">
-                        <p:rowToggler />
-                    </p:column>
-                    <p:column headerText="Id" width="5%">
-                        <comp:outputText value="#{t.id}" />
-                    </p:column>
+               
+                <h:panelGrid id="grdConsulta4">
+                    <p:spacer width="15"/>
+                    <p:commandButton value="Confirmar Recebimento" actionListener="#{reciboMB.confirmarRecebimentos()}" update="tabela" icon="fa fa-arrow-circle-down fa-lg">
+                        <p:confirm message="Esta certo disso?" header="Confirmar recebimentos" icon="fa fa-info fa-lg" />
+                    </p:commandButton>
+                </h:panelGrid>
+            </h:panelGrid>
+            <p:dataTable value="#{reciboMB.listaDeRecibos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10" 
+                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" rowKey="#{t.id}"  selection="#{reciboMB.listaDeRecibosSelecionados}"
+                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
 
-                    <p:column headerText="Processo" width="5%">
-                        <comp:outputText value="#{t.idDoProcesso}" />
-                    </p:column>
-                    <p:column headerText="Cliente">
-                        <comp:outputText value="#{t.nomeCliente}" />
-                    </p:column>
-                    <p:column headerText="Dono do Processo">
-                        <comp:outputText value="#{t.nomeDoAdvogadoDonoDoProcesso}" />
-                    </p:column>
-                    <p:column headerText="Vl. Repasse Dono">
-                        <comp:outputText value="#{t.valorRepasseDonoDoProcesso}" tipo="c" />
-                    </p:column>
-                    <p:column headerText="Vl. Advogado">
-                        <comp:outputText value="#{t.valorDonoDoProcesso}" tipo="c" />
-                    </p:column>
-                    <p:column headerText="Vl. Sócio">
-                        <comp:outputText value="#{t.valorSocioDoProcesso}" tipo="c" />
-                    </p:column>
-                    <p:column headerText="Vl. Colaborador">
-                        <comp:outputText value="#{t.valorDoColaborador}" tipo="c" />
-                    </p:column>
-                    <p:column headerText="Vl. Total">
-                        <comp:outputText value="#{t.valorTotal}" tipo="c" />
-                    </p:column>
-                    <p:rowExpansion>
-                        <p:dataTable value="#{t.listaDeParcelasReceber}" id="tabela2" paginatorAlwaysVisible="false"  paginator="true" var="p" rows="10" 
-                                     rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">>
-                            <f:facet name="header">
-                                <comp:outputText value="Parcelas do Recibo"/>
-                            </f:facet>   
-                            <p:columnGroup type="header">
-                                <p:row>
-                                    <p:column  headerText="Id Processo | Número Parcela"/>
-                                    <p:column  headerText="Vencimento"/>                        
-                                    <p:column  headerText="Data Pagamento"/>                        
-                                                          
-                                    <p:column  headerText="Valor Pago"/>                        
-                                </p:row>
-                            </p:columnGroup>
+                <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                <p:column style="width:16px">
+                    <p:rowToggler />
+                </p:column>
+                <p:column headerText="Id" width="5%">
+                    <comp:outputText value="#{t.id}" />
+                </p:column>
 
-                            <p:column>
-                                <comp:outputText value="&rArr; Id: #{p.contaReceber.processo.id}  &rArr; Parcela: #{p.numeroDaParcela}"  />
-                            </p:column>
-                            <p:column >
-                                <comp:outputText value="#{p.vencimento}" tipo="d"/>
-                            </p:column>
-                            <p:column>
-                                <comp:outputText value="#{p.dataPagamento}" tipo="d"/>
-                            </p:column>
-                           
-                            <p:column>
-                                <comp:outputText value="#{p.valorPago}" tipo="c"/>
-                            </p:column>
-                          
+                <p:column headerText="Assinado por">
+                    <comp:outputText value="#{t.usuarioQueRecebeu.nome}" />
+                </p:column>
+                <p:column headerText="Cliente">
+                    <comp:outputText value="#{t.nomeCliente}" />
+                </p:column>
+                <p:column headerText="Dono do Processo">
+                    <comp:outputText value="#{t.nomeDoAdvogadoDonoDoProcesso}" />
+                </p:column>
+                <p:column headerText="Vl. Repasse Dono">
+                    <comp:outputText value="#{t.valorRepasseDonoDoProcesso}" tipo="c" />
+                </p:column>
+                <p:column headerText="Vl. Advogado">
+                    <comp:outputText value="#{t.valorDonoDoProcesso}" tipo="c" />
+                </p:column>
+                <p:column headerText="Vl. Sócio">
+                    <comp:outputText value="#{t.valorSocioDoProcesso}" tipo="c" />
+                </p:column>
+                <p:column headerText="Vl. Colaborador">
+                    <comp:outputText value="#{t.valorDoColaborador}" tipo="c" />
+                </p:column>
+                <p:column headerText="Vl. Total">
+                    <comp:outputText value="#{t.valorTotal}" tipo="c" />
+                </p:column>
+                <p:rowExpansion>
+                    <p:dataTable value="#{t.listaDeParcelasReceber}" id="tabela2" paginatorAlwaysVisible="false"  paginator="true" var="p" rows="10" 
+                                 rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">>
+                        <f:facet name="header">
+                            <comp:outputText value="Parcelas do Recibo"/>
+                        </f:facet>   
+                        <p:columnGroup type="header">
+                            <p:row>
+                                <p:column  headerText="Id Processo | Número Parcela"/>
+                                <p:column  headerText="Vencimento"/>                        
+                                <p:column  headerText="Data Pagamento"/>                        
 
-                        </p:dataTable>
-                    </p:rowExpansion>
-                    <p:columnGroup type="footer">
-                        <p:row>
-                            <p:column colspan="6"  footerText="&diams; Valores referentes aos recibos listados acima"/>                        
-                            <p:column  colspan="1" footerText="&diams; Repasse = R$ #{reciboMB.totalRepasseDonoProcesso}"/>
-                            <p:column  colspan="1" footerText="&diams; Advogado = R$ #{reciboMB.totalAdvogado}"/>
-                            <p:column  colspan="1" footerText="&diams; Sócio = R$ #{reciboMB.totalRepasseSocio}"/>
-                            <p:column  colspan="1" footerText="&diams; Colaborador = R$ #{reciboMB.totalColaborador}"/>
-                            <p:column  colspan="1" footerText="&diams; Geral = R$ #{reciboMB.totalRecibos}"/>
-                        </p:row>
+                                <p:column  headerText="Valor Pago"/>                        
+                            </p:row>
+                        </p:columnGroup>
 
-                    </p:columnGroup>
-                </p:dataTable>
-            </p:fieldset>
+                        <p:column>
+                            <comp:outputText value="&rArr; Id: #{p.contaReceber.processo.id}  &rArr; Parcela: #{p.numeroDaParcela}"  />
+                        </p:column>
+                        <p:column >
+                            <comp:outputText value="#{p.vencimento}" tipo="d"/>
+                        </p:column>
+                        <p:column>
+                            <comp:outputText value="#{p.dataPagamento}" tipo="d"/>
+                        </p:column>
 
-        </h:panelGrid>
-    </composite:implementation>
+                        <p:column>
+                            <comp:outputText value="#{p.valorPago}" tipo="c"/>
+                        </p:column>
+
+
+                    </p:dataTable>
+                </p:rowExpansion>
+                <p:columnGroup type="footer">
+                    <p:row>
+                        <p:column colspan="6"  footerText="&diams; Valores referentes aos recibos listados acima"/>                        
+                        <p:column  colspan="1" footerText="&diams; R$ #{reciboMB.totalRepasseDonoProcesso}"/>
+                        <p:column  colspan="1" footerText="&diams; R$ #{reciboMB.totalAdvogado}"/>
+                        <p:column  colspan="1" footerText="&diams; R$ #{reciboMB.totalRepasseSocio}"/>
+                        <p:column  colspan="1" footerText="&diams; R$ #{reciboMB.totalColaborador}"/>
+                        <p:column  colspan="1" footerText="&diams; R$ #{reciboMB.totalRecibos}"/>
+                    </p:row>
+
+                </p:columnGroup>
+            </p:dataTable>
+        </p:fieldset>
+
+    </h:panelGrid>
+</composite:implementation>
 </ui:composition>
 
 

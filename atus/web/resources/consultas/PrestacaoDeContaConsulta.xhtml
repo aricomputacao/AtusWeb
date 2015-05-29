@@ -22,14 +22,13 @@
                     <h:panelGrid id="grdConsulta1">
                         <p:outputLabel value="Advogado"/>
                         <p:selectOneMenu id="selectOne" value="#{prestacaoDeContaMB.advogado}" styleClass="lista" converter="#{indexConverter}">
+                            <f:selectItem itemLabel="------Selecione------" itemValue="#{null}" noSelectionOption="true"/>
                             <f:selectItems value="#{prestacaoDeContaMB.listaDeAdvogados}" var="a" itemLabel="#{a.nome}" itemValue="#{a}"/>
+                            <p:ajax event="change" listener="#{prestacaoDeContaMB.consultaRecibosParaPrestacaoDeconta()}" update="tabela"/>
                         </p:selectOneMenu>
                     </h:panelGrid>
 
-                    <h:panelGrid id="grdConsulta3">
-                        <p:spacer width="15"/>
-                        <comp:commandButton_consulta acao_butao="#{cc.attrs.acao_consultar}" componente_to_update="#{cc.attrs.update_form}" />
-                    </h:panelGrid>
+                   
                     <h:panelGrid id="grdConsulta4">
                         <p:spacer width="15"/>
                         <p:commandButton value="Confirmar Recebimento" actionListener="#{reciboMB.confirmarRecebimentos()}" update="tabela" icon="fa fa-arrow-circle-down fa-lg">
@@ -49,9 +48,7 @@
                         <comp:outputText value="#{t.id}" />
                     </p:column>
 
-                    <p:column headerText="Processo" width="5%">
-                        <comp:outputText value="#{t.idDoProcesso}" />
-                    </p:column>
+                
                     <p:column headerText="Cliente">
                         <comp:outputText value="#{t.nomeCliente}" />
                     </p:column>
@@ -81,7 +78,7 @@
                             </f:facet>   
                             <p:columnGroup type="header">
                                 <p:row>
-                                    <p:column  headerText="Id Processo | Número Parcela"/>
+                                    <p:column  headerText="Processo | Número Parcela"/>
                                     <p:column  headerText="Vencimento"/>                        
                                     <p:column  headerText="Data Pagamento"/>                        
                                                         
@@ -90,7 +87,7 @@
                             </p:columnGroup>
 
                             <p:column>
-                                <comp:outputText value="&rArr; Id: #{p.contaReceber.processo.id}  &rArr; Parcela: #{p.numeroDaParcela}"  />
+                                <comp:outputText value="&rArr; #{p.contaReceber.processo.id}  &rArr; Parcela: #{p.numeroDaParcela}"  />
                             </p:column>
                             <p:column >
                                 <comp:outputText value="#{p.vencimento}" tipo="d"/>
@@ -108,12 +105,12 @@
                     </p:rowExpansion>
                     <p:columnGroup type="footer">
                         <p:row>
-                            <p:column colspan="6"  footerText="&diams; Valores referentes aos recibos listados acima"/>                        
-                            <p:column  colspan="1" footerText="&diams; Total Dono  = R$ #{prestacaoDeContaMB.totalRepassaAoDono}"/>
-                            <p:column  colspan="1" footerText="&diams; Total Advogado = R$ #{prestacaoDeContaMB.totalAdvogado}"/>
-                            <p:column  colspan="1" footerText="&diams; Total Sócio = R$ #{prestacaoDeContaMB.totalRepasseSocio}"/>
-                            <p:column  colspan="1" footerText="&diams; Total Colaborador = R$ #{prestacaoDeContaMB.totalColaborador}"/>
-                            <p:column  colspan="1" footerText="&diams; Total Geral = R$ #{prestacaoDeContaMB.totalRecibos}"/>
+                            <p:column colspan="5"  footerText="&diams; Valores referentes aos recibos listados acima"/>                        
+                            <p:column  colspan="1" footerText="&diams; R$ #{prestacaoDeContaMB.totalRepassaAoDono}"/>
+                            <p:column  colspan="1" footerText="&diams; R$ #{prestacaoDeContaMB.totalAdvogado}"/>
+                            <p:column  colspan="1" footerText="&diams; R$ #{prestacaoDeContaMB.totalRepasseSocio}"/>
+                            <p:column  colspan="1" footerText="&diams; R$ #{prestacaoDeContaMB.totalColaborador}"/>
+                            <p:column  colspan="1" footerText="&diams; R$ #{prestacaoDeContaMB.totalRecibos}"/>
                         </p:row>
 
                     </p:columnGroup>

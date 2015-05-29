@@ -47,7 +47,6 @@ public class PrestacaoDeContaMB implements Serializable {
     private BigDecimal totalAdvogado = BigDecimal.ZERO;
     private BigDecimal totalRepasseAoDono = BigDecimal.ZERO;
 
-    
     @PostConstruct
     public void init() {
         try {
@@ -56,14 +55,16 @@ public class PrestacaoDeContaMB implements Serializable {
             listaDeAdvogados = advogadoController.consultarTodos("nome");
             if (navegacaoMB.getUsuarioLogado().getPerfil().equals(Perfil.ADVOGADO)) {
                 advogado = advogadoController.carregar(navegacaoMB.getUsuarioLogado().getReferencia());
-            }else{
+                listaDeRecibosConferidos = reciboController.consultaRecibosParaPrestacaoDeConta(advogado);
+
+            } else {
                 advogado = new Advogado();
             }
         } catch (Exception ex) {
             Logger.getLogger(PrestacaoDeContaMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void consultaRecibosParaPrestacaoDeconta() {
         listaDeRecibosConferidos = reciboController.consultaRecibosParaPrestacaoDeConta(advogado);
         calcularValoresDoRecibo();
@@ -94,6 +95,7 @@ public class PrestacaoDeContaMB implements Serializable {
     public String getTotalAdvogado() {
         return FormatadorDeNumeros.converterBigDecimalEmStrng(totalAdvogado);
     }
+
     public String getTotalRepassaAoDono() {
         return FormatadorDeNumeros.converterBigDecimalEmStrng(totalRepasseAoDono);
     }

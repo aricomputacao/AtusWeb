@@ -59,18 +59,19 @@ public class ReciboMB implements Serializable {
             listaDeAdvogados = advogadoController.consultarTodos("nome");
             if (navegacaoMB.getUsuarioLogado().getPerfil().equals(Perfil.ADVOGADO)) {
                 advogado = advogadoController.carregar(navegacaoMB.getUsuarioLogado().getReferencia());
-            }else{
+                listaDeRecibos = reciboController.consultarRecibosAbertos(advogado);
+
+            } else {
                 advogado = new Advogado();
             }
         } catch (Exception ex) {
             Logger.getLogger(ReciboMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    public void confirmarRecebimentos(){
+
+    public void confirmarRecebimentos() {
         try {
-            reciboController.confirmarRecebimentos(listaDeRecibosSelecionados,navegacaoMB.getUsuarioLogado());
+            reciboController.confirmarRecebimentos(listaDeRecibosSelecionados, navegacaoMB.getUsuarioLogado());
             consultarRecibosNaoConferidos();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("recibo_confirmado_sucesso", MenssagemUtil.MENSAGENS));
         } catch (Exception ex) {
@@ -79,17 +80,16 @@ public class ReciboMB implements Serializable {
             Logger.getLogger(ReciboMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void calcularValoresDoRecibo(){
+
+    private void calcularValoresDoRecibo() {
         List<BigDecimal> valores = reciboController.calcularValoresDoRecibo(listaDeRecibos);
         totalRecibos = valores.get(0);
         totalColaborador = valores.get(1);
         totalRepasseSocio = valores.get(2);
         totalAdvogado = valores.get(3);
         totalRepasseDonoProcesso = valores.get(4);
-        
+
     }
-    
 
     public void consultarRecibosNaoConferidos() {
         listaDeRecibos = reciboController.consultarRecibosAbertos(advogado);
@@ -131,6 +131,7 @@ public class ReciboMB implements Serializable {
     public String getTotalRepasseSocio() {
         return FormatadorDeNumeros.converterBigDecimalEmStrng(totalRepasseSocio);
     }
+
     public String getTotalRepasseDonoProcesso() {
         return FormatadorDeNumeros.converterBigDecimalEmStrng(totalRepasseDonoProcesso);
     }
@@ -146,7 +147,5 @@ public class ReciboMB implements Serializable {
     public void setListaDeRecibosSelecionados(List<Recibo> listaDeRecibosSelecionados) {
         this.listaDeRecibosSelecionados = listaDeRecibosSelecionados;
     }
-    
-    
 
 }
