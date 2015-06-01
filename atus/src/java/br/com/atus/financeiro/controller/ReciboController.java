@@ -11,6 +11,7 @@ import br.com.atus.financeiro.modelo.Recibo;
 import br.com.atus.interfaces.Controller;
 import br.com.atus.modelo.Advogado;
 import br.com.atus.modelo.Usuario;
+import br.com.atus.util.exceptions.PrestacaoDeContaExceptio;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -100,6 +101,15 @@ public class ReciboController extends Controller<Recibo, Long> implements Serial
 
     public List<Recibo> consultaRecibosParaPrestacaoDeConta(Advogado advogado) {
         return dao.consultarRecibosParaPrestarContas(advogado);
+    }
+
+    public void prestacaoDeContas(List<Recibo> listaDeRecibosSelecionados,Usuario usuario) throws PrestacaoDeContaExceptio,Exception {
+        for (Recibo r : listaDeRecibosSelecionados) {
+            r.setPrestadoConta(true);
+            r.setDataPrestacao(new Date());
+            r.setUsuarioQuePrestouConta(usuario);
+            dao.atualizar(r);
+        }
     }
 
 }

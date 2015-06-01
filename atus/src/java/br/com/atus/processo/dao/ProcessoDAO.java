@@ -8,7 +8,6 @@ package br.com.atus.processo.dao;
 import br.com.atus.util.dao.DAO;
 import br.com.atus.dto.ProcessoAtrasadoDTO;
 import br.com.atus.dto.ProcessoGrupoDiaAtrasadoDTO;
-import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.dto.ProcessosAtrasadoRelatorioDTO;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Colaborador;

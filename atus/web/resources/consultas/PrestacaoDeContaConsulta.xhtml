@@ -24,7 +24,7 @@
                         <p:selectOneMenu id="selectOne" value="#{prestacaoDeContaMB.advogado}" styleClass="lista" converter="#{indexConverter}">
                             <f:selectItem itemLabel="------Selecione------" itemValue="#{null}" noSelectionOption="true"/>
                             <f:selectItems value="#{prestacaoDeContaMB.listaDeAdvogados}" var="a" itemLabel="#{a.nome}" itemValue="#{a}"/>
-                            <p:ajax event="change" listener="#{prestacaoDeContaMB.consultaRecibosParaPrestacaoDeconta()}" update="tabela"/>
+                            <p:ajax event="change" listener="#{prestacaoDeContaMB.consultaRecibosParaPrestacaoDeconta()}" update="tabela" oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
                         </p:selectOneMenu>
                     </h:panelGrid>
 

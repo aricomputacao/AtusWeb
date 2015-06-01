@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_parcelas" pageWidth="790" pageHeight="555" orientation="Landscape" columnWidth="790" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ee1337a2-3a69-49b2-be5f-844a531c06ae">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="zebra">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean( $V{REPORT_COUNT}.intValue() % 2 == 0 )]]></conditionExpression>
+			<style forecolor="#F0F0F0" backcolor="#F0F0F0"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="dataPagamento" class="java.util.Date">
+		<fieldDescription><![CDATA[dataPagamento]]></fieldDescription>
+	</field>
+	<field name="vencimento" class="java.util.Date">
+		<fieldDescription><![CDATA[vencimento]]></fieldDescription>
+	</field>
+	<field name="valorDoColaborador" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valorDoColaborador]]></fieldDescription>
+	</field>
+	<field name="valorDonoDoProcesso" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valorDonoDoProcesso]]></fieldDescription>
+	</field>
+	<field name="valorPago" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valorPago]]></fieldDescription>
+	</field>
+	<field name="valorParcela" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valorParcela]]></fieldDescription>
+	</field>
+	<field name="valorSocioDoProcesso" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valorSocioDoProcesso]]></fieldDescription>
+	</field>
+	<field name="vencimento_1" class="java.util.Date">
+		<fieldDescription><![CDATA[vencimento]]></fieldDescription>
+	</field>
+	<field name="numeroDaParcela" class="java.lang.Integer">
+		<fieldDescription><![CDATA[numeroDaParcela]]></fieldDescription>
+	</field>
+	<field name="contaReceber" class="br.com.atus.financeiro.modelo.ContaReceber">
+		<fieldDescription><![CDATA[contaReceber]]></fieldDescription>
+	</field>
+	<field name="dataPagamento_1" class="java.util.Date">
+		<fieldDescription><![CDATA[dataPagamento]]></fieldDescription>
+	</field>
+	<variable name="valorDonoDoProcesso_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorDonoDoProcesso}]]></variableExpression>
+	</variable>
+	<variable name="valorSocioDoProcesso_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorSocioDoProcesso}]]></variableExpression>
+	</variable>
+	<variable name="valorDoColaborador_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorDoColaborador}]]></variableExpression>
+	</variable>
+	<variable name="valorPago_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorPago}]]></variableExpression>
+	</variable>
+	<pageHeader>
+		<band height="23">
+			<staticText>
+				<reportElement uuid="e9952b16-6119-4e3b-841a-4c58603d5f57" x="76" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Número Parcela]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4078cc4d-f2ab-4d7d-ac4a-5ea4d60c9d13" x="317" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Valor Dono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="97b05904-dd90-429a-adf8-e012933dbdfc" x="431" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Valor Sócio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="64ccb3b1-1208-47bd-9854-7299814682ed" x="544" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Valor Colaborador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7c1471ba-40d3-4be3-b4e6-08ba192fd861" x="694" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Valor Pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="23e681aa-e1b2-40d2-a3e4-fc60e683ba59" x="199" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Data Pagamento]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="b0917477-9700-4e63-af25-218d280e5b04" x="63" y="21" width="727" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="f8f50514-8d60-49e4-af1d-e4c29745701b" style="zebra" x="0" y="0" width="790" height="20"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="680f4812-cf46-4ef9-b7c4-3b29e7041953" x="76" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroDaParcela}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="3ed001be-9676-4d6a-885f-a9af06f381ed" x="317" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorDonoDoProcesso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="2b10de55-90a1-479a-a658-a73b399adde9" x="431" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorSocioDoProcesso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="91dcf50f-b51f-4ae0-855d-46797834ae7e" x="544" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorDoColaborador}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="52d0b878-99b8-441c-b57d-f230285b9c26" x="694" y="0" width="96" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorPago}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="dedf22c8-bdf9-4bea-8d25-90e3f59bfac4" x="199" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dataPagamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="20">
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="14d2f043-daae-44db-97f5-86b9e66e0ebe" x="317" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{valorDonoDoProcesso_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="981e39ea-e9a2-4133-b9c2-136c3749c826" x="431" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{valorSocioDoProcesso_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="44ea176b-664e-408c-a0a4-5055a05bfca8" x="544" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{valorDoColaborador_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="5fded1a8-a03f-40be-a859-ca176ca55084" x="694" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{valorPago_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

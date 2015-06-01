@@ -10,12 +10,18 @@ import br.com.atus.enumerated.Perfil;
 import br.com.atus.financeiro.controller.ReciboController;
 import br.com.atus.financeiro.modelo.Recibo;
 import br.com.atus.modelo.Advogado;
+import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.FormatadorDeNumeros;
+import br.com.atus.util.MenssagemUtil;
+import br.com.atus.util.RelatorioSession;
+import br.com.atus.util.exceptions.PrestacaoDeContaExceptio;
 import br.com.atus.util.managedbean.NavegacaoMB;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -65,9 +71,36 @@ public class PrestacaoDeContaMB implements Serializable {
         }
     }
 
+    public void prestarContas() {
+        try {
+            reciboController.prestacaoDeContas(listaDeRecibosSelecionados, navegacaoMB.getUsuarioLogado());
+        } catch (PrestacaoDeContaExceptio ex) {
+            Logger.getLogger(PrestacaoDeContaMB.class.getName()).log(Level.SEVERE, null, ex);
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg(ex.getMessage(), MenssagemUtil.MENSAGENS));
+        } catch (Exception ex) {
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("prestacao_conta_falha", MenssagemUtil.MENSAGENS));
+            Logger.getLogger(PrestacaoDeContaMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    
+     public void imprimirRecibo() {
+        if (!listaDeRecibosConferidos.isEmpty()) {
+            Map<String, Object> m = new HashMap<>();
+
+        
+
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeRecibosConferidos, m, "WEB-INF/relatorios/prestacao_conta.jasper", "Recibo de Pagamento");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        }
+
+    }
+
     public void consultaRecibosParaPrestacaoDeconta() {
         listaDeRecibosConferidos = reciboController.consultaRecibosParaPrestacaoDeConta(advogado);
         calcularValoresDoRecibo();
+        imprimirRecibo();
     }
 
     private void calcularValoresDoRecibo() {

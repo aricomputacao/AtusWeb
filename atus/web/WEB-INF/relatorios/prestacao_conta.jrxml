@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prestacao_conta" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="324b04be-67aa-4e6c-9716-b191c01f920c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="dtSet" uuid="ea403c04-c5b7-4810-ba1f-ad980fe8004f">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="contaReceber" class="br.com.atus.financeiro.modelo.ContaReceber">
+			<fieldDescription><![CDATA[contaReceber]]></fieldDescription>
+		</field>
+		<field name="dataPagamento" class="java.util.Date">
+			<fieldDescription><![CDATA[dataPagamento]]></fieldDescription>
+		</field>
+		<field name="id" class="java.lang.Long">
+			<fieldDescription><![CDATA[id]]></fieldDescription>
+		</field>
+		<field name="nomeDoCliente" class="java.lang.String">
+			<fieldDescription><![CDATA[nomeDoCliente]]></fieldDescription>
+		</field>
+		<field name="numeroDaParcela" class="java.lang.Integer">
+			<fieldDescription><![CDATA[numeroDaParcela]]></fieldDescription>
+		</field>
+		<field name="observcao" class="java.lang.String">
+			<fieldDescription><![CDATA[observcao]]></fieldDescription>
+		</field>
+		<field name="valorDoColaborador" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[valorDoColaborador]]></fieldDescription>
+		</field>
+		<field name="valorDonoDoProcesso" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[valorDonoDoProcesso]]></fieldDescription>
+		</field>
+		<field name="valorPago" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[valorPago]]></fieldDescription>
+		</field>
+		<field name="valorParcela" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[valorParcela]]></fieldDescription>
+		</field>
+		<field name="valorSocioDoProcesso" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[valorSocioDoProcesso]]></fieldDescription>
+		</field>
+		<field name="vencimento" class="java.util.Date">
+			<fieldDescription><![CDATA[vencimento]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Projetos\\Atus\\atus\\web\\WEB-INF\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="listaItens" class="java.util.List"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="advogadoDonoProcesso" class="br.com.atus.modelo.Advogado">
+		<fieldDescription><![CDATA[advogadoDonoProcesso]]></fieldDescription>
+	</field>
+	<field name="advogadoQueRecebeu" class="br.com.atus.modelo.Advogado">
+		<fieldDescription><![CDATA[advogadoQueRecebeu]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="confirmacaoRecebimento" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[confirmacaoRecebimento]]></fieldDescription>
+	</field>
+	<field name="dataConfirmacao" class="java.util.Date">
+		<fieldDescription><![CDATA[dataConfirmacao]]></fieldDescription>
+	</field>
+	<field name="dataDePagamento" class="java.util.Date">
+		<fieldDescription><![CDATA[dataDePagamento]]></fieldDescription>
+	</field>
+	<field name="dataPrestacao" class="java.util.Date">
+		<fieldDescription><![CDATA[dataPrestacao]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="idDoProcesso" class="java.lang.Long">
+		<fieldDescription><![CDATA[idDoProcesso]]></fieldDescription>
+	</field>
+	<field name="listaDeParcelasReceber" class="java.util.List">
+		<fieldDescription><![CDATA[listaDeParcelasReceber]]></fieldDescription>
+	</field>
+	<field name="nomeCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeCliente]]></fieldDescription>
+	</field>
+	<field name="nomeDoAdvogadoDonoDoProcesso" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeDoAdvogadoDonoDoProcesso]]></fieldDescription>
+	</field>
+	<field name="nomeDoAdvogadoQueRecebeu" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeDoAdvogadoQueRecebeu]]></fieldDescription>
+	</field>
+	<field name="nomeDoColaborador" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeDoColaborador]]></fieldDescription>
+	</field>
+	<field name="prestadoConta" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[prestadoConta]]></fieldDescription>
+	</field>
+	<field name="usuarioQueConfirmouRecibo" class="br.com.atus.modelo.Usuario">
+		<fieldDescription><![CDATA[usuarioQueConfirmouRecibo]]></fieldDescription>
+	</field>
+	<field name="usuarioQuePrestouConta" class="br.com.atus.modelo.Usuario">
+		<fieldDescription><![CDATA[usuarioQuePrestouConta]]></fieldDescription>
+	</field>
+	<field name="usuarioQueRecebeu" class="br.com.atus.modelo.Usuario">
+		<fieldDescription><![CDATA[usuarioQueRecebeu]]></fieldDescription>
+	</field>
+	<field name="valorDoColaborador" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valorDoColaborador]]></fieldDescription>
+	</field>
+	<field name="valorDoColaboradorFormatado" class="java.lang.String">
+		<fieldDescription><![CDATA[valorDoColaboradorFormatado]]></fieldDescription>
+	</field>
+	<field name="valorDonoDoProcesso" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valorDonoDoProcesso]]></fieldDescription>
+	</field>
+	<field name="valorDonoDoProcessoFormatado" class="java.lang.String">
+		<fieldDescription><![CDATA[valorDonoDoProcessoFormatado]]></fieldDescription>
+	</field>
+	<field name="valorRepasseDonoDoProcesso" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valorRepasseDonoDoProcesso]]></fieldDescription>
+	</field>
+	<field name="valorSocioDoProcesso" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valorSocioDoProcesso]]></fieldDescription>
+	</field>
+	<field name="valorSocioDoProcessoFormatado" class="java.lang.String">
+		<fieldDescription><![CDATA[valorSocioDoProcessoFormatado]]></fieldDescription>
+	</field>
+	<field name="valorTotal" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valorTotal]]></fieldDescription>
+	</field>
+	<field name="valorTotalExtenso" class="java.lang.String">
+		<fieldDescription><![CDATA[valorTotalExtenso]]></fieldDescription>
+	</field>
+	<field name="valorTotalFormatado" class="java.lang.String">
+		<fieldDescription><![CDATA[valorTotalFormatado]]></fieldDescription>
+	</field>
+	<variable name="valorTotal_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorTotal}]]></variableExpression>
+	</variable>
+	<variable name="valorSocioDoProcesso_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorSocioDoProcesso}]]></variableExpression>
+	</variable>
+	<variable name="valorRepasseDonoDoProcesso_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorRepasseDonoDoProcesso}]]></variableExpression>
+	</variable>
+	<variable name="valorDonoDoProcesso_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorDonoDoProcesso}]]></variableExpression>
+	</variable>
+	<variable name="valorDoColaborador_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorDoColaborador}]]></variableExpression>
+	</variable>
+	<group name="recibo">
+		<groupExpression><![CDATA[$F{id}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<textField>
+					<reportElement uuid="397a4f37-ae7d-4646-81fd-560a154c77eb" x="46" y="0" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<title>
+		<band height="73" splitType="Stretch"/>
+	</title>
+	<detail>
+		<band height="64" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="134c11fa-2b5b-4d02-9aa7-0f8312388637" x="0" y="1" width="802" height="63"/>
+			</rectangle>
+			<subreport>
+				<reportElement uuid="8c8e3d5f-3b3c-461d-b3f8-9073bdcee23b" x="7" y="3" width="790" height="61"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaDeParcelasReceber})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "sub_parcelas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="54">
+			<rectangle>
+				<reportElement uuid="8caf137e-fa92-4b1d-9e36-e56da38de398" x="0" y="1" width="802" height="51"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="81b43844-233f-4dcf-a2a5-eabf77f2e44c" x="672" y="10" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{valorTotal_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="be2aee0e-c658-43a5-abf7-9dd2483ff0b2" x="443" y="10" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{valorSocioDoProcesso_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b857efc6-3405-4f99-af22-8b59b3b7cb73" x="268" y="10" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{valorRepasseDonoDoProcesso_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a80b5448-dc81-44e7-9df2-6d5fe09c666c" x="146" y="10" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{valorDonoDoProcesso_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4e6e7eb1-e601-47db-b4fc-89f26d269813" x="24" y="10" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{valorDoColaborador_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
