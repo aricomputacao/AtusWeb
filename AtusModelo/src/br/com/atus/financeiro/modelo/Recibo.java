@@ -64,6 +64,10 @@ public class Recibo implements Serializable {
     @ManyToOne
     @JoinColumn(name = "rec_usr_confirmou", referencedColumnName = "usr_id")
     private Usuario usuarioQueConfirmouRecibo;
+   
+    @ManyToOne
+    @JoinColumn(name = "rec_usr_prestou", referencedColumnName = "usr_id")
+    private Usuario usuarioQuePrestouConta;
 
     @Column(name = "rec_confirmacao_recebimento", columnDefinition = "boolean default false")
     private boolean confirmacaoRecebimento;
@@ -74,7 +78,30 @@ public class Recibo implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "rec_data_confirmacao")
     private Date dataConfirmacao;
+   
+    @Temporal(TemporalType.DATE)
+    @Column(name = "rec_data_prestacaop")
+    private Date dataPrestacao;
 
+    public Date getDataPrestacao() {
+        return dataPrestacao;
+    }
+
+    public void setDataPrestacao(Date dataPrestacao) {
+        this.dataPrestacao = dataPrestacao;
+    }
+
+    public Usuario getUsuarioQuePrestouConta() {
+        return usuarioQuePrestouConta;
+    }
+
+    public void setUsuarioQuePrestouConta(Usuario usuarioQuePrestouConta) {
+        this.usuarioQuePrestouConta = usuarioQuePrestouConta;
+    }
+    
+    
+
+    
     public Advogado getAdvogadoDonoProcesso() {
         return listaDeParcelasReceber.get(0).getContaReceber().getAdvogado();
     }
@@ -203,7 +230,8 @@ public class Recibo implements Serializable {
     public String getNomeDoColaborador() {
         return listaDeParcelasReceber.get(0).getContaReceber().getNomeDoColaborador();
     }
-
+    
+  
     public Date getDataDePagamento() {
         return listaDeParcelasReceber.get(0).getDataPagamento();
 
