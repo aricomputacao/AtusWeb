@@ -195,7 +195,7 @@ public class ContaReceber implements Serializable {
     }
     
     public String getNomeDoColaborador(){
-        return this.processo.getNomeDoColaborador();
+        return this.colaborador.getNome();
     }
 
     @Override
