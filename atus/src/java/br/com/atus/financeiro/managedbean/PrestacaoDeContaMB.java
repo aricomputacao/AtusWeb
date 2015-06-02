@@ -74,6 +74,8 @@ public class PrestacaoDeContaMB implements Serializable {
     public void prestarContas() {
         try {
             reciboController.prestacaoDeContas(listaDeRecibosSelecionados, navegacaoMB.getUsuarioLogado());
+            imprimirRecibo();
+            consultaRecibosParaPrestacaoDeconta();
         } catch (PrestacaoDeContaExceptio ex) {
             Logger.getLogger(PrestacaoDeContaMB.class.getName()).log(Level.SEVERE, null, ex);
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg(ex.getMessage(), MenssagemUtil.MENSAGENS));
@@ -86,12 +88,9 @@ public class PrestacaoDeContaMB implements Serializable {
     
     
      public void imprimirRecibo() {
-        if (!listaDeRecibosConferidos.isEmpty()) {
+        if (!listaDeRecibosSelecionados.isEmpty()) {
             Map<String, Object> m = new HashMap<>();
-
-        
-
-            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeRecibosConferidos, m, "WEB-INF/relatorios/prestacao_conta.jasper", "Recibo de Pagamento");
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaDeRecibosSelecionados, m, "WEB-INF/relatorios/prestacao_conta.jasper", "Prestação de Contas");
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
 

@@ -24,15 +24,15 @@
                         <p:selectOneMenu id="selectOne" value="#{prestacaoDeContaMB.advogado}" styleClass="lista" converter="#{indexConverter}">
                             <f:selectItem itemLabel="------Selecione------" itemValue="#{null}" noSelectionOption="true"/>
                             <f:selectItems value="#{prestacaoDeContaMB.listaDeAdvogados}" var="a" itemLabel="#{a.nome}" itemValue="#{a}"/>
-                            <p:ajax event="change" listener="#{prestacaoDeContaMB.consultaRecibosParaPrestacaoDeconta()}" update="tabela" oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
+                            <p:ajax event="change" listener="#{prestacaoDeContaMB.consultaRecibosParaPrestacaoDeconta()}" update="tabela" />
                         </p:selectOneMenu>
                     </h:panelGrid>
 
                    
                     <h:panelGrid id="grdConsulta4">
                         <p:spacer width="15"/>
-                        <p:commandButton value="Confirmar Recebimento" actionListener="#{reciboMB.confirmarRecebimentos()}" update="tabela" icon="fa fa-arrow-circle-down fa-lg">
-                            <p:confirm message="Esta certo disso?" header="Confirmar recebimentos" icon="fa fa-info fa-lg" />
+                        <p:commandButton value="Confirmar Recebimento" actionListener="#{prestacaoDeContaMB.prestarContas()}" oncomplete="popup('/atus/RelatorioServlet.pdf');" update="tabela" icon="fa fa-calculator fa-lg">
+                            <p:confirm message="Esta certo disso?" header="Confirmar recebimentos"  icon="fa fa-info fa-lg" />
                         </p:commandButton>
                     </h:panelGrid>
                 </h:panelGrid>

@@ -59,8 +59,7 @@ public class ReciboMB implements Serializable {
             listaDeAdvogados = advogadoController.consultarTodos("nome");
             if (navegacaoMB.getUsuarioLogado().getPerfil().equals(Perfil.ADVOGADO)) {
                 advogado = advogadoController.carregar(navegacaoMB.getUsuarioLogado().getReferencia());
-                listaDeRecibos = reciboController.consultarRecibosAbertos(advogado);
-
+               consultarRecibosNaoConferidos();
             } else {
                 advogado = new Advogado();
             }
