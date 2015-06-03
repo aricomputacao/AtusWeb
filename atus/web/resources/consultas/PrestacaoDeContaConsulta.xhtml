@@ -31,7 +31,7 @@
                    
                     <h:panelGrid id="grdConsulta4">
                         <p:spacer width="15"/>
-                        <p:commandButton value="Confirmar Recebimento" actionListener="#{prestacaoDeContaMB.prestarContas()}" oncomplete="popup('/atus/RelatorioServlet.pdf');" update="tabela" icon="fa fa-calculator fa-lg">
+                        <p:commandButton value="Confirmar prestação de contas" actionListener="#{prestacaoDeContaMB.prestarContas()}" oncomplete="popup('/atus/RelatorioServlet.pdf');" update="tabela" icon="fa fa-calculator fa-lg">
                             <p:confirm message="Esta certo disso?" header="Confirmar recebimentos"  icon="fa fa-info fa-lg" />
                         </p:commandButton>
                     </h:panelGrid>
