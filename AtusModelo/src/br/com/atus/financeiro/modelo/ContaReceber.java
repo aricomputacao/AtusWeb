@@ -94,17 +94,17 @@ public class ContaReceber implements Serializable {
    
 
     public BigDecimal getValorDonoDoProcesso() {
-        BigDecimal percent = cooptacao.getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.CEILING);
-        return this.getValor().multiply(percent).setScale(2);
+        BigDecimal percent = cooptacao.getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.DOWN);
+        return this.getValor().multiply(percent).setScale(2,RoundingMode.DOWN);
     }
 
     public BigDecimal getValorSocioDoProcesso() {
-        BigDecimal percent = cooptacao.getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.CEILING);
-        return this.getValor().multiply(percent).setScale(2);
+        BigDecimal percent = cooptacao.getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.DOWN);
+        return this.getValor().multiply(percent).setScale(2,RoundingMode.DOWN);
     }
     
     public BigDecimal getValorDoColaborador() {
-        BigDecimal percent = this.percentualColaborador.divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.CEILING);
+        BigDecimal percent = this.percentualColaborador.divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.DOWN);
         return this.getValor().multiply(percent).setScale(2);
     }
 
@@ -115,7 +115,7 @@ public class ContaReceber implements Serializable {
                 vl.add(pr.getValorPago());
             }
         }
-        return vl;
+        return vl.setScale(2,RoundingMode.DOWN);
     }
     
     public String getNomeDoAdvogado(){

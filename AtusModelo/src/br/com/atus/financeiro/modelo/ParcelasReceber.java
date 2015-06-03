@@ -5,12 +5,9 @@
  */
 package br.com.atus.financeiro.modelo;
 
-import br.com.atus.modelo.Advogado;
-import br.com.atus.modelo.Usuario;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -79,18 +76,18 @@ public class ParcelasReceber implements Comparable<ParcelasReceber>, Serializabl
    
     //finalizar parcela
     public BigDecimal getValorDonoDoProcesso() {
-        BigDecimal percent = this.contaReceber.getCooptacao().getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
-        return this.valorPago.multiply(percent).setScale(2);
+        BigDecimal percent = this.contaReceber.getCooptacao().getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.DOWN);
+        return this.valorPago.multiply(percent).setScale(2,RoundingMode.DOWN);
     }
 
     public BigDecimal getValorSocioDoProcesso() {
-        BigDecimal percent = this.contaReceber.getCooptacao().getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
-        return valorPago.multiply(percent).setScale(2);
+        BigDecimal percent = this.contaReceber.getCooptacao().getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.DOWN);
+        return valorPago.multiply(percent).setScale(2,RoundingMode.DOWN);
     }
 
     public BigDecimal getValorDoColaborador() {
-        BigDecimal percent = this.contaReceber.getPercentualColaborador().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
-        return this.valorPago.multiply(percent).setScale(2);
+        BigDecimal percent = this.contaReceber.getPercentualColaborador().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.DOWN);
+        return this.valorPago.multiply(percent).setScale(2,RoundingMode.DOWN);
     }
 
     public String getNomeDoCliente() {

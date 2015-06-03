@@ -154,7 +154,7 @@ public class Recibo implements Serializable {
         for (ParcelasReceber lst : listaDeParcelasReceber) {
             vlTot = vlTot.add(lst.getValorPago());
         }
-        return vlTot;
+        return vlTot.setScale(2,RoundingMode.DOWN);
     }
 
     public String getValorTotalExtenso() {
@@ -169,8 +169,8 @@ public class Recibo implements Serializable {
                 vlDon = vlDon.add(pa.getValorPago());
             }
         }
-        BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getCooptacao().getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
-        return vlDon.multiply(percent).setScale(2);
+        BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getCooptacao().getPercentDono().divide(BigDecimal.valueOf(100)).setScale(3, RoundingMode.DOWN);
+        return vlDon.multiply(percent).setScale(2,RoundingMode.DOWN);
     }
     
     public BigDecimal getValorRepasseDonoDoProcesso() {
@@ -180,8 +180,8 @@ public class Recibo implements Serializable {
                 vlDon = vlDon.add(pa.getValorPago());
             }
         }
-        BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getCooptacao().getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
-        return vlDon.multiply(percent).setScale(2);
+        BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getCooptacao().getPercentDono().divide(BigDecimal.valueOf(100)).setScale(3, RoundingMode.DOWN);
+        return vlDon.multiply(percent).setScale(2,RoundingMode.DOWN);
     }
 
     public String getValorTotalFormatado() {
@@ -201,13 +201,13 @@ public class Recibo implements Serializable {
     }
 
     public BigDecimal getValorSocioDoProcesso() {
-        BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getCooptacao().getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
+        BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getCooptacao().getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(3, RoundingMode.DOWN);
         return getValorTotal().multiply(percent).setScale(2);
     }
 
     public BigDecimal getValorDoColaborador() {
-        BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getPercentualColaborador().divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.UNNECESSARY);
-        return this.getValorTotal().multiply(percent);
+        BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getPercentualColaborador().divide(BigDecimal.valueOf(100)).setScale(3, RoundingMode.DOWN);
+        return this.getValorTotal().multiply(percent).setScale(2,RoundingMode.DOWN);
     }
 
     public Long getIdDoProcesso() {
