@@ -17,7 +17,9 @@
 
     </composite:interface>
     <composite:implementation id="compConCli" >
-
+        <p:blockUI block="@form" widgetVar="blk">
+            <p:graphicImage library="imagens" name="carregar.gif"/>
+        </p:blockUI>
         <h:panelGrid  width="100%" id="rtt" >
             <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" rendered="#{navegacaoMB.permissaoConsultar(navegacao['fin.conta_receber'])}" style="font-weight: bold">
                 <h:panelGrid id="grdConsulta" columns="4">
@@ -43,6 +45,7 @@
                     <f:facet name="header">
                         <comp:outputText value="Contas a Receber"/>
                     </f:facet>
+
                     <p:columnGroup type="header" >
                         <p:row>
                             <p:column rowspan="2" headerText="Cliente | Advogado | Colaborador"/>
@@ -50,6 +53,7 @@
                         </p:row>
 
                         <p:row>
+
                             <p:column  headerText="Vencimento"/>
                             <p:column  headerText="Valor Parcela"/>                        
                             <p:column  headerText="Valor Pago"/>                        
@@ -60,10 +64,11 @@
 
                     </p:columnGroup>
 
-                    <p:subTable value="#{t.parcelasRecebers}" var="p" >
+                    <p:subTable value="#{t.parcelasRecebers}" var="p" id="subTable" >
                         <f:facet name="header">
                             <p:row>
-                                <h:outputText value=" &lowast; Cliente: #{t.contaReceber.nomeDoCliente} &lowast; Advogado: #{t.contaReceber.nomeDoAdvogado}  &lowast; Colaborador: #{t.contaReceber.nomeDoColaborador}"  />                           
+
+                                <h:outputText style="font-weight: normal;font-size: 18px" value=" &lowast; Cliente: #{t.contaReceber.nomeDoCliente} &lowast; Advogado: #{t.contaReceber.nomeDoAdvogado}  &lowast; Colaborador: #{t.contaReceber.nomeDoColaborador} &emsp; &emsp; "  />                           
                             </p:row>
                         </f:facet>
 
@@ -82,7 +87,7 @@
                         <p:column>
                             <comp:outputText value="#{p.dataPagamento}" tipo="d"/>
                         </p:column>
-                       
+
                         <p:column >
                             <p:commandButton title="Selecionar" rendered="#{contaReceberMB.renderBtnPagar(p)}" immediate="true" actionListener="#{contaReceberMB.setarContaParcelaDTO(t, p)}" oncomplete="PF('dialogoPag').show();"
                                              icon="fa fa-check-square fa-lg"  update=":frmPagamento"/>
@@ -90,6 +95,10 @@
                                              icon="fa fa fa-eraser fa-lg"  update="@(.ui-datatable)">
                                 <p:confirm header="Estornar pagamento" message="Está certo disso?" icon="fa fa fa-info fa-lg" />
                             </p:commandButton>
+
+                            <p:commandButton id="btnPrint" icon="fa fa-print fa-lg"  actionListener="#{contaReceberMB.imprimirAposSalvarConta(t.contaReceber)}"  oncomplete="popup('/atus/RelatorioServlet.pdf'); "/>
+
+
                         </p:column>
 
                         <p:columnGroup type="footer">
@@ -107,6 +116,8 @@
                             </p:row>
                         </p:columnGroup>
                     </p:subTable>
+
+                
                 </p:dataTable>
             </p:fieldset>
 

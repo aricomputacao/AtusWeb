@@ -38,4 +38,11 @@ public class ContaReceberDAO extends DAO<ContaReceber, Long> implements Serializ
                 .setParameter("cl", "%"+cliente.toUpperCase()+"%");
         return tq.getResultList().isEmpty() ? new ArrayList<ContaReceber>() : tq.getResultList();
     }
+
+    public List<ContaReceber> consultarTodasContasReceberDo(ContaReceber contaReceber) {
+        TypedQuery tq;
+        tq = getEm().createQuery("SELECT c FROM ContaReceber c WHERE c.id = :con  ORDER BY c.dataCadastro", ContaReceber.class)
+                .setParameter("con", contaReceber.getId());
+        return tq.getResultList().isEmpty() ? new ArrayList<ContaReceber>() : tq.getResultList();
+    }
 }

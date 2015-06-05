@@ -17,7 +17,8 @@
         <h:outputScript name="edtMoeda.js"  library="js"/>
         <h:form id="frm_pag" prependId="false" >
 
-            <comp:menuPanel   id="menuPanel"   disable_imprimir="true" acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['fin.conta_receber'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['fin.conta_receber'])}" acao_imprimir="#{eventoMB.imprimir()}" acao_limpar="#{contaReceberMB.init()}" acao_salvar="#{contaReceberMB.salvar()}"/>
+            <util:menuPanelOnComplete   id="menuPanel"   disable_imprimir="true" acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['fin.conta_receber'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['fin.conta_receber'])}" 
+                              acao_imprimir="#{eventoMB.imprimir()}" acao_limpar="#{contaReceberMB.init()}" acao_salvar="#{contaReceberMB.salvar()}" />
 
             <comp:panel_cadastro id="cadFrm" cabecalho_grid="Contas a Receber" id_form="frm_pag"  >               
                 <h:panelGrid width="100%" rendered="#{navegacaoMB.renderPainelCadastro}"  >
@@ -39,7 +40,7 @@
                 </p:blockUI>
                 <cons:ProcessoConsulta nomeDialog="dialogoConProce" renderBtnEditar="false" listaProcessos="#{processoMB.listaUltimaMovimentacaoDTOs}" renderInfo="false" renderMovimen="false" 
                                        renderPrintDoc="false" id="conProce" renderSelecionar="true" update_form=":cadFrm:compConta:inputCon:input_componente" 
-                                       valorSelecionado="#{contaReceberMB.contaReceber.processo}">
+                                       valorSelecionado="#{contaReceberMB.contaReceber.processo}" >
                     <f:facet name="btnConsultaProcesso">
                         <comp:commandButton_consulta id="btnCon" acao_butao="#{processoMB.listar()}" componente_to_update=":frmDialogProce"/>
                     </f:facet>
@@ -49,7 +50,7 @@
         <p:dialog showEffect="fade" position="top"   header="Pagamento" id="pag" modal="true" hideEffect="fade" widgetVar="dialogoPag">
             <h:form id="frmPagamento" prependId="false">
                  <p:blockUI block="@form" trigger=":frmPagamento:menSal2">
-                     <i style="width: 50px;height: 50px" class="fa fa-spinner fa-pulse"></i>
+                  <p:graphicImage library="imagens" name="carregar.gif"/>
                 </p:blockUI>
                
                 <p:menubar id="menCadDia"  style="margin-top: 20px" >

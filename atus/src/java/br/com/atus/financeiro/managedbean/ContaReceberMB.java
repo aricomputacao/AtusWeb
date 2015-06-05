@@ -102,16 +102,21 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
     public void salvar() {
         try {
             controller.addContasReceber(contaReceber);
+            imprimirAposSalvarConta(contaReceber);
             init();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
         } catch (PorcentagemException ex) {
             MenssagemUtil.addMessageErro(ex.getMessage());
             Logger.getLogger(ContaReceberMB.class.getName()).log(Level.SEVERE, null, ex);
-        
+
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS));
             Logger.getLogger(ContaReceberMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void setarColaborador() {
+        contaReceber.setColaborador(contaReceber.getProcesso().getColaborador());
     }
 
     public void aposFazerPagamento() {
@@ -125,7 +130,7 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
     public void fazerPagamento() {
         try {
             recibo.setUsuarioQueRecebeu(navegacaoMB.getUsuarioLogado());
-            parcelaReceberController.fazerPagamento(contaReceberParcelaDTO, parcelasReceber, valorPagamento,recibo);
+            parcelaReceberController.fazerPagamento(contaReceberParcelaDTO, parcelasReceber, valorPagamento, recibo);
             imprimirRecibo();
             aposFazerPagamento();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("pagamento_sucesso", MenssagemUtil.MENSAGENS));
@@ -164,6 +169,16 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
 
     }
 
+    public void imprimirAposSalvarConta(ContaReceber cr) {
+        listaContaReceberParcelasDTOs = controller.consultarTodasContasReceberAbertasDo(cr);
+        if (!listaContaReceberParcelasDTOs.isEmpty()) {
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaContaReceberParcelasDTOs, m, "WEB-INF/relatorios/rel_contas_receber.jasper", "Parcelas a Pagar");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        }
+    }
+  
+
     public void imprimirRecibo() {
         if (!recibo.getListaDeParcelasReceber().isEmpty()) {
             Map<String, Object> m = new HashMap<>();
@@ -194,9 +209,6 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
                     NavegacaoMB.getMsg("pagamento_igual_zero", MenssagemUtil.MENSAGENS)));
         }
     }
-    
-    
-    
 
     public ContaReceberMB() {
         super(ContaReceber.class);
@@ -282,5 +294,4 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
         this.recibo = recibo;
     }
 
-    
 }

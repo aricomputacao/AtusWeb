@@ -20,9 +20,9 @@
                         <p:outputLabel value="Nome" for="nome"/>
                         <p:message for="nome"/>
                     </h:panelGrid>
-                    <p:inputText value="#{cooptacaoMB.cooptacao.nome}" placeholder="Descreva a caracteristica da cooptação" id="nome" size="50" required="true" requiredMessage="#{mensagens['require']}"/>
+                    <p:inputText value="#{cooptacaoMB.cooptacao.nome}" placeholder="Dn: 50% - Sc: 35% - Col: 15%" id="nome" size="50" required="true" requiredMessage="#{mensagens['require']}"/>
                 </h:panelGrid>
-                <h:panelGrid columns="2">
+                <h:panelGrid columns="3">
                     <h:panelGrid >
                         <h:panelGrid columns="2" >
                             <p:outputLabel value="Percent. Dono" for="dn"/>
@@ -40,6 +40,16 @@
                             <p:message for="sc"/>
                         </h:panelGrid>
                         <p:inputText value="#{cooptacaoMB.cooptacao.percentSocio}" onkeypress="return soNumero()" id="sc" size="10" placeholder="0,00"
+                                      converter="#{converterBigDecimal}"  styleClass="edtMoeda" onfocus="mascaraPercentInputs();"  required="true" requiredMessage="#{mensagens['require']}" > 
+                           
+                        </p:inputText>
+                    </h:panelGrid>
+                    <h:panelGrid >
+                        <h:panelGrid columns="2" >
+                            <p:outputLabel value="Percent. Colaborador" for="sc"/>
+                            <p:message for="co"/>
+                        </h:panelGrid>
+                        <p:inputText value="#{cooptacaoMB.cooptacao.percentColaborador}" onkeypress="return soNumero()" id="co" size="10" placeholder="0,00"
                                       converter="#{converterBigDecimal}"  styleClass="edtMoeda" onfocus="mascaraPercentInputs();"  required="true" requiredMessage="#{mensagens['require']}" > 
                            
                         </p:inputText>
