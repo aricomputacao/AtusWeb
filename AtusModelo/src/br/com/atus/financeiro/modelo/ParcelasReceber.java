@@ -86,7 +86,7 @@ public class ParcelasReceber implements Comparable<ParcelasReceber>, Serializabl
     }
 
     public BigDecimal getValorDoColaborador() {
-        BigDecimal percent = this.contaReceber.getPercentualColaborador().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.DOWN);
+        BigDecimal percent = this.contaReceber.getCooptacao().getPercentColaborador().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.DOWN);
         return this.valorPago.multiply(percent).setScale(2,RoundingMode.DOWN);
     }
 

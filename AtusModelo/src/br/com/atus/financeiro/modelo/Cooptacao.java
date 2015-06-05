@@ -49,8 +49,23 @@ public class Cooptacao implements Serializable {
     private BigDecimal percentSocio;
 
     @NotNull
+    @Min(value = 0)
+    @Column(name = "coo_percent_colaborador", nullable = false)
+    private BigDecimal percentColaborador;
+
+    @NotNull
     @Column(name = "coop_ativo", nullable = false, columnDefinition = "boolean default  true")
     private boolean ativo;
+
+    public BigDecimal getPercentColaborador() {
+        return percentColaborador;
+    }
+
+    public void setPercentColaborador(BigDecimal percentColaborador) {
+        this.percentColaborador = percentColaborador;
+    }
+    
+        
 
     public String getNome() {
         return nome;

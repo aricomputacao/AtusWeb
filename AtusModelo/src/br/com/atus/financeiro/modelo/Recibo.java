@@ -206,7 +206,7 @@ public class Recibo implements Serializable {
     }
 
     public BigDecimal getValorDoColaborador() {
-        BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getPercentualColaborador().divide(BigDecimal.valueOf(100)).setScale(3, RoundingMode.DOWN);
+        BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getCooptacao().getPercentColaborador().divide(BigDecimal.valueOf(100)).setScale(3, RoundingMode.DOWN);
         return this.getValorTotal().multiply(percent).setScale(2,RoundingMode.DOWN);
     }
 

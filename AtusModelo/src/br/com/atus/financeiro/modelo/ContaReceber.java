@@ -82,10 +82,7 @@ public class ContaReceber implements Serializable {
     private int quantidadeParcelas;
 
     
-    @NotNull
-    @Min(value = 0)
-    @Column(name = "ctr_percent_colaborador", nullable = false)
-    private BigDecimal percentualColaborador;
+  
     
     
     @Column(name = "ctr_observacao")
@@ -104,7 +101,7 @@ public class ContaReceber implements Serializable {
     }
     
     public BigDecimal getValorDoColaborador() {
-        BigDecimal percent = this.percentualColaborador.divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.DOWN);
+        BigDecimal percent = this.cooptacao.getPercentColaborador().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.DOWN);
         return this.getValor().multiply(percent).setScale(2);
     }
 
@@ -138,13 +135,7 @@ public class ContaReceber implements Serializable {
         return colaborador;
     }
 
-    public BigDecimal getPercentualColaborador() {
-        return percentualColaborador;
-    }
-
-    public void setPercentualColaborador(BigDecimal percentualColaborador) {
-        this.percentualColaborador = percentualColaborador;
-    }
+  
 
     public void setColaborador(Colaborador colaborador) {
         this.colaborador = colaborador;
