@@ -13,6 +13,7 @@
         <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
         <composite:attribute name="acao_consultar" default="#{contaReceberMB.consultarTodasContasReceberDoCliente()}" shortDescription="Metodo de consulta "  method-signature="java.lang.Void action()" />
         <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
+        <composite:attribute name="render_consulta" default="true" shortDescription="Renderizar o grid de consulta" />
 
 
     </composite:interface>
@@ -22,7 +23,7 @@
         </p:blockUI>
         <h:panelGrid  width="100%" id="rtt" >
             <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" rendered="#{navegacaoMB.permissaoConsultar(navegacao['fin.conta_receber'])}" style="font-weight: bold">
-                <h:panelGrid id="grdConsulta" columns="4">
+                <h:panelGrid id="grdConsulta" columns="4" rendered="#{cc.attrs.render_consulta}">
                     <h:panelGrid id="grdConsulta1">
                         <p:outputLabel value="Campo"/>
                         <p:selectOneMenu id="selectOne" value="#{contaReceberMB.campoBusca}" styleClass="lista">
@@ -59,7 +60,7 @@
                             <p:column  headerText="Valor Pago"/>                        
                             <p:column  headerText="Data Pagamento"/>                        
                             <p:column  headerText="Ação" width="5%"/>                        
-                        </p:row>
+                        </p:row>    
 
 
                     </p:columnGroup>
@@ -67,8 +68,7 @@
                     <p:subTable value="#{t.parcelasRecebers}" var="p" id="subTable" >
                         <f:facet name="header">
                             <p:row>
-
-                                <h:outputText style="font-weight: normal;font-size: 18px" value=" &lowast; Cliente: #{t.contaReceber.nomeDoCliente} &lowast; Advogado: #{t.contaReceber.nomeDoAdvogado}  &lowast; Colaborador: #{t.contaReceber.nomeDoColaborador} &emsp; &emsp; "  />                           
+                                <h:outputText style="font-weight: normal;font-size: 18px" value="#{t.contaReceber.nomeDoCliente} | #{t.contaReceber.nomeDoAdvogado}  | #{t.contaReceber.nomeDoColaborador} &emsp; &emsp; "  />                           
                             </p:row>
                         </f:facet>
 

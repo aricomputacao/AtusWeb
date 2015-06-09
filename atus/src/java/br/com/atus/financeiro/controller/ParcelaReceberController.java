@@ -11,6 +11,7 @@ import br.com.atus.financeiro.modelo.ContaReceber;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.financeiro.modelo.Recibo;
 import br.com.atus.interfaces.Controller;
+import br.com.atus.modelo.Processo;
 import br.com.atus.util.NumeroPorExtenso;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -243,6 +244,18 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
 
     public List<ParcelasReceber> getListaDeParcelasPagas() {
         return Collections.unmodifiableList(listaDeParcelasPagas);
+    }
+
+    public List<ParcelasReceber> consultaParcelasAbertasDo(Processo processo) {
+        return dao.consultaParcelasAbertarDo(processo);
+    }
+    
+    public List<ParcelasReceber> consultaParcelasVencidasDo(Processo processo) {
+        return dao.consultaParcelasVencidasDo(processo);
+    }
+    
+    public List<ParcelasReceber> consultaParcelasPagasDo(Processo processo) {
+        return dao.consultaParcelasPagasDo(processo);
     }
 
 }

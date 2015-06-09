@@ -78,7 +78,7 @@
 			<rectangle>
 				<reportElement uuid="a1036698-92b6-486a-9c67-f191e094802d" x="0" y="0" width="802" height="42"/>
 				<graphicElement>
-					<pen lineWidth="0.5"/>
+					<pen lineWidth="1.0"/>
 				</graphicElement>
 			</rectangle>
 			<textField>

@@ -12,6 +12,8 @@ import br.com.atus.processo.controller.ParteInteressadaController;
 import br.com.atus.processo.controller.PecaController;
 import br.com.atus.processo.controller.ProcessoController;
 import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
+import br.com.atus.financeiro.controller.ParcelaReceberController;
+import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.util.managedbean.BeanGenerico;
 import br.com.atus.util.managedbean.NavegacaoMB;
 import br.com.atus.modelo.Adversario;
@@ -51,7 +53,6 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     @Inject
     private NavegacaoMB navegacaoMB;
-
     @EJB
     private ProcessoController controller;
     @EJB
@@ -64,6 +65,8 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     private MovimentacaoController movimentacaoController;
     @EJB
     private PecaController pecaController;
+    @EJB
+    private ParcelaReceberController parcelaReceberController;
     private Movimentacao movimentacao;
     private Processo processo;
     private Adversario adversario;
@@ -73,19 +76,21 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     private List<Movimentacao> listaMovimentacaos;
     private List<Processo> listaProcessos;
     private List<ProcessoUltimaMovimentacaoDTO> listaUltimaMovimentacaoDTOs;
-
     private List<Evento> listaEventos;
+    private List<ParcelasReceber> listaParcelasAbertas;
+    private List<ParcelasReceber> listaParcelasVencidas;
+    private List<ParcelasReceber> listaParcelasPagas;
     private int i;
     private boolean renderPesquisa;
 
     @PostConstruct
     public void init() {
-        
+
         setValorBusca((String) navegacaoMB.getRegistroMapa("nomeCliente", ""));
         if (!getValorBusca().equals("")) {
             setCampoBusca("cliente");
         }
-        
+
         processo = (Processo) navegacaoMB.getRegistroMapa("processo", new Processo());
         movimentacao = new Movimentacao();
         cliente = new Cliente();
@@ -93,6 +98,9 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             processo.setAdversarios(new ArrayList<Adversario>());
             processo.setParteInteressadas(new ArrayList<ParteInteressada>());
             fase = new Fase();
+            listaParcelasAbertas = new ArrayList<>();
+            listaParcelasVencidas = new ArrayList<>();
+            listaParcelasPagas = new ArrayList<>();
         } else {
 
             fase = processo.getFase();
@@ -123,6 +131,12 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         } catch (Exception ex) {
             Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void consultarPagamentos() {
+        listaParcelasAbertas = parcelaReceberController.consultaParcelasAbertasDo(processo);
+        listaParcelasVencidas = parcelaReceberController.consultaParcelasVencidasDo(processo);
+        listaParcelasPagas = parcelaReceberController.consultaParcelasPagasDo(processo);
     }
 
     public void addInteressado() {
@@ -349,6 +363,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         processo = p;
         listaEventos = eventoController.listarPorProcessos(processo);
         listaMovimentacaos = movimentacaoController.listarPorProcesso(processo);
+        consultarPagamentos();
     }
 
     public void imprimirProcesso() {
@@ -532,6 +547,18 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     public void setListaUltimaMovimentacaoDTOs(List<ProcessoUltimaMovimentacaoDTO> listaUltimaMovimentacaoDTOs) {
         this.listaUltimaMovimentacaoDTOs = listaUltimaMovimentacaoDTOs;
+    }
+
+    public List<ParcelasReceber> getListaParcelasAbertas() {
+        return listaParcelasAbertas;
+    }
+
+    public List<ParcelasReceber> getListaParcelasVencidas() {
+        return listaParcelasVencidas;
+    }
+
+    public List<ParcelasReceber> getListaParcelasPagas() {
+        return listaParcelasPagas;
     }
 
 }

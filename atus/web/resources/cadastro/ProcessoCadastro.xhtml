@@ -158,9 +158,6 @@
                                     </h:panelGrid>
                                 </h:panelGrid>
                             </h:panelGrid>
-
-
-
                             <comp:inputTextArea nomeLabel="Observações" value="#{processoMB.processo.observacoes}" coluna="45" linha="5"  />
                         </h:panelGrid>
                         <h:panelGrid  id="grdParte" columns="2">
@@ -326,15 +323,8 @@
 
                     </p:dataTable>
                 </p:tab>
-                <p:tab id="tabCus" title="Custos e Despesas">
-                    <h:panelGrid>
-                        <h:panelGrid columns="2" >
-                            <p:outputLabel value="Valor" for="var"/>
-                            <p:message for="var"/>
-                        </h:panelGrid>
-                        <p:inputText value="#{processoMB.processo.valor}"  id="var" size="7" converter="#{converterBigDecimal}"  styleClass="edtMoeda" onfocus="mascaraInputs();" required="true" requiredMessage="#{mensagens['require']}">
-                        </p:inputText>
-                    </h:panelGrid>
+                <p:tab id="tabCus" title="Custos e Despesas" >
+                    <consultas:ContasReceberConsulta render_consulta="false" />
                 </p:tab>
 
             </p:tabView>

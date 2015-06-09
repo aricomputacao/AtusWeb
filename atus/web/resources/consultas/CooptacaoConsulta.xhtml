@@ -57,6 +57,9 @@
                     <p:column headerText="Per. Sócio" >
                         <comp:outputText tipo="p" value="#{t.percentSocio}"/>
                     </p:column>
+                    <p:column headerText="Per. Colaborador" >
+                        <comp:outputText tipo="p" value="#{t.percentColaborador}"/>
+                    </p:column>
                     <p:column headerText="Ação" width="7%" style="text-align: center">
                         <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['fin.cooptacao'],'cooptacao',t)}" />
                         <comp:commandButton_excluir acao_butao="#{cooptacaoMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Cooptação" form_to_update="@form"/>

@@ -10,6 +10,7 @@ import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.modelo.Advogado;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Colaborador;
+import br.com.atus.modelo.Processo;
 import br.com.atus.util.dao.DAO;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,6 +31,14 @@ public class ParcelaReceberDAO extends DAO<ParcelasReceber, Long> implements Ser
         super(ParcelasReceber.class);
     }
 
+    public List<ParcelasReceber> consultaParcelasPagasDo(Processo pr) {
+        TypedQuery tq;
+        tq = getEm().createQuery("SELECT p from ParcelasReceber p WHERE p.contaReceber.processo = :pr AND p.dataPagamento IS NOT NULL and p.valorPago > 0 ORDER BY  p.vencimento", ParcelasReceber.class)
+                .setParameter("pr", pr);
+
+        return tq.getResultList().isEmpty() ? new ArrayList<ParcelasReceber>() : tq.getResultList();
+    }
+    
     public List<ParcelasReceber> consultaParcelasAbertasDo(ContaReceber cr) {
         TypedQuery tq;
         tq = getEm().createQuery("SELECT p from ParcelasReceber p WHERE p.contaReceber = :ctr AND p.dataPagamento IS NULL AND p.vencimento >= :dt ORDER BY  p.vencimento", ParcelasReceber.class)
@@ -67,10 +76,29 @@ public class ParcelaReceberDAO extends DAO<ParcelasReceber, Long> implements Ser
         return tq.getResultList().isEmpty() ? new ArrayList<ParcelasReceber>() : tq.getResultList();
     }
 
+     public List<ParcelasReceber> consultaParcelasAbertarDo(Processo pr) {
+       TypedQuery tq;
+        tq = getEm().createQuery("SELECT p from ParcelasReceber p WHERE p.contaReceber.processo = :pr AND p.dataPagamento IS NULL AND p.vencimento >= :dt ORDER BY p.vencimento", ParcelasReceber.class)
+                .setParameter("pr", pr)
+                .setParameter("dt", new Date());
+
+        return tq.getResultList().isEmpty() ? new ArrayList<ParcelasReceber>() : tq.getResultList();
+    }
+    
+    
+    
     public List<ParcelasReceber> consultaParcelasVencidasDo(ContaReceber cr) {
         TypedQuery tq;
         tq = getEm().createQuery("SELECT p from ParcelasReceber p WHERE p.contaReceber = :ctr AND p.dataPagamento IS NULL AND p.vencimento < :dt ORDER BY p.vencimento", ParcelasReceber.class)
                 .setParameter("ctr", cr)
+                .setParameter("dt", new Date());
+
+        return tq.getResultList().isEmpty() ? new ArrayList<ParcelasReceber>() : tq.getResultList();
+    }
+    public List<ParcelasReceber> consultaParcelasVencidasDo(Processo pr) {
+        TypedQuery tq;
+        tq = getEm().createQuery("SELECT p from ParcelasReceber p WHERE p.contaReceber.processo = :pr AND p.dataPagamento IS NULL AND p.vencimento < :dt ORDER BY p.vencimento", ParcelasReceber.class)
+                .setParameter("pr", pr)
                 .setParameter("dt", new Date());
 
         return tq.getResultList().isEmpty() ? new ArrayList<ParcelasReceber>() : tq.getResultList();
@@ -111,6 +139,9 @@ public class ParcelaReceberDAO extends DAO<ParcelasReceber, Long> implements Ser
 
         return tq.getResultList().isEmpty() ? new ArrayList<ParcelasReceber>() : tq.getResultList();
     }
+   
+    
+    
     public int pegarNumeroDaUltimaParcelaDo(ContaReceber cr) {
          Query tq;
         tq = getEm().createQuery("SELECT MAX(p.numeroDaParcela) from ParcelasReceber p WHERE p.contaReceber = :ctr  ")
