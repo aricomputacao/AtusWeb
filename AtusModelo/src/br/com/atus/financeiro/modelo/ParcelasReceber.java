@@ -76,18 +76,18 @@ public class ParcelasReceber implements Comparable<ParcelasReceber>, Serializabl
    
     //finalizar parcela
     public BigDecimal getValorDonoDoProcesso() {
-        BigDecimal percent = this.contaReceber.getCooptacao().getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.DOWN);
-        return this.valorPago.multiply(percent).setScale(2,RoundingMode.DOWN);
+        BigDecimal percent = this.contaReceber.getCooptacao().getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.HALF_EVEN);
+        return this.valorPago.multiply(percent).setScale(2,RoundingMode.HALF_EVEN);
     }
 
     public BigDecimal getValorSocioDoProcesso() {
-        BigDecimal percent = this.contaReceber.getCooptacao().getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.DOWN);
-        return valorPago.multiply(percent).setScale(2,RoundingMode.DOWN);
+        BigDecimal percent = this.contaReceber.getCooptacao().getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.HALF_EVEN);
+        return valorPago.multiply(percent).setScale(2,RoundingMode.HALF_EVEN);
     }
 
     public BigDecimal getValorDoColaborador() {
-        BigDecimal percent = this.contaReceber.getCooptacao().getPercentColaborador().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.DOWN);
-        return this.valorPago.multiply(percent).setScale(2,RoundingMode.DOWN);
+        BigDecimal percent = this.contaReceber.getCooptacao().getPercentColaborador().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.HALF_EVEN);
+        return this.valorPago.multiply(percent).setScale(2,RoundingMode.HALF_EVEN);
     }
 
     public String getNomeDoCliente() {

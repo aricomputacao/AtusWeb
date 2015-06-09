@@ -5,7 +5,6 @@
  */
 package br.com.atus.financeiro.dto;
 
-import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.financeiro.modelo.ContaReceber;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.util.FormatadorDeNumeros;

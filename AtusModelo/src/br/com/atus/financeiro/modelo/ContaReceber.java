@@ -12,7 +12,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -91,17 +90,17 @@ public class ContaReceber implements Serializable {
    
 
     public BigDecimal getValorDonoDoProcesso() {
-        BigDecimal percent = cooptacao.getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.DOWN);
-        return this.getValor().multiply(percent).setScale(2,RoundingMode.DOWN);
+        BigDecimal percent = cooptacao.getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.HALF_EVEN);
+        return this.getValor().multiply(percent).setScale(2,RoundingMode.FLOOR);
     }
 
     public BigDecimal getValorSocioDoProcesso() {
-        BigDecimal percent = cooptacao.getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.DOWN);
-        return this.getValor().multiply(percent).setScale(2,RoundingMode.DOWN);
+        BigDecimal percent = cooptacao.getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.HALF_EVEN);
+        return this.getValor().multiply(percent).setScale(2,RoundingMode.FLOOR);
     }
     
     public BigDecimal getValorDoColaborador() {
-        BigDecimal percent = this.cooptacao.getPercentColaborador().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.DOWN);
+        BigDecimal percent = this.cooptacao.getPercentColaborador().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.HALF_EVEN);
         return this.getValor().multiply(percent).setScale(2);
     }
 
@@ -112,7 +111,7 @@ public class ContaReceber implements Serializable {
                 vl.add(pr.getValorPago());
             }
         }
-        return vl.setScale(2,RoundingMode.DOWN);
+        return vl.setScale(2,RoundingMode.FLOOR);
     }
     
     public String getNomeDoAdvogado(){
