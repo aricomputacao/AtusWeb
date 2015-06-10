@@ -37,7 +37,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
@@ -53,20 +52,22 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     @Inject
     private NavegacaoMB navegacaoMB;
-    @EJB
+  
+    @Inject
     private ProcessoController controller;
-    @EJB
+    @Inject
     private ParteInteressadaController interessadaController;
-    @EJB
+    @Inject
     private AdversarioController adversarioController;
-    @EJB
+    @Inject
     private EventoController eventoController;
-    @EJB
+    @Inject
     private MovimentacaoController movimentacaoController;
-    @EJB
+    @Inject
     private PecaController pecaController;
-    @EJB
+    @Inject
     private ParcelaReceberController parcelaReceberController;
+
     private Movimentacao movimentacao;
     private Processo processo;
     private Adversario adversario;

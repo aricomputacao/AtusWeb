@@ -324,7 +324,68 @@
                     </p:dataTable>
                 </p:tab>
                 <p:tab id="tabCus" title="Custos e Despesas" >
-                    <consultas:ContasReceberConsulta render_consulta="false" />
+                    <p:blockUI block="@form" trigger="btnPrint">
+                        <p:graphicImage library="imagens" name="carregar.gif"/>
+                    </p:blockUI>
+                    <h:panelGrid columns="2" cellspacing="5">
+
+                        <p:commandButton oncomplete="PF('dialogoConPag').show()" update=":frmConPagamento" immediate="true" icon="fa fa-plus fa-lg"
+                                         title="Add Pagamento" actionListener="#{contaReceberMB.consultarTodasContasReceberDo(processoMB.processo)}" />
+                        <p:commandButton id="btnPrint" icon="fa fa-print fa-lg" oncomplete="popup('/atus/RelatorioServlet.pdf'); " 
+                                         actionListener="#{contaReceberMB.imprimirPassando(processoMB.processo)}"  />
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3">
+                        <p:panel header="Parcelas Pagas" style="text-align: center;min-height: 600px" >                           
+                            <p:dataTable value="#{processoMB.listaParcelasPagas}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
+                                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                                <p:column headerText="Número" >
+                                    <comp:outputText value="#{t.numeroDaParcela}"/>
+                                </p:column>
+                                <p:column headerText="Data">
+                                    <comp:outputText value="#{t.dataPagamento}" tipo="d"/>
+                                </p:column>
+                                <p:column headerText="Valor Pago" >
+                                    <comp:outputText value="#{t.valorPago}" tipo="c"/>
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:panel>
+                        <p:panel header="Parcelas Abertas" style="text-align: center;min-height: 600px" >                           
+                            <p:dataTable value="#{processoMB.listaParcelasAbertas}" id="tabAber" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
+                                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                                <p:column headerText="Número" >
+                                    <comp:outputText value="#{t.numeroDaParcela}"/>
+                                </p:column>
+                                <p:column headerText="Vencimento">
+                                    <comp:outputText value="#{t.vencimento}" tipo="d"/>
+                                </p:column>
+                                <p:column headerText="Valor " >
+                                    <comp:outputText value="#{t.valorParcela}" tipo="c"/>
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:panel>
+                        <p:panel header="Parcelas Vencidas" style="text-align: center;min-height: 600px" >                           
+                            <p:dataTable value="#{processoMB.listaParcelasVencidas}" id="tabVenc" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
+                                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                                <p:column headerText="Número" >
+                                    <comp:outputText value="#{t.numeroDaParcela}"/>
+                                </p:column>
+                                <p:column headerText="Vencimento">
+                                    <comp:outputText value="#{t.vencimento}" tipo="d"/>
+                                </p:column>
+                                <p:column headerText="Valor " >
+                                    <comp:outputText value="#{t.valorParcela}" tipo="c"/>
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:panel>
+
+                    </h:panelGrid>
                 </p:tab>
 
             </p:tabView>

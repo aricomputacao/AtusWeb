@@ -10,6 +10,7 @@ import br.com.atus.financeiro.dto.ContaReceberParcelasDTO;
 import br.com.atus.financeiro.modelo.ContaReceber;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.interfaces.Controller;
+import br.com.atus.modelo.Processo;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.exceptions.PorcentagemException;
 import br.com.atus.util.managedbean.NavegacaoMB;
@@ -58,6 +59,19 @@ public class ContaReceberController extends Controller<ContaReceber, Long> imple
     public List<ContaReceberParcelasDTO> consultarTodasContasReceberAbertasDo(String cliente) {
         ContaReceberParcelasDTO dto;
         List<ContaReceber> listaContaRecebers = dao.consultarTodasContasReceberDo(cliente);
+        List<ContaReceberParcelasDTO> listaDTO = new ArrayList<>();
+        for (ContaReceber cr : listaContaRecebers) {
+            List<ParcelasReceber> listaDeParcelasReceber = parcelaReceberController.consultaTodasParcelasDo(cr);
+            Collections.sort(listaDeParcelasReceber);
+            dto = new ContaReceberParcelasDTO(cr,  listaDeParcelasReceber);
+            listaDTO.add(dto);
+        }
+
+        return listaDTO;
+    }
+    public List<ContaReceberParcelasDTO> consultarTodasContasReceberAbertasDo(Processo processo) {
+        ContaReceberParcelasDTO dto;
+        List<ContaReceber> listaContaRecebers = dao.consultarTodasContasReceberDoProcesso(processo);
         List<ContaReceberParcelasDTO> listaDTO = new ArrayList<>();
         for (ContaReceber cr : listaContaRecebers) {
             List<ParcelasReceber> listaDeParcelasReceber = parcelaReceberController.consultaTodasParcelasDo(cr);

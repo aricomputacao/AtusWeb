@@ -7,6 +7,7 @@ package br.com.atus.financeiro.dao;
 
 import br.com.atus.financeiro.modelo.ContaReceber;
 import br.com.atus.modelo.Cliente;
+import br.com.atus.modelo.Processo;
 import br.com.atus.util.dao.DAO;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -43,6 +44,13 @@ public class ContaReceberDAO extends DAO<ContaReceber, Long> implements Serializ
         TypedQuery tq;
         tq = getEm().createQuery("SELECT c FROM ContaReceber c WHERE c.id = :con  ORDER BY c.dataCadastro", ContaReceber.class)
                 .setParameter("con", contaReceber.getId());
+        return tq.getResultList().isEmpty() ? new ArrayList<ContaReceber>() : tq.getResultList();
+    }
+
+    public List<ContaReceber> consultarTodasContasReceberDoProcesso(Processo processo) {
+      TypedQuery tq;
+        tq = getEm().createQuery("SELECT c FROM ContaReceber c WHERE c.processo = :pr   ORDER BY c.dataCadastro", ContaReceber.class)
+                .setParameter("pr", processo);
         return tq.getResultList().isEmpty() ? new ArrayList<ContaReceber>() : tq.getResultList();
     }
 }

@@ -71,6 +71,11 @@
 			<line>
 				<reportElement uuid="7bf089f1-7dbb-4a68-b25e-f61a3a6832ae" x="802" y="0" width="1" height="21"/>
 			</line>
+			<staticText>
+				<reportElement uuid="7612c309-35cf-4407-b7f1-1b0e376be72a" x="485" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Data do Pagamento]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<detail>
@@ -102,6 +107,11 @@
 			<line>
 				<reportElement uuid="9185208e-ba85-45eb-bd73-6a7149350eb4" x="802" y="0" width="1" height="21"/>
 			</line>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="8e1af216-f12d-442e-9cb3-8aa122cc6d00" x="485" y="1" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dataPagamento}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>

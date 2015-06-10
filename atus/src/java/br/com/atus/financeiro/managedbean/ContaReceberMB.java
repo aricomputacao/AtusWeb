@@ -127,6 +127,8 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
 
     }
 
+    
+    
     public void fazerPagamento() {
         try {
             recibo.setUsuarioQueRecebeu(navegacaoMB.getUsuarioLogado());
@@ -168,9 +170,21 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
         listaContaReceberParcelasDTOs = controller.consultarTodasContasReceberAbertasDo(getValorBusca());
 
     }
+    
+    public void consultarTodasContasReceberDo(Processo p){
+        listaContaReceberParcelasDTOs = controller.consultarTodasContasReceberAbertasDo(p);
+    }
 
     public void imprimirAposSalvarConta(ContaReceber cr) {
         listaContaReceberParcelasDTOs = controller.consultarTodasContasReceberAbertasDo(cr);
+        if (!listaContaReceberParcelasDTOs.isEmpty()) {
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaContaReceberParcelasDTOs, m, "WEB-INF/relatorios/rel_contas_receber.jasper", "Parcelas a Pagar");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        }
+    }
+    public void imprimirPassando(Processo p) {
+        listaContaReceberParcelasDTOs = controller.consultarTodasContasReceberAbertasDo(p);
         if (!listaContaReceberParcelasDTOs.isEmpty()) {
             Map<String, Object> m = new HashMap<>();
             byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaContaReceberParcelasDTOs, m, "WEB-INF/relatorios/rel_contas_receber.jasper", "Parcelas a Pagar");
