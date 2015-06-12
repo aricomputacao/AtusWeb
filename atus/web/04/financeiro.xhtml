@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:cons="http://java.sun.com/jsf/composite/consultas"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="corpo">
+
+        <h:form id="frm_pag" prependId="false" >
+
+            <comp:menuPanel   id="menuPanel" disable_adicionar="true" disable_novo="true" disable_consultar="true" 
+                              disable_salvar="true"  acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['pro.processo'])}" 
+                              acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['rel.financeiro'])}"
+                              acao_imprimir="#{relatorioFinanceiroMB.imprimirParcelasVencidas()}" acao_limpar="#{relatorioFinanceiroMB.init()}"
+                              acao_salvar="#{relatorioFinanceiroMB.init()}"/>
+            <comp:panel_cadastro id="cadFrm"  cabecalho_grid="Relatórios Financeiros" id_form="frm_pag"  >               
+                <p:blockUI block="@form" trigger=":cadFrm:tabView:compParCon:btnCon:btn">
+                    <p:graphicImage library="imagens" name="carregar.gif"/>
+                </p:blockUI>
+                <p:tabView orientation="top" id="tabView">
+                    <p:tab title="Vencimentos" id="tabVenc"  rendered="#{navegacaoMB.permissaoConsultar(navegacao['rel.financeiro_vencimentos'])}">
+                        <h:panelGrid columns="2" cellpadding="10">
+
+                            <cons:ParcelasConsulta id="compParCon">
+                                <f:facet name="grdPesq" id="facet">
+
+                                    <h:panelGrid columns="3" id="grdCon">
+                                        <h:panelGrid id="grdConsulta" columns="4">
+                                            <h:panelGrid columns="3">
+                                                <p:focus for="dtIni"/>
+                                                <comp:inputTextCalendar id="dtIni" nomeLabel="Data Inicial" valorData="#{relatorioFinanceiroMB.dtIni}" require="true"/>
+                                                <comp:inputTextCalendar nomeLabel="Data Final" valorData="#{relatorioFinanceiroMB.dtFim}" require="true"/>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                        <h:panelGrid  >
+                                            <p:spacer width="15"/>
+                                            <comp:commandButton_consulta id="btnCon" acao_butao="#{relatorioFinanceiroMB.consultarParcelasVencidasPorPeriodo()}" componente_to_update="@(.ui-datatable)" />
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                </f:facet>
+                            </cons:ParcelasConsulta>
+                        </h:panelGrid>
+                    </p:tab>
+
+                </p:tabView>
+            </comp:panel_cadastro>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+

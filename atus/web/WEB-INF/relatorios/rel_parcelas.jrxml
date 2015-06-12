@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_parcelas" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f51f2850-cb03-43bd-b390-490b7dd85913">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="zebra">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean( $V{REPORT_COUNT}.intValue() % 2 == 0 )]]></conditionExpression>
+			<style forecolor="#F0F0F0" backcolor="#F0F0F0"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="relatorio" class="java.lang.String"/>
+	<parameter name="img" class="java.lang.String"/>
+	<parameter name="imgRoda" class="java.lang.String"/>
+	<parameter name="imgAt" class="java.lang.String"/>
+	<parameter name="img1" class="java.lang.String"/>
+	<parameter name="rodapeEmail" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Ari\\Documents\\Projetos\\Atus\\atus\\web\\WEB-INF\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="observcao" class="java.lang.String">
+		<fieldDescription><![CDATA[observcao]]></fieldDescription>
+	</field>
+	<field name="dataPagamento" class="java.util.Date">
+		<fieldDescription><![CDATA[dataPagamento]]></fieldDescription>
+	</field>
+	<field name="valorPago" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valorPago]]></fieldDescription>
+	</field>
+	<field name="nomeDoCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeDoCliente]]></fieldDescription>
+	</field>
+	<field name="numeroDaParcela" class="java.lang.Integer">
+		<fieldDescription><![CDATA[numeroDaParcela]]></fieldDescription>
+	</field>
+	<field name="contaReceber" class="br.com.atus.financeiro.modelo.ContaReceber">
+		<fieldDescription><![CDATA[contaReceber]]></fieldDescription>
+	</field>
+	<field name="valorParcela" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valorParcela]]></fieldDescription>
+	</field>
+	<field name="vencimento" class="java.util.Date">
+		<fieldDescription><![CDATA[vencimento]]></fieldDescription>
+	</field>
+	<variable name="valorParcela_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Cliente" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorParcela}]]></variableExpression>
+	</variable>
+	<group name="Cliente">
+		<groupExpression><![CDATA[$F{contaReceber}.getProcesso().getCliente()]]></groupExpression>
+		<groupHeader>
+			<band height="42">
+				<staticText>
+					<reportElement uuid="2733192b-0784-4306-82aa-eb5f478a2fbd" x="137" y="26" width="100" height="16"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Número da Parcela]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="88e773fb-9212-466b-ac46-a98281272076" x="333" y="26" width="100" height="16"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Vencimento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="976c6cbb-591b-457c-ae7c-035924a3d022" x="485" y="26" width="100" height="16"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Valor]]></text>
+				</staticText>
+				<line>
+					<reportElement uuid="c4b17629-d858-42ab-b0eb-36ff60a1d552" x="0" y="0" width="1" height="42"/>
+					<graphicElement>
+						<pen lineWidth="1.25"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement uuid="ec5ebcd7-bd41-4a2b-93a7-3fc148449cd4" x="802" y="0" width="1" height="42"/>
+					<graphicElement>
+						<pen lineWidth="1.25"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement uuid="48d43a54-5398-4000-bc1c-d67e5c7cf357" x="0" y="1" width="802" height="1"/>
+				</line>
+				<line>
+					<reportElement uuid="36d41cb6-f2e4-4dd4-bf18-d6c7ada731db" x="1" y="41" width="801" height="1"/>
+				</line>
+				<textField>
+					<reportElement uuid="e3a3b075-c174-4cde-bb87-1604056a01d7" x="77" y="2" width="275" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nomeDoCliente}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="8256558d-6812-4569-907f-3c861590d2aa" x="20" y="2" width="57" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cliente:]]></text>
+				</staticText>
+				<rectangle radius="10">
+					<reportElement uuid="3d6f5d9e-fae9-4644-9ca4-771291e98459" x="7" y="7" width="10" height="10" backcolor="#CCCCCC"/>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<textField evaluationTime="Group" evaluationGroup="Cliente" pattern="¤ #,##0.00">
+					<reportElement uuid="173eb4f7-0ead-46f7-83c0-32075d16697e" x="702" y="2" width="100" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{valorParcela_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="4726ea3d-b616-4735-85bb-d8a96f5c1108" x="658" y="2" width="44" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7c8cbad1-f6a6-46ec-84ff-3055488f0dcf" x="10" y="26" width="100" height="16"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Processo]]></text>
+				</staticText>
+				<line>
+					<reportElement uuid="0988767f-323e-40e1-b916-b093a5448e7c" x="0" y="25" width="802" height="1"/>
+				</line>
+			</band>
+		</groupHeader>
+	</group>
+	<title>
+		<band height="65" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="f6f6c412-b289-4739-a92a-8858c2839bcf" x="0" y="0" width="803" height="65"/>
+				<subreportParameter name="relatorio">
+					<subreportParameterExpression><![CDATA[$P{relatorio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="img">
+					<subreportParameterExpression><![CDATA[$P{img}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="img1">
+					<subreportParameterExpression><![CDATA[$P{img1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="imgAt">
+					<subreportParameterExpression><![CDATA[$P{imgAt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "cabecalho_paisagem.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="574839c8-742c-425f-8b4e-0a33c571922c" style="zebra" x="0" y="0" width="802" height="20"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="e18c14d7-5595-464d-afab-66fc0851b29d" x="10" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{contaReceber}.getProcesso().getId()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="894257df-3e5f-445e-8cd3-c4daa9c1edc6" x="137" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroDaParcela}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="d88c0cbe-6852-4231-a2dc-b8c1f2d1140a" x="333" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="498b631d-3c9e-4730-bf1d-f548530685f9" x="485" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorParcela}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="7ebc1b92-8e37-4eaa-807d-de8af40d313a" x="0" y="0" width="1" height="20"/>
+				<graphicElement>
+					<pen lineWidth="1.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="8b7012e7-a471-4d26-b62d-1ef60f7cf752" x="802" y="0" width="1" height="20"/>
+				<graphicElement>
+					<pen lineWidth="1.25"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

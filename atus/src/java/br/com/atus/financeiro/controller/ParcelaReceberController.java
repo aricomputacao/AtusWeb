@@ -192,6 +192,9 @@ public class ParcelaReceberController extends Controller<ParcelasReceber, Long> 
         return dao.consultaParcelasVencidasDo(cr);
     }
 
+    public List<ParcelasReceber> consultaParcelasVencidasEntre(Date dtIni,Date dtFim) {
+        return dao.consultaParcelasVencidasEntre(dtIni, dtFim);
+    }
     public List<ParcelasReceber> consultaTodasParcelasDo(ContaReceber cr) {
         return dao.consultaTodasParcelasDo(cr);
     }
