@@ -14,6 +14,7 @@ import br.com.atus.modelo.Usuario;
 import br.com.atus.util.exceptions.PrestacaoDeContaExceptio;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -79,11 +80,11 @@ public class ReciboController extends Controller<Recibo, Long> implements Serial
             }
         }
 
-        decimals.add(0, totalRecibos.setScale(2));
-        decimals.add(1, totalColaborador.setScale(2));
-        decimals.add(2, totalRepasseSocio.setScale(2));
-        decimals.add(3, totalAdvogado.setScale(2));
-        decimals.add(4, totalRepasseAoDono.setScale(2));
+        decimals.add(0, totalRecibos.setScale(2,RoundingMode.HALF_EVEN));
+        decimals.add(1, totalColaborador.setScale(2,RoundingMode.HALF_EVEN));
+        decimals.add(2, totalRepasseSocio.setScale(2,RoundingMode.HALF_EVEN));
+        decimals.add(3, totalAdvogado.setScale(2,RoundingMode.HALF_EVEN));
+        decimals.add(4, totalRepasseAoDono.setScale(2,RoundingMode.HALF_EVEN));
 
         return decimals;
     }
