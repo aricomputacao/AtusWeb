@@ -90,17 +90,17 @@ public class ContaReceber implements Serializable {
    
 
     public BigDecimal getValorDonoDoProcesso() {
-        BigDecimal percent = cooptacao.getPercentDono().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.HALF_EVEN);
+        BigDecimal percent = cooptacao.getPercentDono().divide(BigDecimal.valueOf(100)).setScale(3,RoundingMode.HALF_EVEN);
         return this.getValor().multiply(percent).setScale(2,RoundingMode.FLOOR);
     }
 
     public BigDecimal getValorSocioDoProcesso() {
-        BigDecimal percent = cooptacao.getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.HALF_EVEN);
+        BigDecimal percent = cooptacao.getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(3,RoundingMode.HALF_EVEN);
         return this.getValor().multiply(percent).setScale(2,RoundingMode.FLOOR);
     }
     
     public BigDecimal getValorDoColaborador() {
-        BigDecimal percent = this.cooptacao.getPercentColaborador().divide(BigDecimal.valueOf(100)).setScale(2,RoundingMode.HALF_EVEN);
+        BigDecimal percent = this.cooptacao.getPercentColaborador().divide(BigDecimal.valueOf(100)).setScale(3,RoundingMode.HALF_EVEN);
         return this.getValor().multiply(percent).setScale(2);
     }
 
