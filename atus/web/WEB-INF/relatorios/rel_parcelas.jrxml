@@ -97,7 +97,7 @@
 				<textField>
 					<reportElement uuid="e3a3b075-c174-4cde-bb87-1604056a01d7" x="77" y="2" width="275" height="20"/>
 					<textElement verticalAlignment="Middle">
-						<font size="12"/>
+						<font size="12" isItalic="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{nomeDoCliente}]]></textFieldExpression>
 				</textField>
@@ -206,7 +206,7 @@
 	<summary>
 		<band height="1">
 			<line>
-				<reportElement uuid="2e0de46e-c471-4325-bd25-f5edebaef307" x="0" y="0" width="802" height="1"/>
+				<reportElement uuid="c9199e2c-ced9-400e-8cdf-192ccad4a4c4" x="0" y="0" width="802" height="1"/>
 			</line>
 		</band>
 	</summary>

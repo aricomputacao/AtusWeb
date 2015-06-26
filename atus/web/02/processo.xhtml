@@ -26,7 +26,8 @@
                     <cadastro:ProcessoCadastro id="compProce" update_from_evento=":frmDialogCadEve:compCadEven:input_componente"/>
                 </h:panelGrid>
                 <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}">
-                    <cons:ProcessoConsulta id="compProceConsu" listaProcessos="#{processoMB.listaUltimaMovimentacaoDTOs}" renderPrintDoc="true" dialogInfo="dialogCadProc" renderGerarPeca="true" dialogMovimenUpdate=":frmCadMov" dialogMovimen="dialogoEncProce" renderMovimen="true" dialogUpdade=":frmDialogCadProce:compCadPro:fieldCad" >
+                    <cons:ProcessoConsulta id="compProceConsu" listaProcessos="#{processoMB.listaUltimaMovimentacaoDTOs}" renderPrintDoc="true" dialogInfo="dialogCadProc" renderGerarPeca="true"
+                                           dialogMovimenUpdate=":frmCadMov" dialogMovimen="dialogoEncProce" renderMovimen="true" dialogUpdade=":frmDialogCadProce:compCadPro:fieldCad" >
                         <f:facet name="btnConsultaProcesso">
                             <comp:commandButton_consulta id="btnCon" acao_butao="#{processoMB.listar()}"  componente_to_update=":frm_pag:cadFrm:compProceConsu:tabela"/>
                         </f:facet>
@@ -130,22 +131,22 @@
                 </cons:UsuarioConsulta>
             </h:form>
         </p:dialog>
-        
-      
+
+
         <p:dialog showEffect="fade" position="top"   header="Pagamento" id="pag" modal="true" hideEffect="fade" widgetVar="dialogoPag">
             <h:form id="frmPagamento" prependId="false">
-                 <p:blockUI block="@form" trigger=":frmPagamento:menSal2">
-                  <p:graphicImage library="imagens" name="carregar.gif"/>
+                <p:blockUI block="@form" trigger=":frmPagamento:menSal2">
+                    <p:graphicImage library="imagens" name="carregar.gif"/>
                 </p:blockUI>
-               
+
                 <p:menubar id="menCadDia"  style="margin-top: 20px" >
                     <p:menuitem id="menSal2"  oncomplete="PF('dialogoPag').hide(), popup('/atus/RelatorioServlet.pdf');"  styleClass="menuPanel"  icon="ui-icon-disk" title="Finalizar pagamento"  
-                                actionListener="#{contaReceberMB.fazerPagamento()}" update="@(.ui-datatable)" />
+                                actionListener="#{contaReceberMB.fazerPagamentoAPartirDo(processoMB.processo)}" update="@(.ui-datatable)" />
                 </p:menubar>
                 <acao:RealizarPagamento id="compPag"/>
             </h:form>
         </p:dialog>
-        
+
         <p:dialog showEffect="fade" position="top"   header="Pagamento" id="dialogoConPag" modal="true" hideEffect="fade" widgetVar="dialogoConPag">
             <h:form id="frmConPagamento" prependId="false">
                 <cons:ContasReceberConsulta render_consulta="false" id="compContRec" />

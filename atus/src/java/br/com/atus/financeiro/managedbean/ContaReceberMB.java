@@ -127,8 +127,14 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
 
     }
 
-    
-    
+    public void aposFazerPagamentoAPartirDo(Processo p) {
+        valorPagamento = BigDecimal.ZERO;
+        parcelasReceber = new ParcelasReceber();
+        recibo = new Recibo();
+        consultarTodasContasReceberDo(p);
+
+    }
+
     public void fazerPagamento() {
         try {
             recibo.setUsuarioQueRecebeu(navegacaoMB.getUsuarioLogado());
@@ -139,6 +145,21 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
 
         } catch (Exception ex) {
             aposFazerPagamento();
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("pagamento_falha", MenssagemUtil.MENSAGENS));
+            Logger.getLogger(ContaReceberMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void fazerPagamentoAPartirDo(Processo p) {
+        try {
+            recibo.setUsuarioQueRecebeu(navegacaoMB.getUsuarioLogado());
+            parcelaReceberController.fazerPagamento(contaReceberParcelaDTO, parcelasReceber, valorPagamento, recibo);
+            imprimirRecibo();
+            aposFazerPagamentoAPartirDo(parcelasReceber.getContaReceber().getProcesso());
+            MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("pagamento_sucesso", MenssagemUtil.MENSAGENS));
+
+        } catch (Exception ex) {
+            aposFazerPagamentoAPartirDo(parcelasReceber.getContaReceber().getProcesso());
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("pagamento_falha", MenssagemUtil.MENSAGENS));
             Logger.getLogger(ContaReceberMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -170,8 +191,8 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
         listaContaReceberParcelasDTOs = controller.consultarTodasContasReceberAbertasDo(getValorBusca());
 
     }
-    
-    public void consultarTodasContasReceberDo(Processo p){
+
+    public void consultarTodasContasReceberDo(Processo p) {
         listaContaReceberParcelasDTOs = controller.consultarTodasContasReceberAbertasDo(p);
     }
 
@@ -183,6 +204,7 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
     }
+
     public void imprimirPassando(Processo p) {
         listaContaReceberParcelasDTOs = controller.consultarTodasContasReceberAbertasDo(p);
         if (!listaContaReceberParcelasDTOs.isEmpty()) {
@@ -191,7 +213,6 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
     }
-  
 
     public void imprimirRecibo() {
         if (!recibo.getListaDeParcelasReceber().isEmpty()) {
