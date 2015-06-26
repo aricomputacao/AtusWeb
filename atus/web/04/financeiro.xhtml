@@ -7,7 +7,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:comp="http://java.sun.com/jsf/composite/comp"
                 xmlns:cons="http://java.sun.com/jsf/composite/consultas"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:util="http://java.sun.com/jsf/composite/util">
 
     <ui:define name="corpo">
 
@@ -51,6 +52,11 @@
             </comp:panel_cadastro>
         </h:form>
     </ui:define>
+     <ui:define name="dialogs">
+        <p:dialog  position="top" width="600" height="400"  header="Dados do Cliente" id="fic" modal="true" widgetVar="dialogFicha">
+            <util:dadosCliente  id="dadCli"/>
+        </p:dialog>
+     </ui:define>
 
 </ui:composition>
 

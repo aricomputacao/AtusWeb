@@ -57,17 +57,23 @@
 			<band height="42">
 				<staticText>
 					<reportElement uuid="2733192b-0784-4306-82aa-eb5f478a2fbd" x="137" y="26" width="100" height="16"/>
-					<textElement verticalAlignment="Middle"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[Número da Parcela]]></text>
 				</staticText>
 				<staticText>
 					<reportElement uuid="88e773fb-9212-466b-ac46-a98281272076" x="333" y="26" width="100" height="16"/>
-					<textElement verticalAlignment="Middle"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[Vencimento]]></text>
 				</staticText>
 				<staticText>
 					<reportElement uuid="976c6cbb-591b-457c-ae7c-035924a3d022" x="485" y="26" width="100" height="16"/>
-					<textElement verticalAlignment="Middle"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[Valor]]></text>
 				</staticText>
 				<line>
@@ -124,7 +130,9 @@
 				</staticText>
 				<staticText>
 					<reportElement uuid="7c8cbad1-f6a6-46ec-84ff-3055488f0dcf" x="10" y="26" width="100" height="16"/>
-					<textElement verticalAlignment="Middle"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
 					<text><![CDATA[Processo]]></text>
 				</staticText>
 				<line>
@@ -195,4 +203,11 @@
 			</line>
 		</band>
 	</detail>
+	<summary>
+		<band height="1">
+			<line>
+				<reportElement uuid="2e0de46e-c471-4325-bd25-f5edebaef307" x="0" y="0" width="802" height="1"/>
+			</line>
+		</band>
+	</summary>
 </jasperReport>

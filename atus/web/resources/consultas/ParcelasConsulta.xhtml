@@ -32,7 +32,8 @@
                         <comp:outputText  value="#{t.numeroDaParcela}"/>
                     </p:column>
                     <p:column headerText="Cliente"  >
-                        <comp:outputText  value="#{t.nomeDoCliente}"/>
+                        <p:commandLink value="#{t.nomeDoCliente}" styleClass="link" update=":dadCli:frmDadosCli" actionListener="#{clienteMB.setarCliente(t.contaReceber.processo.cliente)}" oncomplete="PF('dialogFicha').show()" />
+                        
                     </p:column>
                     <p:column headerText="Vencimento"  >
                         <comp:outputText  value="#{t.vencimento}" tipo="d"/>
