@@ -31,7 +31,9 @@ public class CooptacaoController extends Controller<Cooptacao, Long> implements 
     }
 
     public void criticarValorDasPorcentagens(Cooptacao cooptacao) throws Exception {
-        if (cooptacao.getPercentDono().add(cooptacao.getPercentSocio()).compareTo(new BigDecimal(100)) >= 0) {
+        BigDecimal vl = BigDecimal.ZERO;
+        vl = vl.add(cooptacao.getPercentColaborador()).add(cooptacao.getPercentDono()).add(cooptacao.getPercentSocio());
+        if (vl.compareTo(new BigDecimal(100)) != 0) {
             throw new Exception("A soma das cooptações não podem ser maior que 100");
         }
     }
