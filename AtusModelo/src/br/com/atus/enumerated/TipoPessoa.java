@@ -10,6 +10,6 @@ package br.com.atus.enumerated;
  *
  * @author Ari
  */
-public enum TipoPessoa {
+public  enum TipoPessoa {
     PJ,PF
 }

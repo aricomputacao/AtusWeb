@@ -5,13 +5,6 @@
  */
 package br.com.atus.modelo;
 
-import br.com.atus.modelo.Usuario;
-import br.com.atus.modelo.Colaborador;
-import br.com.atus.modelo.Cliente;
-import br.com.atus.modelo.TipoContrato;
-import br.com.atus.modelo.JuizoTribunal;
-import br.com.atus.modelo.Advogado;
-import br.com.atus.modelo.Materia;
 import br.com.atus.util.peca.PecaColetor;
 import br.com.atus.util.peca.TipoMascara;
 import java.io.Serializable;

@@ -7,6 +7,8 @@ package br.com.atus.modelo;
 
 import br.com.atus.enumerated.EstadoCivil;
 import br.com.atus.enumerated.Sexo;
+import br.com.atus.enumerated.TipoPessoa;
+import br.com.atus.util.CpfCnpjUtil;
 import br.com.atus.util.peca.PecaColetor;
 import br.com.atus.util.peca.TipoMascara;
 import java.io.Serializable;
@@ -182,21 +184,63 @@ public class Cliente implements Serializable {
     public void setProfissao(Profissao profissao) {
         this.profissao = profissao;
     }
-    
-    public String getNome(){
+
+    public String getNome() {
         return this.pessoa.getNome();
     }
-    public String getEmail(){
+
+    public String getEmail() {
         return this.pessoa.getEmail();
     }
-    public String getTelefone(){
+
+    public String getTelefone() {
         return this.pessoa.getCelular();
     }
-    public Date getDataNascimento(){
+
+    public Date getDataNascimento() {
         return this.pessoa.getDataNascimento();
     }
-    
-    
+
+    public String getDocumentoFormatado() {
+        if (this.pessoa.getTipoPessoa().equals(TipoPessoa.PF)) {
+            return CpfCnpjUtil.formataCPF(this.cpfCpnj);
+        } else if (this.pessoa.getTipoPessoa().equals(TipoPessoa.PJ)) {
+            return CpfCnpjUtil.formataCNPJ(this.getCpfCpnj());
+        } else {
+            return "";
+        }
+
+    }
+
+    public String getNomeDaCidade() {
+        if (getPessoa().getCidade() != null) {
+            return getPessoa().getCidade().getNome();
+        } else {
+            return "";
+        }
+    }
+
+    public String getNomeDoEstado() {
+        if (getPessoa().getCidade() != null) {
+            return getPessoa().getCidade().getUnidadeFederativa().getAbreviacao();
+        } else {
+            return "";
+        }
+    }
+
+    public String getContatos() {
+        String contatos = new String();
+        if ((!"".equals(this.getPessoa().getTelefone())) && this.getPessoa().getTelefone() != null) {
+            contatos += " Tel 1: ".concat(this.getPessoa().getTelefone());
+        }
+        if ((!"".equals(this.getPessoa().getCelular())) && this.getPessoa().getCelular() != null) {
+             contatos += " Cel 1: ".concat(this.getPessoa().getCelular());
+        }
+        if ((!"".equals(this.getPessoa().getEmail())) && this.getPessoa().getEmail() != null) {
+             contatos += " Email: ".concat(this.getPessoa().getEmail());
+        }
+        return contatos;
+    }
 
     @Override
     public int hashCode() {
@@ -206,7 +250,8 @@ public class Cliente implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj
+    ) {
         if (obj == null) {
             return false;
         }
