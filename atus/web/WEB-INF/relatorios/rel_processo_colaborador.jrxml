@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_processo_colaborador" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="10" bottomMargin="10" uuid="96646ec2-2326-419c-99c4-0364b22c2ab7">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_processo_colaborador" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="1" bottomMargin="1" uuid="96646ec2-2326-419c-99c4-0364b22c2ab7">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -76,7 +76,10 @@
 		<groupHeader>
 			<band height="21">
 				<rectangle>
-					<reportElement uuid="e413efc2-b041-4599-b69e-d1fe64966ad3" x="0" y="0" width="802" height="20"/>
+					<reportElement uuid="e413efc2-b041-4599-b69e-d1fe64966ad3" mode="Opaque" x="0" y="0" width="802" height="20" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
+					<graphicElement>
+						<pen lineColor="#000000"/>
+					</graphicElement>
 				</rectangle>
 				<staticText>
 					<reportElement uuid="afaf8f18-2f32-4854-b303-ccca6bd1c634" x="2" y="1" width="76" height="20"/>
@@ -128,7 +131,7 @@
 		</band>
 	</title>
 	<detail>
-		<band height="170" splitType="Stretch">
+		<band height="170" splitType="Immediate">
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="1ee5432d-360a-4274-8c5d-00708855a0fd" x="93" y="64" width="50" height="20"/>
 				<textElement verticalAlignment="Middle">
@@ -185,7 +188,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getMateria().getNome()]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement uuid="f7da750b-b89d-49f5-83ea-8d1e5b81c84a" x="484" y="84" width="102" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{prazo}]]></textFieldExpression>
@@ -244,12 +247,12 @@
 				</textElement>
 				<text><![CDATA[CPF/CNPJ:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="c46d6fec-920b-49c0-8a50-bbb2d7fc8869" x="78" y="84" width="337" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{processo}.getTodosAdversarios()]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="b94cdd77-be2f-4cd2-89c4-28ad98c4499f" x="78" y="23" width="337" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[($F{processo}.getCliente().getPessoa().getLogradouro() == null ? "" :$F{processo}.getCliente().getPessoa().getLogradouro())+
@@ -257,7 +260,7 @@
 ($F{processo}.getCliente().getPessoa().getBairro() == null ? "" : ", Bairro: "+ $F{processo}.getCliente().getPessoa().getBairro()) +
 ($F{processo}.getCliente().getPessoa().getCep() == null ? "" : ", CEP: "+ $F{processo}.getCliente().getPessoa().getCep())]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="9f28ce9b-f91e-4c3e-9d95-63b631b27dd4" x="78" y="43" width="337" height="20"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{processo}.getCliente().getNomeDaCidade() +"-"+
