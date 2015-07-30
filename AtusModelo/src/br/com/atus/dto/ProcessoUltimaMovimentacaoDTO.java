@@ -28,13 +28,19 @@ public class ProcessoUltimaMovimentacaoDTO implements Comparable<ProcessoUltimaM
 
     public Date getPrazo() {
         Calendar c = Calendar.getInstance();
-        if (processo.getFase() == null) {
-            return null;
+        if (movimentacao != null) {
+
+            if (processo.getFase() == null) {
+                return null;
+            } else {
+                c.setTime(movimentacao.getDataMovimentacao());
+                c.set(Calendar.DAY_OF_MONTH, processo.getFase().getPrazo());
+                prazo = new Date(c.getTimeInMillis());
+                return prazo;
+            }
         } else {
-            c.setTime(movimentacao.getDataMovimentacao());
-            c.set(Calendar.DAY_OF_MONTH, processo.getFase().getPrazo());
-            prazo = new Date(c.getTimeInMillis());
-            return prazo;
+            return null;
+
         }
 
     }
