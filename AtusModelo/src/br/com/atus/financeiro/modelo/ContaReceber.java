@@ -88,6 +88,9 @@ public class ContaReceber implements Serializable {
     private String observacao;
     
    
+    public BigDecimal getPercentualColaborador(){
+        return cooptacao.getPercentColaborador();
+    }
 
     public BigDecimal getValorDonoDoProcesso() {
         BigDecimal percent = cooptacao.getPercentDono().divide(BigDecimal.valueOf(100)).setScale(3,RoundingMode.HALF_EVEN);

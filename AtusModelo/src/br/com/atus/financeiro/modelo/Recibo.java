@@ -6,6 +6,8 @@
 package br.com.atus.financeiro.modelo;
 
 import br.com.atus.modelo.Advogado;
+import br.com.atus.modelo.Colaborador;
+import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.Usuario;
 import br.com.atus.util.FormatadorDeNumeros;
 import br.com.atus.util.NumeroPorExtenso;
@@ -64,7 +66,7 @@ public class Recibo implements Serializable {
     @ManyToOne
     @JoinColumn(name = "rec_usr_confirmou", referencedColumnName = "usr_id")
     private Usuario usuarioQueConfirmouRecibo;
-   
+
     @ManyToOne
     @JoinColumn(name = "rec_usr_prestou", referencedColumnName = "usr_id")
     private Usuario usuarioQuePrestouConta;
@@ -78,7 +80,7 @@ public class Recibo implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "rec_data_confirmacao")
     private Date dataConfirmacao;
-   
+
     @Temporal(TemporalType.DATE)
     @Column(name = "rec_data_prestacaop")
     private Date dataPrestacao;
@@ -98,10 +100,7 @@ public class Recibo implements Serializable {
     public void setUsuarioQuePrestouConta(Usuario usuarioQuePrestouConta) {
         this.usuarioQuePrestouConta = usuarioQuePrestouConta;
     }
-    
-    
 
-    
     public Advogado getAdvogadoDonoProcesso() {
         return listaDeParcelasReceber.get(0).getContaReceber().getAdvogado();
     }
@@ -149,12 +148,16 @@ public class Recibo implements Serializable {
     public Recibo() {
     }
 
+    public BigDecimal getPercentualColaborador() {
+        return listaDeParcelasReceber.get(0).getContaReceber().getPercentualColaborador();
+    }
+
     public BigDecimal getValorTotal() {
         BigDecimal vlTot = BigDecimal.ZERO;
         for (ParcelasReceber lst : listaDeParcelasReceber) {
             vlTot = vlTot.add(lst.getValorPago());
         }
-        return vlTot.setScale(3,RoundingMode.HALF_EVEN);
+        return vlTot.setScale(3, RoundingMode.HALF_EVEN);
     }
 
     public String getValorTotalExtenso() {
@@ -170,9 +173,9 @@ public class Recibo implements Serializable {
             }
         }
         BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getCooptacao().getPercentDono().divide(BigDecimal.valueOf(100)).setScale(3, RoundingMode.HALF_EVEN);
-        return vlDon.multiply(percent).setScale(3,RoundingMode.HALF_EVEN);
+        return vlDon.multiply(percent).setScale(3, RoundingMode.HALF_EVEN);
     }
-    
+
     public BigDecimal getValorRepasseDonoDoProcesso() {
         BigDecimal vlDon = BigDecimal.ZERO;
         for (ParcelasReceber pa : listaDeParcelasReceber) {
@@ -181,7 +184,7 @@ public class Recibo implements Serializable {
             }
         }
         BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getCooptacao().getPercentDono().divide(BigDecimal.valueOf(100)).setScale(3, RoundingMode.HALF_EVEN);
-        return vlDon.multiply(percent).setScale(3,RoundingMode.HALF_EVEN);
+        return vlDon.multiply(percent).setScale(3, RoundingMode.HALF_EVEN);
     }
 
     public String getValorTotalFormatado() {
@@ -202,18 +205,22 @@ public class Recibo implements Serializable {
 
     public BigDecimal getValorSocioDoProcesso() {
         BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getCooptacao().getPercentSocio().divide(BigDecimal.valueOf(100)).setScale(3, RoundingMode.HALF_EVEN);
-        
-        return this.getValorTotal().multiply(percent).setScale(3,RoundingMode.HALF_EVEN);
+
+        return this.getValorTotal().multiply(percent).setScale(3, RoundingMode.HALF_EVEN);
     }
 
     public BigDecimal getValorDoColaborador() {
         BigDecimal percent = this.listaDeParcelasReceber.get(0).getContaReceber().getCooptacao().getPercentColaborador().divide(BigDecimal.valueOf(100)).setScale(3, RoundingMode.HALF_EVEN);
-        return this.getValorTotal().multiply(percent).setScale(3,RoundingMode.HALF_EVEN);
+        return this.getValorTotal().multiply(percent).setScale(3, RoundingMode.HALF_EVEN);
     }
 
     public Long getIdDoProcesso() {
         return listaDeParcelasReceber.get(0).getContaReceber().getProcesso().getId();
 
+    }
+
+    public Processo getProcesso() {
+        return listaDeParcelasReceber.get(0).getContaReceber().getProcesso();
     }
 
     public String getNomeCliente() {
@@ -231,8 +238,12 @@ public class Recibo implements Serializable {
     public String getNomeDoColaborador() {
         return listaDeParcelasReceber.get(0).getContaReceber().getNomeDoColaborador();
     }
+    public Colaborador getColaborador() {
+        return listaDeParcelasReceber.get(0).getContaReceber().getColaborador();
+    }
+
     
-  
+    
     public Date getDataDePagamento() {
         return listaDeParcelasReceber.get(0).getDataPagamento();
 
