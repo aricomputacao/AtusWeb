@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 /**
  *
@@ -29,10 +29,12 @@ import javax.ejb.Stateless;
 @Stateless
 public class ReciboController extends Controller<Recibo, Long> implements Serializable {
 
-    @EJB
+    @Inject
     private ReciboDAO dao;
-    @EJB
+    @Inject
     private ParcelaReceberController parcelaReceberController;
+    @Inject
+    private CaixaColaboradorController caixaColaboradorController;
 
     @PostConstruct
     @Override
@@ -55,6 +57,8 @@ public class ReciboController extends Controller<Recibo, Long> implements Serial
         }
 
         dao.salvar(r);
+        caixaColaboradorController.addCaixaColaborador(r);
+        
     }
 
     public List<Recibo> consultarRecibosAbertos(Advogado advogado) {

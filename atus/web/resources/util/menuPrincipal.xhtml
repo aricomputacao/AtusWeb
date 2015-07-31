@@ -57,6 +57,7 @@
                     <p:menuitem styleClass="item" id="menCre" value="Contas Receber" rendered="#{navegacaoMB.permissaoExiste(navegacao['fin.conta_receber'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['fin.conta_receber'])}" immediate="true"/>
                     <p:menuitem styleClass="item" id="menRec" value="Confirmar Recibo" rendered="#{navegacaoMB.permissaoExiste(navegacao['fin.recibo'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['fin.recibo'])}" immediate="true"/>
                     <p:menuitem styleClass="item" id="menPre" value="Prestação de Conta" rendered="#{navegacaoMB.permissaoExiste(navegacao['fin.prestacao.conta'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['fin.prestacao.conta'])}" immediate="true"/>
+                    <p:menuitem styleClass="item" id="menPagCol" value="Pagamento Colaborador" rendered="#{navegacaoMB.permissaoExiste(navegacao['fin.caixa.colaborador'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['fin.caixa.colaborador'])}" immediate="true"/>
                 </p:submenu>
 
 

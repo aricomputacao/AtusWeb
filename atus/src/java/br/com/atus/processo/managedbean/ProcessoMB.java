@@ -103,8 +103,8 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             listaParcelasVencidas = new ArrayList<>();
             listaParcelasPagas = new ArrayList<>();
         } else {
-
             fase = processo.getFase();
+            consultarPagamentos();
         }
 
         listaProcessos = new ArrayList<>();

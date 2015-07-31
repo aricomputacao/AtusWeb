@@ -34,7 +34,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -53,15 +52,15 @@ public class ContaReceberMB extends BeanGenerico<ContaReceber> implements Serial
 
     @Inject
     private NavegacaoMB navegacaoMB;
-    @EJB
+    @Inject
     private ContaReceberController controller;
-    @EJB
+    @Inject
     private AdvogadoController advogadoController;
-    @EJB
+    @Inject
     private CooptacaoController cooptacaoController;
-    @EJB
+    @Inject
     private ColaboradorController colaboradorController;
-    @EJB
+    @Inject
     private ParcelaReceberController parcelaReceberController;
 
     private List<ContaReceber> listaContaReceber;
