@@ -27,7 +27,7 @@ public class CaixaColaboradorDAO extends DAO<CaixaColaborador, Long> implements 
     
     public List<CaixaColaborador> consultaValoresAReceberDo(Colaborador col){
         TypedQuery<CaixaColaborador> tq;
-        tq = getEm().createQuery("SELECT c FROM CaixaClaborador c WHERE c.colaborador = :col ORDER BY c.recibo", CaixaColaborador.class)
+        tq = getEm().createQuery("SELECT c FROM CaixaColaborador c WHERE c.colaborador = :col ORDER BY c.recibo", CaixaColaborador.class)
                 .setParameter("col", col);
         
         return tq.getResultList().isEmpty() ? new ArrayList<CaixaColaborador>() : tq.getResultList();
@@ -35,7 +35,7 @@ public class CaixaColaboradorDAO extends DAO<CaixaColaborador, Long> implements 
     
     public List<CaixaColaborador> consultaValoresPagosrDo(Colaborador col){
         TypedQuery<CaixaColaborador> tq;
-        tq = getEm().createQuery("SELECT c FROM CaixaClaborador c WHERE c.colaborador = :col AND c.dataDeRecebimento <> NULL ORDER BY c.recibo", CaixaColaborador.class)
+        tq = getEm().createQuery("SELECT c FROM CaixaColaborador c WHERE c.colaborador = :col AND c.dataDeRecebimento <> NULL ORDER BY c.recibo", CaixaColaborador.class)
                 .setParameter("col", col);
         
         return tq.getResultList().isEmpty() ? new ArrayList<CaixaColaborador>() : tq.getResultList();
@@ -44,7 +44,7 @@ public class CaixaColaboradorDAO extends DAO<CaixaColaborador, Long> implements 
     
     public List<CaixaColaborador> consultaCaixasAbertos(){
         TypedQuery<CaixaColaborador> tq;
-        tq = getEm().createQuery("SELECT c FROM CaixaClaborador c ORDER BY c.colaborador,c.recibo", CaixaColaborador.class);
+        tq = getEm().createQuery("SELECT c FROM CaixaColaborador c ORDER BY c.colaborador,c.recibo", CaixaColaborador.class);
         
         return tq.getResultList().isEmpty() ? new ArrayList<CaixaColaborador>() : tq.getResultList();
     }

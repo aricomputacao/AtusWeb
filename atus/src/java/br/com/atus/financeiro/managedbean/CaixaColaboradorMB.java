@@ -11,7 +11,10 @@ import br.com.atus.modelo.Colaborador;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.managedbean.BeanGenerico;
 import br.com.atus.util.managedbean.NavegacaoMB;
+import com.sun.msv.datatype.xsd.datetime.BigDateTimeValueType;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -36,6 +39,8 @@ public class CaixaColaboradorMB extends BeanGenerico<CaixaColaborador> implement
     private List<CaixaColaborador> listaCaixaColaboradorEmAberto;
     private List<CaixaColaborador> listaCaixaColaboradorSelecionadas;
     private Colaborador colaborador;
+    private BigDecimal totalEmAberto;
+    private BigDecimal totalSelecionado;
 
     public CaixaColaboradorMB() {
         super(CaixaColaborador.class);
@@ -46,10 +51,33 @@ public class CaixaColaboradorMB extends BeanGenerico<CaixaColaborador> implement
         listaCaixaColaboradorEmAberto = new ArrayList<>();
         listaCaixaColaboradorSelecionadas = new ArrayList<>();
         colaborador = new Colaborador();
+        totalEmAberto = BigDecimal.ZERO;
+        totalSelecionado = BigDecimal.ZERO;
     }
-    
-    public void consultaPagamentosAbertos(){
+
+    public void selecionarPagamento(CaixaColaborador cc) {
+        listaCaixaColaboradorSelecionadas.add(cc);
+        listaCaixaColaboradorEmAberto.remove(cc);
+        totalSelecionado = totalSelecionado.add(cc.getValorDoColaborador()).setScale(2,RoundingMode.HALF_EVEN);
+        totalEmAberto = totalEmAberto.subtract(cc.getValorDoColaborador()).setScale(2,RoundingMode.HALF_EVEN);
+
+    }
+
+    public void removerSelecionado(CaixaColaborador cc) {
+        listaCaixaColaboradorEmAberto.add(cc);
+        listaCaixaColaboradorSelecionadas.remove(cc);
+        totalSelecionado = totalSelecionado.subtract(cc.getValorDoColaborador()).setScale(2,RoundingMode.HALF_EVEN);
+        totalEmAberto = totalEmAberto.add(cc.getValorDoColaborador()).setScale(2,RoundingMode.HALF_EVEN);
+    }
+
+    public void consultaPagamentosAbertos() {
         listaCaixaColaboradorEmAberto = caixaColaboradorController.consultaPagamentosAbertosDo(colaborador);
+        listaCaixaColaboradorSelecionadas.clear();
+        totalEmAberto= BigDecimal.ZERO;
+        totalSelecionado = BigDecimal.ZERO;
+        for (CaixaColaborador ls : listaCaixaColaboradorEmAberto) {
+            totalEmAberto = totalEmAberto.add(ls.getValorDoColaborador()).setScale(2,RoundingMode.HALF_EVEN);
+        }
     }
 
     public void pagarColaborador() {
@@ -87,6 +115,21 @@ public class CaixaColaboradorMB extends BeanGenerico<CaixaColaborador> implement
         this.colaborador = colaborador;
     }
 
-    
+    public BigDecimal getTotalEmAberto() {
+        return totalEmAberto;
+    }
+
+    public void setTotalEmAberto(BigDecimal totalEmAberto) {
+        this.totalEmAberto = totalEmAberto;
+    }
+
+    public BigDecimal getTotalSelecionado() {
+        return totalSelecionado;
+    }
+
+    public void setTotalSelecionado(BigDecimal totalSelecionado) {
+        this.totalSelecionado = totalSelecionado;
+    }
+
     
 }
