@@ -26,9 +26,13 @@
                             <comp:input_button nome_dialog="dialogoConColaborador" required="false" id="inputCon" input_size="50" nome_label="Colaborador" value_input="#{caixaColaboradorMB.colaborador.pessoa.nome}"  />
                         </h:panelGrid>
                     </h:panelGrid>
-                    <h:panelGrid id="grdConsulta3">
+                    <h:panelGrid id="grdConsulta3" columns="2">
+                        <p:spacer width="15"/>
                         <p:spacer width="15"/>
                         <comp:commandButton_consulta acao_butao="#{caixaColaboradorMB.consultaPagamentosAbertos()}" componente_to_update="@(.ui-fieldset)" />
+                        <p:commandButton value="Pagar Selecionados" icon="fa fa-level-down fa-lg" id="btnPag" update="@(.ui-fieldset)" oncomplete="popup('/atus/RelatorioServlet.pdf');" actionListener="#{caixaColaboradorMB.pagarColaborador()}">
+                            <p:confirm message="Esta certo disso?" header="Confirmar recebimentos" icon="fa fa-info fa-lg"  />
+                        </p:commandButton>
                     </h:panelGrid>
                 </h:panelGrid>
                 <h:panelGrid columns="2" width="100%">
@@ -39,13 +43,21 @@
                             <p:column headerText="Recibo"  sortBy="#{t.numeroDoRecibo}">
                                 <comp:outputText value="#{t.numeroDoRecibo}"/>
                             </p:column>
-
-                            <p:column headerText="Recibo" >
+                            <p:column headerText="Processo" >
+                                <comp:outputText value="#{t.recibo.idDoProcesso}"/>
+                            </p:column>
+                            <p:column headerText="Cliente" >
                                 <comp:outputText value="#{t.nomeDoCliente}"/>
+                            </p:column>
+                            <p:column headerText="Dt. Recebimento" >
+                                <comp:outputText value="#{t.dataDoPagamento}" tipo="d"/>
+                            </p:column>
+                            <p:column headerText="Valor" >
+                                <comp:outputText value="#{t.valorDoColaborador}" tipo="c"/>
                             </p:column>
                             <p:column headerText="Ação" >
                                 <p:commandButton actionListener="#{caixaColaboradorMB.selecionarPagamento(t)}" icon="fa fa-arrow-circle-o-right fa-lg" update="@(.ui-panel)" />
-                                
+                                <p:commandButton  title="Lista de Parcelas" icon="fa fa-list-ol fa-lg" update=":frmParc" oncomplete="PF('dialogParcelas').show()" actionListener="#{caixaColaboradorMB.consultarParcelas(t.recibo)}"/>
                             </p:column>
 
                         </p:dataTable>
@@ -57,11 +69,22 @@
                             <p:column headerText="Recibo"  sortBy="#{s.numeroDoRecibo}">
                                 <comp:outputText value="#{s.numeroDoRecibo}"/>
                             </p:column>                    
-                            <p:column headerText="Recibo" >
+                            <p:column headerText="Processo" >
+                                <comp:outputText value="#{s.recibo.idDoProcesso}"/>
+                            </p:column>
+                            <p:column headerText="Cliente" >
                                 <comp:outputText value="#{s.nomeDoCliente}"/>
+                            </p:column>
+                            <p:column headerText="Dt. Recebimento" >
+                                <comp:outputText value="#{s.dataDoPagamento}" tipo="d"/>
+                            </p:column>
+                            <p:column headerText="Valor" >
+                                <comp:outputText value="#{s.valorDoColaborador}" tipo="c"/>
                             </p:column>
                             <p:column headerText="Ação" >
                                 <p:commandButton actionListener="#{caixaColaboradorMB.removerSelecionado(s)}" icon="fa fa-arrow-circle-o-left fa-lg" update="@(.ui-panel)" />
+                                <p:commandButton  title="Lista de Parcelas" icon="fa fa-list-ol fa-lg" update=":frmParc" oncomplete="PF('dialogParcelas').show()" actionListener="#{caixaColaboradorMB.consultarParcelas(s.recibo)}"/>
+
                             </p:column>
                         </p:dataTable>
                     </p:panel>

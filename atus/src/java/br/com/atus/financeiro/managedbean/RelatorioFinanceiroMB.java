@@ -5,8 +5,11 @@
  */
 package br.com.atus.financeiro.managedbean;
 
+import br.com.atus.financeiro.controller.CaixaColaboradorController;
 import br.com.atus.financeiro.controller.ParcelaReceberController;
+import br.com.atus.financeiro.modelo.CaixaColaborador;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
+import br.com.atus.modelo.Colaborador;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
@@ -32,17 +35,25 @@ public class RelatorioFinanceiroMB implements Serializable {
 
     @Inject
     private ParcelaReceberController parcelaReceberController;
+    @Inject
+    private CaixaColaboradorController caixaColaboradorController;
+    private List<CaixaColaborador> listaDePagamentosAbertosDoColaborador;
+    private List<CaixaColaborador> listaDePagamentosRealizadosDoColaborador;
     private List<ParcelasReceber> listaParcelasRecebers;
+    private Colaborador colaborador;
     private Date dtIni;
     private Date dtFim;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         listaParcelasRecebers = new ArrayList<>();
         dtIni = new Date();
         dtFim = new Date();
+        listaDePagamentosAbertosDoColaborador = new ArrayList<>();
+        listaDePagamentosRealizadosDoColaborador = new ArrayList<>();
+        colaborador = new Colaborador();
     }
-    
+
     public void consultarParcelasVencidasPorPeriodo() {
         listaParcelasRecebers = parcelaReceberController.consultaParcelasVencidasEntre(dtIni, dtFim);
         if (listaParcelasRecebers.isEmpty()) {
@@ -57,6 +68,13 @@ public class RelatorioFinanceiroMB implements Serializable {
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
     }
+    
+    
+    public void consultarPagamentosDoColaborador(){
+        listaDePagamentosAbertosDoColaborador = caixaColaboradorController.consultaPagamentosAbertosDo(colaborador);
+        listaDePagamentosRealizadosDoColaborador = caixaColaboradorController.consultaPagamentosRealizadosDo(colaborador);
+    }
+    
 
     public List<ParcelasReceber> getListaParcelasRecebers() {
         return listaParcelasRecebers;
@@ -77,5 +95,31 @@ public class RelatorioFinanceiroMB implements Serializable {
     public void setDtFim(Date dtFim) {
         this.dtFim = dtFim;
     }
+
+    public Colaborador getColaborador() {
+        return colaborador;
+    }
+
+    public void setColaborador(Colaborador colaborador) {
+        this.colaborador = colaborador;
+    }
+
+    public List<CaixaColaborador> getListaDePagamentosAbertosDoColaborador() {
+        return listaDePagamentosAbertosDoColaborador;
+    }
+
+    public void setListaDePagamentosAbertosDoColaborador(List<CaixaColaborador> listaDePagamentosAbertosDoColaborador) {
+        this.listaDePagamentosAbertosDoColaborador = listaDePagamentosAbertosDoColaborador;
+    }
+
+    public List<CaixaColaborador> getListaDePagamentosRealizadosDoColaborador() {
+        return listaDePagamentosRealizadosDoColaborador;
+    }
+
+    public void setListaDePagamentosRealizadosDoColaborador(List<CaixaColaborador> listaDePagamentosRealizadosDoColaborador) {
+        this.listaDePagamentosRealizadosDoColaborador = listaDePagamentosRealizadosDoColaborador;
+    }
+    
+    
 
 }

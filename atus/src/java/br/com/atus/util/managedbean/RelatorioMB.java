@@ -11,6 +11,8 @@ import br.com.atus.processo.controller.ProcessoController;
 import br.com.atus.cadastro.controller.UsuarioController;
 import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.dto.ProcessosAtrasadoRelatorioDTO;
+import br.com.atus.financeiro.controller.CaixaColaboradorController;
+import br.com.atus.financeiro.modelo.CaixaColaborador;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Evento;
@@ -53,6 +55,7 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
     private MovimentacaoController movimentacaoController;
     @Inject
     private UsuarioController usuarioController;
+    
     private List<ProcessosAtrasadoRelatorioDTO> listaProcessosAtrasadoRelatorioDTOs;
     private List<ProcessoUltimaMovimentacaoDTO> listaProcessoUltimaMovimentacaoDTOs;
     private List<Evento> listaEventos;
@@ -60,6 +63,8 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
     private List<Fase> listaFasesSelection;
     private List<Usuario> listaDeUsuariosSelection;
     private List<Usuario> listaDeUsuarios;
+  
+    
     private Cliente cliente;
     private Usuario usuario;
     private Colaborador colaborador;
@@ -79,7 +84,7 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
             listaEventos = new ArrayList<>();
             listaMovimentacaos = new ArrayList<>();
             listaDeUsuarios = usuarioController.consultarTodos("login");
-            
+                  
             usuario = new Usuario();
             colaborador = new Colaborador();
             dataInicial = new Date();
@@ -113,6 +118,7 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
 
     }
 
+    
     public void listarProcessoColaborador() {
         try {
             List<Processo> listaProcessos = processoController.consultaPorColaborador(colaborador,listaFasesSelection);
@@ -256,4 +262,7 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
         return listaDeUsuarios;
     }
 
+   
+
+    
 }

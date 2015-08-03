@@ -14,12 +14,12 @@
         <h:outputScript name="sonumero.js"  library="js"/>
 
         <h:form id="frm_pag" prependId="false" >
-            <p:blockUI block="@form" trigger=":frm_pag:cadFrm:comPag:btnPag" >
+            <p:blockUI block="@form"  >
                 <p:graphicImage library="imagens" name="carregar.gif"/>
             </p:blockUI>
-            <comp:panel_cadastro id="cadFrm"  cabecalho_grid="Pagamento Colaborador" id_form="frm_pag"  >               
+            <comp:panel_cadastro id="cadFrm"  cabecalho_grid="Pagamentos Colaborador" id_form="frm_pag"  >               
                 <h:panelGrid >
-                    <acao:PagarColaborador nome="Pagar Colaborador" id="comPag" nomeDialog="dialogoConColaborador" update_form="@form" />
+                    <cons:PagamentosColaboradorConsulta id="comPag"/>
                 </h:panelGrid>
             </comp:panel_cadastro>
         </h:form>
@@ -29,7 +29,7 @@
         <p:dialog showEffect="fade" position="top"   header="Consulta de Pessoas" id="conPesCli" modal="true" hideEffect="fade" widgetVar="dialogoConColaborador">
             <h:form id="frmConCliente" prependId="false">
                 <cons:ColaboradorConsulta renderEditar="false" id="tblCli" renderExcluir="false" renderSelecionar="true"   nomeDialog="dialogoConColaborador" update_form=":frm_pag:cadFrm:comPag:inputCon:input_componente"
-                                          valorSelecionado="#{caixaColaboradorMB.colaborador}" >
+                                          valorSelecionado="#{relatorioFinanceiroMB.colaborador}" >
                     <f:facet name="btnConCola">
                         <comp:commandButton_consulta acao_butao="#{colaboradorMB.listar()}" componente_to_update=":frmConCliente"/>
                     </f:facet>

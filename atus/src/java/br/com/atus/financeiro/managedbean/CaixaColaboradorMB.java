@@ -7,16 +7,21 @@ package br.com.atus.financeiro.managedbean;
 
 import br.com.atus.financeiro.controller.CaixaColaboradorController;
 import br.com.atus.financeiro.modelo.CaixaColaborador;
+import br.com.atus.financeiro.modelo.Recibo;
 import br.com.atus.modelo.Colaborador;
+import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
+import br.com.atus.util.NumeroPorExtenso;
+import br.com.atus.util.RelatorioSession;
 import br.com.atus.util.managedbean.BeanGenerico;
 import br.com.atus.util.managedbean.NavegacaoMB;
-import com.sun.msv.datatype.xsd.datetime.BigDateTimeValueType;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -38,6 +43,7 @@ public class CaixaColaboradorMB extends BeanGenerico<CaixaColaborador> implement
     private CaixaColaboradorController caixaColaboradorController;
     private List<CaixaColaborador> listaCaixaColaboradorEmAberto;
     private List<CaixaColaborador> listaCaixaColaboradorSelecionadas;
+    private Recibo recibo;
     private Colaborador colaborador;
     private BigDecimal totalEmAberto;
     private BigDecimal totalSelecionado;
@@ -83,12 +89,33 @@ public class CaixaColaboradorMB extends BeanGenerico<CaixaColaborador> implement
     public void pagarColaborador() {
         try {
             caixaColaboradorController.pagarColaborador(listaCaixaColaboradorSelecionadas, navegacaoMB.getUsuarioLogado());
+            imprimirRecibo();
+            consultaPagamentosAbertos();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("pagamento_sucesso", MenssagemUtil.MENSAGENS));
 
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("pagamento_colaborador_falha", MenssagemUtil.MENSAGENS));
             Logger.getLogger(CaixaColaboradorMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    
+    public void imprimirRecibo() {
+        if (!listaCaixaColaboradorSelecionadas.isEmpty()) {
+            Map<String, Object> m = new HashMap<>();
+            NumeroPorExtenso porExtenso = new  NumeroPorExtenso(true, true, true);
+            m.put("usr_pagou", navegacaoMB.getUsuarioLogado().getNome());
+            m.put("valor_total", totalSelecionado);
+            m.put("data_pagamento", listaCaixaColaboradorSelecionadas.get(0).getDataDoPagamento());
+            m.put("valor_extenso", porExtenso.converteMoeda(totalSelecionado));
+               byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaCaixaColaboradorSelecionadas, m, "WEB-INF/relatorios/recibo_pag_colaborador.jasper", "Recibo Colaborador");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        }
+
+    }
+    
+    public void consultarParcelas(Recibo r){
+        recibo = r;
     }
 
     public List<CaixaColaborador> getListaCaixaColaboradorEmAberto() {
@@ -129,6 +156,14 @@ public class CaixaColaboradorMB extends BeanGenerico<CaixaColaborador> implement
 
     public void setTotalSelecionado(BigDecimal totalSelecionado) {
         this.totalSelecionado = totalSelecionado;
+    }
+
+    public Recibo getRecibo() {
+        return recibo;
+    }
+
+    public void setRecibo(Recibo recibo) {
+        this.recibo = recibo;
     }
 
     

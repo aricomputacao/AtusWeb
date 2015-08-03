@@ -77,6 +77,7 @@
                     </p:submenu>
                     <p:submenu  label="Financeiro" id="sbRelFin"  >
                         <p:menuitem value="Parcelas" styleClass="item" rendered="#{navegacaoMB.permissaoExiste(navegacao['rel.financeiro'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['rel.financeiro'])}" immediate="true"/>
+                        <p:menuitem value="Pagamentos Colaborador" styleClass="item" rendered="#{navegacaoMB.permissaoExiste(navegacao['rel.financeiro_pagamento_colaborador'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['rel.financeiro_pagamento_colaborador'])}" immediate="true"/>
                     </p:submenu>
                     <p:submenu  label="Movimentação" id="sbMov"  >
                         <p:menuitem value="Fase" styleClass="item" rendered="#{navegacaoMB.permissaoExiste(navegacao['rel.movimentacao_fase'])}" update="@form"  actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['rel.movimentacao_fase'])}" immediate="true"/>

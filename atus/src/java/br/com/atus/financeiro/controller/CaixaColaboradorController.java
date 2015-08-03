@@ -53,5 +53,8 @@ public class CaixaColaboradorController extends Controller<CaixaColaborador, Lon
     public List<CaixaColaborador> consultaPagamentosAbertosDo(Colaborador colaborador){
         return dao.consultaValoresAReceberDo(colaborador);
     }
+    public List<CaixaColaborador> consultaPagamentosRealizadosDo(Colaborador colaborador){
+        return dao.consultaValoresPagosrDo(colaborador);
+    }
     
 }
