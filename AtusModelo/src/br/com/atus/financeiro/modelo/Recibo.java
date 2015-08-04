@@ -218,6 +218,10 @@ public class Recibo implements Serializable {
         return listaDeParcelasReceber.get(0).getContaReceber().getProcesso().getId();
 
     }
+    
+    public BigDecimal getValorTotalDoProcesso(){
+        return this.listaDeParcelasReceber.get(0).getContaReceber().getValor();
+    }
 
     public Processo getProcesso() {
         return listaDeParcelasReceber.get(0).getContaReceber().getProcesso();

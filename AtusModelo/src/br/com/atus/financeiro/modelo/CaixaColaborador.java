@@ -23,6 +23,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -39,11 +40,13 @@ public class CaixaColaborador implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cxc_id",nullable = false)
     private Long id;
-    
+
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "rec_id",referencedColumnName = "rec_id",nullable = false)
     private Recibo recibo;
     
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "col_id",referencedColumnName = "col_id",nullable = false)
     private Colaborador colaborador;
@@ -55,6 +58,19 @@ public class CaixaColaborador implements Serializable{
     @ManyToOne
     @JoinColumn(name = "usr_id",referencedColumnName = "usr_id")
     private Usuario usuarioQuePagou;
+    
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "pro_id",referencedColumnName = "pro_id",nullable = false)
+    private Processo processo;
+
+    public Processo getProcesso() {
+        return processo;
+    }
+
+    public void setProcesso(Processo processo) {
+        this.processo = processo;
+    }
     
     
     
@@ -79,9 +95,7 @@ public class CaixaColaborador implements Serializable{
        return recibo.getNomeCliente();
     }
     
-    public Processo getIdProcesso(){
-        return recibo.getProcesso();
-    }
+   
     
     public Date getDataDoPagamento(){
         return recibo.getDataDePagamento();
