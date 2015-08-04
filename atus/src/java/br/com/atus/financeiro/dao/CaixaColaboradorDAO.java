@@ -41,6 +41,22 @@ public class CaixaColaboradorDAO extends DAO<CaixaColaborador, Long> implements 
         return tq.getResultList().isEmpty() ? new ArrayList<CaixaColaborador>() : tq.getResultList();
     }
     
+     public List<CaixaColaborador> consultaValoresAbertosOrdenadosPorProcessoDo(Colaborador col){
+        TypedQuery<CaixaColaborador> tq;
+        tq = getEm().createQuery("SELECT c FROM CaixaColaborador c WHERE c.colaborador = :col and c.dataDeRecebimento = NULL ORDER BY c.processo", CaixaColaborador.class)
+                .setParameter("col", col);
+        
+        return tq.getResultList().isEmpty() ? new ArrayList<CaixaColaborador>() : tq.getResultList();
+    }
+    
+    public List<CaixaColaborador> consultaValoresPagosrOrdenadoPorProcessoDo(Colaborador col){
+        TypedQuery<CaixaColaborador> tq;
+        tq = getEm().createQuery("SELECT c FROM CaixaColaborador c WHERE c.colaborador = :col AND c.dataDeRecebimento <> NULL ORDER BY c.processo", CaixaColaborador.class)
+                .setParameter("col", col);
+        
+        return tq.getResultList().isEmpty() ? new ArrayList<CaixaColaborador>() : tq.getResultList();
+    }
+    
     
     public List<CaixaColaborador> consultaCaixasAbertos(){
         TypedQuery<CaixaColaborador> tq;

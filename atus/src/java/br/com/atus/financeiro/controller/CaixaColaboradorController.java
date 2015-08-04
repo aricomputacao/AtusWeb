@@ -6,12 +6,15 @@
 package br.com.atus.financeiro.controller;
 
 import br.com.atus.financeiro.dao.CaixaColaboradorDAO;
+import br.com.atus.financeiro.dto.CaixaColaboradorParcelasDTO;
 import br.com.atus.financeiro.modelo.CaixaColaborador;
+import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.financeiro.modelo.Recibo;
 import br.com.atus.interfaces.Controller;
 import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Usuario;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -38,6 +41,7 @@ public class CaixaColaboradorController extends Controller<CaixaColaborador, Lon
         CaixaColaborador cc = new CaixaColaborador();
         cc.setRecibo(recibo);
         cc.setColaborador(recibo.getColaborador());
+        cc.setProcesso(recibo.getProcesso());
         dao.salvar(cc);
       
     }
@@ -56,5 +60,30 @@ public class CaixaColaboradorController extends Controller<CaixaColaborador, Lon
     public List<CaixaColaborador> consultaPagamentosRealizadosDo(Colaborador colaborador){
         return dao.consultaValoresPagosrDo(colaborador);
     }
+    public List<CaixaColaborador> consultaValoresPagosrOrdenadoPorProcessoDo(Colaborador colaborador){
+        return dao.consultaValoresPagosrOrdenadoPorProcessoDo(colaborador);
+    }
+    public List<CaixaColaborador> consultaValoresAbertosOrdenadosPorProcessoDo(Colaborador colaborador){
+        return dao.consultaValoresAbertosOrdenadosPorProcessoDo(colaborador);
+    }
     
+    
+    public List<CaixaColaboradorParcelasDTO> consultaCaixaColaboradorParcelasDTOs(CaixaColaborador cc,List<ParcelasReceber> parcelas){
+        List<CaixaColaboradorParcelasDTO> listaDTOs = new ArrayList<>();
+        for (ParcelasReceber pr : parcelas) {
+            CaixaColaboradorParcelasDTO dto = new CaixaColaboradorParcelasDTO();
+            
+            dto.setColaborador(cc.getColaborador());
+            dto.setDataPagamentoColaborador(cc.getDataDeRecebimento());
+            dto.setParcelasReceber(pr);
+            dto.setProcesso(pr.getContaReceber().getProcesso());
+            dto.setRecibo(cc.getRecibo());
+            dto.setUsuarioQuePagou(cc.getUsuarioQuePagou());
+            
+            
+            listaDTOs.add(dto);
+        }
+        
+        return listaDTOs;
+    }
 }

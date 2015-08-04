@@ -14,7 +14,7 @@
         <h:outputScript name="sonumero.js"  library="js"/>
 
         <h:form id="frm_pag" prependId="false" >
-            <p:blockUI block="@form"  >
+            <p:blockUI block="@form" trigger=":frm_pag:cadFrm:comPag:btnPagAb :frm_pag:cadFrm:comPag:btnPagRel" >
                 <p:graphicImage library="imagens" name="carregar.gif"/>
             </p:blockUI>
             <comp:panel_cadastro id="cadFrm"  cabecalho_grid="Pagamentos Colaborador" id_form="frm_pag"  >               

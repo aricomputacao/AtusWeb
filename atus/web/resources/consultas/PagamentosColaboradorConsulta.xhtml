@@ -30,8 +30,7 @@
                         <p:spacer width="15"/>
                         <p:spacer width="15"/>
                         <comp:commandButton_consulta acao_butao="#{relatorioFinanceiroMB.consultarPagamentosDoColaborador()}" componente_to_update="@(.ui-fieldset)" />
-                        <p:commandButton value="Imprimir Resumo" icon="fa fa-print fa-lg" id="btnPag" update="@(.ui-fieldset)" oncomplete="popup('/atus/RelatorioServlet.pdf');" 
-                                         actionListener="#{caixaColaboradorMB.pagarColaborador()}"/>
+                    
                            
                     </h:panelGrid>
                 </h:panelGrid>
@@ -39,7 +38,7 @@
                     <p:panel header="Pagamentos Abertos" style="min-height: 500px;text-align: center" >
                         <h:panelGrid >
 
-                            <p:commandButton icon="ui-icon-print" title="Imprimir"  style="float: right"/>
+                            <p:commandButton icon="ui-icon-print" title="Imprimir" id="btnPagAb" style="float: right" actionListener="#{relatorioFinanceiroMB.imprimirPagamentosAbertos()}" oncomplete="popup('/atus/RelatorioServlet.pdf');" />
 
                             <p:dataTable   value="#{relatorioFinanceiroMB.listaDePagamentosAbertosDoColaborador}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10"
                                            rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" 
@@ -59,18 +58,14 @@
                                 <p:column headerText="Valor" >
                                     <comp:outputText value="#{t.valorDoColaborador}" tipo="c"/>
                                 </p:column>
-                                <p:column headerText="Ação" >
-                                    <p:commandButton actionListener="#{caixaColaboradorMB.selecionarPagamento(t)}" icon="fa fa-arrow-circle-o-right fa-lg" update="@(.ui-panel)" />
-                                    <p:commandButton  title="Lista de Parcelas" icon="fa fa-list-ol fa-lg" update=":frmParc" oncomplete="PF('dialogParcelas').show()" actionListener="#{caixaColaboradorMB.consultarParcelas(t.recibo)}"/>
-                                </p:column>
-
+                              
                             </p:dataTable>
                         </h:panelGrid>
                     </p:panel>
                     <p:panel header="Pagamentos Realizados" style="min-height: 500px;text-align: center" >
                         <h:panelGrid >
 
-                            <p:commandButton icon="ui-icon-print" title="Imprimir" style="float: right"/>
+                            <p:commandButton icon="ui-icon-print" title="Imprimir" id="btnPagRel" style="float: right" actionListener="#{relatorioFinanceiroMB.imprimirPagamentosRealizados()}"  oncomplete="popup('/atus/RelatorioServlet.pdf');" />
 
                             <p:dataTable value="#{relatorioFinanceiroMB.listaDePagamentosRealizadosDoColaborador}" id="tabelaSel" paginatorAlwaysVisible="false"  paginator="true" var="s" rows="10"
                                          rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" 
@@ -90,11 +85,7 @@
                                 <p:column headerText="Valor" >
                                     <comp:outputText value="#{s.valorDoColaborador}" tipo="c"/>
                                 </p:column>
-                                <p:column headerText="Ação" >
-                                    <p:commandButton actionListener="#{caixaColaboradorMB.removerSelecionado(s)}" icon="fa fa-arrow-circle-o-left fa-lg" update="@(.ui-panel)" />
-                                    <p:commandButton  title="Lista de Parcelas" icon="fa fa-list-ol fa-lg" update=":frmParc" oncomplete="PF('dialogParcelas').show()" actionListener="#{caixaColaboradorMB.consultarParcelas(s.recibo)}"/>
-
-                                </p:column>
+                               
                             </p:dataTable>
                         </h:panelGrid>
                     </p:panel>

@@ -7,6 +7,7 @@ package br.com.atus.financeiro.managedbean;
 
 import br.com.atus.financeiro.controller.CaixaColaboradorController;
 import br.com.atus.financeiro.controller.ParcelaReceberController;
+import br.com.atus.financeiro.dto.CaixaColaboradorParcelasDTO;
 import br.com.atus.financeiro.modelo.CaixaColaborador;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.modelo.Colaborador;
@@ -15,6 +16,7 @@ import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
 import br.com.atus.util.managedbean.NavegacaoMB;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -68,13 +70,43 @@ public class RelatorioFinanceiroMB implements Serializable {
             RelatorioSession.setBytesRelatorioInSession(rel);
         }
     }
-    
-    
-    public void consultarPagamentosDoColaborador(){
-        listaDePagamentosAbertosDoColaborador = caixaColaboradorController.consultaPagamentosAbertosDo(colaborador);
-        listaDePagamentosRealizadosDoColaborador = caixaColaboradorController.consultaPagamentosRealizadosDo(colaborador);
+
+    public void imprimirPagamentosRealizados() {
+        List<CaixaColaboradorParcelasDTO> ccp = new ArrayList<>();
+        for (CaixaColaborador pg : listaDePagamentosRealizadosDoColaborador) {
+            List<CaixaColaboradorParcelasDTO> ccp2 =  caixaColaboradorController.consultaCaixaColaboradorParcelasDTOs(pg, pg.getListaDeParcelas());
+            if (!ccp2.isEmpty()) {
+                ccp.addAll(ccp2);
+            }           
+        }
+
+        if (!ccp.isEmpty()) {
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(ccp, m, "WEB-INF/relatorios/rel_caixa_colaborador.jasper", "Pagamentos Realizados");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        }
     }
-    
+    public void imprimirPagamentosAbertos() {
+        List<CaixaColaboradorParcelasDTO> ccp = new ArrayList<>();
+        for (CaixaColaborador pg : listaDePagamentosAbertosDoColaborador) {
+            List<CaixaColaboradorParcelasDTO> ccp2 =  caixaColaboradorController.consultaCaixaColaboradorParcelasDTOs(pg, pg.getListaDeParcelas());
+            if (!ccp2.isEmpty()) {
+                ccp.addAll(ccp2);
+            }           
+
+        }
+
+        if (!ccp.isEmpty()) {
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(ccp, m, "WEB-INF/relatorios/rel_caixa_colaborador.jasper", "Pagamentos Abertos");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        }
+    }
+
+    public void consultarPagamentosDoColaborador() {
+        listaDePagamentosAbertosDoColaborador = caixaColaboradorController.consultaValoresAbertosOrdenadosPorProcessoDo(colaborador);
+        listaDePagamentosRealizadosDoColaborador = caixaColaboradorController.consultaValoresPagosrOrdenadoPorProcessoDo(colaborador);
+    }
 
     public List<ParcelasReceber> getListaParcelasRecebers() {
         return listaParcelasRecebers;
@@ -119,7 +151,5 @@ public class RelatorioFinanceiroMB implements Serializable {
     public void setListaDePagamentosRealizadosDoColaborador(List<CaixaColaborador> listaDePagamentosRealizadosDoColaborador) {
         this.listaDePagamentosRealizadosDoColaborador = listaDePagamentosRealizadosDoColaborador;
     }
-    
-    
 
 }
