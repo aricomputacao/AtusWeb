@@ -24,7 +24,7 @@
                 <h:panelGrid id="grdConsulta" columns="4" rendered="#{cc.attrs.renderPesquisar}">                   
                     <h:panelGrid>
                         <p:outputLabel value="Fases" />
-                        <p:selectCheckboxMenu label="Selecione as fases" required="true" value="#{relatorioMB.listaFasesSelection}" filter="true" 
+                        <p:selectCheckboxMenu id="selConProc" label="Selecione as fases" required="true" value="#{relatorioMB.listaFasesSelection}" filter="true" 
                                               filterMatchMode="startsWith" panelStyle="width:350px" converter="#{indexConverter}">
                             <f:selectItems value="#{faseMB.listaFases}" var="f" itemLabel="#{f.nome} -- #{f.usuario.login}" itemValue="#{f}" />
                         </p:selectCheckboxMenu>
@@ -36,8 +36,12 @@
                         </h:panelGrid>
                     </h:panelGrid>
                     <h:panelGrid id="grdConsulta3">
-                        <p:spacer width="15"/>
-                        <composite:renderFacet name="btnConsultaProcesso" />
+                        <p:spacer width="15" id="spacer"/>
+                        <composite:renderFacet name="btnConsultaProcesso" id="btnConsultaProcesso"/>
+                    </h:panelGrid>
+                    <h:panelGrid id="grdConsulta4">
+                        <p:spacer width="15" id="spacer2"/>
+                        <composite:renderFacet name="btnImpProcesso" id="btnImpProcesso"/>
                     </h:panelGrid>
                 </h:panelGrid>
                 <p:dataTable value="#{relatorioMB.listaProcessoUltimaMovimentacaoDTOs}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10"

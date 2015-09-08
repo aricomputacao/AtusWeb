@@ -13,7 +13,7 @@
 	<parameter name="relatorio" class="java.lang.String"/>
 	<parameter name="imgAt" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\Ari\\Documents\\Projetos\\Atus\\atus\\web\\WEB-INF\\relatorios\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["/home/ari/Documentos/Projetos/Atus/atus/web/WEB-INF/relatorios/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[]]>

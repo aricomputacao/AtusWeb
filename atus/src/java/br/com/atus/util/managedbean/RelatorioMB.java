@@ -138,6 +138,14 @@ public class RelatorioMB extends BeanGenerico<ProcessosAtrasadoRelatorioDTO> imp
         }
 
     }
+    public void imprimirProcessoColaboradorResumido() {
+        if (!listaProcessoUltimaMovimentacaoDTOs.isEmpty()) {
+            Map<String, Object> m = new HashMap<>();
+            byte[] rel = new AssistentedeRelatorio().relatorioemByte(listaProcessoUltimaMovimentacaoDTOs, m, "WEB-INF/relatorios/rel_processo_colaborador_resumo.jasper", "Relatório de Processos por Colaborador Resumido");
+            RelatorioSession.setBytesRelatorioInSession(rel);
+        }
+
+    }
 
     public void imprimirProcessoAtrasados() {
         if (!listaProcessoUltimaMovimentacaoDTOs.isEmpty()) {

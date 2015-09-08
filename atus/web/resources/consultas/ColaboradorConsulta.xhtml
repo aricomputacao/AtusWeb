@@ -37,7 +37,7 @@
                     <h:panelGrid id="grdConsulta3">
                         <p:spacer width="15"/>
                         <h:panelGrid columns="2">
-                            <composite:renderFacet name="btnConCola"/>
+                            <composite:renderFacet name="btnConCola" id="btnConCola"/>
                         </h:panelGrid>
                     </h:panelGrid>
                 </h:panelGrid>
@@ -65,8 +65,8 @@
                     <p:column headerText="Ação" width="9%" style="text-align: center">
                         <ui:insert name="acaoOrgao" >
                             <comp:commandButton_editar id="btnEdita" rendered="#{cc.attrs.renderEditar}" acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.colaborador'],'colaborador',t)}" />
-                            <comp:commandButton_excluir acao_butao="#{colaboradorMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Colaborador" form_to_update="@form"/>
-                            <comp:button_acao_selecionar rendered="#{cc.attrs.renderSelecionar}" alvo="#{cc.attrs.valorSelecionado}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
+                            <comp:commandButton_excluir id="btnExcl" acao_butao="#{colaboradorMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Colaborador" form_to_update="@form"/>
+                            <comp:button_acao_selecionar id="btnsel" rendered="#{cc.attrs.renderSelecionar}" alvo="#{cc.attrs.valorSelecionado}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
 
                         </ui:insert>
                     </p:column>
