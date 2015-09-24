@@ -5,6 +5,7 @@
  */
 package br.com.atus.modelo;
 
+import br.com.atus.cadastro.modelo.Advogado;
 import br.com.atus.util.peca.PecaColetor;
 import br.com.atus.util.peca.TipoMascara;
 import java.io.Serializable;

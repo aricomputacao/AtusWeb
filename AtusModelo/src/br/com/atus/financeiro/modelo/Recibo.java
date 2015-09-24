@@ -5,7 +5,7 @@
  */
 package br.com.atus.financeiro.modelo;
 
-import br.com.atus.modelo.Advogado;
+import br.com.atus.cadastro.modelo.Advogado;
 import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Processo;
 import br.com.atus.modelo.Usuario;
