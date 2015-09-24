@@ -10,7 +10,7 @@ import br.com.atus.cadastro.controller.AdvogadoController;
 import br.com.atus.cadastro.controller.UnidadeFederativaController;
 import br.com.atus.util.managedbean.BeanGenerico;
 import br.com.atus.util.managedbean.NavegacaoMB;
-import br.com.atus.modelo.Advogado;
+import br.com.atus.cadastro.modelo.Advogado;
 import br.com.atus.modelo.UnidadeFederativa;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;

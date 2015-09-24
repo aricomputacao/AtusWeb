@@ -11,7 +11,7 @@ import br.com.atus.cadastro.controller.ColaboradorController;
 import br.com.atus.seguranca.controller.PermissaoController;
 import br.com.atus.cadastro.controller.UsuarioController;
 import br.com.atus.enumerated.Perfil;
-import br.com.atus.modelo.Advogado;
+import br.com.atus.cadastro.modelo.Advogado;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Permissao;

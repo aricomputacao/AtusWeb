@@ -12,7 +12,7 @@ import br.com.atus.cadastro.controller.UsuarioController;
 import br.com.atus.enumerated.Perfil;
 import br.com.atus.util.managedbean.BeanGenerico;
 import br.com.atus.util.managedbean.NavegacaoMB;
-import br.com.atus.modelo.Advogado;
+import br.com.atus.cadastro.modelo.Advogado;
 import br.com.atus.modelo.Cliente;
 import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Usuario;

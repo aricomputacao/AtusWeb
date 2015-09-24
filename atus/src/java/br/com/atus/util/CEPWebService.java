@@ -6,9 +6,7 @@ package br.com.atus.util;
  * and open the template in the editor.
  */
 
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Iterator;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;

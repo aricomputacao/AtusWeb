@@ -15,7 +15,7 @@ import br.com.atus.financeiro.modelo.ContaReceber;
 import br.com.atus.financeiro.modelo.Cooptacao;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.financeiro.modelo.Recibo;
-import br.com.atus.modelo.Advogado;
+import br.com.atus.cadastro.modelo.Advogado;
 import br.com.atus.modelo.Colaborador;
 import br.com.atus.modelo.Processo;
 import br.com.atus.util.AssistentedeRelatorio;

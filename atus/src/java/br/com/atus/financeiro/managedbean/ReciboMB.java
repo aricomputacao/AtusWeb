@@ -9,7 +9,7 @@ import br.com.atus.cadastro.controller.AdvogadoController;
 import br.com.atus.enumerated.Perfil;
 import br.com.atus.financeiro.controller.ReciboController;
 import br.com.atus.financeiro.modelo.Recibo;
-import br.com.atus.modelo.Advogado;
+import br.com.atus.cadastro.modelo.Advogado;
 import br.com.atus.util.FormatadorDeNumeros;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.MetodosUtilitarios;
