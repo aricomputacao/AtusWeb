@@ -6,7 +6,7 @@
 package br.com.atus.processo.dao;
 
 import br.com.atus.util.dao.DAO;
-import br.com.atus.modelo.Fase;
+import br.com.atus.processo.modelo.Fase;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Stateless;

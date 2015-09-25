@@ -8,7 +8,7 @@ package br.com.atus.financeiro.managedbean;
 import br.com.atus.financeiro.controller.CaixaColaboradorController;
 import br.com.atus.financeiro.modelo.CaixaColaborador;
 import br.com.atus.financeiro.modelo.Recibo;
-import br.com.atus.modelo.Colaborador;
+import br.com.atus.cadastro.modelo.Colaborador;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.NumeroPorExtenso;

@@ -8,7 +8,7 @@ package br.com.atus.cadastro.controller;
 
 import br.com.atus.interfaces.Controller;
 import br.com.atus.cadastro.dao.ClienteDAO;
-import br.com.atus.modelo.Cliente;
+import br.com.atus.cadastro.modelo.Cliente;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;

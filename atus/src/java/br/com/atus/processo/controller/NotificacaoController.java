@@ -8,7 +8,7 @@ package br.com.atus.processo.controller;
 
 import br.com.atus.interfaces.Controller;
 import br.com.atus.processo.dao.NotificacaoDAO;
-import br.com.atus.modelo.Notificacao;
+import br.com.atus.processo.modelo.Notificacao;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;

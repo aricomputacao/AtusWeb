@@ -7,7 +7,7 @@ package br.com.atus.cadastro.controller;
 
 import br.com.atus.interfaces.Controller;
 import br.com.atus.cadastro.dao.GrupoPecaDAO;
-import br.com.atus.modelo.GrupoPeca;
+import br.com.atus.processo.modelo.GrupoPeca;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;

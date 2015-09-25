@@ -6,8 +6,8 @@
 package br.com.atus.financeiro.dao;
 
 import br.com.atus.financeiro.modelo.ContaReceber;
-import br.com.atus.modelo.Cliente;
-import br.com.atus.modelo.Processo;
+import br.com.atus.cadastro.modelo.Cliente;
+import br.com.atus.processo.modelo.Processo;
 import br.com.atus.util.dao.DAO;
 import java.io.Serializable;
 import java.util.ArrayList;

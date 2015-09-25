@@ -10,7 +10,7 @@ import br.com.atus.financeiro.dto.ContaReceberParcelasDTO;
 import br.com.atus.financeiro.modelo.ContaReceber;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.interfaces.Controller;
-import br.com.atus.modelo.Processo;
+import br.com.atus.processo.modelo.Processo;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.exceptions.PorcentagemException;
 import br.com.atus.util.managedbean.NavegacaoMB;

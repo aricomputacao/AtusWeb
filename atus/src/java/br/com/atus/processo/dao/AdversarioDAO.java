@@ -7,7 +7,7 @@
 package br.com.atus.processo.dao;
 
 import br.com.atus.util.dao.DAO;
-import br.com.atus.modelo.Adversario;
+import br.com.atus.processo.modelo.Adversario;
 import java.io.Serializable;
 import javax.ejb.Stateless;
 

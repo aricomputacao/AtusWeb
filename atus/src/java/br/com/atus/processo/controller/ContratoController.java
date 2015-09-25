@@ -7,7 +7,7 @@ package br.com.atus.processo.controller;
 
 import br.com.atus.interfaces.Controller;
 import br.com.atus.processo.dao.ContratoDAO;
-import br.com.atus.modelo.Contrato;
+import br.com.atus.processo.modelo.Contrato;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;

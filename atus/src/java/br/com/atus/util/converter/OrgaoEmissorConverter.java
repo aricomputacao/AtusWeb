@@ -6,7 +6,7 @@
 package br.com.atus.util.converter;
 
 import br.com.atus.cadastro.controller.OrgaoEmissorController;
-import br.com.atus.modelo.OrgaoEmissor;
+import br.com.atus.cadastro.modelo.OrgaoEmissor;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.logging.Level;

@@ -8,8 +8,8 @@ package br.com.atus.cadastro.controller;
 
 import br.com.atus.interfaces.Controller;
 import br.com.atus.cadastro.dao.CidadeDAO;
-import br.com.atus.modelo.Cidade;
-import br.com.atus.modelo.UnidadeFederativa;
+import br.com.atus.cadastro.modelo.Cidade;
+import br.com.atus.cadastro.modelo.UnidadeFederativa;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;

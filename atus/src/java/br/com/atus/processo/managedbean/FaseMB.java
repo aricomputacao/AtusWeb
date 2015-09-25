@@ -9,7 +9,7 @@ import br.com.atus.cadastro.managedbean.ColaboradorMB;
 import br.com.atus.util.managedbean.BeanGenerico;
 import br.com.atus.util.managedbean.NavegacaoMB;
 import br.com.atus.processo.controller.FaseController;
-import br.com.atus.modelo.Fase;
+import br.com.atus.processo.modelo.Fase;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;

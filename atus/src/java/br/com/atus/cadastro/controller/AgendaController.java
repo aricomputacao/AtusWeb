@@ -7,9 +7,9 @@ package br.com.atus.cadastro.controller;
 
 import br.com.atus.interfaces.Controller;
 import br.com.atus.cadastro.dao.AgendaDAO;
-import br.com.atus.modelo.Agenda;
-import br.com.atus.modelo.Evento;
-import br.com.atus.modelo.Usuario;
+import br.com.atus.cadastro.modelo.Agenda;
+import br.com.atus.processo.modelo.Evento;
+import br.com.atus.cadastro.modelo.Usuario;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;

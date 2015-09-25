@@ -6,8 +6,8 @@
 package br.com.atus.seguranca.dao;
 
 import br.com.atus.util.dao.DAO;
-import br.com.atus.modelo.Permissao;
-import br.com.atus.modelo.Usuario;
+import br.com.atus.seguranca.modelo.Permissao;
+import br.com.atus.cadastro.modelo.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

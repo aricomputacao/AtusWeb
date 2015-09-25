@@ -8,7 +8,7 @@ package br.com.atus.cadastro.dao;
 
 import br.com.atus.interfaces.Controller;
 import br.com.atus.util.dao.DAO;
-import br.com.atus.modelo.ObjetoProcesso;
+import br.com.atus.processo.modelo.ObjetoProcesso;
 import java.io.Serializable;
 import javax.ejb.Stateless;
 

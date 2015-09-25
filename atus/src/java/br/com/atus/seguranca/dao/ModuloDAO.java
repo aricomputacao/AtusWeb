@@ -6,7 +6,7 @@
 package br.com.atus.seguranca.dao;
 
 import br.com.atus.util.dao.DAO;
-import br.com.atus.modelo.Modulo;
+import br.com.atus.seguranca.modelo.Modulo;
 import java.io.Serializable;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;

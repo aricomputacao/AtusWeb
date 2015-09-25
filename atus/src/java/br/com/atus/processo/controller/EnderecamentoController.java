@@ -8,7 +8,7 @@ package br.com.atus.processo.controller;
 
 import br.com.atus.interfaces.Controller;
 import br.com.atus.processo.dao.EnderecamentoDAO;
-import br.com.atus.modelo.Enderecamento;
+import br.com.atus.processo.modelo.Enderecamento;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;

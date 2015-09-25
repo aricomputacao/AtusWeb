@@ -8,7 +8,7 @@ package br.com.atus.cadastro.controller;
 
 import br.com.atus.interfaces.Controller;
 import br.com.atus.cadastro.dao.ColaboradorDAO;
-import br.com.atus.modelo.Colaborador;
+import br.com.atus.cadastro.modelo.Colaborador;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;

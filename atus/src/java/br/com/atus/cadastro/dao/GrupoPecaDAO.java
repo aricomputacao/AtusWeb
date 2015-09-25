@@ -6,7 +6,7 @@
 package br.com.atus.cadastro.dao;
 
 import br.com.atus.util.dao.DAO;
-import br.com.atus.modelo.GrupoPeca;
+import br.com.atus.processo.modelo.GrupoPeca;
 import java.io.Serializable;
 import javax.ejb.Stateless;
 

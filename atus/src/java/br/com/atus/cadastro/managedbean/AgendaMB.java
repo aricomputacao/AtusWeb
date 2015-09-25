@@ -9,7 +9,7 @@ import br.com.atus.cadastro.controller.AgendaController;
 import br.com.atus.enumerated.TipoAgenda;
 import br.com.atus.util.managedbean.BeanGenerico;
 import br.com.atus.util.managedbean.NavegacaoMB;
-import br.com.atus.modelo.Agenda;
+import br.com.atus.cadastro.modelo.Agenda;
 import br.com.atus.util.MenssagemUtil;
 import java.io.Serializable;
 import java.util.Calendar;

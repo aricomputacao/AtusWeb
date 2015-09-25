@@ -7,7 +7,7 @@
 package br.com.atus.processo.dao;
 
 import br.com.atus.util.dao.DAO;
-import br.com.atus.modelo.Notificacao;
+import br.com.atus.processo.modelo.Notificacao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

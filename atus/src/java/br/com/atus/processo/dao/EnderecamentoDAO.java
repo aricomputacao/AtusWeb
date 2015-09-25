@@ -7,7 +7,7 @@
 package br.com.atus.processo.dao;
 
 import br.com.atus.util.dao.DAO;
-import br.com.atus.modelo.Enderecamento;
+import br.com.atus.processo.modelo.Enderecamento;
 import java.io.Serializable;
 import javax.ejb.Stateless;
 

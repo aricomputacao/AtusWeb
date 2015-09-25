@@ -6,8 +6,8 @@
 package br.com.atus.cadastro.dao;
 
 import br.com.atus.util.dao.DAO;
-import br.com.atus.modelo.GrupoPeca;
-import br.com.atus.modelo.SubGrupoPeca;
+import br.com.atus.processo.modelo.GrupoPeca;
+import br.com.atus.processo.modelo.SubGrupoPeca;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

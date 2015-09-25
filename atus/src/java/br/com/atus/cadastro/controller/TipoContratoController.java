@@ -9,7 +9,7 @@ package br.com.atus.cadastro.controller;
 import br.com.atus.interfaces.Controller;
 import br.com.atus.cadastro.dao.TipoContratoDAO;
 import br.com.atus.cadastro.managedbean.TipoContratoMB;
-import br.com.atus.modelo.TipoContrato;
+import br.com.atus.cadastro.modelo.TipoContrato;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;

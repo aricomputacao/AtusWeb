@@ -7,7 +7,7 @@
 package br.com.atus.cadastro.dao;
 
 import br.com.atus.util.dao.DAO;
-import br.com.atus.modelo.Cliente;
+import br.com.atus.cadastro.modelo.Cliente;
 import java.io.Serializable;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;

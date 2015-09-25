@@ -6,8 +6,8 @@
 package br.com.atus.cadastro.dao;
 
 import br.com.atus.util.dao.DAO;
-import br.com.atus.modelo.Cidade;
-import br.com.atus.modelo.UnidadeFederativa;
+import br.com.atus.cadastro.modelo.Cidade;
+import br.com.atus.cadastro.modelo.UnidadeFederativa;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Stateless;

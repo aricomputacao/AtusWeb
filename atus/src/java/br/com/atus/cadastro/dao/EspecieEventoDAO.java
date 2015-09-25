@@ -6,7 +6,7 @@
 package br.com.atus.cadastro.dao;
 
 import br.com.atus.util.dao.DAO;
-import br.com.atus.modelo.EspecieEvento;
+import br.com.atus.cadastro.modelo.EspecieEvento;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Stateless;

@@ -7,7 +7,7 @@
 package br.com.atus.cadastro.dao;
 
 import br.com.atus.util.dao.DAO;
-import br.com.atus.modelo.Colaborador;
+import br.com.atus.cadastro.modelo.Colaborador;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

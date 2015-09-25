@@ -8,10 +8,10 @@ package br.com.atus.processo.controller;
 import br.com.atus.cadastro.controller.ColaboradorController;
 import br.com.atus.interfaces.ConsultaDeProcessos;
 import br.com.atus.processo.dao.ProcessoDAO;
-import br.com.atus.modelo.Cliente;
-import br.com.atus.modelo.Colaborador;
-import br.com.atus.modelo.Processo;
-import br.com.atus.modelo.Usuario;
+import br.com.atus.cadastro.modelo.Cliente;
+import br.com.atus.cadastro.modelo.Colaborador;
+import br.com.atus.processo.modelo.Processo;
+import br.com.atus.cadastro.modelo.Usuario;
 import java.util.List;
 
 /**

@@ -7,11 +7,11 @@ package br.com.atus.processo.dao;
 
 import br.com.atus.util.dao.DAO;
 import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
-import br.com.atus.modelo.Colaborador;
-import br.com.atus.modelo.Fase;
-import br.com.atus.modelo.Movimentacao;
-import br.com.atus.modelo.Processo;
-import br.com.atus.modelo.Usuario;
+import br.com.atus.cadastro.modelo.Colaborador;
+import br.com.atus.processo.modelo.Fase;
+import br.com.atus.processo.modelo.Movimentacao;
+import br.com.atus.processo.modelo.Processo;
+import br.com.atus.cadastro.modelo.Usuario;
 import br.com.atus.util.MetodosUtilitarios;
 import java.io.Serializable;
 import java.util.ArrayList;

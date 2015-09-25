@@ -6,7 +6,7 @@
 package br.com.atus.financeiro.dao;
 
 import br.com.atus.financeiro.modelo.CaixaColaborador;
-import br.com.atus.modelo.Colaborador;
+import br.com.atus.cadastro.modelo.Colaborador;
 import br.com.atus.util.dao.DAO;
 import java.io.Serializable;
 import java.util.ArrayList;

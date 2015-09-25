@@ -7,7 +7,7 @@
 package br.com.atus.cadastro.dao;
 
 import br.com.atus.util.dao.DAO;
-import br.com.atus.modelo.Nacionalidade;
+import br.com.atus.cadastro.modelo.Nacionalidade;
 import java.io.Serializable;
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Stereotype;

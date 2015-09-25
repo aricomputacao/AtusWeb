@@ -7,8 +7,8 @@ package br.com.atus.seguranca.controller;
 
 import br.com.atus.interfaces.Controller;
 import br.com.atus.seguranca.dao.TarefaDAO;
-import br.com.atus.modelo.Modulo;
-import br.com.atus.modelo.Tarefa;
+import br.com.atus.seguranca.modelo.Modulo;
+import br.com.atus.seguranca.modelo.Tarefa;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;

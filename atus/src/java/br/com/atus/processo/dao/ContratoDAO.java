@@ -6,7 +6,7 @@
 package br.com.atus.processo.dao;
 
 import br.com.atus.util.dao.DAO;
-import br.com.atus.modelo.Contrato;
+import br.com.atus.processo.modelo.Contrato;
 import java.io.Serializable;
 import javax.ejb.Stateless;
 

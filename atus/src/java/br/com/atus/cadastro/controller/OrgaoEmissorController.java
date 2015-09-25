@@ -9,7 +9,7 @@ package br.com.atus.cadastro.controller;
 import br.com.atus.interfaces.Controller;
 import br.com.atus.cadastro.dao.OrgaoDAO;
 import br.com.atus.cadastro.dao.OrgaoEmissorDAO;
-import br.com.atus.modelo.OrgaoEmissor;
+import br.com.atus.cadastro.modelo.OrgaoEmissor;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;

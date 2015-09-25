@@ -4,10 +4,10 @@
  */
 package br.com.atus.util.dao;
 
-import br.com.atus.modelo.Modulo;
-import br.com.atus.modelo.Permissao;
-import br.com.atus.modelo.Tarefa;
-import br.com.atus.modelo.Usuario;
+import br.com.atus.seguranca.modelo.Modulo;
+import br.com.atus.seguranca.modelo.Permissao;
+import br.com.atus.seguranca.modelo.Tarefa;
+import br.com.atus.cadastro.modelo.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

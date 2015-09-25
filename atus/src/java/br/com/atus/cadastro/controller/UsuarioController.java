@@ -8,7 +8,7 @@ package br.com.atus.cadastro.controller;
 import br.com.atus.interfaces.Controller;
 import br.com.atus.cadastro.dao.UsuarioDAO;
 import br.com.atus.enumerated.Perfil;
-import br.com.atus.modelo.Usuario;
+import br.com.atus.cadastro.modelo.Usuario;
 import br.com.atus.util.CriptografiaSenha;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;

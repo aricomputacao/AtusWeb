@@ -7,7 +7,7 @@ package br.com.atus.seguranca.controller;
 
 import br.com.atus.interfaces.Controller;
 import br.com.atus.seguranca.dao.ModuloDAO;
-import br.com.atus.modelo.Modulo;
+import br.com.atus.seguranca.modelo.Modulo;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;

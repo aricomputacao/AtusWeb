@@ -9,7 +9,7 @@ package br.com.atus.cadastro.managedbean;
 import br.com.atus.cadastro.controller.ObjetoProcessoController;
 import br.com.atus.util.managedbean.BeanGenerico;
 import br.com.atus.util.managedbean.NavegacaoMB;
-import br.com.atus.modelo.ObjetoProcesso;
+import br.com.atus.processo.modelo.ObjetoProcesso;
 import br.com.atus.util.MenssagemUtil;
 import java.io.Serializable;
 import java.util.ArrayList;

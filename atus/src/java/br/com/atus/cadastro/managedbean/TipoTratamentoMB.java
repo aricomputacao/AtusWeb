@@ -8,7 +8,7 @@ package br.com.atus.cadastro.managedbean;
 import br.com.atus.cadastro.controller.TipoTratamentoController;
 import br.com.atus.util.managedbean.BeanGenerico;
 import br.com.atus.util.managedbean.NavegacaoMB;
-import br.com.atus.modelo.TipoTratamento;
+import br.com.atus.cadastro.modelo.TipoTratamento;
 import br.com.atus.util.MenssagemUtil;
 import java.io.Serializable;
 import java.util.List;

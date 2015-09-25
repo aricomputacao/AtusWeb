@@ -10,7 +10,7 @@ import br.com.atus.financeiro.controller.ParcelaReceberController;
 import br.com.atus.financeiro.dto.CaixaColaboradorParcelasDTO;
 import br.com.atus.financeiro.modelo.CaixaColaborador;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
-import br.com.atus.modelo.Colaborador;
+import br.com.atus.cadastro.modelo.Colaborador;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;

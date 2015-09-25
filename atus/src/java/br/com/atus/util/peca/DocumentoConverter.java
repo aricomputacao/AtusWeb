@@ -5,7 +5,7 @@
  */
 package br.com.atus.util.peca;
 
-import br.com.atus.modelo.Peca;
+import br.com.atus.cadastro.modelo.Peca;
 import br.com.atus.util.MascaraUtil;
 import br.com.atus.util.RegexUtil;
 import java.io.File;

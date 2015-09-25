@@ -9,7 +9,7 @@ package br.com.atus.processo.managedbean;
 import br.com.atus.util.managedbean.BeanGenerico;
 import br.com.atus.util.managedbean.NavegacaoMB;
 import br.com.atus.processo.controller.EnderecamentoController;
-import br.com.atus.modelo.Enderecamento;
+import br.com.atus.processo.modelo.Enderecamento;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;

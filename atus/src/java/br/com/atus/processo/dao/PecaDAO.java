@@ -6,8 +6,8 @@
 package br.com.atus.processo.dao;
 
 import br.com.atus.util.dao.DAO;
-import br.com.atus.modelo.Peca;
-import br.com.atus.modelo.SubGrupoPeca;
+import br.com.atus.cadastro.modelo.Peca;
+import br.com.atus.processo.modelo.SubGrupoPeca;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Stateless;

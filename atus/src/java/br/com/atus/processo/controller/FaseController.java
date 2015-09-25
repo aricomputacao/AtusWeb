@@ -8,7 +8,7 @@ package br.com.atus.processo.controller;
 
 import br.com.atus.interfaces.Controller;
 import br.com.atus.processo.dao.FaseDAO;
-import br.com.atus.modelo.Fase;
+import br.com.atus.processo.modelo.Fase;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;

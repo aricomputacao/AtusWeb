@@ -7,8 +7,8 @@ package br.com.atus.util.managedbean;
 
 import br.com.atus.processo.controller.MovimentacaoController;
 import br.com.atus.processo.controller.ProcessoController;
-import br.com.atus.modelo.Movimentacao;
-import br.com.atus.modelo.Processo;
+import br.com.atus.processo.modelo.Movimentacao;
+import br.com.atus.processo.modelo.Processo;
 import br.com.atus.util.MenssagemUtil;
 import java.util.ArrayList;
 import java.util.List;

@@ -7,10 +7,10 @@ package br.com.atus.processo.dao;
 
 import br.com.atus.util.dao.DAO;
 import br.com.atus.enumerated.TipoAgenda;
-import br.com.atus.modelo.Colaborador;
-import br.com.atus.modelo.EspecieEvento;
-import br.com.atus.modelo.Evento;
-import br.com.atus.modelo.Processo;
+import br.com.atus.cadastro.modelo.Colaborador;
+import br.com.atus.cadastro.modelo.EspecieEvento;
+import br.com.atus.processo.modelo.Evento;
+import br.com.atus.processo.modelo.Processo;
 import br.com.atus.util.MetodosUtilitarios;
 import java.io.Serializable;
 import java.util.ArrayList;

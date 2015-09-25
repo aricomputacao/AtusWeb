@@ -9,7 +9,7 @@ import br.com.atus.cadastro.managedbean.ClienteMB;
 import br.com.atus.util.managedbean.BeanGenerico;
 import br.com.atus.util.managedbean.NavegacaoMB;
 import br.com.atus.seguranca.controller.ModuloController;
-import br.com.atus.modelo.Modulo;
+import br.com.atus.seguranca.modelo.Modulo;
 import br.com.atus.util.MenssagemUtil;
 import java.io.Serializable;
 import java.util.ArrayList;

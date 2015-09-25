@@ -387,6 +387,21 @@
 
                     </h:panelGrid>
                 </p:tab>
+                <p:tab id="tabNotif" title="#{label.notificacoes}">
+                    <h:form enctype="multipart/form-data">
+                        <p:fileUpload fileUploadListener="#{processoMB.fileUploud}" sizeLimit="10900000" 
+                                      invalidSizeMessage="#{mensagens.limite_excedido}" mode="advanced" dragDropSupport="false"
+                                      cancelLabel="#{label.cancelar}" label="#{label.escolher}" uploadLabel="#{label.enviar}" 
+                                      update="@form"  allowTypes="/(\.|\/)(pdf|gif|jpe?g|png)$/" />
+
+                        <p:growl id="messages" showDetail="true" life="100000000" />
+                        <p:galleria value="#{processoMB.images}" var="image" panelWidth="500" panelHeight="313"
+                                    showCaption="true"> 
+                            <p:graphicImage name="#{image}" library="imagens"  alt="Image Description for #{image}" title="#{image}" /> 
+                        </p:galleria> 
+                    </h:form>
+                    
+                </p:tab>
 
             </p:tabView>
 

@@ -16,18 +16,23 @@ import br.com.atus.financeiro.controller.ParcelaReceberController;
 import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.util.managedbean.BeanGenerico;
 import br.com.atus.util.managedbean.NavegacaoMB;
-import br.com.atus.modelo.Adversario;
-import br.com.atus.modelo.Cliente;
-import br.com.atus.modelo.Evento;
-import br.com.atus.modelo.Fase;
-import br.com.atus.modelo.Movimentacao;
-import br.com.atus.modelo.ParteInteressada;
-import br.com.atus.modelo.Peca;
-import br.com.atus.modelo.Processo;
+import br.com.atus.processo.modelo.Adversario;
+import br.com.atus.cadastro.modelo.Cliente;
+import br.com.atus.processo.modelo.Evento;
+import br.com.atus.processo.modelo.Fase;
+import br.com.atus.processo.modelo.Movimentacao;
+import br.com.atus.processo.modelo.ParteInteressada;
+import br.com.atus.cadastro.modelo.Peca;
+import br.com.atus.processo.controller.NotificacaoProcessoController;
+import br.com.atus.processo.modelo.NotificacaoProcesso;
+import br.com.atus.processo.modelo.Processo;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -39,8 +44,11 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -52,7 +60,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     @Inject
     private NavegacaoMB navegacaoMB;
-  
+
     @Inject
     private ProcessoController controller;
     @Inject
@@ -67,7 +75,10 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     private PecaController pecaController;
     @Inject
     private ParcelaReceberController parcelaReceberController;
+    @Inject
+    private NotificacaoProcessoController notificacaoProcessoController;
 
+    private NotificacaoProcesso notificacaoProcesso;
     private Movimentacao movimentacao;
     private Processo processo;
     private Adversario adversario;
@@ -81,8 +92,10 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     private List<ParcelasReceber> listaParcelasAbertas;
     private List<ParcelasReceber> listaParcelasVencidas;
     private List<ParcelasReceber> listaParcelasPagas;
+    private List<NotificacaoProcesso> listaNotificacaoProcesso;
     private int i;
     private boolean renderPesquisa;
+    private UploadedFile arquivoUpload;
 
     @PostConstruct
     public void init() {
@@ -95,6 +108,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         processo = (Processo) navegacaoMB.getRegistroMapa("processo", new Processo());
         movimentacao = new Movimentacao();
         cliente = new Cliente();
+        notificacaoProcesso = notificacaoProcessoController.consultarPor(new Long(31));
         if (processo.getId() == null) {
             processo.setAdversarios(new ArrayList<Adversario>());
             processo.setParteInteressadas(new ArrayList<ParteInteressada>());
@@ -102,8 +116,10 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             listaParcelasAbertas = new ArrayList<>();
             listaParcelasVencidas = new ArrayList<>();
             listaParcelasPagas = new ArrayList<>();
+            listaNotificacaoProcesso = new ArrayList<>();
         } else {
             fase = processo.getFase();
+            listaNotificacaoProcesso = notificacaoProcessoController.consultarPor(processo);
             consultarPagamentos();
         }
 
@@ -203,6 +219,50 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS), ex, "Advogado");
+            Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private byte[] bs; 
+
+    public List<String> getImages() throws SQLException, IOException {
+      
+        List<NotificacaoProcesso> listaLocais = notificacaoProcessoController.consultarPor(processo);
+        List<String> images = new ArrayList<String>();
+        String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/imagens");
+        for (NotificacaoProcesso local : listaLocais) {
+            FileOutputStream fos = new FileOutputStream( path+ "/" + local.getNome() + ".jpg");
+            fos.write(local.getArquivo());
+            fos.close();
+            images.add(local.getNome() + ".jpg");
+        }
+        return images;
+    }
+
+  
+    
+    public void fileUploud(FileUploadEvent event) {
+        try {
+            bs = event.getFile().getContents();
+            notificacaoProcesso.setArquivo(bs);
+            notificacaoProcesso.setProcesso(processo);
+            notificacaoProcessoController.addNotificacao(notificacaoProcesso);
+            notificacaoProcesso = new NotificacaoProcesso();
+            MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar_processo", MenssagemUtil.MENSAGENS));
+        } catch (Exception ex) {
+            Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void addNotificacao() {
+        try {
+            notificacaoProcesso.setProcesso(processo);
+            notificacaoProcessoController.addNotificacao(notificacaoProcesso);
+            notificacaoProcesso = new NotificacaoProcesso();
+            MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar_processo", MenssagemUtil.MENSAGENS));
+
+        } catch (Exception ex) {
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS), ex, "");
             Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -560,6 +620,26 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     public List<ParcelasReceber> getListaParcelasPagas() {
         return listaParcelasPagas;
+    }
+
+    public List<NotificacaoProcesso> getListaNotificacaoProcesso() {
+        return listaNotificacaoProcesso;
+    }
+
+    public NotificacaoProcesso getNotificacaoProcesso() {
+        return notificacaoProcesso;
+    }
+
+    public void setNotificacaoProcesso(NotificacaoProcesso notificacaoProcesso) {
+        this.notificacaoProcesso = notificacaoProcesso;
+    }
+
+    public UploadedFile getArquivoUpload() {
+        return arquivoUpload;
+    }
+
+    public void setArquivoUpload(UploadedFile arquivoUpload) {
+        this.arquivoUpload = arquivoUpload;
     }
 
 }

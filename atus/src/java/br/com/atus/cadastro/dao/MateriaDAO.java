@@ -7,7 +7,7 @@
 package br.com.atus.cadastro.dao;
 
 import br.com.atus.util.dao.DAO;
-import br.com.atus.modelo.Materia;
+import br.com.atus.cadastro.modelo.Materia;
 import java.io.Serializable;
 import javax.ejb.Stateless;
 

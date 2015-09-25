@@ -8,7 +8,7 @@ package br.com.atus.cadastro.managedbean;
 import br.com.atus.cadastro.controller.MateriaController;
 import br.com.atus.util.managedbean.BeanGenerico;
 import br.com.atus.util.managedbean.NavegacaoMB;
-import br.com.atus.modelo.Materia;
+import br.com.atus.cadastro.modelo.Materia;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
