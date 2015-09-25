@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.atus.cadastro.modelo;
+package br.com.atus.seguranca.modelo;
 
-import br.com.atus.util.peca.PecaColetor;
+import br.com.atus.seguranca.modelo.Modulo;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -16,36 +16,35 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /**
  *
- * @author Ari
+ * @author gilmario
  */
 @Entity
-@Table(name = "advogado", schema = "cadastro")
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-public class Advogado implements Serializable {
+@Table(name = "tarefa", schema = "seguranca", uniqueConstraints
+        = @UniqueConstraint(columnNames = {"mod_id", "tar_nome"}))
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+public class Tarefa implements Serializable {
 
+    //  Nome da tarefa e chave primaria da classe
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "adv_id", nullable = false)
+    @Column(name = "tar_id", nullable = false)
     private Long id;
-    @NotBlank
-    @Column(name = "adv_nome", nullable = false, unique = true)
-    @PecaColetor
+    @Column(name = "tar_nome", nullable = false)
     private String nome;
-    @NotNull
-    @Column(name = "adv_oab", nullable = false, unique = true)
-    @PecaColetor
-    private Integer oab;
     @ManyToOne
-    @JoinColumn(name = "und_fed_id", referencedColumnName = "und_fed_id", nullable = false)
-    @PecaColetor(isEntidade = true)
-    private UnidadeFederativa uf;
+    @Cascade(CascadeType.MERGE)
+    @JoinColumn(name = "mod_id", nullable = false, referencedColumnName = "mod_id")
+    private Modulo modulo;
+    @Column(name = "tar_descricao", nullable = false)
+    private String descricao;
 
     public Long getId() {
         return id;
@@ -63,26 +62,26 @@ public class Advogado implements Serializable {
         this.nome = nome;
     }
 
-    public Integer getOab() {
-        return oab;
+    public Modulo getModulo() {
+        return modulo;
     }
 
-    public void setOab(Integer oab) {
-        this.oab = oab;
+    public void setModulo(Modulo modulo) {
+        this.modulo = modulo;
     }
 
-    public UnidadeFederativa getUf() {
-        return uf;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setUf(UnidadeFederativa uf) {
-        this.uf = uf;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -94,13 +93,8 @@ public class Advogado implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Advogado other = (Advogado) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        final Tarefa other = (Tarefa) obj;
+        return Objects.equals(this.id, other.id);
     }
-
-   
 
 }

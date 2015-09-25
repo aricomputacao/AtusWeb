@@ -5,11 +5,14 @@
  */
 package br.com.atus.processo.modelo;
 
-import br.com.atus.modelo.Processo;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import static javax.persistence.FetchType.LAZY;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +23,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -27,30 +31,31 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author ari
  */
 @Entity
-@Table(name = "notificacao_processo",schema = "processo")
+@Table(name = "notificacao_processo", schema = "processo")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class NotificacaoProcesso implements Serializable{
-    
+public class NotificacaoProcesso implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ntp_id",nullable = false)
+    @Column(name = "ntp_id", nullable = false)
     private Long id;
-    
+
     @NotEmpty
-    @Column(name = "ntp_nome",nullable = false)
+    @Column(name = "ntp_nome", nullable = false)
     private String nome;
-    
+
     @Column(name = "ntp_link")
     private String link;
-    
+
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "pro_id",referencedColumnName = "pro_id",nullable = false)
+    @JoinColumn(name = "pro_id", referencedColumnName = "pro_id", nullable = false)
     private Processo processo;
-    
-    @Lob
+
+    @Basic(fetch = LAZY)
+    @Type(type = "org.hibernate.type.BinaryType")
     @Column(name = "ntp_arquivo")
-    private byte[] arquivo;
+    private byte arquivo[];
 
     public Long getId() {
         return id;
@@ -113,11 +118,5 @@ public class NotificacaoProcesso implements Serializable{
         }
         return true;
     }
-    
-    
-    
-    
-    
-    
-    
+
 }

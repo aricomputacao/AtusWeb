@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.atus.cadastro.modelo;
+package br.com.atus.seguranca.modelo;
 
-import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -13,39 +12,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
- * @author Ari
+ * @author gilmario
  */
 @Entity
-@Table(name = "advogado", schema = "cadastro")
+@Table(name = "modulo", schema = "seguranca")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-public class Advogado implements Serializable {
+public class Modulo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "adv_id", nullable = false)
+    @Column(name = "mod_id", nullable = false)
     private Long id;
-    @NotBlank
-    @Column(name = "adv_nome", nullable = false, unique = true)
-    @PecaColetor
+    @Column(name = "mod_nome", nullable = false, unique = true, length = 100)
     private String nome;
-    @NotNull
-    @Column(name = "adv_oab", nullable = false, unique = true)
-    @PecaColetor
-    private Integer oab;
-    @ManyToOne
-    @JoinColumn(name = "und_fed_id", referencedColumnName = "und_fed_id", nullable = false)
-    @PecaColetor(isEntidade = true)
-    private UnidadeFederativa uf;
+    @Column(name = "mod_mnemonico", nullable = false, length = 100, unique = true)
+    private String mnemonico;
+    @Column(name = "mod_observacao", length = 1024)
+    private String observacao;
 
     public Long getId() {
         return id;
@@ -63,26 +52,26 @@ public class Advogado implements Serializable {
         this.nome = nome;
     }
 
-    public Integer getOab() {
-        return oab;
+    public String getMnemonico() {
+        return mnemonico;
     }
 
-    public void setOab(Integer oab) {
-        this.oab = oab;
+    public void setMnemonico(String mnemonico) {
+        this.mnemonico = mnemonico;
     }
 
-    public UnidadeFederativa getUf() {
-        return uf;
+    public String getObservacao() {
+        return observacao;
     }
 
-    public void setUf(UnidadeFederativa uf) {
-        this.uf = uf;
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 23 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -94,13 +83,8 @@ public class Advogado implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Advogado other = (Advogado) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        final Modulo other = (Modulo) obj;
+        return Objects.equals(this.id, other.id);
     }
-
-   
 
 }

@@ -5,6 +5,7 @@
  */
 package br.com.atus.cadastro.modelo;
 
+import br.com.atus.processo.modelo.SubGrupoPeca;
 import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;
@@ -23,29 +24,27 @@ import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
- * @author Ari
+ * @author gilmario
  */
 @Entity
-@Table(name = "advogado", schema = "cadastro")
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-public class Advogado implements Serializable {
+@Table(schema = "cadastro", name = "peca")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+public class Peca implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "adv_id", nullable = false)
     private Long id;
     @NotBlank
-    @Column(name = "adv_nome", nullable = false, unique = true)
+    @Column(name = "pec_descricao", nullable = false, unique = true)
     @PecaColetor
-    private String nome;
+    private String descricao;
+    @NotBlank
+    @Column(name = "pec_arquivo", nullable = false)
+    private String arquivo;
     @NotNull
-    @Column(name = "adv_oab", nullable = false, unique = true)
-    @PecaColetor
-    private Integer oab;
     @ManyToOne
-    @JoinColumn(name = "und_fed_id", referencedColumnName = "und_fed_id", nullable = false)
-    @PecaColetor(isEntidade = true)
-    private UnidadeFederativa uf;
+    @JoinColumn(name = "sub_grp_id", referencedColumnName = "sub_grp_id", nullable = false)
+    private SubGrupoPeca subgrupo;
 
     public Long getId() {
         return id;
@@ -55,34 +54,34 @@ public class Advogado implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public Integer getOab() {
-        return oab;
+    public String getArquivo() {
+        return arquivo;
     }
 
-    public void setOab(Integer oab) {
-        this.oab = oab;
+    public void setArquivo(String arquivo) {
+        this.arquivo = arquivo;
     }
 
-    public UnidadeFederativa getUf() {
-        return uf;
+    public SubGrupoPeca getSubgrupo() {
+        return subgrupo;
     }
 
-    public void setUf(UnidadeFederativa uf) {
-        this.uf = uf;
+    public void setSubgrupo(SubGrupoPeca subgrupo) {
+        this.subgrupo = subgrupo;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -94,13 +93,8 @@ public class Advogado implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Advogado other = (Advogado) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        final Peca other = (Peca) obj;
+        return Objects.equals(this.id, other.id);
     }
-
-   
 
 }

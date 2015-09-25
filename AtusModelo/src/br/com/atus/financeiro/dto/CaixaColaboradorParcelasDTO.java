@@ -7,9 +7,9 @@ package br.com.atus.financeiro.dto;
 
 import br.com.atus.financeiro.modelo.ParcelasReceber;
 import br.com.atus.financeiro.modelo.Recibo;
-import br.com.atus.modelo.Colaborador;
-import br.com.atus.modelo.Processo;
-import br.com.atus.modelo.Usuario;
+import br.com.atus.cadastro.modelo.Colaborador;
+import br.com.atus.processo.modelo.Processo;
+import br.com.atus.cadastro.modelo.Usuario;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;

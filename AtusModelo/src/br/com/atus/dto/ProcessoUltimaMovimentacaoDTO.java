@@ -5,8 +5,8 @@
  */
 package br.com.atus.dto;
 
-import br.com.atus.modelo.Movimentacao;
-import br.com.atus.modelo.Processo;
+import br.com.atus.processo.modelo.Movimentacao;
+import br.com.atus.processo.modelo.Processo;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;

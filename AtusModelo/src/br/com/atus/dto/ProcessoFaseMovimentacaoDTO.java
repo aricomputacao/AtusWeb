@@ -5,9 +5,9 @@
  */
 package br.com.atus.dto;
 
-import br.com.atus.modelo.Fase;
-import br.com.atus.modelo.Movimentacao;
-import br.com.atus.modelo.Processo;
+import br.com.atus.processo.modelo.Fase;
+import br.com.atus.processo.modelo.Movimentacao;
+import br.com.atus.processo.modelo.Processo;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;

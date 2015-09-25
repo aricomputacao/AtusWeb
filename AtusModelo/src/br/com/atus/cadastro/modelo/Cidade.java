@@ -1,6 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 package br.com.atus.cadastro.modelo;
@@ -8,10 +7,9 @@ package br.com.atus.cadastro.modelo;
 import br.com.atus.util.peca.PecaColetor;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,39 +17,37 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Length;
 
 /**
+ * Classe do Projeto GuardiaoModelos criada em 26/06/2013
  *
- * @author Ari
+ * @author: ari
  */
 @Entity
-@Table(name = "advogado", schema = "cadastro")
+@Table(name = "cidade", schema = "cadastro")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-public class Advogado implements Serializable {
+public class Cidade implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "adv_id", nullable = false)
-    private Long id;
-    @NotBlank
-    @Column(name = "adv_nome", nullable = false, unique = true)
+    @Column(name = "cid_id", nullable = false)
+    private Integer id;
+    @Length(max = 255)
+    @NotNull
+    @Column(name = "cid_nome", nullable = false)
     @PecaColetor
     private String nome;
     @NotNull
-    @Column(name = "adv_oab", nullable = false, unique = true)
-    @PecaColetor
-    private Integer oab;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "und_fed_id", referencedColumnName = "und_fed_id", nullable = false)
     @PecaColetor(isEntidade = true)
-    private UnidadeFederativa uf;
+    private UnidadeFederativa unidadeFederativa;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -63,26 +59,18 @@ public class Advogado implements Serializable {
         this.nome = nome;
     }
 
-    public Integer getOab() {
-        return oab;
+    public UnidadeFederativa getUnidadeFederativa() {
+        return unidadeFederativa;
     }
 
-    public void setOab(Integer oab) {
-        this.oab = oab;
-    }
-
-    public UnidadeFederativa getUf() {
-        return uf;
-    }
-
-    public void setUf(UnidadeFederativa uf) {
-        this.uf = uf;
+    public void setUnidadeFederativa(UnidadeFederativa unidadeFederativa) {
+        this.unidadeFederativa = unidadeFederativa;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -94,13 +82,15 @@ public class Advogado implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Advogado other = (Advogado) obj;
+        final Cidade other = (Cidade) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
 
-   
-
+    @Override
+    public String toString() {
+        return String.valueOf(id);
+    }
 }

@@ -5,7 +5,7 @@
  */
 package br.com.atus.dto;
 
-import br.com.atus.modelo.Fase;
+import br.com.atus.processo.modelo.Fase;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;

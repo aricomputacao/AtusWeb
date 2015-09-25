@@ -6,8 +6,8 @@
 package br.com.atus.financeiro.modelo;
 
 import br.com.atus.cadastro.modelo.Advogado;
-import br.com.atus.modelo.Colaborador;
-import br.com.atus.modelo.Processo;
+import br.com.atus.cadastro.modelo.Colaborador;
+import br.com.atus.processo.modelo.Processo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
