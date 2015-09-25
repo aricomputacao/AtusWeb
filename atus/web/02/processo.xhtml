@@ -152,6 +152,22 @@
                 <cons:ContasReceberConsulta render_consulta="false" id="compContRec" />
             </h:form>
         </p:dialog>
+        <p:dialog showEffect="fade" position="top"   header="Pagamento" id="dialogoConNot" modal="true" hideEffect="fade" widgetVar="dialogoConNot">
+            <h:form>
+                <p:fileUpload id="carArq" mode="advanced" 
+                              fileUploadListener="#{processoMB.arquivoUpload}" 
+                              cancelLabel="Cancelar" label="Carregar Arquivo" uploadLabel="Enviar Arquivo" 
+                              allowTypes="/(\.|\/)(pdf|gif|jpe?g|png)$/"  update="messages" />
+
+                <p:growl id="messages" showDetail="true" life="100000000" />
+
+
+                <comp:inputText nomeLabel="#{label.nome}" value="#{processoMB.notificacaoProcesso.nome}" require="true"/>
+                <comp:inputText nomeLabel="#{label.link}" value="#{processoMB.notificacaoProcesso.link}" require="true"/>
+
+                <p:commandButton value="sasas" actionListener="#{processoMB.addNotificacao()}" />
+            </h:form>
+        </p:dialog>
     </ui:define>
 
 </ui:composition>

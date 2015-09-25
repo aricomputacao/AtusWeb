@@ -9,6 +9,8 @@ import br.com.atus.processo.dao.NotificacaoProcessoDAO;
 import br.com.atus.interfaces.Controller;
 import br.com.atus.processo.modelo.NotificacaoProcesso;
 import br.com.atus.processo.modelo.Processo;
+import br.com.atus.util.peca.ArquivoUtil;
+import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -35,15 +37,17 @@ public class NotificacaoProcessoController extends Controller<NotificacaoProcess
     public List<NotificacaoProcesso> consultarPor(Processo processo) {
         return dao.consultarPor(processo);
     }
+
     public NotificacaoProcesso consultarPor(Long processo) {
         return dao.consultarPor(processo);
     }
 
     public void addNotificacao(NotificacaoProcesso notificacaoProcesso) throws Exception {
-//        byte[] bimagem = event.getFile().getContents();
-        notificacaoProcesso.setNome("ww");
-//        notificacaoProcesso.setArquivo(bimagem);
-        dao.salvar(notificacaoProcesso);
+        notificacaoProcesso =  dao.atualizarGerenciar(notificacaoProcesso);
+        ArquivoUtil.gravaArquivoNoticacao(notificacaoProcesso.getNome()+ ".jpg",notificacaoProcesso.getArquivo());
+//        FileOutputStream fos = new FileOutputStream("C:\\teste\\" + notificacaoProcesso.getId() + ".jpg");
+//        fos.write(notificacaoProcesso.getArquivo());
+//        fos.close();
     }
 
 }
