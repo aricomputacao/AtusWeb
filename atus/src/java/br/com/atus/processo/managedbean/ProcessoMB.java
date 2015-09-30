@@ -29,14 +29,9 @@ import br.com.atus.processo.modelo.Processo;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
-import br.com.atus.util.peca.ArquivoUtil;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import br.com.atus.util.UploadArquivoUtil;
+import java.io.File;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,11 +43,8 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
@@ -99,13 +91,13 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     private List<ParcelasReceber> listaParcelasVencidas;
     private List<ParcelasReceber> listaParcelasPagas;
     private List<NotificacaoProcesso> listaNotificacaoProcesso;
+    private List<File> listaDeArquivos;
     private int i;
     private boolean renderPesquisa;
     private UploadedFile arquivoUpload;
 
     @PostConstruct
     public void init() {
-
 
         setValorBusca((String) navegacaoMB.getRegistroMapa("nomeCliente", ""));
         if (!getValorBusca().equals("")) {
@@ -127,6 +119,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         } else {
             fase = processo.getFase();
             listaNotificacaoProcesso = notificacaoProcessoController.consultarPor(processo);
+            listaDeArquivos = UploadArquivoUtil.aquivos(processo.getId().toString());
             consultarPagamentos();
         }
 
@@ -230,20 +223,9 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         }
     }
 
-    public List<String> getImages() throws SQLException, IOException {
+   
 
-        List<NotificacaoProcesso> listaLocais = notificacaoProcessoController.consultarPor(processo);
-        List<String> images = new ArrayList<String>();
-        String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/imagens");
-        for (NotificacaoProcesso local : listaLocais) {
-            FileOutputStream fos = new FileOutputStream(path + "/" + local.getNome() + ".jpg");
-            fos.write(local.getArquivo());
-            fos.close();
-            images.add(local.getNome() + ".jpg");
-        }
-        return images;
-    }
-
+    //Upload arquivo de notificações
     public void fileUploud(FileUploadEvent event) {
         try {
             byte[] bs;
@@ -643,4 +625,9 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         this.arquivoUpload = arquivoUpload;
     }
 
+    public List<File> getListaDeArquivos() {
+        return listaDeArquivos;
+    }
+
+    
 }

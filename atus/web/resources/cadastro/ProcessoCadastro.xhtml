@@ -386,10 +386,15 @@
                         </p:panel>
 
                     </h:panelGrid>
-                   
+
                 </p:tab>
-                <p:tab >
-                    <p:commandButton onclick="PF('dialogoConNot').show()"/>
+                <p:tab  title="#{label.notificacoes}">
+                    <p:commandButton onclick="PF('dialogoConNot').show()" value="#{label.adicionar_notificacao}" icon="fa fa-plus-square fa-lg"/>
+                    <p:dataTable value="#{processoMB.listaNotificacaoProcesso}" var="arq" >
+                        <p:column headerText="Valor " >
+                            <comp:outputText value="#{arq.nome}"/>
+                        </p:column>
+                    </p:dataTable>
 
                 </p:tab>
 
