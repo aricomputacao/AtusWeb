@@ -5,8 +5,6 @@
  */
 package br.com.atus.processo.modelo;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Basic;
@@ -17,7 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -43,6 +40,11 @@ public class NotificacaoProcesso implements Serializable {
     @NotEmpty
     @Column(name = "ntp_nome", nullable = false)
     private String nome;
+
+    
+  
+    @Column(name = "ntp_caminho")
+    private String caminho;
 
     @Column(name = "ntp_link")
     private String link;
@@ -119,4 +121,14 @@ public class NotificacaoProcesso implements Serializable {
         return true;
     }
 
+    public String getCaminho() {
+        return caminho;
+    }
+
+    public void setCaminho(String caminho) {
+        this.caminho = caminho;
+    }
+
+    
+    
 }
