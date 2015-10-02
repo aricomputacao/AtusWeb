@@ -39,8 +39,7 @@
                 </p:toolbarGroup>
             </p:toolbar>
             <p:tabView id="tbView" dynamic="true" >
-                <p:tab id="tabDadosGer" title="Dados Gerais">
-
+                <p:tab id="tabDadosGer" title="#{label.dados_gerais}">
                     <h:panelGrid columns="1" >
                         <h:panelGrid columns="2"   >
                             <h:panelGrid >
@@ -63,7 +62,7 @@
                             </h:panelGrid>
                             <h:panelGrid id="grdEndere">
                                 <h:panelGrid columns="2" >
-                                    <p:outputLabel value="Endereçamento" for="trat"/>
+                                    <p:outputLabel value="#{label.enderecamento}" for="trat"/>
                                 </h:panelGrid>
                                 <h:panelGrid columns="2">
                                     <p:selectOneMenu id="trat" effect="fade" style="width: 250px" converter="#{indexConverter}" value="#{processoMB.processo.enderecamento}" required="true"   >
@@ -93,7 +92,7 @@
                             </h:panelGrid>
                             <h:panelGrid id="grdTipCon">
                                 <h:panelGrid columns="2" >
-                                    <p:outputLabel value="Tipo de Contrato" for="tip"/>
+                                    <p:outputLabel value="#{label.tipo_contrato}" for="tip"/>
                                 </h:panelGrid>
                                 <h:panelGrid columns="2">
                                     <p:selectOneMenu id="tip" effect="fade" style="width: 350px" converter="#{indexConverter}" value="#{processoMB.processo.tipoContrato}" required="true"   >
@@ -368,7 +367,7 @@
 
                             </p:dataTable>
                         </p:panel>
-                        <p:panel header="Parcelas Vencidas" style="text-align: center;min-height: 600px" >                           
+                        <p:panel header="#{label.parcelas_vencidas}" style="text-align: center;min-height: 600px" >                           
                             <p:dataTable value="#{processoMB.listaParcelasVencidas}" id="tabVenc" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
                                          rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
                                          rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
@@ -389,15 +388,24 @@
 
                 </p:tab>
                 <p:tab  title="#{label.notificacoes}">
-                    <p:commandButton onclick="PF('dialogoConNot').show()" value="#{label.adicionar_notificacao}" icon="fa fa-plus-square fa-lg"/>
+                    <p:commandButton onclick="PF('dialogoConNot').show()" value="#{label.adicionar_notificacao}" style="margin: 30px,10px,10px,30px" icon="fa fa-plus-square fa-lg"/>
                     <p:dataTable value="#{processoMB.listaNotificacaoProcesso}" var="arq" >
-                        <p:column headerText="Valor " >
-                            <comp:outputText value="#{arq.nome}"/>
+                        <p:column  headerText="#{label.nome} " >
+                            <comp:outputText value="#{arq.nome}" title="#{arq.observacao}"/>
                         </p:column>
+                        <p:column headerText="#{label.link} " >
+                            <p:commandLink value="#{arq.link}"  title="#{arq.observacao}"/>
+                        </p:column>
+                        <p:column headerText="#{label.data} " >
+                            <comp:outputText value="#{arq.dataRegistro}" tipo="d" title="#{arq.observacao}"/>
+                        </p:column>
+                        
                         <p:column headerText="#{label.acao} " >
-                            <p:commandButton value="teste" ajax="false">
-                                <p:fileDownload value="#{processoMB.getFile(arq)}"  />
+                            <p:commandButton title="#{label.download}" ajax="false" icon="fa fa-download fa-lg">
+                                <p:fileDownload value="#{processoMB.arquivoDownload(arq)}"   />
                             </p:commandButton>
+                            <p:commandButton title="#{label.visualizar}" icon="fa fa-file-pdf-o fa-lg"  actionListener="#{processoMB.viasualizarArquivo(arq)}" 
+                                             oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
                         </p:column>
                     </p:dataTable>
 

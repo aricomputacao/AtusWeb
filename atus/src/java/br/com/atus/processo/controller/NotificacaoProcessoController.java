@@ -16,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
@@ -65,6 +66,7 @@ public class NotificacaoProcessoController extends Controller<NotificacaoProcess
         byte[] bs;
         bs = arquivoUpload.getContents();
         notificacaoProcesso.setArquivo(bs);
+        notificacaoProcesso.setDataRegistro(new Date());
         notificacaoProcesso = dao.atualizarGerenciar(notificacaoProcesso);
         
         String pasta = notificacaoProcesso.getProcesso().getId().toString();
@@ -76,9 +78,6 @@ public class NotificacaoProcessoController extends Controller<NotificacaoProcess
     public StreamedContent donwloadArquivo(NotificacaoProcesso np) throws FileNotFoundException, Exception {
         StreamedContent file;
         String arquivo = UploadArquivoUtil.checarExistenciaDoArquivoNaPasta(np);
-        
-//        String caminho = FacesContext.getCurrentInstance().getExternalContext().getRealPath("") + UploadArquivoUtil.SEPARADOR + arquivo;
-
         FileInputStream stream = new FileInputStream(arquivo);
         file = new DefaultStreamedContent(stream, "application/pdf", "teste.pdf");
         return file;

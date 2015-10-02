@@ -164,7 +164,8 @@
 
                     <comp:inputText nomeLabel="#{label.nome}" value="#{processoMB.notificacaoProcesso.nome}" size="50" require="true"/>
                     <comp:inputText nomeLabel="#{label.link}" value="#{processoMB.notificacaoProcesso.link}" size="80" require="true"/>
-                    <p:commandButton style="float: right;margin-top: 10px" value="#{label.adicionar_notificacao}" oncomplete="PF('dialogoConNot').hide()" update="messages" 
+                    <comp:inputTextArea nomeLabel="#{label.observacao}" value="#{processoMB.notificacaoProcesso.observacao}" coluna="50"/>
+                    <p:commandButton icon="fa fa-floppy-o fa-lg" style="float: right;margin-top: 10px" value="#{label.adicionar_notificacao}" oncomplete="PF('dialogoConNot').hide()" update="messages" 
                                      actionListener="#{processoMB.addNotificacao()}" />
                 </h:panelGrid>
 
