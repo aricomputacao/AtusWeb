@@ -6,6 +6,7 @@
 package br.com.atus.processo.modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,6 +18,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -42,12 +45,18 @@ public class NotificacaoProcesso implements Serializable {
     private String nome;
 
     
-  
+    @Column(name = "ntp_observacao",length = 1024)
+    private String observacao;
+
     @Column(name = "ntp_caminho")
     private String caminho;
 
     @Column(name = "ntp_link")
     private String link;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "ntp_data_registro")
+    private Date dataRegistro;
 
     @NotNull
     @ManyToOne
@@ -129,6 +138,21 @@ public class NotificacaoProcesso implements Serializable {
         this.caminho = caminho;
     }
 
-    
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
+    public Date getDataRegistro() {
+        return dataRegistro;
+    }
+
+    public void setDataRegistro(Date dataRegistro) {
+        this.dataRegistro = dataRegistro;
+    }
+
     
 }
