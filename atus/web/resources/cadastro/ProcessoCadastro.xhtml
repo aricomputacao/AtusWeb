@@ -394,6 +394,11 @@
                         <p:column headerText="Valor " >
                             <comp:outputText value="#{arq.nome}"/>
                         </p:column>
+                        <p:column headerText="#{label.acao} " >
+                            <p:commandButton value="teste" ajax="false">
+                                <p:fileDownload value="#{processoMB.getFile(arq)}"  />
+                            </p:commandButton>
+                        </p:column>
                     </p:dataTable>
 
                 </p:tab>

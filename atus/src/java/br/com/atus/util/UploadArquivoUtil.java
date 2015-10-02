@@ -5,6 +5,7 @@
  */
 package br.com.atus.util;
 
+import br.com.atus.processo.modelo.NotificacaoProcesso;
 import static br.com.atus.util.peca.ArquivoUtil.diretorioRelativo;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -25,12 +26,45 @@ public class UploadArquivoUtil {
     public static final String PATH_NOTIFICACOES_WINDOWS = "C:" + SEPARADOR + "notificacoes";
     public static final String PATH_NOTIFICACOES_LINUX = "/home" + SEPARADOR + "notificacoes";
 
-    public static boolean ehLinux() {
+    private static boolean ehLinux() {
         String os = System.getProperties().getProperty("os.name").toLowerCase();
         if (os.contains("windows")) {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Criar o arquivo com os dados(bytes) do banco
+     *
+     * @param file
+     * @param pasta
+     * @param nomeArquivo
+     * @param conteudoArquivo
+     * @throws Exception
+     */
+    private static void criarArquivoCasoNaoExista(File file, String pasta, String nomeArquivo, byte[] conteudoArquivo) throws Exception {
+        if (!file.exists()) {
+            UploadArquivoUtil.gravaArquivoNoticacao(pasta, nomeArquivo, conteudoArquivo);
+        }
+    }
+
+    public static String checarExistenciaDoArquivoNaPasta(NotificacaoProcesso np) throws Exception {
+        File file;
+        
+        String pasta = np.getProcesso().getId().toString();
+        String arquivo = np.getId().toString().concat(" - ").concat(np.getNome()) + ".pdf";
+        String caminho = pasta.concat(SEPARADOR.concat(arquivo));
+        
+        if (ehLinux()) {
+            file = new File(PATH_NOTIFICACOES_LINUX + SEPARADOR + caminho);
+            criarArquivoCasoNaoExista(file, np.getProcesso().getId().toString(), np.getNome(), np.getArquivo());
+        } else {
+            file = new File(PATH_NOTIFICACOES_WINDOWS + SEPARADOR + caminho);
+            criarArquivoCasoNaoExista(file, np.getProcesso().getId().toString(), np.getNome(), np.getArquivo());
+        }
+        return file.getAbsolutePath();
+
     }
 
     public static String caminhoDoArquivo(String pasta, String nome) {
@@ -94,20 +128,19 @@ public class UploadArquivoUtil {
         }
     }
 
-    public List<String> getImages() throws SQLException, IOException {
-
-//        List<NotificacaoProcesso> listaLocais = notificacaoProcessoController.consultarPor(processo);
-        List<String> images = new ArrayList<String>();
-        String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/imagens");
-//        for (NotificacaoProcesso local : listaLocais) {
-//            FileOutputStream fos = new FileOutputStream(path + "/" + local.getNome() + ".jpg");
-//            fos.write(local.getArquivo());
-//            fos.close();
-//            images.add(local.getNome() + ".jpg");
-//        }
-        return images;
-    }
-
+//    public List<String> getImages() throws SQLException, IOException {
+//
+////        List<NotificacaoProcesso> listaLocais = notificacaoProcessoController.consultarPor(processo);
+//        List<String> images = new ArrayList<String>();
+//        String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/imagens");
+////        for (NotificacaoProcesso local : listaLocais) {
+////            FileOutputStream fos = new FileOutputStream(path + "/" + local.getNome() + ".jpg");
+////            fos.write(local.getArquivo());
+////            fos.close();
+////            images.add(local.getNome() + ".jpg");
+////        }
+//        return images;
+//    }
     public static void main(String[] args) {
         System.out.println(UploadArquivoUtil.ehLinux());
     }

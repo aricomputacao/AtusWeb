@@ -31,6 +31,8 @@ import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
 import br.com.atus.util.UploadArquivoUtil;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,8 +45,10 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
@@ -95,6 +99,7 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     private int i;
     private boolean renderPesquisa;
     private UploadedFile arquivoUpload;
+    
 
     @PostConstruct
     public void init() {
@@ -223,8 +228,6 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         }
     }
 
-   
-
     //Upload arquivo de notificações
     public void fileUploud(FileUploadEvent event) {
         try {
@@ -235,6 +238,15 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         } catch (Exception ex) {
             Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public StreamedContent getFile(NotificacaoProcesso np) throws FileNotFoundException {
+        try {
+            return notificacaoProcessoController.donwloadArquivo(np);
+        } catch (Exception ex) {
+            Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public void addNotificacao() {
@@ -629,5 +641,5 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         return listaDeArquivos;
     }
 
-    
+   
 }

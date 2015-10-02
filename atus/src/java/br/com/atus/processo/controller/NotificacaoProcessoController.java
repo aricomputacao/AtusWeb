@@ -11,13 +11,19 @@ import br.com.atus.processo.modelo.NotificacaoProcesso;
 import br.com.atus.processo.modelo.Processo;
 import br.com.atus.util.UploadArquivoUtil;
 import br.com.atus.util.peca.ArquivoUtil;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -60,8 +66,22 @@ public class NotificacaoProcessoController extends Controller<NotificacaoProcess
         bs = arquivoUpload.getContents();
         notificacaoProcesso.setArquivo(bs);
         notificacaoProcesso = dao.atualizarGerenciar(notificacaoProcesso);
-        UploadArquivoUtil.gravaArquivoNoticacao(notificacaoProcesso.getProcesso().getId().toString(),
-                notificacaoProcesso.getId().toString().concat(" - ").concat(notificacaoProcesso.getNome()) + ".jpg", notificacaoProcesso.getArquivo());
+        
+        String pasta = notificacaoProcesso.getProcesso().getId().toString();
+        String arquivo = notificacaoProcesso.getId().toString().concat(" - ").concat(notificacaoProcesso.getNome()) + ".pdf";
+        
+        UploadArquivoUtil.gravaArquivoNoticacao(pasta,arquivo, notificacaoProcesso.getArquivo());
+    }
+
+    public StreamedContent donwloadArquivo(NotificacaoProcesso np) throws FileNotFoundException, Exception {
+        StreamedContent file;
+        String arquivo = UploadArquivoUtil.checarExistenciaDoArquivoNaPasta(np);
+        
+//        String caminho = FacesContext.getCurrentInstance().getExternalContext().getRealPath("") + UploadArquivoUtil.SEPARADOR + arquivo;
+
+        FileInputStream stream = new FileInputStream(arquivo);
+        file = new DefaultStreamedContent(stream, "application/pdf", "teste.pdf");
+        return file;
     }
 
 }
