@@ -120,7 +120,6 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         } else {
             fase = processo.getFase();
             listaNotificacaoProcesso = notificacaoProcessoController.consultarPor(processo);
-            listaDeArquivos = UploadArquivoUtil.aquivos(processo.getId().toString());
             consultarPagamentos();
         }
 
@@ -240,20 +239,21 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
         RelatorioSession.setBytesRelatorioInSession(np.getArquivo());
     }
 
-    public StreamedContent arquivoDownload(NotificacaoProcesso np) throws FileNotFoundException {
-        try {
-            return notificacaoProcessoController.donwloadArquivo(np);
-        } catch (Exception ex) {
-            Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
+//    public StreamedContent arquivoDownload(NotificacaoProcesso np) throws FileNotFoundException {
+//        try {
+//            return notificacaoProcessoController.donwloadArquivo(np);
+//        } catch (Exception ex) {
+//            Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return null;
+//    }
     public void addNotificacao() {
         try {
             notificacaoProcesso.setProcesso(processo);
             notificacaoProcessoController.addNotificacao(notificacaoProcesso);
             notificacaoProcesso = new NotificacaoProcesso();
+            listaNotificacaoProcesso = notificacaoProcessoController.consultarPor(processo);
+
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar_processo", MenssagemUtil.MENSAGENS));
 
         } catch (Exception ex) {

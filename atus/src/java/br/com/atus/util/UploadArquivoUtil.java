@@ -10,11 +10,9 @@ import static br.com.atus.util.peca.ArquivoUtil.diretorioRelativo;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.faces.context.FacesContext;
 
 /**
  *
@@ -24,7 +22,7 @@ public class UploadArquivoUtil {
 
     public static final String SEPARADOR = System.getProperty("file.separator");
     public static final String PATH_NOTIFICACOES_WINDOWS = "C:" + SEPARADOR + "notificacoes";
-    public static final String PATH_NOTIFICACOES_LINUX = "/home" + SEPARADOR + "notificacoes";
+    public static final String PATH_NOTIFICACOES_LINUX = "/tmp" + SEPARADOR + "notificacoes";
 
     private static boolean ehLinux() {
         String os = System.getProperties().getProperty("os.name").toLowerCase();

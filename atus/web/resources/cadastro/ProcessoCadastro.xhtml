@@ -387,24 +387,22 @@
                     </h:panelGrid>
 
                 </p:tab>
-                <p:tab  title="#{label.notificacoes}">
+                <p:tab  title="#{label.notificacoes}" id="tabNotfi">
                     <p:commandButton onclick="PF('dialogoConNot').show()" value="#{label.adicionar_notificacao}" style="margin: 30px,10px,10px,30px" icon="fa fa-plus-square fa-lg"/>
                     <p:dataTable value="#{processoMB.listaNotificacaoProcesso}" var="arq" >
                         <p:column  headerText="#{label.nome} " >
                             <comp:outputText value="#{arq.nome}" title="#{arq.observacao}"/>
                         </p:column>
                         <p:column headerText="#{label.link} " >
-                            <p:commandLink value="#{arq.link}"  title="#{arq.observacao}"/>
+                            <h:outputLink  value="#{arq.link}" target="_blank">#{arq.link}</h:outputLink>
                         </p:column>
                         <p:column headerText="#{label.data} " >
                             <comp:outputText value="#{arq.dataRegistro}" tipo="d" title="#{arq.observacao}"/>
                         </p:column>
-                        
-                        <p:column headerText="#{label.acao} " >
-                            <p:commandButton title="#{label.download}" ajax="false" icon="fa fa-download fa-lg">
-                                <p:fileDownload value="#{processoMB.arquivoDownload(arq)}"   />
-                            </p:commandButton>
-                            <p:commandButton title="#{label.visualizar}" icon="fa fa-file-pdf-o fa-lg"  actionListener="#{processoMB.viasualizarArquivo(arq)}" 
+
+                        <p:column headerText="#{label.acao}" >
+
+                            <p:commandButton title="#{label.visualizar}" rendered="#{arq.arquivo != null}" icon="fa fa-file-pdf-o fa-lg"  actionListener="#{processoMB.viasualizarArquivo(arq)}" 
                                              oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
                         </p:column>
                     </p:dataTable>
