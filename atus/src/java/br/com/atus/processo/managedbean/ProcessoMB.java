@@ -29,9 +29,7 @@ import br.com.atus.processo.modelo.Processo;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
-import br.com.atus.util.UploadArquivoUtil;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -76,7 +74,6 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
     private ParcelaReceberController parcelaReceberController;
     @Inject
     private NotificacaoProcessoController notificacaoProcessoController;
-
     private NotificacaoProcesso notificacaoProcesso;
     private Movimentacao movimentacao;
     private Processo processo;
@@ -253,11 +250,21 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
             notificacaoProcessoController.addNotificacao(notificacaoProcesso);
             notificacaoProcesso = new NotificacaoProcesso();
             listaNotificacaoProcesso = notificacaoProcessoController.consultarPor(processo);
-
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar_processo", MenssagemUtil.MENSAGENS));
-
         } catch (Exception ex) {
             MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("falha", MenssagemUtil.MENSAGENS), ex, "");
+            Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void excluirNotificacao(NotificacaoProcesso np) {
+        try {
+            np = notificacaoProcessoController.gerenciar(np.getId());
+            notificacaoProcessoController.excluir(np);
+            listaNotificacaoProcesso = notificacaoProcessoController.consultarPor(processo);
+            MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("excluir", MenssagemUtil.MENSAGENS));
+        } catch (Exception ex) {
+            MenssagemUtil.addMessageErro(NavegacaoMB.getMsg("excluir.falha", MenssagemUtil.MENSAGENS));
             Logger.getLogger(ProcessoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -347,7 +354,6 @@ public class ProcessoMB extends BeanGenerico<Processo> implements Serializable {
 
     public void listar() {
         try {
-
             switch (getCampoBusca()) {
                 case "id":
                     listaProcessos.clear();

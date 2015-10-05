@@ -388,7 +388,7 @@
 
                 </p:tab>
                 <p:tab  title="#{label.notificacoes}" id="tabNotfi">
-                    <p:commandButton onclick="PF('dialogoConNot').show()" value="#{label.adicionar_notificacao}" style="margin: 30px,10px,10px,30px" icon="fa fa-plus-square fa-lg"/>
+                    <p:commandButton onclick="PF('dialogoConNot').show()" value="#{label.adicionar_notificacao}" style="margin-top: 10px" icon="fa fa-plus-square fa-lg"/>
                     <p:dataTable value="#{processoMB.listaNotificacaoProcesso}" var="arq" >
                         <p:column  headerText="#{label.nome} " >
                             <comp:outputText value="#{arq.nome}" title="#{arq.observacao}"/>
@@ -404,6 +404,7 @@
 
                             <p:commandButton title="#{label.visualizar}" rendered="#{arq.arquivo != null}" icon="fa fa-file-pdf-o fa-lg"  actionListener="#{processoMB.viasualizarArquivo(arq)}" 
                                              oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
+                            <comp:commandButton_excluir classe="Notificação" acao_butao="#{processoMB.excluirNotificacao(arq)}" form_to_update=":frm_pag:cadFrm:compProce:tbView:tabNotfi" />
                         </p:column>
                     </p:dataTable>
 

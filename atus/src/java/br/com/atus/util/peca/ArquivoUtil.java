@@ -22,7 +22,6 @@ public class ArquivoUtil {
 
     public static final String SEPARADOR = System.getProperty("file.separator");
     public static final String PATH_FILES = "pecas" + SEPARADOR + "documentos";
-    public static final String PATH_NOTIFICACOES = "notificacoes" + SEPARADOR + "documentos";
 
     // Listar os arquivos de uma pasta
     public static List<File> aquivos(String pasta) {

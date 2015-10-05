@@ -154,20 +154,20 @@
         </p:dialog>
         <p:dialog showEffect="fade" position="top"   header="#{label.notificacoes}" id="dialogoConNot" modal="true" hideEffect="fade" widgetVar="dialogoConNot">
             <h:form enctype="multipart/form-data">
-                <p:growl id="messages" showDetail="true" life="100000000" />
+                <p:growl id="messages" showDetail="true" life="100000000" autoUpdate="true" />
 
                 <h:panelGrid width="100%">
                     <p:fileUpload id="carArq" style="margin: 10px" mode="advanced" fileLimit="1" fileUploadListener="#{processoMB.fileUploud}" 
-                                  value="#{processoMB.arquivoUpload}" sizeLimit="1048576" invalidSizeMessage="#{mensagens.limite_excedido}"
+                                  value="#{processoMB.arquivoUpload}" sizeLimit="10485760" invalidSizeMessage="#{mensagens.limite_excedido}"
                                   cancelLabel="Cancelar" label="Carregar Arquivo" uploadLabel="Enviar Arquivo" 
                                   allowTypes="/(\.|\/)(pdf)$/"   update="messages" />
 
                     <comp:inputText nomeLabel="#{label.nome}" value="#{processoMB.notificacaoProcesso.nome}" size="50" require="true"/>
                     <comp:inputText nomeLabel="#{label.link}" value="#{processoMB.notificacaoProcesso.link}" size="80" require="true"/>
                     <comp:inputTextArea nomeLabel="#{label.observacao}" value="#{processoMB.notificacaoProcesso.observacao}" coluna="50"/>
-                    <p:commandButton icon="fa fa-floppy-o fa-lg" style="float: right;margin-top: 10px" value="#{label.adicionar_notificacao}" 
+                    <p:commandButton icon="fa fa-floppy-o fa-lg" style="float: right;margin-top: 20px" value="#{label.salvar}" 
                                      oncomplete="PF('dialogoConNot').hide()" actionListener="#{processoMB.addNotificacao()}" 
-                                     update=":frm_pag:cadFrm:compProce:tbView:tabNotfi messages" />
+                                     update=":frm_pag:cadFrm:compProce:tbView:tabNotfi" />
                 </h:panelGrid>
 
 

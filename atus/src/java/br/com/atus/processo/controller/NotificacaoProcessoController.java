@@ -9,7 +9,7 @@ import br.com.atus.processo.dao.NotificacaoProcessoDAO;
 import br.com.atus.interfaces.Controller;
 import br.com.atus.processo.modelo.NotificacaoProcesso;
 import br.com.atus.processo.modelo.Processo;
-import br.com.atus.util.UploadArquivoUtil;
+import br.com.sisdelta.utilitarios.ManipuladorDeArquivo;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
@@ -55,14 +55,18 @@ public class NotificacaoProcessoController extends Controller<NotificacaoProcess
             String nomeArquivo = notificacaoProcesso.getId().toString().concat(" - ").concat(notificacaoProcesso.getNome()) + ".pdf";
 
             notificacaoProcesso = dao.atualizarGerenciar(notificacaoProcesso);
-            notificacaoProcesso.setCaminho(UploadArquivoUtil.caminhoDoArquivo(pasta, nomeArquivo));
-            UploadArquivoUtil.gravaArquivoNoticacao(pasta, nomeArquivo, notificacaoProcesso.getArquivo());
+            notificacaoProcesso.setCaminho(ManipuladorDeArquivo.caminhoDoArquivo(pasta, nomeArquivo));
+            ManipuladorDeArquivo.gravaArquivoNoticacao(pasta, nomeArquivo, notificacaoProcesso.getArquivo());
         }
     }
 
     public StreamedContent donwloadArquivo(NotificacaoProcesso np) throws FileNotFoundException, Exception {
         StreamedContent file;
-        String arquivo = UploadArquivoUtil.checarExistenciaDoArquivoNaPasta(np);
+        
+        String pasta = np.getProcesso().getId().toString();
+        String nomeArquivo = np.getId().toString().concat(" - ").concat(np.getNome()) + ".pdf";
+        
+        String arquivo = ManipuladorDeArquivo.checarExistenciaDoArquivoNaPasta(pasta, nomeArquivo, np.getArquivo());
         FileInputStream stream = new FileInputStream(arquivo);
         file = new DefaultStreamedContent(stream, "application/pdf", "teste.pdf");
         return file;
