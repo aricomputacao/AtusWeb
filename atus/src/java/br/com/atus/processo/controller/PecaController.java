@@ -13,6 +13,7 @@ import br.com.atus.processo.modelo.SubGrupoPeca;
 import br.com.atus.util.peca.ArquivoUtil;
 import br.com.atus.util.peca.CampoPersonalizado;
 import br.com.atus.util.peca.DocumentoConverter;
+import br.com.sisdelta.utilitarios.ManipuladorDeArquivo;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -70,7 +71,8 @@ public class PecaController extends Controller<Peca, Long> implements Serializab
             byt[i] = (byte) stream.read();
         }
         super.salvar(t);
-        ArquivoUtil.gravaArquivo(t.getId().toString(), fileName, byt);
+        ManipuladorDeArquivo.gravaArquivo(ManipuladorDeArquivo.PASTA_PECAS,t.getId().toString(), fileName, byt);
+//        ArquivoUtil.gravaArquivo(t.getId().toString(), fileName, byt);
     }
 
     public void atualizar(Peca t, String fileName, WordprocessingMLPackage template) throws Exception {
@@ -83,12 +85,16 @@ public class PecaController extends Controller<Peca, Long> implements Serializab
             byt[i] = (byte) stream.read();
         }
         super.atualizar(t);
-        ArquivoUtil.gravaArquivo(t.getId().toString(), fileName, byt);
-        ArquivoUtil.gravaArquivo(t.getId().toString(), fileName, byt);
+//        ArquivoUtil.gravaArquivo(t.getId().toString(), fileName, byt);
+//        ArquivoUtil.gravaArquivo(t.getId().toString(), fileName, byt);
+        ManipuladorDeArquivo.gravaArquivo(ManipuladorDeArquivo.PASTA_PECAS,t.getId().toString(), fileName, byt);
+        ManipuladorDeArquivo.gravaArquivo(ManipuladorDeArquivo.PASTA_PECAS,t.getId().toString(), fileName, byt);
     }
 
     public StreamedContent getDownload(Peca p) throws PecaFileException, FileNotFoundException {
-        List<File> files = ArquivoUtil.aquivos(p.getId().toString());
+//        List<File> files = ArquivoUtil.aquivos(p.getId().toString());
+//        List<File> files = ManipuladorDeArquivo.aquivos(p.getId().toString());
+        List<File> files = ManipuladorDeArquivo.aquivos(ManipuladorDeArquivo.PASTA_PECAS,p.getId().toString());
         if (files.isEmpty()) {
             throw new PecaFileException();
         }

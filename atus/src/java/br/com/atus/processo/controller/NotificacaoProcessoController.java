@@ -55,8 +55,8 @@ public class NotificacaoProcessoController extends Controller<NotificacaoProcess
             String nomeArquivo = notificacaoProcesso.getId().toString().concat(" - ").concat(notificacaoProcesso.getNome()) + ".pdf";
 
             notificacaoProcesso = dao.atualizarGerenciar(notificacaoProcesso);
-            notificacaoProcesso.setCaminho(ManipuladorDeArquivo.caminhoDoArquivo(pasta, nomeArquivo));
-            ManipuladorDeArquivo.gravaArquivoNoticacao(pasta, nomeArquivo, notificacaoProcesso.getArquivo());
+            notificacaoProcesso.setCaminho(ManipuladorDeArquivo.caminhoDoArquivo(ManipuladorDeArquivo.PASTA_NOTIFICACOES,pasta, nomeArquivo));
+            ManipuladorDeArquivo.gravaArquivo(ManipuladorDeArquivo.PASTA_NOTIFICACOES,pasta, nomeArquivo, notificacaoProcesso.getArquivo());
         }
     }
 
@@ -66,7 +66,7 @@ public class NotificacaoProcessoController extends Controller<NotificacaoProcess
         String pasta = np.getProcesso().getId().toString();
         String nomeArquivo = np.getId().toString().concat(" - ").concat(np.getNome()) + ".pdf";
         
-        String arquivo = ManipuladorDeArquivo.checarExistenciaDoArquivoNaPasta(pasta, nomeArquivo, np.getArquivo());
+        String arquivo = ManipuladorDeArquivo.checarExistenciaDoArquivoNaPasta(ManipuladorDeArquivo.PASTA_NOTIFICACOES,pasta, nomeArquivo, np.getArquivo());
         FileInputStream stream = new FileInputStream(arquivo);
         file = new DefaultStreamedContent(stream, "application/pdf", "teste.pdf");
         return file;
