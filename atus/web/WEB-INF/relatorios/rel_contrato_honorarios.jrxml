@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_contrato_honorarios" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b8db20c6-e110-49bf-b8ce-b3535c410e60">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="272"/>
+	<property name="ireport.y" value="235"/>
 	<parameter name="rodapeEmail" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Projetos\\Atus\\atus\\web\\WEB-INF\\relatorios\\"]]></defaultValueExpression>
@@ -12,13 +12,13 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="cliente" class="br.com.atus.modelo.Cliente">
+	<field name="cliente" class="br.com.atus.cadastro.modelo.Cliente">
 		<fieldDescription><![CDATA[cliente]]></fieldDescription>
 	</field>
 	<title>
 		<band height="40" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="b8a17b2a-b2f6-4570-aed2-fc227011922c" x="0" y="2" width="555" height="20"/>
+				<reportElement x="0" y="2" width="555" height="20" uuid="b8a17b2a-b2f6-4570-aed2-fc227011922c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true" isItalic="true" isUnderline="true"/>
 				</textElement>
@@ -29,7 +29,7 @@
 	<detail>
 		<band height="692" splitType="Stretch">
 			<textField>
-				<reportElement uuid="3456b638-2d8c-4205-8152-f06bc553d832" x="0" y="3" width="555" height="141"/>
+				<reportElement x="0" y="3" width="555" height="141" uuid="3456b638-2d8c-4205-8152-f06bc553d832"/>
 				<textElement textAlignment="Justified"/>
 				<textFieldExpression><![CDATA[$F{cliente}.getPessoa().getNome() +
  ($F{cliente}.getNacionalidade() == null  ? "" : ", "+$F{cliente}.getNacionalidade().getNome())
@@ -45,26 +45,26 @@
  +", pelo presente instrumento particular de Contrato de Honorários de Advogado, convenciona e contrata com DIEGO SILVA PARENTE, brasileiro, casado, advogado inscrito na OAB/CE n.º 24.856 e JOAQUIM JOCEL DE VASCONCELOS NETO, advogado inscrito na OAB/CE sob número 20.392, com escritório profissional localizado na Rua Estanislau Frota, Nº 340, Loja 1, Centro, Sobral, Ceará, CEP 62.100-000 – Tel. (088) 3611-6210, o seguinte:"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="38767af9-f643-4850-83fd-1cc7cd460b07" x="0" y="147" width="100" height="20"/>
+				<reportElement x="0" y="147" width="100" height="20" uuid="38767af9-f643-4850-83fd-1cc7cd460b07"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[PRIMEIRO]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="f0ca23e1-385d-4bcb-960f-b3684eaea510" x="0" y="167" width="555" height="47"/>
+				<reportElement x="0" y="167" width="555" height="47" uuid="f0ca23e1-385d-4bcb-960f-b3684eaea510"/>
 				<textElement textAlignment="Justified"/>
 				<textFieldExpression><![CDATA["Os advogados contratados obrigam-se, face ao mandado que lhe foi outorgado, a prestar seus serviços profissionais em defesa do contratante em Previdenciária, desempenhando com zelo a atividade o seu cargo perante a Justiça Federal - Sobral - 18ª Vara."]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="68d525b0-ab7e-4c8e-9c8b-6606a8a636bf" x="0" y="222" width="100" height="20"/>
+				<reportElement x="0" y="222" width="100" height="20" uuid="68d525b0-ab7e-4c8e-9c8b-6606a8a636bf"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[SEGUNDO]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="81f25170-723c-4767-a9ea-c8a2032826ce" x="0" y="242" width="555" height="75"/>
+				<reportElement x="0" y="242" width="555" height="75" uuid="81f25170-723c-4767-a9ea-c8a2032826ce"/>
 				<textElement textAlignment="Justified"/>
 				<textFieldExpression><![CDATA["Em remuneração destes serviços, os advogados contratados, receberão do contratante, a título de honorários . \r\n \r\n"+
 
@@ -73,38 +73,37 @@
 "A parte contratante autoriza, expressamente, o desconto dos valores aqui contratados quando do levantamento de eventual alvará, RPV ou precatório decorrente da ação proposta. \r\n \r\n"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="2202ea4f-ddf3-4ea5-b1c0-499591c5c9f8" x="0" y="317" width="100" height="20"/>
+				<reportElement x="0" y="317" width="100" height="20" uuid="2202ea4f-ddf3-4ea5-b1c0-499591c5c9f8"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[TERCEIRO]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="a24f44bc-45c9-40cd-a880-c85399666649" x="0" y="337" width="555" height="39"/>
+				<reportElement x="0" y="337" width="555" height="39" uuid="a24f44bc-45c9-40cd-a880-c85399666649"/>
 				<textElement textAlignment="Justified"/>
 				<textFieldExpression><![CDATA["Em caso de insucesso da ação proposta, a parte contratante não desembolsará quaisquer valores aos contratados, ainda que se refiram a despesas com a demanda."]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="ac7455cc-a40c-4220-86bf-442c770057dc" x="0" y="387" width="100" height="20"/>
+				<reportElement x="0" y="387" width="100" height="20" uuid="ac7455cc-a40c-4220-86bf-442c770057dc"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[QUARTO]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="ba6822a2-5d42-40a0-8984-eb39b4f606f6" x="0" y="407" width="555" height="60"/>
+				<reportElement x="0" y="407" width="555" height="60" uuid="ba6822a2-5d42-40a0-8984-eb39b4f606f6"/>
 				<textElement textAlignment="Justified"/>
 				<textFieldExpression><![CDATA["As partes contratantes elegem o foro desta cidade para o fim de dirimir qualquer ação oriunda do presente contrato. \n \n"+
 
 "E para firmeza e como prova de assim haverem contratado este instrumento particular, impresso em duas vias, de igual teor e forma, assinado pelas partes contratada e contratante, na forma do art. 24 do Estatuto da OAB."]]></textFieldExpression>
 			</textField>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement uuid="2ef7f11e-061d-49fa-9069-58c6fa82211f" x="0" y="481" width="209" height="20"/>
-				<textElement/>
+				<reportElement x="0" y="481" width="209" height="20" uuid="2ef7f11e-061d-49fa-9069-58c6fa82211f"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="14b9c876-6e25-4350-9005-cfb72010a749" x="50" y="531" width="441" height="20"/>
+				<reportElement x="50" y="531" width="441" height="20" uuid="14b9c876-6e25-4350-9005-cfb72010a749"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 				</box>
@@ -114,7 +113,7 @@
 				<textFieldExpression><![CDATA[$F{cliente}.getPessoa().getNome()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="068ad169-bf68-4fa2-b504-ff107c00b8aa" x="18" y="582" width="224" height="20"/>
+				<reportElement x="18" y="582" width="224" height="20" uuid="068ad169-bf68-4fa2-b504-ff107c00b8aa"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 				</box>
@@ -124,7 +123,7 @@
 				<text><![CDATA[DIEGO SILVA PARENTE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f606b041-34c3-488e-bbdd-a0d5687b5470" x="287" y="582" width="256" height="20"/>
+				<reportElement x="287" y="582" width="256" height="20" uuid="f606b041-34c3-488e-bbdd-a0d5687b5470"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 				</box>
@@ -134,42 +133,38 @@
 				<text><![CDATA[JOAQUIM JOCEL DE VASONCELOS NETO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="75c26cf1-5cf3-4ccd-b34b-e6058c428e77" x="219" y="615" width="100" height="20"/>
+				<reportElement x="219" y="615" width="100" height="20" uuid="75c26cf1-5cf3-4ccd-b34b-e6058c428e77"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[TESTEMUNHAS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="848c9d62-0c8b-498b-90e1-43e74ded71f9" x="18" y="638" width="38" height="15"/>
-				<textElement/>
+				<reportElement x="18" y="638" width="38" height="15" uuid="848c9d62-0c8b-498b-90e1-43e74ded71f9"/>
 				<text><![CDATA[NOME:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0a00050e-c418-4a79-9b26-f87e34dba995" x="18" y="670" width="38" height="15"/>
-				<textElement/>
+				<reportElement x="18" y="670" width="38" height="15" uuid="0a00050e-c418-4a79-9b26-f87e34dba995"/>
 				<text><![CDATA[CI:]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="21d0b35d-0f64-44c9-b332-69be4e0b51e5" x="56" y="652" width="186" height="1"/>
+				<reportElement x="56" y="652" width="186" height="1" uuid="21d0b35d-0f64-44c9-b332-69be4e0b51e5"/>
 			</line>
 			<line>
-				<reportElement uuid="3df048c8-a5ff-486d-8778-1815e76cdd00" x="56" y="681" width="186" height="1"/>
+				<reportElement x="56" y="681" width="186" height="1" uuid="3df048c8-a5ff-486d-8778-1815e76cdd00"/>
 			</line>
 			<line>
-				<reportElement uuid="7c5df6b6-3522-40dd-851e-797b8d7be4f3" x="357" y="681" width="186" height="1"/>
+				<reportElement x="357" y="681" width="186" height="1" uuid="7c5df6b6-3522-40dd-851e-797b8d7be4f3"/>
 			</line>
 			<staticText>
-				<reportElement uuid="c040676d-756e-43f6-b7e1-1749143f856a" x="319" y="670" width="38" height="15"/>
-				<textElement/>
+				<reportElement x="319" y="670" width="38" height="15" uuid="c040676d-756e-43f6-b7e1-1749143f856a"/>
 				<text><![CDATA[CI:]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="c99be841-cb27-4c21-a8fa-01af4350b9c2" x="357" y="652" width="186" height="1"/>
+				<reportElement x="357" y="652" width="186" height="1" uuid="c99be841-cb27-4c21-a8fa-01af4350b9c2"/>
 			</line>
 			<staticText>
-				<reportElement uuid="881c4c3d-5696-417e-92b4-424d16c27ee5" x="319" y="638" width="38" height="15"/>
-				<textElement/>
+				<reportElement x="319" y="638" width="38" height="15" uuid="881c4c3d-5696-417e-92b4-424d16c27ee5"/>
 				<text><![CDATA[NOME:]]></text>
 			</staticText>
 		</band>
@@ -177,7 +172,7 @@
 	<pageFooter>
 		<band height="54" splitType="Stretch">
 			<subreport>
-				<reportElement uuid="9425eccd-69ce-4df1-9228-b12e437ded52" x="0" y="2" width="555" height="50"/>
+				<reportElement x="0" y="2" width="555" height="50" uuid="9425eccd-69ce-4df1-9228-b12e437ded52"/>
 				<subreportParameter name="id">
 					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
 				</subreportParameter>

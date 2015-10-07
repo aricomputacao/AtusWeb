@@ -18,10 +18,10 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="movimentacao" class="br.com.atus.modelo.Movimentacao">
+	<field name="movimentacao" class="br.com.atus.processo.modelo.Movimentacao">
 		<fieldDescription><![CDATA[movimentacao]]></fieldDescription>
 	</field>
-	<field name="processo" class="br.com.atus.modelo.Processo">
+	<field name="processo" class="br.com.atus.processo.modelo.Processo">
 		<fieldDescription><![CDATA[processo]]></fieldDescription>
 	</field>
 	<variable name="processo_1" class="java.lang.Integer" resetType="Group" resetGroup="fase" calculation="Count">
@@ -32,39 +32,39 @@
 		<groupHeader>
 			<band height="41">
 				<rectangle>
-					<reportElement uuid="ee88a841-613f-46bb-89f6-eafa261f2d08" x="0" y="0" width="802" height="40"/>
+					<reportElement x="0" y="0" width="802" height="40" uuid="ee88a841-613f-46bb-89f6-eafa261f2d08"/>
 				</rectangle>
 				<textField>
-					<reportElement uuid="497d5a66-f5ab-423a-a74f-96648934c387" x="75" y="0" width="370" height="20"/>
+					<reportElement x="75" y="0" width="370" height="20" uuid="497d5a66-f5ab-423a-a74f-96648934c387"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{processo}.getFase().getUsuario().getLogin()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement uuid="ca14095f-b710-45ea-a65b-1c9ddb8028b3" x="3" y="0" width="81" height="20"/>
+					<reportElement x="3" y="0" width="81" height="20" uuid="ca14095f-b710-45ea-a65b-1c9ddb8028b3"/>
 					<textElement verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Responsável:]]></text>
 				</staticText>
 				<textField>
-					<reportElement uuid="2e5eaeeb-7d7d-4cec-a1b4-883e29d98c29" x="75" y="20" width="370" height="20"/>
+					<reportElement x="75" y="20" width="370" height="20" uuid="2e5eaeeb-7d7d-4cec-a1b4-883e29d98c29"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{processo}.getFase().getNome()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement uuid="7960cea1-1267-407d-8c38-0fdade44664b" x="2" y="20" width="81" height="20"/>
+					<reportElement x="2" y="20" width="81" height="20" uuid="7960cea1-1267-407d-8c38-0fdade44664b"/>
 					<textElement verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Fase:]]></text>
 				</staticText>
 				<textField evaluationTime="Group" evaluationGroup="fase">
-					<reportElement uuid="1e3fbbf3-3e13-450f-940b-81e6f0d7e9dd" x="756" y="20" width="46" height="20"/>
+					<reportElement x="756" y="20" width="46" height="20" uuid="1e3fbbf3-3e13-450f-940b-81e6f0d7e9dd"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$V{processo_1}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement uuid="6a2b1919-661c-4f70-98aa-028fce692d47" x="670" y="20" width="86" height="20"/>
+					<reportElement x="670" y="20" width="86" height="20" uuid="6a2b1919-661c-4f70-98aa-028fce692d47"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
@@ -76,7 +76,7 @@
 	<title>
 		<band height="65" splitType="Stretch">
 			<subreport>
-				<reportElement uuid="fc954b98-138e-4432-ae77-0db0d691710d" x="0" y="0" width="802" height="65"/>
+				<reportElement x="0" y="0" width="802" height="65" uuid="fc954b98-138e-4432-ae77-0db0d691710d"/>
 				<subreportParameter name="relatorio">
 					<subreportParameterExpression><![CDATA[$P{relatorio}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -94,73 +94,73 @@
 	<columnHeader>
 		<band height="20">
 			<rectangle>
-				<reportElement uuid="61264ca9-c1cd-4e87-904d-713d1aca3602" x="0" y="0" width="802" height="20" backcolor="#CCCCCC"/>
+				<reportElement x="0" y="0" width="802" height="20" backcolor="#CCCCCC" uuid="61264ca9-c1cd-4e87-904d-713d1aca3602"/>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="1242a5b7-53e5-4209-aa88-462963c936f9" x="2" y="0" width="31" height="20"/>
+				<reportElement x="2" y="0" width="31" height="20" uuid="1242a5b7-53e5-4209-aa88-462963c936f9"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Id]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a71bbdc4-8993-4037-b46a-7a56d3f987d8" x="22" y="0" width="99" height="20"/>
+				<reportElement x="22" y="0" width="99" height="20" uuid="a71bbdc4-8993-4037-b46a-7a56d3f987d8"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1ab90025-d5f7-4cb9-8458-8dda179d6470" x="121" y="0" width="79" height="20"/>
+				<reportElement x="121" y="0" width="79" height="20" uuid="1ab90025-d5f7-4cb9-8458-8dda179d6470"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[JuizoTribunal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d15a1dee-277f-46db-a1a3-d548f8755de5" x="202" y="0" width="85" height="20"/>
+				<reportElement x="202" y="0" width="85" height="20" uuid="d15a1dee-277f-46db-a1a3-d548f8755de5"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Número]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0d24341c-ebab-4811-8594-26af38334894" x="287" y="0" width="84" height="20"/>
+				<reportElement x="287" y="0" width="84" height="20" uuid="0d24341c-ebab-4811-8594-26af38334894"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Objeto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="64bed667-550f-460d-9ce2-4da2f34e8669" x="371" y="0" width="74" height="20"/>
+				<reportElement x="371" y="0" width="74" height="20" uuid="64bed667-550f-460d-9ce2-4da2f34e8669"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Materia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e50ecc43-22be-4a4c-bcae-2c6ba9519420" x="448" y="0" width="92" height="20"/>
+				<reportElement x="448" y="0" width="92" height="20" uuid="e50ecc43-22be-4a4c-bcae-2c6ba9519420"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Colaborador]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="8bcbe5c4-2382-4123-9c5b-f409bcfde78b" x="543" y="0" width="68" height="20"/>
+				<reportElement x="543" y="0" width="68" height="20" uuid="8bcbe5c4-2382-4123-9c5b-f409bcfde78b"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Data Fase]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="aa00d407-7d9f-4abe-9229-df6f12d2f144" x="613" y="0" width="107" height="20"/>
+				<reportElement x="613" y="0" width="107" height="20" uuid="aa00d407-7d9f-4abe-9229-df6f12d2f144"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Motivo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1001ec71-6f1c-488f-9d95-f70e26f2b8a1" x="763" y="0" width="38" height="20"/>
+				<reportElement x="763" y="0" width="38" height="20" uuid="1001ec71-6f1c-488f-9d95-f70e26f2b8a1"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -171,77 +171,76 @@
 	<detail>
 		<band height="48" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="2098b39d-d50a-426a-ab75-9569160f3679" style="zebra" x="-1" y="0" width="800" height="48"/>
+				<reportElement style="zebra" x="-1" y="0" width="800" height="48" uuid="2098b39d-d50a-426a-ab75-9569160f3679"/>
 				<graphicElement>
 					<pen lineWidth="0.25" lineColor="#FFFFFF"/>
 				</graphicElement>
 			</rectangle>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="1ee5432d-360a-4274-8c5d-00708855a0fd" x="2" y="0" width="31" height="20"/>
+				<reportElement x="2" y="0" width="31" height="20" uuid="1ee5432d-360a-4274-8c5d-00708855a0fd"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getId()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="bf8462a4-bd3b-4ed4-a427-5b541ad81773" x="33" y="0" width="88" height="34"/>
+				<reportElement x="33" y="0" width="88" height="34" uuid="bf8462a4-bd3b-4ed4-a427-5b541ad81773"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getCliente().getPessoa().getNome()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="24ea65c0-bb5a-4aed-8bdb-182296c0ed28" x="122" y="0" width="79" height="34"/>
+				<reportElement x="122" y="0" width="79" height="34" uuid="24ea65c0-bb5a-4aed-8bdb-182296c0ed28"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getJuizoTribunal().getNome()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="9d098659-0517-4e8d-a0bc-e5cc52a87cd3" x="203" y="0" width="85" height="34"/>
+				<reportElement x="203" y="0" width="85" height="34" uuid="9d098659-0517-4e8d-a0bc-e5cc52a87cd3"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getNumero()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="209b5c7f-7ebf-4524-b6d7-abc6fd2db197" x="288" y="0" width="84" height="34"/>
+				<reportElement x="288" y="0" width="84" height="34" uuid="209b5c7f-7ebf-4524-b6d7-abc6fd2db197"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getObjetoProcesso()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="7794acd5-ceb9-4124-86f1-62a64fa8cf20" x="372" y="0" width="74" height="34"/>
+				<reportElement x="372" y="0" width="74" height="34" uuid="7794acd5-ceb9-4124-86f1-62a64fa8cf20"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getMateria().getNome()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="b755de56-526e-4e49-a043-42b268ea1945" x="448" y="0" width="92" height="34"/>
+				<reportElement x="448" y="0" width="92" height="34" uuid="b755de56-526e-4e49-a043-42b268ea1945"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{processo}.getColaborador().getPessoa().getNome()]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement uuid="f6273c21-03df-41f3-985d-716ab17c133c" x="543" y="0" width="68" height="20"/>
+				<reportElement x="543" y="0" width="68" height="20" uuid="f6273c21-03df-41f3-985d-716ab17c133c"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{movimentacao}.getDataMovimentacao()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="b74b4f65-1ab1-4f48-b78d-38531ad7d4c2" x="613" y="0" width="143" height="48"/>
+				<reportElement x="613" y="0" width="143" height="48" uuid="b74b4f65-1ab1-4f48-b78d-38531ad7d4c2"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{movimentacao}.getMotivo()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="ef447ff8-e759-4cc9-8d05-011499d9501f" x="763" y="0" width="38" height="20"/>
-				<textElement/>
+				<reportElement x="763" y="0" width="38" height="20" uuid="ef447ff8-e759-4cc9-8d05-011499d9501f"/>
 				<textFieldExpression><![CDATA[$F{processo}.getEnderecamento().getNome()]]></textFieldExpression>
 			</textField>
 		</band>

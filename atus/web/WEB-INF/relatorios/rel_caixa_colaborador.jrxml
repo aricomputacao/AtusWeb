@@ -24,19 +24,19 @@
 	<field name="dataPagamentoColaborador" class="java.util.Date">
 		<fieldDescription><![CDATA[dataPagamentoColaborador]]></fieldDescription>
 	</field>
-	<field name="colaborador" class="br.com.atus.modelo.Colaborador">
+	<field name="colaborador" class="br.com.atus.cadastro.modelo.Colaborador">
 		<fieldDescription><![CDATA[colaborador]]></fieldDescription>
 	</field>
 	<field name="parcelasReceber" class="br.com.atus.financeiro.modelo.ParcelasReceber">
 		<fieldDescription><![CDATA[parcelasReceber]]></fieldDescription>
 	</field>
-	<field name="processo" class="br.com.atus.modelo.Processo">
+	<field name="processo" class="br.com.atus.processo.modelo.Processo">
 		<fieldDescription><![CDATA[processo]]></fieldDescription>
 	</field>
 	<field name="recibo" class="br.com.atus.financeiro.modelo.Recibo">
 		<fieldDescription><![CDATA[recibo]]></fieldDescription>
 	</field>
-	<field name="usuarioQuePagou" class="br.com.atus.modelo.Usuario">
+	<field name="usuarioQuePagou" class="br.com.atus.cadastro.modelo.Usuario">
 		<fieldDescription><![CDATA[usuarioQuePagou]]></fieldDescription>
 	</field>
 	<variable name="parcelasReceber_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Process" calculation="Sum">
@@ -56,123 +56,123 @@
 		<groupHeader>
 			<band height="105">
 				<rectangle>
-					<reportElement uuid="80f4760c-f953-43ed-8752-d8bf536e068e" x="0" y="0" width="802" height="104"/>
+					<reportElement x="0" y="0" width="802" height="104" uuid="80f4760c-f953-43ed-8752-d8bf536e068e"/>
 				</rectangle>
 				<textField>
-					<reportElement uuid="04be25fd-5f29-4094-aaba-a2f889117ef0" x="80" y="0" width="50" height="20"/>
+					<reportElement x="80" y="0" width="50" height="20" uuid="04be25fd-5f29-4094-aaba-a2f889117ef0"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{processo}.getId()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement uuid="b51cd1ec-4d7c-46ed-b293-ea57a3f27c90" x="2" y="0" width="78" height="20"/>
+					<reportElement x="2" y="0" width="78" height="20" uuid="b51cd1ec-4d7c-46ed-b293-ea57a3f27c90"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Processo:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="d351f47a-271f-4584-8fa2-427e7cea5a2a" x="2" y="20" width="78" height="20"/>
+					<reportElement x="2" y="20" width="78" height="20" uuid="d351f47a-271f-4584-8fa2-427e7cea5a2a"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Cliente:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="820ff8ee-1511-4698-92b6-1099ed8b14d1" x="2" y="40" width="78" height="20"/>
+					<reportElement x="2" y="40" width="78" height="20" uuid="820ff8ee-1511-4698-92b6-1099ed8b14d1"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Colaborador:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="ada549f6-1775-4553-b641-98aac4402e33" x="561" y="0" width="122" height="20"/>
+					<reportElement x="561" y="0" width="122" height="20" uuid="ada549f6-1775-4553-b641-98aac4402e33"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Total do Processo:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="5d25693f-ccfc-4eae-b717-90de4b0d190b" x="561" y="40" width="122" height="20"/>
+					<reportElement x="561" y="40" width="122" height="20" uuid="5d25693f-ccfc-4eae-b717-90de4b0d190b"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Porcentagem Col:]]></text>
 				</staticText>
 				<textField>
-					<reportElement uuid="30abfe28-7de9-40bb-97d3-c4432d3ce0de" x="80" y="40" width="273" height="20"/>
+					<reportElement x="80" y="40" width="273" height="20" uuid="30abfe28-7de9-40bb-97d3-c4432d3ce0de"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{colaborador}.getNome()]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement uuid="079fe966-8815-486f-b68c-de0421a6adcb" x="0" y="81" width="802" height="1"/>
+					<reportElement x="0" y="81" width="802" height="1" uuid="079fe966-8815-486f-b68c-de0421a6adcb"/>
 				</line>
 				<staticText>
-					<reportElement uuid="6028954a-1120-4de8-9593-793dedc45a73" x="4" y="83" width="56" height="20"/>
+					<reportElement x="4" y="83" width="56" height="20" uuid="6028954a-1120-4de8-9593-793dedc45a73"/>
 					<textElement verticalAlignment="Middle">
 						<font isBold="true" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[Parcela]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="933a95ed-7ad2-409d-a67c-4e8e0a235929" x="106" y="82" width="100" height="20"/>
+					<reportElement x="106" y="82" width="100" height="20" uuid="933a95ed-7ad2-409d-a67c-4e8e0a235929"/>
 					<textElement verticalAlignment="Middle">
 						<font isBold="true" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[Data do Pagamento]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="0d26a307-7bbb-4b74-b19d-aae1f32cac38" x="261" y="83" width="100" height="20"/>
+					<reportElement x="261" y="83" width="100" height="20" uuid="0d26a307-7bbb-4b74-b19d-aae1f32cac38"/>
 					<textElement verticalAlignment="Middle">
 						<font isBold="true" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[Valor ]]></text>
 				</staticText>
 				<textField isBlankWhenNull="true">
-					<reportElement uuid="60729fa4-3018-4db3-8c80-cb1a4850dde9" x="80" y="60" width="273" height="20"/>
+					<reportElement x="80" y="60" width="273" height="20" uuid="60729fa4-3018-4db3-8c80-cb1a4850dde9"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{usuarioQuePagou}.getNome()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement uuid="939045ed-0f87-4d50-9ed7-82354db34dca" x="2" y="60" width="78" height="20"/>
+					<reportElement x="2" y="60" width="78" height="20" uuid="939045ed-0f87-4d50-9ed7-82354db34dca"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Pago por:]]></text>
 				</staticText>
 				<textField pattern="¤ #,##0.00">
-					<reportElement uuid="dbb1891c-b69d-4dba-a041-ac08b0eab68f" x="683" y="0" width="119" height="20"/>
+					<reportElement x="683" y="0" width="119" height="20" uuid="dbb1891c-b69d-4dba-a041-ac08b0eab68f"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{recibo}.getValorTotalDoProcesso()]]></textFieldExpression>
 				</textField>
 				<textField pattern="###0">
-					<reportElement uuid="1cd7bf66-9927-4b13-8339-9ec90ea4b3ce" x="683" y="40" width="119" height="20"/>
+					<reportElement x="683" y="40" width="119" height="20" uuid="1cd7bf66-9927-4b13-8339-9ec90ea4b3ce"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[""+$F{recibo}.getPercentualColaborador()+""+"%"]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement uuid="e4e870c7-d2bc-4076-803c-ad07f665f0f9" x="561" y="20" width="122" height="20"/>
+					<reportElement x="561" y="20" width="122" height="20" uuid="e4e870c7-d2bc-4076-803c-ad07f665f0f9"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Total do Pago:]]></text>
 				</staticText>
 				<textField evaluationTime="Group" evaluationGroup="Process" pattern="¤ #,##0.00">
-					<reportElement uuid="0f264247-a05d-432d-a5c1-c2c88cccda91" x="683" y="20" width="119" height="20"/>
+					<reportElement x="683" y="20" width="119" height="20" uuid="0f264247-a05d-432d-a5c1-c2c88cccda91"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$V{parcelasReceber_1}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="0c1bda3e-8cf1-45a1-ac53-46ee28af3554" x="80" y="20" width="273" height="20"/>
+					<reportElement x="80" y="20" width="273" height="20" uuid="0c1bda3e-8cf1-45a1-ac53-46ee28af3554"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{recibo}.getNomeCliente()]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="Process" pattern="¤ #,##0.00">
-					<reportElement uuid="46389a6e-d088-4451-8748-ff392f563433" x="683" y="60" width="119" height="20"/>
+					<reportElement x="683" y="60" width="119" height="20" uuid="46389a6e-d088-4451-8748-ff392f563433"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$V{parcelasReceber_4}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement uuid="215b6d2e-14ef-4947-8017-1b4439df79a7" x="561" y="60" width="122" height="20"/>
+					<reportElement x="561" y="60" width="122" height="20" uuid="215b6d2e-14ef-4947-8017-1b4439df79a7"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
@@ -183,17 +183,17 @@
 		<groupFooter>
 			<band height="20">
 				<rectangle>
-					<reportElement uuid="a13bb28f-0d1f-41a1-be00-4f3365b4913d" x="0" y="0" width="802" height="20"/>
+					<reportElement x="0" y="0" width="802" height="20" uuid="a13bb28f-0d1f-41a1-be00-4f3365b4913d"/>
 				</rectangle>
 				<staticText>
-					<reportElement uuid="40d8a8e5-ec5d-4053-981e-5930c7bba0d8" x="173" y="0" width="88" height="20"/>
+					<reportElement x="173" y="0" width="88" height="20" uuid="40d8a8e5-ec5d-4053-981e-5930c7bba0d8"/>
 					<textElement verticalAlignment="Middle">
 						<font isBold="true" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[Total Pago ==>>]]></text>
 				</staticText>
 				<textField pattern="¤ #,##0.00">
-					<reportElement uuid="018adc8c-cf39-48d8-b3fd-3539f83edc7f" x="261" y="0" width="100" height="20"/>
+					<reportElement x="261" y="0" width="100" height="20" uuid="018adc8c-cf39-48d8-b3fd-3539f83edc7f"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$V{parcelasReceber_2}]]></textFieldExpression>
 				</textField>
@@ -203,7 +203,7 @@
 	<title>
 		<band height="65" splitType="Stretch">
 			<subreport>
-				<reportElement uuid="8da27ca8-20a1-47c0-b884-b44f3f55970c" x="0" y="0" width="803" height="65"/>
+				<reportElement x="0" y="0" width="803" height="65" uuid="8da27ca8-20a1-47c0-b884-b44f3f55970c"/>
 				<subreportParameter name="SUBREPORT_DIR">
 					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -232,30 +232,27 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="39492992-c4f0-4a5d-9019-e821e9936ab9" style="zebra" x="0" y="0" width="802" height="20"/>
+				<reportElement style="zebra" x="0" y="0" width="802" height="20" uuid="39492992-c4f0-4a5d-9019-e821e9936ab9"/>
 				<graphicElement>
 					<pen lineWidth="0.0"/>
 				</graphicElement>
 			</rectangle>
 			<line>
-				<reportElement uuid="1b51e3c6-2daf-4a1c-b2c6-62ca1cebac4b" x="0" y="0" width="1" height="20"/>
+				<reportElement x="0" y="0" width="1" height="20" uuid="1b51e3c6-2daf-4a1c-b2c6-62ca1cebac4b"/>
 			</line>
 			<line>
-				<reportElement uuid="045ab6ab-6783-4ee8-a659-6173badf45d6" x="802" y="0" width="1" height="20"/>
+				<reportElement x="802" y="0" width="1" height="20" uuid="045ab6ab-6783-4ee8-a659-6173badf45d6"/>
 			</line>
 			<textField>
-				<reportElement uuid="9a19db75-a4a6-4b1f-b524-1d26fefc72a4" x="4" y="0" width="56" height="20"/>
-				<textElement/>
+				<reportElement x="4" y="0" width="56" height="20" uuid="9a19db75-a4a6-4b1f-b524-1d26fefc72a4"/>
 				<textFieldExpression><![CDATA[$F{parcelasReceber}.getNumeroDaParcela()]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤ #,##0.00">
-				<reportElement uuid="86d0f5af-044c-4aea-a382-a3110575d426" x="261" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="261" y="0" width="100" height="20" uuid="86d0f5af-044c-4aea-a382-a3110575d426"/>
 				<textFieldExpression><![CDATA[$F{parcelasReceber}.getValorDoColaborador()]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement uuid="1f2f2673-63cb-4831-b74e-a75c1c4a3500" x="106" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="106" y="0" width="100" height="20" uuid="1f2f2673-63cb-4831-b74e-a75c1c4a3500"/>
 				<textFieldExpression><![CDATA[$F{dataPagamentoColaborador}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -263,22 +260,22 @@
 	<summary>
 		<band height="20" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="3ddaf818-e96d-4eaf-b0e5-bc6c0cf10332" x="0" y="0" width="802" height="20"/>
+				<reportElement x="0" y="0" width="802" height="20" uuid="3ddaf818-e96d-4eaf-b0e5-bc6c0cf10332"/>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="1210043d-4de2-4462-a159-063376d81f66" x="173" y="0" width="88" height="20"/>
+				<reportElement x="173" y="0" width="88" height="20" uuid="1210043d-4de2-4462-a159-063376d81f66"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Total Geral ==>>]]></text>
 			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement uuid="8ba3d869-584b-4517-9cdb-295d83571619" x="561" y="0" width="241" height="20"/>
+				<reportElement x="561" y="0" width="241" height="20" uuid="8ba3d869-584b-4517-9cdb-295d83571619"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤ #,##0.00">
-				<reportElement uuid="6d8625d2-731c-4d12-92e5-1158a43007ef" x="261" y="0" width="100" height="20"/>
+				<reportElement x="261" y="0" width="100" height="20" uuid="6d8625d2-731c-4d12-92e5-1158a43007ef"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{parcelasReceber_3}]]></textFieldExpression>
 			</textField>

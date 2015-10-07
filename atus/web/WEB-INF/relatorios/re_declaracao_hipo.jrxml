@@ -12,13 +12,13 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="cliente" class="br.com.atus.modelo.Cliente">
+	<field name="cliente" class="br.com.atus.cadastro.modelo.Cliente">
 		<fieldDescription><![CDATA[cliente]]></fieldDescription>
 	</field>
 	<title>
 		<band height="27" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="f3ef1e7d-e84c-4efa-bf3d-db6f3765f965" mode="Transparent" x="0" y="0" width="555" height="27" backcolor="#CCCCCC"/>
+				<reportElement mode="Transparent" x="0" y="0" width="555" height="27" backcolor="#CCCCCC" uuid="f3ef1e7d-e84c-4efa-bf3d-db6f3765f965"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="16" isBold="true"/>
 				</textElement>
@@ -29,7 +29,7 @@
 	<detail>
 		<band height="382" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="4b3aa4f2-defc-4bf9-ace2-08cb2fda3d77" x="0" y="69" width="555" height="241"/>
+				<reportElement x="0" y="69" width="555" height="241" uuid="4b3aa4f2-defc-4bf9-ace2-08cb2fda3d77"/>
 				<textElement textAlignment="Justified">
 					<font size="12"/>
 				</textElement>
@@ -47,7 +47,7 @@
  +" DECLARA, nos termos da lei nº. 1.060/50, que dispõe sobre a prova documental"+" para todos os fins de direito, inclusive para fazer prova junto a esse juízo, que é pobre, na forma da lei, não podendo arcar com custas e emolumentos judiciais, sem prejuizo de seus sustentos e seus familiares,  "+"pelo que assumo inteira responsabilidade, sob as penas da lei, pela presente declaração."]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="bd84e336-c5ad-4c08-b780-550f27bd4cdd" x="56" y="359" width="437" height="20"/>
+				<reportElement x="56" y="359" width="437" height="20" uuid="bd84e336-c5ad-4c08-b780-550f27bd4cdd"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 				</box>
@@ -61,7 +61,7 @@
 	<pageFooter>
 		<band height="57">
 			<subreport>
-				<reportElement uuid="7dcf67bf-623d-4762-bf6d-0879694265c7" x="0" y="3" width="555" height="50"/>
+				<reportElement x="0" y="3" width="555" height="50" uuid="7dcf67bf-623d-4762-bf6d-0879694265c7"/>
 				<subreportParameter name="id">
 					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
 				</subreportParameter>
