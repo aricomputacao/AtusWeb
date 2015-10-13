@@ -29,31 +29,31 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class EventoController extends Controller<Evento, Long> implements Serializable {
-    
+
     @EJB
     private EventoDAO dao;
     @EJB
     private EspecieEventoDAO especieEventoDAO;
-    
+
     @PostConstruct
     @Override
     protected void inicializaDAO() {
         setDAO(dao);
     }
-    
+
     public List<Evento> listarPorProcessos(Processo processo) {
         if (processo.getId() == null) {
             return new ArrayList<>();
         } else {
             return dao.listarPorProcesso(processo);
-            
+
         }
     }
-    
+
     public List<Evento> listarPorPeriodo(Date dataInicial, Date dataFinal) {
         return dao.consultaEventoPor(dataInicial, dataFinal);
     }
-    
+
     public List<Evento> consultaEventoColaboradorPor(Colaborador colaborador, Date dataInicial, Date dataFinal) {
         List<Evento> listaEventos = new ArrayList<>();
         if (colaborador.getId() != null) {
@@ -64,26 +64,26 @@ public class EventoController extends Controller<Evento, Long> implements Serial
         Collections.sort(listaEventos);
         return listaEventos;
     }
-    
+
     public List<Evento> consultaEventoColaboradorPor(Colaborador colaborador, Date dataInicial, Date dataFinal, boolean ehUsuarioDoEscritorio) {
         List<Evento> listaEventos;
         List<EspecieEvento> listaEspecieEventos = especieEventoDAO.consultarTiposParaRelatorio();
         if (ehUsuarioDoEscritorio) {
             if (colaborador.getId() != null) {
-                listaEventos = dao.consultaEventoColaboradorPor(colaborador, dataInicial, dataFinal,listaEspecieEventos);
+                listaEventos = dao.consultaEventoColaboradorPor(colaborador, dataInicial, dataFinal, listaEspecieEventos);
             } else {
-                listaEventos = dao.consultaEventoOrdenadoPorColaboradorPor(dataInicial, dataFinal,listaEspecieEventos);
+                listaEventos = dao.consultaEventoOrdenadoPorColaboradorPor(dataInicial, dataFinal, listaEspecieEventos);
             }
         } else {
-            listaEventos = dao.consultaEventoColaboradorPor(colaborador, dataInicial, dataFinal,listaEspecieEventos);
+            listaEventos = dao.consultaEventoColaboradorPor(colaborador, dataInicial, dataFinal, listaEspecieEventos);
         }
-        
+
         Collections.sort(listaEventos);
         return listaEventos;
     }
-    
+
     public void adicionarEvento(Evento evento, Usuario usuarioLogado) throws Exception {
-        
+
         if (evento.getId() == null) {
             if (evento.getObservacao().equals("") || evento.getObservacao() == null) {
                 evento.setObservacao("---");
@@ -94,5 +94,10 @@ public class EventoController extends Controller<Evento, Long> implements Serial
             dao.atualizar(evento);
         }
     }
-    
+
+    public List<Evento> listarPorPeriodoTiposDeEventos(Date dataInicial, Date dataFinal, List<EspecieEvento> listaEspecieEventosSelection) {
+        return dao.consultaEventoOrdenadoPorColaboradorPor(dataInicial, dataFinal, listaEspecieEventosSelection);
+
+    }
+
 }

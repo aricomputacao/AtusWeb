@@ -28,7 +28,14 @@
         <h:panelGrid  width="100%" id="rtt" >
             <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" rendered="#{navegacaoMB.permissaoConsultar(navegacao['pro.evento'])}" style="font-weight: bold">
                 <h:panelGrid columns="3">
+                     <h:panelGrid>
+                         <p:outputLabel value="#{label.tipo_evento}" />
+                         <p:selectCheckboxMenu label="#{label.selecione}" required="true" value="#{eventoMB.listaEspecieEventosSelection}" filter="true" 
+                                              filterMatchMode="startsWith" panelStyle="width:350px" converter="#{indexConverter}">
+                             <f:selectItems value="#{especieEventoMB.listaEspecieEventos}" var="f" itemLabel="#{f.nome}" itemValue="#{f}" />
+                        </p:selectCheckboxMenu>
 
+                    </h:panelGrid>
                     <h:panelGrid id="grdConsulta" columns="4">
                         <h:panelGrid columns="3">
                             <p:focus for="dtIni"/>

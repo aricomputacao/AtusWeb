@@ -38,6 +38,7 @@ public class EspecieEventoMB extends BeanGenerico<EspecieEvento> implements Seri
     @EJB
     private EspecieEventoController controller;
     private List<EspecieEvento> listaEspecieEventos;
+
     private EspecieEvento especieEvento;
 
     public EspecieEventoMB() {
@@ -48,7 +49,7 @@ public class EspecieEventoMB extends BeanGenerico<EspecieEvento> implements Seri
     @PostConstruct
     public void init() {
         try {
-            listaEspecieEventos = controller.consultarTodos("nome");
+            listaEspecieEventos = controller.consultarTodosOrdenadoPorNome();
             especieEvento = (EspecieEvento) navegacaoMB.getRegistroMapa("especie_evento", new EspecieEvento());
         } catch (Exception ex) {
             Logger.getLogger(EspecieEventoMB.class.getName()).log(Level.SEVERE, null, ex);
@@ -119,5 +120,7 @@ public class EspecieEventoMB extends BeanGenerico<EspecieEvento> implements Seri
     public void setEspecieEvento(EspecieEvento especieEvento) {
         this.especieEvento = especieEvento;
     }
+
+    
 
 }

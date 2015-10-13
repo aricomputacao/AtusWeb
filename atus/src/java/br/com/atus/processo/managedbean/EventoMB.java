@@ -10,10 +10,9 @@ import br.com.atus.cadastro.controller.AgendaController;
 import br.com.atus.util.managedbean.BeanGenerico;
 import br.com.atus.util.managedbean.NavegacaoMB;
 import br.com.atus.processo.controller.EventoController;
-import br.com.atus.processo.modelo.Adversario;
 import br.com.atus.cadastro.modelo.Agenda;
+import br.com.atus.cadastro.modelo.EspecieEvento;
 import br.com.atus.processo.modelo.Evento;
-import br.com.atus.processo.modelo.Processo;
 import br.com.atus.util.AssistentedeRelatorio;
 import br.com.atus.util.MenssagemUtil;
 import br.com.atus.util.RelatorioSession;
@@ -48,6 +47,8 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
     private Evento evento;
     private List<Agenda> listaAgendas;
     private List<Evento> listaEventos;
+    private List<EspecieEvento> listaEspecieEventosSelection;
+
     private Date dataInicial;
     private Date dataFinal;
 
@@ -61,12 +62,13 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
         dataFinal = new Date();
         dataInicial = new Date();
         listaEventos = new ArrayList<>();
+        listaEspecieEventosSelection = new ArrayList<>();
     }
 
     public void salvar() {
         try {
 
-            controller.adicionarEvento(evento,navegacaoMB.getUsuarioLogado());
+            controller.adicionarEvento(evento, navegacaoMB.getUsuarioLogado());
             agendaController.addAgenda(evento);
             init();
             MenssagemUtil.addMessageInfo(NavegacaoMB.getMsg("salvar", MenssagemUtil.MENSAGENS));
@@ -78,7 +80,7 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
     }
 
     public void listarPorPeriodo() {
-        listaEventos = controller.listarPorPeriodo(dataInicial, dataFinal);
+        listaEventos = controller.listarPorPeriodoTiposDeEventos(dataInicial, dataFinal,listaEspecieEventosSelection);
         if (listaEventos.isEmpty()) {
             MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 
@@ -171,5 +173,15 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
     public void setDataFinal(Date dataFinal) {
         this.dataFinal = dataFinal;
     }
+
+    public List<EspecieEvento> getListaEspecieEventosSelection() {
+        return listaEspecieEventosSelection;
+    }
+
+    public void setListaEspecieEventosSelection(List<EspecieEvento> listaEspecieEventosSelection) {
+        this.listaEspecieEventosSelection = listaEspecieEventosSelection;
+    }
+    
+    
 
 }

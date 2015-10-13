@@ -30,4 +30,11 @@ public class EspecieEventoDAO extends DAO<EspecieEvento, Integer> implements Ser
         return tq.getResultList();
     }
 
+    public List<EspecieEvento> consultarTodosOrdenadoPorNome() {
+        TypedQuery<EspecieEvento> tq;
+        tq = getEm().createQuery("SELECT e FROM EspecieEvento e ORDER BY e.nome", EspecieEvento.class);
+        return tq.getResultList();
+
+    }
+
 }

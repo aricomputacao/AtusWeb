@@ -33,15 +33,15 @@
                                 pattern="dd/MM/yyyy HH:mm"/>
                 </h:panelGrid>
             </h:panelGrid>
-            <h:panelGrid columns="2">
+            <h:panelGrid columns="1">
 
                 <h:panelGrid >
                     <h:outputLabel for="tipo" value="Tipo:" /> 
-                    <p:selectOneMenu 
+                    <p:selectOneRadio  style="border: solid #66afe9 1px" 
                         id="tipo" value="#{eventoMB.evento.especieEvento}"
                         converter="#{indexConverter}">
-                        <f:selectItems value="#{especieEventoMB.listaEspecieEventos}" var="es" itemLabel="#{es.nome}" itemValue="#{es}"/>
-                    </p:selectOneMenu>
+                        <f:selectItems value="#{especieEventoMB.listaEspecieEventos}"  var="es" itemLabel="#{es.nome}" itemValue="#{es}"/>
+                    </p:selectOneRadio>
                 </h:panelGrid>
                 <h:panelGrid >
                     <h:outputLabel for="tit" value="Titulo:" /> 
