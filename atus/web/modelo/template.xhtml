@@ -18,7 +18,7 @@
         <h:outputStylesheet library="css" name="agenda.css"/>
         <h:outputScript name="calendario_pt_BR.js" library="js" />
         <h:outputScript library="js" name="navegacao.js" />
-    
+
         <title>#{label['nome.sistema']}</title>
     </h:head>
     <h:body styleClass="boby">
@@ -26,18 +26,18 @@
             <p:layoutUnit  id="center"  position="center"   >
                 <div class="cabecalho">
                     <h:form id="frmCabecalho">
+                        <p:poll interval="1"    update="frmCabecalho"  immediate="true" listener="#{chatSessioMB.checarChegadaDeMensagens()}" />
                         <p:graphicImage  url="/resources/imagens/logo-cab.png" style="float: left;margin-top: 3px"   />
-                        <div style="float: right;margin-top: 20px;margin-right: 100px;">
+                        <div style="float: right;margin-top: 20px;margin-right: 100px;" id="divCabecalho">
                             <p  >Bem Vindo,<strong>#{navegacaoMB.usuarioLogado.login}</strong> <span> <p:graphicImage width="15" height="15"   library="imagens" name="usr.png" /></span></p>
                             <h:panelGrid columns="6">
-                                <h:link class="link"  value="Contas e Configurações" hreflang="#" />
+                                <p:commandLink styleClass="link"  value="#{label.mensagens}(#{chatSessioMB.qtdDeMensagens})" onclick="PF('usrAti').show()"  />
                                 <h:outputLabel style="color: #505050 " value="|"/>
-                                <p:commandLink styleClass="link" value="Alterar Senha" onclick="PF('dialogAltSen').show()"  />
+                                <p:commandLink styleClass="link" value="#{label.alterar_senha}" onclick="PF('dialogAltSen').show()"  />
                                 <h:outputLabel style="color: #505050 " value="|"/>
-                                <h:commandLink id="lnkSair" class="link" value="Sair"  actionListener="#{navegacaoMB.logout()}" />
+                                <h:commandLink id="lnkSair" class="link" value="#{label.sair}"  actionListener="#{navegacaoMB.logout()}" />
                             </h:panelGrid>
                         </div>
-
                     </h:form>
                 </div>
 
@@ -46,22 +46,30 @@
                 <ui:insert id="crp"  name="corpo"></ui:insert>
 
                 <div class="rodape">
-
-
                 </div>
 
             </p:layoutUnit>
-
-
         </p:layout>
         <p:dialog showEffect="fade" position="top"   id="altSen" modal="true" hideEffect="fade" widgetVar="dialogAltSen">
             <util:alterarSenha/>
+        </p:dialog>
+        <p:dialog showEffect="fade"  header="#{label.usuariosAtivos}" style="position: fixed;float: left;"  
+                  id="usruarios" modal="true" hideEffect="fade" widgetVar="usrAti">
+           <h:form id="frm_prin">
+               <p:poll interval="1"   update="tbl"  immediate="true" listener="#{chatSessioMB.atualizarListaDeUsuariosLogados()}" />
+                <p:dataList  itemType="none"  value="#{chatSessioMB.listaDeUsuariosLogados}" var="usr"  id="tbl">
+                   
+                    <p:commandLink value="#{usr} -- " actionListener="#{chatSessioMB.adicionarChat(usr)}"  />
+
+                </p:dataList>
+            </h:form>
+            
         </p:dialog>
         <ui:insert name="dialogs">
         </ui:insert>
         <ui:insert name="confirme">
             <p:confirmDialog global="true" >
-                
+
                 <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" style="margin-right: 20px" icon="fa fa-check-circle fa-lg"/>
                 <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times fa-lg"/>
             </p:confirmDialog>

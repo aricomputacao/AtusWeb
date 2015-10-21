@@ -55,7 +55,7 @@ public class EventoDAO extends DAO<Evento, Long> implements Serializable {
 
     public List<Evento> consultaEventoOrdenadoPorColaboradorPor(Date dataInicial, Date dataFinal) {
         TypedQuery<Evento> tq;
-        tq = getEm().createQuery("SELECT e FROM Evento e WHERE e.data BETWEEN :dtIni and :dtFim ORDER BY e.processo.colaborador", Evento.class);
+        tq = getEm().createQuery("SELECT e FROM Evento e WHERE e.data BETWEEN :dtIni and :dtFim ORDER BY e.processo.colaborador,e.data", Evento.class);
         tq.setParameter("dtIni", MetodosUtilitarios.processarDataInicial(dataInicial));
         tq.setParameter("dtFim", MetodosUtilitarios.processarDataFinal(dataFinal));
         if (tq.getResultList().isEmpty()) {
@@ -67,7 +67,20 @@ public class EventoDAO extends DAO<Evento, Long> implements Serializable {
 
     public List<Evento> consultaEventoOrdenadoPorColaboradorPor(Date dataInicial, Date dataFinal, List<EspecieEvento> especieEventos) {
         TypedQuery<Evento> tq;
-        tq = getEm().createQuery("SELECT e FROM Evento e WHERE e.especieEvento in (:espEvs) and e.data BETWEEN :dtIni and :dtFim ORDER BY e.processo.colaborador", Evento.class);
+        tq = getEm().createQuery("SELECT e FROM Evento e WHERE e.especieEvento in (:espEvs) and e.data BETWEEN :dtIni and :dtFim ORDER BY e.processo.colaborador,e.data", Evento.class);
+        tq.setParameter("dtIni", MetodosUtilitarios.processarDataInicial(dataInicial));
+        tq.setParameter("dtFim", MetodosUtilitarios.processarDataFinal(dataFinal));
+        tq.setParameter("espEvs", especieEventos);
+
+        if (tq.getResultList().isEmpty()) {
+            return new ArrayList<>();
+        } else {
+            return tq.getResultList();
+        }
+    }
+    public List<Evento> consultaEventoOrdenadoPorDataPor(Date dataInicial, Date dataFinal, List<EspecieEvento> especieEventos) {
+        TypedQuery<Evento> tq;
+        tq = getEm().createQuery("SELECT e FROM Evento e WHERE e.especieEvento in (:espEvs) and e.data BETWEEN :dtIni and :dtFim ORDER BY e.data", Evento.class);
         tq.setParameter("dtIni", MetodosUtilitarios.processarDataInicial(dataInicial));
         tq.setParameter("dtFim", MetodosUtilitarios.processarDataFinal(dataFinal));
         tq.setParameter("espEvs", especieEventos);
@@ -95,7 +108,7 @@ public class EventoDAO extends DAO<Evento, Long> implements Serializable {
 
     public List<Evento> consultaEventoColaboradorPor(Colaborador colaborador, Date dtIni, Date dtFim, List<EspecieEvento> especieEventos) {
         TypedQuery<Evento> tq;
-        tq = getEm().createQuery("SELECT e FROM Evento e WHERE e.especieEvento in (:espEvs) and  e.processo.colaborador = :col and e.data BETWEEN :dtIni and :dtFim ORDER BY e.processo.colaborador", Evento.class);
+        tq = getEm().createQuery("SELECT e FROM Evento e WHERE e.especieEvento in (:espEvs) and  e.processo.colaborador = :col and e.data BETWEEN :dtIni and :dtFim ORDER BY e.processo.colaborador,e.data", Evento.class);
         tq.setParameter("dtIni", MetodosUtilitarios.processarDataInicial(dtIni));
         tq.setParameter("dtFim", MetodosUtilitarios.processarDataFinal(dtFim));
         tq.setParameter("col", colaborador);

@@ -78,7 +78,7 @@ public class EventoController extends Controller<Evento, Long> implements Serial
             listaEventos = dao.consultaEventoColaboradorPor(colaborador, dataInicial, dataFinal, listaEspecieEventos);
         }
 
-        Collections.sort(listaEventos);
+//        Collections.sort(listaEventos);
         return listaEventos;
     }
 
@@ -95,8 +95,8 @@ public class EventoController extends Controller<Evento, Long> implements Serial
         }
     }
 
-    public List<Evento> listarPorPeriodoTiposDeEventos(Date dataInicial, Date dataFinal, List<EspecieEvento> listaEspecieEventosSelection) {
-        return dao.consultaEventoOrdenadoPorColaboradorPor(dataInicial, dataFinal, listaEspecieEventosSelection);
+    public List<Evento> listarPorPeriodoTiposDeEventosOrdenadoPorData(Date dataInicial, Date dataFinal, List<EspecieEvento> listaEspecieEventosSelection) {
+        return dao.consultaEventoOrdenadoPorDataPor(dataInicial, dataFinal, listaEspecieEventosSelection);
 
     }
 

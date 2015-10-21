@@ -62,7 +62,18 @@
     </filter-mapping>
     <!--Fim da Config Spring Security-->
     
-    <!--inicio incluir icines-->
+    <!--gerenciador de sessão-->
+     <listener>  
+        <description>sessionListener</description>  
+        <listener-class>  
+            br.com.chat.controller.SessionListener  
+        </listener-class>  
+    </listener>
+  
+    
+    
+    
+    <!--inicio incluir icones-->
     <context-param>
         <param-name>primefaces.FONT_AWESOME</param-name>
         <param-value>true</param-value>

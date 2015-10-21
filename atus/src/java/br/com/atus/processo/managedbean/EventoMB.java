@@ -80,7 +80,7 @@ public class EventoMB extends BeanGenerico<Evento> implements Serializable {
     }
 
     public void listarPorPeriodo() {
-        listaEventos = controller.listarPorPeriodoTiposDeEventos(dataInicial, dataFinal,listaEspecieEventosSelection);
+        listaEventos = controller.listarPorPeriodoTiposDeEventosOrdenadoPorData(dataInicial, dataFinal,listaEspecieEventosSelection);
         if (listaEventos.isEmpty()) {
             MenssagemUtil.addMessageWarn(NavegacaoMB.getMsg("consulta.vazia", MenssagemUtil.MENSAGENS));
 

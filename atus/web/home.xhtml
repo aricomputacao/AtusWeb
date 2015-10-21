@@ -25,20 +25,13 @@
                         </h:panelGrid>
                     </h:form>
                 </p:panel>
-
-              
-
             </p:tab>
 
             <p:tab title="Agenda" >
                 <h:form id="frm_home" prependId="false" styleClass="painelAgendas">
-
-
-
                     <p:messages id="mensagens" showDetail="true" />
                     <p:schedule widgetVar="meucalendario" tooltip="true" style="width: 100%"  
                                 value="#{agendaMB.eventModel}" id="sch" timeZone="America/Sao_Paulo"  ignoreTimezone="false" timeFormat="dd/MM hh:mm"   >
-
                         <!-- eventos -->
                         <p:ajax event="dateSelect" listener="#{agendaMB.quandoNovo}" 
                                 oncomplete="PF('caixaDialogo').show()" update=":frmDialog:eventDetails" />  
@@ -84,7 +77,6 @@
                       header="Evento"  width="800"
                       resizable="false"
                       showEffect="clip" hideEffect="clip">  
-
                 <p:outputPanel 
                     id="eventDetails">
 
