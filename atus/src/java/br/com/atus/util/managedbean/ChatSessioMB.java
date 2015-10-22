@@ -11,7 +11,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -22,8 +21,7 @@ import javax.inject.Named;
 @SessionScoped
 public class ChatSessioMB extends GerenciadorChat implements Serializable {
 
-//    @Inject
-//    private NavegacaoMB navegacaoMB;
+    
     private List<String> listaDeUsuariosLogados;
 //    private String usuarioDaSessao;
 
@@ -31,12 +29,10 @@ public class ChatSessioMB extends GerenciadorChat implements Serializable {
      *
      */
     @PostConstruct
-    public void iniciar() {    
-        
+    public void iniciar() {
         setUsuarioLogado(contexto().getRemoteUser());
         logar();
         listaDeUsuariosLogados = getListaDeUsuariosLogado(contexto().getRemoteUser());
-
     }
 
     public void adicionarChat(String dest) {
@@ -46,12 +42,15 @@ public class ChatSessioMB extends GerenciadorChat implements Serializable {
             contextoRequisicaoPrimefaces().execute("PF('chat_2').show();");
             contextoRequisicaoPrimefaces().update("chat_2");
         } else {
+            setDestino("");
             addChat(dest);
             contextoRequisicaoPrimefaces().execute("PF('chat').show();");
             contextoRequisicaoPrimefaces().update("chat");
         }
     }
 
+  
+    
     public void atualizarListaDeUsuariosLogados() {
         listaDeUsuariosLogados = getListaDeUsuariosLogado(contexto().getRemoteUser());
     }
@@ -66,5 +65,4 @@ public class ChatSessioMB extends GerenciadorChat implements Serializable {
         return listaDeUsuariosLogados;
     }
 
-   
 }
