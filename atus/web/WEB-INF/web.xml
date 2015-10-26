@@ -63,12 +63,12 @@
     <!--Fim da Config Spring Security-->
     
     <!--gerenciador de sessão-->
-     <listener>  
+<!--     <listener>  
         <description>sessionListener</description>  
         <listener-class>  
             br.com.chat.controller.SessionListener  
         </listener-class>  
-    </listener>
+    </listener>-->
   
     
     

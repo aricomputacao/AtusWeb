@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.atus.util.managedbean;
+package br.com.atus.chat.MB;
 
-import br.com.chat.managedbean.GerenciadorChat;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -21,7 +20,6 @@ import javax.inject.Named;
 @SessionScoped
 public class ChatSessioMB extends GerenciadorChat implements Serializable {
 
-    
     private List<String> listaDeUsuariosLogados;
 //    private String usuarioDaSessao;
 
@@ -36,21 +34,47 @@ public class ChatSessioMB extends GerenciadorChat implements Serializable {
     }
 
     public void adicionarChat(String dest) {
+
         getLerMsg().clear();
-        if (mensagensParaUsuarioLogado(dest)) {
+
+        if (existeChat(contexto().getRemoteUser(), dest)) {
+            setDestino("");
+            setarOrigemExterno("");
+            addChat(dest);
+           
+            contextoRequisicaoPrimefaces().execute("PF('chat').show();");
+            contextoRequisicaoPrimefaces().update("chat");
+        } else if (existeChat(dest, contexto().getRemoteUser())) {
+            setDestino("");
             setarOrigemExterno(dest);
+           
             contextoRequisicaoPrimefaces().execute("PF('chat_2').show();");
             contextoRequisicaoPrimefaces().update("chat_2");
         } else {
             setDestino("");
+            setarOrigemExterno("");
             addChat(dest);
+            
             contextoRequisicaoPrimefaces().execute("PF('chat').show();");
             contextoRequisicaoPrimefaces().update("chat");
         }
+
+//        if (mensagensParaUsuarioLogado(dest) > 0) {
+//            setDestino("");
+//            setarOrigemExterno(dest);
+//            lerMensagemDoExterno();
+//            contextoRequisicaoPrimefaces().execute("PF('chat_2').show();");
+//            contextoRequisicaoPrimefaces().update("chat_2");
+//        } else {
+//            setDestino("");
+//            setarOrigemExterno("");
+//            lerMensagem();
+//            addChat(dest);
+//            contextoRequisicaoPrimefaces().execute("PF('chat').show();");
+//            contextoRequisicaoPrimefaces().update("chat");
+//        }
     }
 
-  
-    
     public void atualizarListaDeUsuariosLogados() {
         listaDeUsuariosLogados = getListaDeUsuariosLogado(contexto().getRemoteUser());
     }

@@ -11,8 +11,6 @@ import br.com.atus.processo.controller.ProcessoController;
 import br.com.atus.cadastro.controller.UsuarioController;
 import br.com.atus.dto.ProcessoUltimaMovimentacaoDTO;
 import br.com.atus.dto.ProcessosAtrasadoRelatorioDTO;
-import br.com.atus.financeiro.controller.CaixaColaboradorController;
-import br.com.atus.financeiro.modelo.CaixaColaborador;
 import br.com.atus.cadastro.modelo.Cliente;
 import br.com.atus.cadastro.modelo.Colaborador;
 import br.com.atus.processo.modelo.Evento;
