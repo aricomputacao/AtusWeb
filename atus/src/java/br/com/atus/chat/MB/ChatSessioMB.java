@@ -81,8 +81,8 @@ public class ChatSessioMB extends GerenciadorChat implements Serializable {
 
     @PreDestroy
     public void sair() {
-        listaDeUsuariosLogados.remove(contexto().getRemoteUser());
         logout();
+        listaDeUsuariosLogados.remove(contexto().getRemoteUser());
     }
 
     public List<String> getListaDeUsuariosLogados() {

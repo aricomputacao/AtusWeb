@@ -16,6 +16,7 @@ import br.com.atus.cadastro.modelo.Cliente;
 import br.com.atus.cadastro.modelo.Colaborador;
 import br.com.atus.seguranca.modelo.Permissao;
 import br.com.atus.cadastro.modelo.Usuario;
+import br.com.atus.chat.MB.ChatApplicationMb;
 import br.com.atus.util.ContextoAplicacao;
 import java.io.IOException;
 import java.io.Serializable;
@@ -40,16 +41,18 @@ import javax.inject.Named;
 @SessionScoped
 public class NavegacaoMB implements Serializable {
 
-    @EJB
+    @Inject
     private UsuarioController usuarioController;
-    @EJB
+    @Inject
     private AdvogadoController advogadoController;
-    @EJB
+    @Inject
     private ClienteController clienteController;
-    @EJB
+    @Inject
     private ColaboradorController colaboradorController;
-    @EJB
+    @Inject
     private PermissaoController permissaoController;
+    @Inject
+    private ChatApplicationMb chatApplicationMb;
     private final Map<String, Object> map;
     private final Map<String, Permissao> menu;
     private List<Permissao> listaPermissaos;
@@ -165,6 +168,7 @@ public class NavegacaoMB implements Serializable {
         }
         return false;
     }
+
     /**
      *
      * @param tarNome
@@ -454,8 +458,8 @@ public class NavegacaoMB implements Serializable {
 
     public void logout() {
         try {
+            chatApplicationMb.removerUsuarioLogado(getUsuarioLogado().getLogin());
             FacesContext.getCurrentInstance().getExternalContext().redirect(getNomeSistema() + "/j_spring_security_logout");
-
         } catch (IOException ex) {
             Logger.getLogger(NavegacaoMB.class.getName()).log(Level.SEVERE, null, ex);
         }
