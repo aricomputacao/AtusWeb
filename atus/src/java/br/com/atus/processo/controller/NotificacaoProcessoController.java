@@ -9,7 +9,7 @@ import br.com.atus.processo.dao.NotificacaoProcessoDAO;
 import br.com.atus.interfaces.Controller;
 import br.com.atus.processo.modelo.NotificacaoProcesso;
 import br.com.atus.processo.modelo.Processo;
-import br.com.sisdelta.utilitarios.ManipuladorDeArquivo;
+import br.com.atus.util.ManipuladorDeArquivo;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.Serializable;

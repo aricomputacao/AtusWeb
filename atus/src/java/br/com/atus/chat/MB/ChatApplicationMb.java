@@ -24,7 +24,7 @@ import javax.inject.Named;
  *
  * @author ari
  */
-@ApplicationScoped
+//@ApplicationScoped
 @Named
 public class ChatApplicationMb implements Serializable {
 
