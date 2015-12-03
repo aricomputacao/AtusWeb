@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+    </composite:interface>
+    <composite:implementation  >
+        <p:fieldset id="fieldCad" rendered="#{navegacaoMB.permissaoIncluir(navegacao['cad.cliente'])}"   legend="Cadastro" styleClass="painelCadastros">
+            <h:panelGrid  styleClass="cabecalho" style="font-weight: bolder"  >
+                <h:panelGrid columns="2" >
+                    <p:outputLabel value="Tipo Pessoa" for="tp"/>
+                    <p:message for="tp"/>
+                </h:panelGrid>
+                <p:selectOneRadio id="tp"  style="width: 150px"  value="#{clienteMB.cliente.pessoa.tipoPessoa}" required="true"   >
+                    <f:selectItems value="#{clienteMB.listaTipoPessoa()}" var="tp" itemLabel="#{tp}" />
+                    <p:ajax event="change" update="@form" listener="#{clienteMB.setarPF()}"/>
+                </p:selectOneRadio>
+            </h:panelGrid>
+            <h:panelGrid >
+                <cadastro:PessoaJuridicaCadastro id="compPj" rendered="#{clienteMB.renderPF() == 2}"/>
+                <cadastro:PessoaFisicaCadastro id="compPf" rendered="#{clienteMB.renderPF() == 1}"/>
+            </h:panelGrid>
+        </p:fieldset>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

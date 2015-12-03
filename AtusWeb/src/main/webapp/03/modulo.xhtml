@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:cons="http://java.sun.com/jsf/composite/consultas"
+                xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro">
+
+    <ui:define name="corpo">
+        <h:form id="frm_pag" prependId="false" >
+            <comp:menuPanel id="menuPanel" acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['seg.modulo'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['seg.modulo'])}" acao_imprimir="#{navegacaoMB.index()}" acao_limpar="#{moduloMB.init()}" acao_salvar="#{moduloMB.salvar()}"/>
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Módulo" id_form="frm_ram"  >
+                <h:panelGrid width="100%" id="grdComAdv" rendered="#{navegacaoMB.renderPainelCadastro}"  >
+                    <cadastro:ModuloCadastro id="mod_cad"/>
+                </h:panelGrid>
+
+                <cons:ModuloConsulta  rendered="#{not navegacaoMB.renderPainelCadastro}" renderSelecionar="false" id="modCon" />
+
+            </comp:panel_cadastro>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+

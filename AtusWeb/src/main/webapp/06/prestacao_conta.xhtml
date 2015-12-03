@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:cons="http://java.sun.com/jsf/composite/consultas"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro"
+                xmlns:util="http://java.sun.com/jsf/composite/util"
+                xmlns:acao="http://java.sun.com/jsf/composite/acao">
+
+    <ui:define name="corpo">
+        <h:outputScript name="maskMoney.js" library="js" />
+        <h:outputScript name="edtMoeda.js"  library="js"/>
+        <h:form id="frm_pag" prependId="false" >
+
+            <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['fin.prestacao.conta'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['fin.recibo'])}" 
+                              disable_novo="true" disable_imprimir="true" acao_imprimir="#{prestacaoDeContaMB.init()}" acao_limpar="#{prestacaoDeContaMB.init()}" acao_salvar="#{contaReceberMB.salvar()}"/>
+
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Prestação de Contas" id_form="frm_pag"  >               
+                <h:panelGrid width="100%" rendered="#{navegacaoMB.renderPainelCadastro}"  >
+                </h:panelGrid>       
+                <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}"> 
+                    <cons:PrestacaoDeContaConsulta id="ContRecCon"/>
+
+                </h:panelGrid>
+            </comp:panel_cadastro>
+        </h:form>
+
+    </ui:define>
+    <ui:define name="dialogs">
+      
+
+    </ui:define>
+
+</ui:composition>
+
+
+
+
+

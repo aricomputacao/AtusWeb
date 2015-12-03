@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+        <composite:attribute name="acao_consultar" default="#{prestacaoDeContaMB.consultaRecibosParaPrestacaoDeconta()}" shortDescription="Metodo de consulta "  method-signature="java.lang.Void action()" />
+        <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
+    </composite:interface>
+    <composite:implementation id="compConCli" >
+
+        <h:panelGrid  width="100%" id="rtt" >
+            <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" rendered="#{navegacaoMB.permissaoConsultar(navegacao['fin.prestacao.conta'])}" style="font-weight: bold">
+                <h:panelGrid id="grdConsulta" columns="4">
+                    <h:panelGrid id="grdConsulta1">
+                        <p:outputLabel value="Advogado"/>
+                        <p:selectOneMenu id="selectOne" value="#{prestacaoDeContaMB.advogado}" styleClass="lista" converter="#{indexConverter}">
+                            <f:selectItem itemLabel="------Selecione------" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{prestacaoDeContaMB.listaDeAdvogados}" var="a" itemLabel="#{a.nome}" itemValue="#{a}"/>
+                            <p:ajax event="change" listener="#{prestacaoDeContaMB.consultaRecibosParaPrestacaoDeconta()}" update="tabela" />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+
+                   
+                    <h:panelGrid id="grdConsulta4">
+                        <p:spacer width="15"/>
+                        <p:commandButton value="Confirmar prestação de contas" actionListener="#{prestacaoDeContaMB.prestarContas()}" oncomplete="popup('/atus/RelatorioServlet.pdf');" update="tabela" icon="fa fa-calculator fa-lg">
+                            <p:confirm message="Esta certo disso?" header="Confirmar recebimentos"  icon="fa fa-info fa-lg" />
+                        </p:commandButton>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <p:dataTable value="#{prestacaoDeContaMB.listaDeRecibosConferidos}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10" 
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" rowKey="#{t.id}"  selection="#{prestacaoDeContaMB.listaDeRecibosSelecionados}"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+
+                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                    <p:column style="width:16px">
+                        <p:rowToggler />
+                    </p:column>
+                    <p:column headerText="Id" width="3%">
+                        <comp:outputText value="#{t.id}" />
+                    </p:column>
+
+                
+                    <p:column headerText="Cliente">
+                        <comp:outputText value="#{t.nomeCliente}" />
+                    </p:column>
+                    <p:column headerText="Dono do Processo">
+                        <comp:outputText value="#{t.nomeDoAdvogadoDonoDoProcesso}" />
+                    </p:column>
+                    <p:column headerText="Vl. Repasse Dono">
+                        <comp:outputText value="#{t.valorRepasseDonoDoProcesso}" tipo="c" />
+                    </p:column>
+                    <p:column headerText="Vl. Advogado">
+                        <comp:outputText value="#{t.valorDonoDoProcesso}" tipo="c" />
+                    </p:column>
+                    <p:column headerText="Vl. Sócio">
+                        <comp:outputText value="#{t.valorSocioDoProcesso}" tipo="c" />
+                    </p:column>
+                    <p:column headerText="Vl. Colaborador">
+                        <comp:outputText value="#{t.valorDoColaborador}" tipo="c" />
+                    </p:column>
+                    <p:column headerText="Vl. Total">
+                        <comp:outputText value="#{t.valorTotal}" tipo="c" />
+                    </p:column>
+                    <p:rowExpansion>
+                        <p:dataTable value="#{t.listaDeParcelasReceber}" id="tabela2" paginatorAlwaysVisible="false"  paginator="true" var="p" rows="10" 
+                                     rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">>
+                            <f:facet name="header">
+                                <comp:outputText value="Parcelas do Recibo"/>
+                            </f:facet>   
+                            <p:columnGroup type="header">
+                                <p:row>
+                                    <p:column  headerText="Processo | Número Parcela"/>
+                                    <p:column  headerText="Vencimento"/>                        
+                                    <p:column  headerText="Data Pagamento"/>                        
+                                                        
+                                    <p:column  headerText="Valor Pago"/>                        
+                                </p:row>
+                            </p:columnGroup>
+
+                            <p:column>
+                                <comp:outputText value="&rArr; #{p.contaReceber.processo.id}  &rArr; Parcela: #{p.numeroDaParcela}"  />
+                            </p:column>
+                            <p:column >
+                                <comp:outputText value="#{p.vencimento}" tipo="d"/>
+                            </p:column>
+                            <p:column>
+                                <comp:outputText value="#{p.dataPagamento}" tipo="d"/>
+                            </p:column>
+                           
+                            <p:column>
+                                <comp:outputText value="#{p.valorPago}" tipo="c"/>
+                            </p:column>
+                           
+
+                        </p:dataTable>
+                    </p:rowExpansion>
+                    <p:columnGroup type="footer">
+                        <p:row>
+                            <p:column colspan="5"  footerText="&diams; Valores referentes aos recibos listados acima"/>                        
+                            <p:column  colspan="1" footerText="&diams; R$ #{prestacaoDeContaMB.totalRepassaAoDono}"/>
+                            <p:column  colspan="1" footerText="&diams; R$ #{prestacaoDeContaMB.totalAdvogado}"/>
+                            <p:column  colspan="1" footerText="&diams; R$ #{prestacaoDeContaMB.totalRepasseSocio}"/>
+                            <p:column  colspan="1" footerText="&diams; R$ #{prestacaoDeContaMB.totalColaborador}"/>
+                            <p:column  colspan="1" footerText="&diams; R$ #{prestacaoDeContaMB.totalRecibos}"/>
+                        </p:row>
+
+                    </p:columnGroup>
+                </p:dataTable>
+            </p:fieldset>
+
+        </h:panelGrid>
+    </composite:implementation>
+</ui:composition>
+
+
+
+
+

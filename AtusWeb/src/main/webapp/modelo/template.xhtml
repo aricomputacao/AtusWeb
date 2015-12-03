@@ -1,0 +1,145 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:util="http://java.sun.com/jsf/composite/util"
+                >
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        </f:facet>
+        <link rel="shortcut icon" href="../resources/imagens/ico.ico" />
+        <link rel="icon" type="image/png" href="../resources/imagens/ico.ico" />
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="agenda.css"/>
+        <h:outputScript name="calendario_pt_BR.js" library="js" />
+        <h:outputScript library="js" name="navegacao.js" />
+
+        <title>#{label['nome.sistema']}</title>
+    </h:head>
+    <h:body styleClass="boby">
+        <p:layout fullPage="true">
+            <p:layoutUnit  id="center"  position="center"   >
+                <div class="cabecalho">
+                    <h:form id="frmCabecalho">
+                        <!--<p:poll interval="1"    update="frmCabecalho"  immediate="true" listener="{chatSessioMB.checarChegadaDeMensagens()}" />-->
+                        <p:graphicImage  url="/resources/imagens/logo-cab.png" style="float: left;margin-top: 3px"   />
+                        <div style="float: right;margin-top: 20px;margin-right: 100px;" id="divCabecalho">
+                            <p  >Bem Vindo,<strong>#{navegacaoMB.usuarioLogado.login}</strong> <span> <p:graphicImage width="15" height="15"   library="imagens" name="usr.png" /></span></p>
+                            <h:panelGrid columns="6">
+                                <!--<p:commandLink styleClass="link"   value="{label.mensagens}({chatSessioMB.qtdDeMensagens})" onclick="PF('usrAti').show()"  />-->
+                                <h:outputLabel style="color: #505050 " value="|"/>
+                                <p:commandLink styleClass="link" value="#{label.alterar_senha}" onclick="PF('dialogAltSen').show()"  />
+                                <h:outputLabel style="color: #505050 " value="|"/>
+                                <h:commandLink id="lnkSair" class="link" value="#{label.sair}"  actionListener="#{navegacaoMB.logout()}" />
+                            </h:panelGrid>
+                        </div>
+                    </h:form>
+                </div>
+
+                <util:menuPrincipal id="compMenu"/>
+
+                <ui:insert id="crp"  name="corpo"></ui:insert>
+
+                <div class="rodape">
+                </div>
+
+            </p:layoutUnit>
+        </p:layout>
+        <p:dialog showEffect="fade" position="top"   id="altSen" modal="true" hideEffect="fade" widgetVar="dialogAltSen">
+            <util:alterarSenha/>
+        </p:dialog>
+        <p:dialog showEffect="fade"  header="#{label.usuariosAtivos}" width="15%"  minimizable="true"  position="right"  closeOnEscape="true"  
+                  id="usruarios" hideEffect="fade" widgetVar="usrAti" >
+<!--            <h:form id="frm_prin" >
+                <p:poll interval="1"   update="tbl"  immediate="true" listener="{chatSessioMB.atualizarListaDeUsuariosLogados()}" />
+                <p:dataTable    value="{chatSessioMB.listaDeUsuariosLogados}"  var="usr"  id="tbl" paginatorAlwaysVisible="false"  scrollHeight="300" 
+                                scrollRows="10" scrollable="true" rowStyleClass="{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                rowIndexVar="rowIx" emptyMessage="{mensagens['consulta.vazia']}">
+                    <p:column >
+                            <p:graphicImage library="imagens" name="ic_chat.png"/>
+                            <p:commandLink value="{usr} "  actionListener="{chatSessioMB.adicionarChat(usr)}"  style="margin-left: 5px" />
+                            <h:outputText value="({chatSessioMB.mensagensParaUsuarioLogado(usr)})" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>-->
+        </p:dialog>
+
+        <p:dialog widgetVar="chat" id="chat"   dynamic="true"   closable="false" modal="true">
+<!--            <f:facet name="header" id="tl">
+                <h:panelGrid columns="2">
+                    <p:graphicImage name="grupo.png" width="32" height="32" library="imagens" style="margin-right:  5px" />
+                    <p:outputLabel  value="{chatSessioMB.destino}"/>
+                </h:panelGrid>
+            </f:facet>
+            <h:form prependId="false" id="frm_chat" >
+                <h:panelGrid  columns="1"  width="100%">
+                    <p:poll interval="1"   update="grdMen " partialSubmit="chat" listener="{chatSessioMB.lerMensagem()}" />
+                    <p:dataScroller  id="grdMen" var="message" style="width: 100%" chunkSize="30" mode="inline" scrollHeight="300" value="{chatSessioMB.lerMsg}">
+                        <h:panelGroup layout="blok">
+                            <h:outputText value="{message.data}" >
+                                <f:convertDateTime pattern="MM/dd/yyyy hh:mm"/>
+                            </h:outputText>
+                            <strong><h:outputText value="{message.autor}" /> </strong>:
+                            <h:outputText value="{message.conteudo}" />
+                        </h:panelGroup>
+                    </p:dataScroller>
+                </h:panelGrid>
+                <h:panelGrid >
+                    <p:inputTextarea id="men1" cols="75"  rows="3" value="{chatSessioMB.msg}"   />
+                    <h:panelGrid columns="2" width="100%">
+                         <p:commandButton value="{label.enviar}" icon="fa fa-paper-plane-o fa-lg"  onclick="setFocus('men1')"  
+                                          actionListener="{chatSessioMB.addMsg()}" update="frm_chat"  />
+                        <p:commandButton value="{label.fechar}" style="float: right" icon="fa fa-times fa-lg" type="button"   onclick="PF('chat').hide()"  />
+                    
+                   
+                    </h:panelGrid>
+                </h:panelGrid>
+            </h:form>-->
+        </p:dialog>
+
+        <p:dialog id="chat_2"  widgetVar="chat_2" dynamic="true" closable="false" modal="true">
+<!--            <f:facet name="header" id="bl">
+                <h:panelGrid columns="2">
+                    <p:graphicImage name="grupo.png" width="32" height="32" library="imagens" style="margin-right:  5px" />
+                    <p:outputLabel  value="{chatSessioMB.origemExterno}"/>
+                </h:panelGrid>
+            </f:facet>
+            <h:form prependId="false" id="frm_chat2" >
+                <h:panelGrid  columns="1" width="100%"  style="position: relative;float: top">
+                    <p:poll interval="1"   update="grdMen2"  listener="{chatSessioMB.lerMensagemDoExterno()}" />
+
+                    <p:dataScroller chunkSize="15" mode="inline" scrollHeight="300" id="grdMen2" var="message"  value="{chatSessioMB.lerMsg}">
+                        <h:panelGroup layout="blok">
+                            <h:outputText value="{message.data}" >
+                                <f:convertDateTime pattern="MM/dd/yyyy hh:mm"/>
+                            </h:outputText>
+                            <strong><h:outputText value="{message.autor}" /> </strong>:
+                            <h:outputText value="{message.conteudo}" />
+                        </h:panelGroup>
+                    </p:dataScroller>
+                </h:panelGrid>
+                <h:panelGrid >
+                    <p:inputTextarea id="men2" cols="75" rows="3" value="{chatSessioMB.msg}"  maxlength="1024"  />
+                    <h:panelGrid columns="2" width="100%"  >
+                        <p:commandButton value="{label.enviar}" icon="fa fa-paper-plane-o fa-lg"   onclick="setFocus('men2')"  actionListener="{chatSessioMB.addMsgResposta()}" update="frm_chat2"  />
+                        <p:commandButton value="{label.fechar}" style="float: right" icon="fa fa-times fa-lg" type="button"   onclick="PF('chat_2').hide()"  />
+                    </h:panelGrid>
+                </h:panelGrid>
+            </h:form>-->
+        </p:dialog>
+
+        <ui:insert name="dialogs">
+        </ui:insert>
+        <ui:insert name="confirme">
+            <p:confirmDialog global="true" >
+                <p:commandButton value="#{label.sim}" type="button" styleClass="ui-confirmdialog-yes" style="margin-right: 20px" icon="fa fa-check-circle fa-lg"/>
+                <p:commandButton value="#{label.nao}" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times fa-lg"/>
+            </p:confirmDialog>
+        </ui:insert>
+    </h:body>
+</ui:composition>

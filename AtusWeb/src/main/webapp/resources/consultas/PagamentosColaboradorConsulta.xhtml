@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+
+        <composite:attribute name="renderPesquisar" default="true"/>
+        <composite:attribute name="nomeDialog" />
+        <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
+
+    </composite:interface>
+    <composite:implementation id="compConCli" >
+        <h:panelGrid  width="100%" id="rtt" >
+            <p:fieldset id="fieldCon" rendered="#{navegacaoMB.permissaoConsultar(navegacao['rel.financeiro_pagamento_colaborador'])}" legend="#{cc.attrs.nome}" style="font-weight: bold">
+                <h:panelGrid id="grdConsulta" columns="4" rendered="#{cc.attrs.renderPesquisar}">                   
+                    <h:panelGrid  id="grdConsulta2">                        
+                        <h:panelGrid >
+                            <comp:input_button nome_dialog="dialogoConColaborador" required="false" id="inputCon" input_size="50" nome_label="Colaborador" value_input="#{relatorioFinanceiroMB.colaborador.pessoa.nome}"  />
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid id="grdConsulta3" columns="2">
+                        <p:spacer width="15"/>
+                        <p:spacer width="15"/>
+                        <comp:commandButton_consulta acao_butao="#{relatorioFinanceiroMB.consultarPagamentosDoColaborador()}" componente_to_update="@(.ui-fieldset)" />
+                    
+                           
+                    </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGrid columns="2" width="100%">
+                    <p:panel header="Pagamentos Abertos" style="min-height: 500px;text-align: center" >
+                        <h:panelGrid >
+
+                            <p:commandButton icon="ui-icon-print" title="Imprimir" id="btnPagAb" style="float: right" actionListener="#{relatorioFinanceiroMB.imprimirPagamentosAbertos()}" oncomplete="popup('/atus/RelatorioServlet.pdf');" />
+
+                            <p:dataTable   value="#{relatorioFinanceiroMB.listaDePagamentosAbertosDoColaborador}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10"
+                                           rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" 
+                                           rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}" >
+                                <p:column headerText="Recibo"  sortBy="#{t.numeroDoRecibo}">
+                                    <comp:outputText value="#{t.numeroDoRecibo}"/>
+                                </p:column>
+                                <p:column headerText="Processo" >
+                                    <comp:outputText value="#{t.recibo.idDoProcesso}"/>
+                                </p:column>
+                                <p:column headerText="Cliente" >
+                                    <comp:outputText value="#{t.nomeDoCliente}"/>
+                                </p:column>
+                                <p:column headerText="Dt. Recebimento" >
+                                    <comp:outputText value="#{t.dataDoPagamento}" tipo="d"/>
+                                </p:column>
+                                <p:column headerText="Valor" >
+                                    <comp:outputText value="#{t.valorDoColaborador}" tipo="c"/>
+                                </p:column>
+                              
+                            </p:dataTable>
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:panel header="Pagamentos Realizados" style="min-height: 500px;text-align: center" >
+                        <h:panelGrid >
+
+                            <p:commandButton icon="ui-icon-print" title="Imprimir" id="btnPagRel" style="float: right" actionListener="#{relatorioFinanceiroMB.imprimirPagamentosRealizados()}"  oncomplete="popup('/atus/RelatorioServlet.pdf');" />
+
+                            <p:dataTable value="#{relatorioFinanceiroMB.listaDePagamentosRealizadosDoColaborador}" id="tabelaSel" paginatorAlwaysVisible="false"  paginator="true" var="s" rows="10"
+                                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" 
+                                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                                <p:column headerText="Recibo"  sortBy="#{s.numeroDoRecibo}">
+                                    <comp:outputText value="#{s.numeroDoRecibo}"/>
+                                </p:column>                    
+                                <p:column headerText="Processo" >
+                                    <comp:outputText value="#{s.recibo.idDoProcesso}"/>
+                                </p:column>
+                                <p:column headerText="Cliente" >
+                                    <comp:outputText value="#{s.nomeDoCliente}"/>
+                                </p:column>
+                                <p:column headerText="Dt. Recebimento" >
+                                    <comp:outputText value="#{s.dataDoPagamento}" tipo="d"/>
+                                </p:column>
+                                <p:column headerText="Valor" >
+                                    <comp:outputText value="#{s.valorDoColaborador}" tipo="c"/>
+                                </p:column>
+                               
+                            </p:dataTable>
+                        </h:panelGrid>
+                    </p:panel>
+
+                </h:panelGrid>
+            </p:fieldset>
+
+        </h:panelGrid>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

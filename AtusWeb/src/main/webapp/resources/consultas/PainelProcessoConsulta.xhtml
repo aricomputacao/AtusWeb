@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+        <composite:attribute name="valorSelecionado" />
+        <composite:attribute name="nomeDialog" />
+        <composite:attribute name="listaTabela" required="true" shortDescription="Lista da tabela" />
+    </composite:interface>
+    <composite:implementation  >
+        
+        <h:panelGrid  width="100%" id="rtt" >
+            <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" style="font-weight: bold">
+                <p:dataTable value="#{cc.attrs.listaTabela}" id="tabela" paginatorAlwaysVisible="false"  var="t2" scrollHeight="500" scrollRows="10" scrollable="true"
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                    <p:column headerText="Fase" width="10%" sortBy="#{t2.fase.nome}">
+                        <comp:outputText value="#{t2.fase.nome}"/>
+                    </p:column>
+                    <p:column headerText="Atrasado" width="5%"  >
+                        <comp:outputText value="#{t2.qtdAntrasada}"/>
+                    </p:column>
+                    <p:column headerText="Em dia" width="5%" >
+                        <comp:outputText value="#{t2.qtdEmDia}"/>
+                    </p:column>
+                    <p:column headerText="Total" width="5%" >
+                        <comp:outputText value="#{t2.qtdEmDia + t2.qtdAntrasada}"/>
+                    </p:column>
+                    <p:column headerText="Ações" width="7%" >
+                        <p:blockUI block="@form" trigger="btnProcs,btnEvent"    >
+                            <p:graphicImage library="imagens" name="carregar.gif"/>
+                        </p:blockUI>
+                        <p:commandButton id="btnProcs"  style="width: 22px;height: 22px" actionListener="#{painelHomeMB.listarProcessoFase(t2.fase)}"     title="Processos" oncomplete="PF('dialogPro').show()"  update=":frmConProce:pnlCon:tabela" icon="fa fa-search" />
+                        <p:commandButton  style="width: 22px;height: 22px" actionListener="#{painelHomeMB.imprimirProcessos(t2.fase)}"   oncomplete="popup('/atus/RelatorioServlet.pdf');" id="btnEvent" icon="fa fa-print" />
+
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+
+        </h:panelGrid>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:cons="http://java.sun.com/jsf/composite/consultas"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro">
+
+    <ui:define name="corpo">
+        <h:form id="frm_ram" prependId="false" >
+           
+            <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.sub_grupo_peca'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.sub_grupo_peca'])}" acao_imprimir="#{materiaMB.imprimir()}" acao_limpar="#{subGrupoPecaMB.init()}" acao_salvar="#{subGrupoPecaMB.salvar()}"/>
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Sub Grupo Peça" id_form="frm_ram"  >
+                <h:panelGrid width="100%" rendered="#{navegacaoMB.renderPainelCadastro}"  >
+                    <cadastro:SubGrupoPecaCadastro/>
+                </h:panelGrid>       
+                <h:panelGrid rendered="#{not navegacaoMB.renderPainelCadastro}"> 
+                    <cons:SubGrupoPecaConsulta/>
+                </h:panelGrid>
+            </comp:panel_cadastro>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+

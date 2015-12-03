@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+
+                xmlns:util="http://java.sun.com/jsf/composite/util"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro"
+                xmlns:consultas="http://java.sun.com/jsf/composite/consultas"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:acao="http://java.sun.com/jsf/composite/acao">
+
+    <ui:define name="corpo">
+
+        <p:tabView dynamic="true" style="margin-top: 10px" prependId="false" id="tabV">
+            <p:tab title="Processos" >
+                <p:panel styleClass="painelAgendas" >
+                    <h:form id="formPanel">
+                        <h:panelGrid columns='2'>
+                            <consultas:PainelProcessoConsulta id="pnSet" listaTabela="#{painelHomeMB.listaGrupoDiaAtrasadoSetorDTOs}" nome="Processos Setor"/>
+                            <consultas:PainelProcessoConsulta id="pnGeral" listaTabela="#{painelHomeMB.listaGrupoDiaAtrasadoGeralDTOs}" nome="Processos Geral"/>
+                        </h:panelGrid>
+                    </h:form>
+                </p:panel>
+            </p:tab>
+
+            <p:tab title="Agenda" >
+                <h:form id="frm_home" prependId="false" styleClass="painelAgendas">
+                    <p:messages id="mensagens" showDetail="true" />
+                    <p:schedule widgetVar="meucalendario" tooltip="true" style="width: 100%"  
+                                value="#{agendaMB.eventModel}" id="sch" timeZone="America/Sao_Paulo"  ignoreTimezone="false" timeFormat="dd/MM hh:mm"   >
+                        <!-- eventos -->
+                        <p:ajax event="dateSelect" listener="#{agendaMB.quandoNovo}" 
+                                oncomplete="PF('caixaDialogo').show()" update=":frmDialog:eventDetails" />  
+                        <p:ajax event="eventSelect" listener="#{agendaMB.quandoSelecionado}" 
+                                oncomplete="PF('caixaDialogo').show()"  update=":frmDialog:eventDetails"  />  
+                        <p:ajax event="eventMove" listener="#{agendaMB.quandoMovido}" 
+                                update="mensagens" oncomplete="PF('meucalendario').update()" />  
+                        <p:ajax event="eventResize" listener="#{agendaMB.quandoRedimensionado}" 
+                                update="mensagens" onsuccess="PF('meucalendario').update()" oncomplete="PF('meucalendario').update()"/>  
+
+                    </p:schedule>
+                </h:form>
+            </p:tab>
+            <p:tab title="Eventos" >
+                <h:form id="frmDialogeve">
+                    <p:panel styleClass="painelAgendas">
+                        <consultas:EventoConsulta renderInfo="true" dialogInfo="dialogProc" dialogUpdade=":frmDialogProce" >
+                            <f:facet name="btnConsultaEvento">
+                                <p:blockUI block="@form" trigger="btnPrint"    >
+                                    <p:graphicImage library="imagens" name="carregar.gif"/>
+                                </p:blockUI>
+                                <comp:commandButton_consulta acao_butao="#{eventoMB.listarPorPeriodo()}" componente_to_update="@form"  />
+                                <p:commandButton id="btnPrint" actionListener="#{eventoMB.imprimir()}" value="Imprimir" oncomplete="popup('/atus/RelatorioServlet.pdf');"  icon="fa fa-print fa-lg" />
+                            </f:facet>
+                        </consultas:EventoConsulta>
+                    </p:panel>
+                </h:form>
+            </p:tab>
+            <p:tab title="Notificações (#{painelHomeMB.listanNotificacao.size()})" rendered="#{navegacaoMB.permissaoConsultar(navegacao['pro.notificacao'])}" >
+                <h:form id="frmDialogCadNoti">
+                    <p:panel styleClass="painelAgendas">
+                        <consultas:NotificacaoConsulta dialogInfo="dialogNot" dialogUpdade=":frmDialogNot" renderInfo="true"  valorSelecionado="#{painelHomeMB.notificacao}" update_form="@form" />
+                    </p:panel>
+                </h:form>
+            </p:tab>
+        </p:tabView>
+
+
+    </ui:define>
+    <ui:define name="dialogs" id="uiDialog">
+        <h:form prependId="false" id="frmDialog" >
+            <p:dialog widgetVar="caixaDialogo" id="dialogCaixa"
+                      header="Evento"  width="800"
+                      resizable="false"
+                      showEffect="clip" hideEffect="clip">  
+                <p:outputPanel 
+                    id="eventDetails">
+
+                    <h:panelGrid columns="2">  
+
+                        <h:outputLabel for="tipo" value="Tipo:" /> 
+                        <p:selectOneMenu 
+                            id="tipo" value="#{agendaMB.agenda.especieEvento}"
+                            converter="#{indexConverter}">
+                            <f:selectItems value="#{especieEventoMB.listaEspecieEventos}" var="es" itemLabel="#{es.nome}" itemValue="#{es}"/>
+                        </p:selectOneMenu>
+
+                        <h:outputLabel for="tit" value="Titulo:" /> 
+                        <p:inputText 
+                            id="tit" 
+                            size="60"
+                            maxlength="60"
+                            required="true"
+                            value="#{agendaMB.agenda.titulo}" />  
+
+                        <h:outputLabel for="descricao" value="Descrição:" /> 
+                        <p:inputTextarea 
+                            id="descricao" 
+                            rows="5"
+                            cols="60"
+                            maxlength="1024"
+                            required="true"
+                            value="#{agendaMB.agenda.descricao}" />  
+
+                        <h:outputLabel for="inicio" value="Início:" />  
+                        <p:calendar id="inicio" 
+                                    showButtonPanel="true"
+                                    required="true"
+                                    value="#{agendaMB.agenda.dataInicio}" 
+                                    pattern="dd/MM/yyyy hh:mm"         />
+
+
+
+                    </h:panelGrid>  
+
+                    <p:separator/>
+
+                    <p:commandButton
+                        value="Salvar" icon="ui-icon-disk" 
+                        actionListener="#{agendaMB.salvar()}"
+                        oncomplete="PF('meucalendario').update();PF('caixaDialogo').hide();"
+                        update=":tabV:frm_home:mensagens" 
+                        style="float: right"/>  
+
+                </p:outputPanel>
+
+            </p:dialog>  
+        </h:form>
+        <p:dialog showEffect="fade" position="top"   header="Processos" id="adv" modal="true" hideEffect="fade" widgetVar="dialogProc">
+            <h:form id="frmDialogProce">
+                <cadastro:ProcessoCadastro />
+            </h:form>
+        </p:dialog>
+
+        <p:dialog showEffect="fade"   position="top" id="dialogPro" header="Processos"   modal="true" hideEffect="fade" widgetVar="dialogPro">
+            <h:form id="frmConProce">
+                <consultas:ProcessoConsulta id="pnlCon" renderPesquisar="false" dialogMovimen="dialogoEncProce" dialogMovimenUpdate=":frmCadMov"  listaProcessos="#{painelHomeMB.listaUltimaMovimentacaoDTOs}"  renderGerarPeca="true" renderInfo="false" renderMovimen="true" renderPrintDoc="true" renderSelecionar="false" />
+            </h:form>
+        </p:dialog>
+
+        <p:dialog showEffect="fade" position="center"  id="dialogPrintDoc" header="Impressão de Documentos"   modal="true" hideEffect="fade" widgetVar="dialogPrintDoc">
+            <h:form id="frmDialogPrintDoc">
+                <acao:ImprimirDocumentos />
+            </h:form>
+        </p:dialog>
+
+        <p:dialog showEffect="fade" position="top" header="Gerar Peça" id="dialodPecaId"  modal="true" hideEffect="fade" widgetVar="dialogPeca" width="1000" height="400">
+            <h:form id="frmPeca">
+                <acao:ImprimirPeca id="frmConPeca"/>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog showEffect="fade" position="top"  id="dialogNot" header="Notificação"   modal="true" hideEffect="fade" widgetVar="dialogNot">
+            <h:form id="frmDialogNot">
+                <h:panelGrid>
+                    <h:outputText style="font-weight: bolder" value="#{painelHomeMB.notificacao.titulo}"/>
+                </h:panelGrid>
+                <p:inputTextarea value="#{painelHomeMB.notificacao.texto}" cols="150" rows="40"  autoResize="false" readonly="true" />
+            </h:form>
+        </p:dialog>
+
+        <p:dialog showEffect="fade" position="top"  id="dialogCadPro" height="650"   modal="true" hideEffect="fade" widgetVar="dialogCadProc">
+            <h:form id="frmDialogCadProce" >
+                <cadastro:ProcessoCadastro id="compCadPro"  legend="Dados do Processo" update_from_evento=":frmDialogCadEve:compCadEven:input_componente"/>
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="center"  id="dialogCadEve" header="Cadastro de Evento"   modal="true" hideEffect="fade" widgetVar="dialogCadEve">
+            <h:form id="frmDialogCadEve">
+                <util:menuCadDialogo acao_remoteCommand="#{processoMB.consultarEventosDoProcesso()}" acao_salvar="#{eventoMB.salvar()}" frm_update="@form" render_onclick="true" dialog="dialogCadEve" />
+                <cadastro:EventoCadastro id="compCadEven" />
+            </h:form>
+        </p:dialog>
+        <p:dialog showEffect="fade" position="top"  header="Encaminhar Processo" id="addEnc" modal="true" hideEffect="fade" widgetVar="dialogoEncProce">
+            <h:form id="frmCadMov">
+                <util:menuCadDialogo2 id="menDialog"  frm_update="@form"  acao_salvar="#{processoMB.addMovimentacao()}"  />
+                <acao:EncaminharProcesso />
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>
+

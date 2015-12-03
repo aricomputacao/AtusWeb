@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_orgao" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15bab102-ce97-4cc4-bbab-a02e5d83c214">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="zebra">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean( $V{REPORT_COUNT}.intValue() % 2 == 0 )]]></conditionExpression>
+			<style forecolor="#F0F0F0" backcolor="#F0F0F0"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Projetos\\Atus\\atus\\web\\WEB-INF\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="relatorio" class="java.lang.String"/>
+	<parameter name="img" class="java.lang.String"/>
+	<parameter name="rodapeEmail" class="java.lang.String"/>
+	<parameter name="img1" class="java.lang.String"/>
+	<parameter name="imgRoda" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[nome]]></fieldDescription>
+	</field>
+	<title>
+		<band height="62" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="0d2458a9-7698-4f68-b79b-cda635353ff7" x="0" y="0" width="555" height="62"/>
+				<subreportParameter name="img1">
+					<subreportParameterExpression><![CDATA[$P{img1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="img">
+					<subreportParameterExpression><![CDATA[$P{img}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="relatorio">
+					<subreportParameterExpression><![CDATA[$P{relatorio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "cabecalho_retrato.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="e17c82b7-e7af-41fe-bfa2-5dc1a23e9b4a" x="0" y="0" width="555" height="20"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="792a30dd-689f-4214-bc0f-80c8510321ea" x="0" y="0" width="30" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c7d62e8b-3d57-464b-983c-613f852561e7" x="30" y="0" width="430" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="0890b32d-04c5-4a88-a428-fbba65613f93" style="zebra" x="0" y="0" width="555" height="20"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#E8E8E8"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="decd1362-f4ed-4714-9cb8-160908eefbac" x="0" y="0" width="30" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="dd935e61-da37-490c-b521-69f5664f4a34" x="30" y="0" width="430" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="47" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

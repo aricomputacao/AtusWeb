@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:cons="http://java.sun.com/jsf/composite/consultas"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro"
+                xmlns:util="http://java.sun.com/jsf/composite/util">
+
+    <ui:define name="corpo">
+        <h:outputScript name="maskMoney.js" library="js" />
+        <h:outputScript name="edtMoeda.js"  library="js"/>
+        <h:form id="frm_pag" prependId="false" >
+
+            <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.colaborador'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.colaborador'])}" acao_imprimir="#{orgaoMB.imprimir()}" acao_limpar="#{colaboradorMB.init()}" acao_salvar="#{colaboradorMB.salvar()}"/>
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Colaborador" id_form="frm_pag"  >               
+                <h:panelGrid id="grd" >
+                    <cadastro:ColaboradorCadastro  id="compCol" rendered="#{navegacaoMB.renderPainelCadastro}" />
+                    <cons:ColaboradorConsulta rendered="#{not navegacaoMB.renderPainelCadastro}" renderSelecionar="false" id="compConCol">
+                        <f:facet name="btnConCola">
+                            <comp:commandButton_consulta acao_butao="#{colaboradorMB.listar()}" componente_to_update=":frm_pag:cadFrm:compConCol:tabela"/>
+                        </f:facet>
+                    </cons:ColaboradorConsulta>
+                </h:panelGrid>
+            </comp:panel_cadastro>
+        </h:form>
+
+    </ui:define>
+    <ui:define name="dialogs">
+        <p:dialog showEffect="fade" closable="false"  header="Consulta de CEP" id="ce" modal="true" hideEffect="fade" widgetVar="dialogCep">
+            <util:buscaCep id="compCep" update=":frm_pag:cadFrm:compCol:comEnd:grdEnd"  pessoa="#{colaboradorMB.colaborador.pessoa}" 
+                           uf="#{colaboradorMB.uf}" />
+               
+           
+        </p:dialog>
+        <p:dialog showEffect="fade" position="top"   header="Consulta de Advogados" id="adv" modal="true" hideEffect="fade" widgetVar="dialogAdv">
+            <h:form>
+                <cons:AdvogadoConsulta nomeDialog="dialogAdv" renderEditar="false" renderExcluir="false" renderSelecionar="true" 
+                                       valorSelecionado="#{colaboradorMB.colaborador.advogado}" update_form=":frm_pag:cadFrm:compCol:input_componente"/>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>
+

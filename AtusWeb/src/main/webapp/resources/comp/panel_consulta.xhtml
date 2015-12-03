@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="idCompTabela" name="id_tabela" required="true" default="tabela"  shortDescription="Id do formulário" />
+        <composite:attribute id="idCabCon" name="cabecalho_grid_con" required="true" shortDescription="Cabeçalho do panelGrid" />
+    </composite:interface>
+    <composite:implementation id="impleCons" >
+        <p:panel id="pnlCompConsulta" >
+            <f:facet name="header" id="herCon">
+                <p:spacer height="10" id="herCon01" width="600"/>
+                <h:outputText id="herCon02" value="#{cc.attrs.cabecalho_grid_con}"/>
+               
+            </f:facet>
+            <composite:insertChildren id="chieldCon" />
+        </p:panel>
+    </composite:implementation>
+</ui:composition>
+
+

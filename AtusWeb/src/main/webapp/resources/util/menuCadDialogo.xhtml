@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <composite:interface>
+        <composite:valueHolder name="idForm" targets="frm"/>
+        <composite:attribute name="acao_salvar" required="true"   method-signature="java.lang.Void action()" shortDescription="Inslusão do metodo salvar"/>
+        <composite:attribute name="acao_remoteCommand" required="true"   method-signature="java.lang.Void action()" />
+        <composite:attribute name="frm_update" required="true" default="@form" />
+        <composite:attribute name="title"  default="Salvar" />
+        <composite:attribute name="dialog"   />
+        <composite:attribute name="render_onclick" default="false"   />
+
+
+
+    </composite:interface>
+    <composite:implementation>
+        <p:blockUI block="@form" trigger="menSal"  id="bclMenCad"  >
+            <p:graphicImage library="imagens" name="carregar.gif"/>
+        </p:blockUI>
+        <p:menubar id="menCadDia"  style="margin-top: 20px" >
+            <p:menuitem id="menSal2"   action="#{cc.attrs.acao_remoteCommand}" onclick="PF('#{cc.attrs.dialog}').hide()" rendered="#{cc.attrs.render_onclick}" styleClass="menuPanel"  icon="ui-icon-disk" title="#{cc.attrs.title}"  actionListener="#{cc.attrs.acao_salvar}" update="#{cc.attrs.frm_update}" />
+            <p:menuitem id="menSal"   action="#{cc.attrs.acao_remoteCommand}" styleClass="menuPanel"  rendered=" #{not cc.attrs.render_onclick}" icon="ui-icon-disk" title="#{cc.attrs.title}"  actionListener="#{cc.attrs.acao_salvar}" update="#{cc.attrs.frm_update}" />
+        </p:menubar>
+
+    </composite:implementation>
+</ui:composition>
+

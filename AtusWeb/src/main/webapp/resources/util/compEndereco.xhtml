@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <composite:interface>
+        <composite:attribute name="cep" required="true" />
+
+        <composite:attribute name="uf" required="true"/>
+
+        <composite:attribute name="cid" required="true"/>
+        <composite:attribute name="log" required="true"/>
+        <composite:attribute name="bai" required="true"/>
+        <composite:attribute name="num" required="true"/>
+        <composite:attribute name="comp" required="true"/>
+        <composite:attribute name="idGrd" default="grdEnd"/>
+        <composite:attribute name="id" default="frmBusca"/>
+        <composite:attribute name="listaCidade" required="true" />
+        <composite:attribute name="acao_listar_cidade" required="true"  method-signature="java.lang.Void action()"/>
+        <composite:attribute name="updateCidade" default="@form"/>
+
+
+    </composite:interface>
+    <composite:implementation id="compo">
+        <h:panelGrid columns="8" id="grdEnd" >
+            <h:panelGrid columns="2" >
+                <h:panelGrid>
+                    <h:outputLabel value="CEP"/> 
+                    <p:inputMask mask="99999-999"   size="10"  value="#{cc.attrs.cep}" id="cep"/>
+                </h:panelGrid>
+                <p:commandButton style="margin-top: 19px" styleClass="btnCorreio" value="" title="Consultar CEP" immediate="true" type="button" onclick="PF('dialogCep').show();" />
+            </h:panelGrid>
+            <h:panelGrid >
+                <h:panelGrid columns="2" >
+                    <p:outputLabel value="UF" for="uf"/>
+                </h:panelGrid>
+                <p:selectOneMenu id="uf"   style="width: 50px" effect="fade" value="#{cc.attrs.uf}"    converter="#{indexConverter}" >
+                    <f:selectItem itemLabel="UF" noSelectionOption="#{true}" />
+                    <f:selectItems value="#{unidadeFederativaMB.listaUnidadeFederativas}"  var="u" itemLabel="#{u.abreviacao}" itemValue="#{u}"  />
+                    <p:ajax update="#{cc.attrs.updateCidade}"  listener="#{cc.attrs.acao_listar_cidade}" />
+                </p:selectOneMenu>
+            </h:panelGrid>
+            <h:panelGrid  id="grdCid" >
+                <h:panelGrid columns="2" >
+                    <p:outputLabel value="Cidade" for="ci"/>
+                </h:panelGrid>
+                <p:selectOneMenu id="ci" style="width: 150px" effect="fade" value="#{cc.attrs.cid}" converter="#{indexConverter}" required="true"   >
+                    <f:selectItem itemLabel="Selecione" noSelectionOption="#{true}" />
+                    <f:selectItems value="#{cc.attrs.listaCidade}" var="c" itemLabel="#{c.nome}" itemValue="#{c}" />
+                </p:selectOneMenu>
+            </h:panelGrid>
+            <h:panelGrid >
+                <comp:inputText nomeLabel="Logradouro" size="22" value="#{cc.attrs.log}" idInputTex="log"/>
+            </h:panelGrid>
+            <h:panelGrid >
+                <comp:inputText nomeLabel="Bairro" size="20" value="#{cc.attrs.bai}" idInputTex="bai"/>
+            </h:panelGrid>
+            <h:panelGrid >
+                <comp:inputText nomeLabel="Número" size="4" value="#{cc.attrs.num}" idInputTex="num"/>
+            </h:panelGrid>
+            <h:panelGrid >
+                <comp:inputText nomeLabel="Complemento" size="26" value="#{cc.attrs.comp}" idInputTex="com"/>
+            </h:panelGrid>
+
+        </h:panelGrid>
+
+    </composite:implementation>
+</ui:composition>
+
+
+
+

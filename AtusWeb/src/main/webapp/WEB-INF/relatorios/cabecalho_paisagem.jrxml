@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cabecalho_paisagem" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="97a582d7-048a-499a-be31-5bcf9510ebad">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="relatorio" class="java.lang.String"/>
+	<parameter name="img" class="java.lang.String"/>
+	<parameter name="img1" class="java.lang.String"/>
+	<parameter name="imgAt" class="java.lang.String"/>
+	<noData>
+		<band height="65">
+			<frame>
+				<reportElement uuid="e0b661fd-60b0-4cf6-8935-b9d52aef1dbb" mode="Opaque" x="0" y="0" width="802" height="65" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#010101"/>
+					<topPen lineWidth="1.0" lineColor="#010101"/>
+					<leftPen lineWidth="1.0" lineColor="#010101"/>
+					<bottomPen lineWidth="1.0" lineColor="#010101"/>
+					<rightPen lineWidth="1.0" lineColor="#010101"/>
+				</box>
+				<image>
+					<reportElement uuid="55c1f925-2fd6-46d7-bea4-94bc71635ac0" x="0" y="2" width="64" height="57"/>
+					<imageExpression><![CDATA[$P{img}]]></imageExpression>
+				</image>
+				<image>
+					<reportElement uuid="3a5d7aa3-4c2d-4907-ab84-392f4a7cadda" x="64" y="4" width="100" height="39"/>
+					<imageExpression><![CDATA[$P{imgAt}]]></imageExpression>
+				</image>
+				<textField>
+					<reportElement uuid="eecb8a42-3e8d-4dbc-95a5-0b0ca7b33aa1" x="69" y="41" width="298" height="20" backcolor="#000000"/>
+					<textElement>
+						<font size="14" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{relatorio}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</noData>
+</jasperReport>

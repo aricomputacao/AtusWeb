@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rodape_cabecalho" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="df8a713c-1b17-4af8-92b4-ea04a11d5cd8">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="rodapeEmail" class="java.lang.String"/>
+	<parameter name="imgRoda" class="java.lang.String"/>
+	<noData>
+		<band height="40">
+			<frame>
+				<reportElement uuid="0428e08c-55d8-4c12-92f9-42f529be68d0" mode="Transparent" x="0" y="0" width="804" height="40" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
+				<line>
+					<reportElement uuid="bb15ee33-af64-4ca9-b1c8-eb643e6d7792" x="0" y="0" width="802" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement uuid="242dedbe-8944-4b80-8f7d-b127ba4e1226" x="1" y="37" width="802" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+				<textField>
+					<reportElement uuid="84b5ac5f-ac35-4e31-b2de-9b3cdad94621" x="657" y="24" width="141" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{rodapeEmail}]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement uuid="1e425e01-32c1-4f6b-8c39-99f64330a043" x="657" y="11" width="141" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement uuid="e1a2107f-e046-4861-9702-aea1707659df" x="1" y="1" width="385" height="36"/>
+					<imageExpression><![CDATA[$P{imgRoda}]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</noData>
+</jasperReport>

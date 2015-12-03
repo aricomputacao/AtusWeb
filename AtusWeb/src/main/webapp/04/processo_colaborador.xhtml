@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:cons="http://java.sun.com/jsf/composite/consultas"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="corpo">
+        <h:outputScript name="sonumero.js"  library="js"/>
+
+        <h:form id="frm_pag" prependId="false" >
+            <p:blockUI block="@form" trigger="cadFrm:compProceConsu:btnCon:btn cadFrm:compProceConsu:btnPr">
+                <p:graphicImage library="imagens" name="carregar.gif"/>
+            </p:blockUI>
+            <comp:menuPanel   id="menuPanel" disable_adicionar="true" disable_novo="true" disable_consultar="true" disable_salvar="true"  acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['pro.processo'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['rel.processo_colaborador'])}" acao_imprimir="#{relatorioMB.imprimirProcessoColaborador()}" acao_limpar="#{relatorioMB.init()}" acao_salvar="#{relatorioMB.listarProcessoColaborador()}"/>
+
+            <comp:panel_cadastro id="cadFrm"  cabecalho_grid="Processos Colaborador" id_form="frm_pag"  >               
+                <h:panelGrid id="grdConProCol">
+                    <cons:ProcessoColaboradorConsulta id="compProceConsu"  dialogUpdade=":frmDialogCadProce:compCadPro:fieldCad" >
+                        <f:facet name="btnConsultaProcesso" id="fac">
+                            <comp:commandButton_consulta id="btnCon" acao_butao="#{relatorioMB.listarProcessoColaborador()}"  componente_to_update=":frm_pag:cadFrm:compProceConsu:tabela"/>
+
+                        </f:facet>
+                        <f:facet name="btnImpProcesso" id="fac2">
+                            <p:commandButton id="btnPr" value="Imprimir Resumido" oncomplete="popup('/atus/RelatorioServlet.pdf');"
+                                             actionListener="#{relatorioMB.imprimirProcessoColaboradorResumido()}" icon="fa fa-print fa-lg" />
+
+                        </f:facet>
+                    </cons:ProcessoColaboradorConsulta>
+                </h:panelGrid>
+            </comp:panel_cadastro>
+        </h:form>
+
+    </ui:define>
+    <ui:define name="dialogs">
+        <p:dialog showEffect="fade" position="top"   header="Consulta de Pessoas" id="conPesCli" modal="true" hideEffect="fade" widgetVar="dialogoConColaborador">
+            <h:form id="frmConCliente" prependId="false">
+                <cons:ColaboradorConsulta renderEditar="false" id="tblCli" renderExcluir="false" renderSelecionar="true"   nomeDialog="dialogoConColaborador" update_form=":frm_pag:cadFrm:compProceConsu:inputCon:input_componente" valorSelecionado="#{relatorioMB.colaborador}" >
+                    <f:facet name="btnConCola">
+                        <comp:commandButton_consulta id="btnConCol" acao_butao="#{colaboradorMB.listar()}" componente_to_update=":frmConCliente"/>
+                    </f:facet>
+                </cons:ColaboradorConsulta>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+</ui:composition>
+

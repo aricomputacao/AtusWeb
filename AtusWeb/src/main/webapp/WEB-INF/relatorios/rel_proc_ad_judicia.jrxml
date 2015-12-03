@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_proc_ad_judicia" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0679f47f-b6e9-4dbb-8687-4e9aaebfe6ee">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Projetos\\Atus\\atus\\web\\WEB-INF\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="rodapeEmail" class="java.lang.String"/>
+	<parameter name="id" class="java.lang.String"/>
+	<parameter name="endere" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="cliente" class="br.com.atus.cadastro.modelo.Cliente">
+		<fieldDescription><![CDATA[cliente]]></fieldDescription>
+	</field>
+	<field name="advogado" class="br.com.atus.cadastro.modelo.Advogado">
+		<fieldDescription><![CDATA[advogado]]></fieldDescription>
+	</field>
+	<title>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="0" width="555" height="27" backcolor="#CCCCCC" uuid="0a159395-3bef-455a-a991-acdbf543ae3b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PROCURAÇÃO AD JUDICIA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="488" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="32" width="555" height="351" uuid="9eca993e-e62d-477c-a9e7-40a362d6c5c6"/>
+				<textElement textAlignment="Justified">
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA["        "+$F{cliente}.getPessoa().getNome() +
+ ($F{cliente}.getNacionalidade() == null  ? "" : ", "+$F{cliente}.getNacionalidade().getNome())
+ +($F{cliente}.getEstadoCivil() == null ? "" :", "+$F{cliente}.getEstadoCivil())
+ +($F{cliente}.getProfissao() == null ? "" :", "+$F{cliente}.getProfissao().getNome())
+ +($F{cliente}.getRg() == null ? "" : " portador(a) da cédula de identidade nº "+$F{cliente}.getRg())
+ +($F{cliente}.getOrgaoEmissor() == null ? "" : " expedida pelo "+$F{cliente}.getOrgaoEmissor().getAbreviacao())
+ +($F{cliente}.getCpfCpnj() == null ? "" : ", inscrito no CPF/MF sob Nº "+$F{cliente}.getCpfCpnj())
+ +($F{cliente}.getPessoa().getCidade() == null ? "" : ", domiciliado em "+$F{cliente}.getPessoa().getCidade().getNome()+", "+$F{cliente}.getPessoa().getCidade().getUnidadeFederativa().getNome())
+ +($F{cliente}.getPessoa().getBairro() == null ? "" : ", no(a) "+$F{cliente}.getPessoa().getBairro())
+ +($F{cliente}.getPessoa().getLogradouro() == null ? "" : ", " +$F{cliente}.getPessoa().getLogradouro())
+ +($F{cliente}.getPessoa().getNumero() == null ? "":  " Nº "+$F{cliente}.getPessoa().getNumero() +" CEP "+$F{cliente}.getPessoa().getCep())
+ +", pelo presente instrumento de procuração, nomeia e constitui seus procuradores JOAQUIM JOCEL DE VASCONCELOS NETO, advogado inscrito na OAB/CE sob número 20.392, DIEGO SILVA PARENTE, advogado inscrito na OAB/CE sob 24.856, com escritório profissional localizado na rua Estanislau Frota, Nº 340,Loja 1, centro, Sobral, Ceará, CEP 62.100-000 Tel. (088)3611-6210, a quem confere amplos poderes para o foro em geral, com a cláusula ad-judicia, em qualquer Juízo, Instância, Órgão, Poder Constituído ou Tribunal, podendo propor contra quem de direito as ações competentes e defendê-lo (a) nas contrárias, seguindo umas e outras, até final decisão, usando dos recursos legais e acompanhando-os, conferindo-lhe, ainda poderes especiais para , receber citações e/ou intimações, confessar, desistir, transigir, firmar compromissos ou acordos, receber e dar quitação, receber RPV e/ou precatório, propor Execução, requerer Falência, habilitar crédito, ação ordinária, procedimento sumaríssimo, ação rescisória, embargos, agravos representando ainda os outorgantes, para o fim do disposto nos artigos n.ºs 447 e 448 do Código de Processo Civil, agindo em conjunto ou separadamente, podendo ainda substabelecer esta em outrem, com ou sem reservas de iguais poderes, dando tudo por bom, firme e valioso, sempre no interesse do outorgante."]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="119" y="383" width="307" height="20" uuid="f34c825d-5d64-4884-9dab-e48c2f07b2d3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="18" y="383" width="100" height="20" uuid="7805f34a-65bd-4603-9d8e-9305ee737f62"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Sobral/CE, ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="468" width="383" height="20" uuid="f741e91c-60e6-491f-a608-8db419e464e0"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente}.getPessoa().getNome()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="2" width="555" height="50" uuid="67834b19-a489-4360-b435-18ff95e5819b"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="endere">
+					<subreportParameterExpression><![CDATA[$P{endere}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="rodapeEmail">
+					<subreportParameterExpression><![CDATA[$P{rodapeEmail}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="imgRoda"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rodape_retrato.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageFooter>
+</jasperReport>

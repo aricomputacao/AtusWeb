@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_agenda_colaborador" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="10" bottomMargin="10" uuid="8e0526cc-a00f-4b05-87ed-70d68485777e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="zebra">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean( $V{REPORT_COUNT}.intValue() % 2 == 0 )]]></conditionExpression>
+			<style forecolor="#F0F0F0" backcolor="#F0F0F0"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Projetos\\Atus\\atus\\web\\WEB-INF\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="relatorio" class="java.lang.String"/>
+	<parameter name="img" class="java.lang.String"/>
+	<parameter name="rodapeEmail" class="java.lang.String"/>
+	<parameter name="img1" class="java.lang.String"/>
+	<parameter name="imgRoda" class="java.lang.String"/>
+	<parameter name="imgAt" class="java.lang.String"/>
+	<parameter name="adv" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="data" class="java.util.Date">
+		<fieldDescription><![CDATA[data]]></fieldDescription>
+	</field>
+	<field name="especieEvento" class="br.com.atus.cadastro.modelo.EspecieEvento">
+		<fieldDescription><![CDATA[especieEvento]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[nome]]></fieldDescription>
+	</field>
+	<field name="observacao" class="java.lang.String">
+		<fieldDescription><![CDATA[observacao]]></fieldDescription>
+	</field>
+	<field name="processo" class="br.com.atus.processo.modelo.Processo">
+		<fieldDescription><![CDATA[processo]]></fieldDescription>
+	</field>
+	<field name="usuario" class="br.com.atus.cadastro.modelo.Usuario">
+		<fieldDescription><![CDATA[usuario]]></fieldDescription>
+	</field>
+	<group name="colaborador">
+		<groupExpression><![CDATA[$F{processo}.getColaborador()]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<rectangle>
+					<reportElement x="0" y="0" width="801" height="20" uuid="082d68bc-5432-42cd-a095-b8c7d210d317"/>
+				</rectangle>
+				<textField>
+					<reportElement x="101" y="0" width="281" height="20" uuid="7d9a6187-5311-4f2d-bbe7-4dcc6aeb7bb2"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{processo}.getColaborador().getPessoa().getNome()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="0" width="100" height="20" uuid="ce29369d-4233-4c21-9a96-e37ef7dc6e10"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Colaborador:]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<title>
+		<band height="65" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="802" height="65" uuid="e61537e2-8c39-4598-a3b8-b13f00b12acb"/>
+				<subreportParameter name="imgAt">
+					<subreportParameterExpression><![CDATA[$P{imgAt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="img1">
+					<subreportParameterExpression><![CDATA[$P{img1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="img">
+					<subreportParameterExpression><![CDATA[$P{img}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="relatorio">
+					<subreportParameterExpression><![CDATA[$P{relatorio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "cabecalho_paisagem.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20">
+			<rectangle>
+				<reportElement x="0" y="0" width="801" height="20" uuid="32134496-10da-4920-9596-39f7ba04938a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="1" y="0" width="34" height="20" uuid="8104bb1e-1c86-41dc-b6bf-8518bd06376f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="421" y="0" width="110" height="20" uuid="a1876da6-de0c-4d00-bd1f-e8d6c934a6fd"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Evento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="532" y="0" width="115" height="20" uuid="bd20fa0a-3057-4398-be05-607ebf36f5e2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="36" y="0" width="83" height="20" uuid="18581a5d-803a-4e8f-85ef-0b25d9656827"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="119" y="0" width="155" height="20" uuid="f17414e5-a4b0-46e9-a73e-d519109ce9c8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Juizo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="0" width="145" height="20" uuid="db72ba26-614f-4245-88b1-4eb95b6cb595"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="649" y="0" width="152" height="20" uuid="a78cd4b0-660b-420a-8ac3-47133bddc526"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement style="zebra" x="0" y="0" width="803" height="20" uuid="46071ace-4711-4be3-8197-ec099132fe11"/>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#666666"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="532" y="0" width="115" height="20" uuid="5df13d5a-6633-475a-b961-08f2ea788130"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="0" width="34" height="20" uuid="7d962444-a47d-413d-929b-56e32bb95204"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{processo}.getId()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="649" y="0" width="152" height="20" uuid="f072d7cf-c9ea-4504-a8d9-8b0e46ba6ba2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{processo}.getCliente().getPessoa().getNome()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
+				<reportElement x="35" y="0" width="84" height="20" uuid="57b8ea18-e48c-4d1d-ac5b-c70c6b1efaca"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="119" y="0" width="155" height="20" uuid="8e502254-2441-489b-b411-7597b83aac62"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{processo}.getJuizoTribunal().getNome()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="276" y="0" width="145" height="20" uuid="192af6c6-b8d4-4b40-92dc-517ef7399da6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{processo}.getNumero()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="421" y="0" width="110" height="20" uuid="4fafa038-40b3-48ad-ba3a-cc0923947c5d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{especieEvento}.getNome()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

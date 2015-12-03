@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <composite:interface>
+        <composite:attribute name="value" required="true" />
+
+        <composite:attribute name="nomeLabel" required="true"  shortDescription="Nome do label "/>
+        <composite:attribute name="idInputTex"  default="text" shortDescription="Se o input for texto indique o id" />
+        <composite:attribute name="require" default="false"  />
+        <composite:attribute name="size" default="10"  />
+        <composite:attribute name="mask" required="true"  />
+        <composite:attribute name="validar" required="true" default="0" shortDescription="Se (1) - tem validador (0) sem validador"  />
+        <composite:attribute name="validador" required="true"  method-signature="java.lang.Void action()"  />
+
+    </composite:interface>
+    <composite:implementation>
+
+        <h:panelGrid>
+            <h:panelGrid columns="2">
+                <p:outputLabel value="#{cc.attrs.nomeLabel}" for="#{cc.attrs.idInputTex}"/>
+                <p:message for="#{cc.attrs.idInputTex}"/>
+            </h:panelGrid>
+            <ui:fragment rendered="#{cc.attrs.validar == '1'}">
+                <p:inputMask mask="#{cc.attrs.mask}" maxlength="#{cc.attrs.size}" validatorMessage="#{mensagens['documento_invalido']}" validator="#{cc.attrs.validador}" value="#{cc.attrs.value}" id="#{cc.attrs.idInputTex}" required="#{cc.attrs.require}" size="#{cc.attrs.size}" />
+            </ui:fragment>
+            <ui:fragment rendered="#{cc.attrs.validar == '0'}">
+                <p:inputMask mask="#{cc.attrs.mask}" maxlength="#{cc.attrs.size}"  value="#{cc.attrs.value}"  required="#{cc.attrs.require}" size="#{cc.attrs.size}" />
+            </ui:fragment>
+        </h:panelGrid>
+
+
+
+    </composite:implementation>
+</ui:composition>
+
+

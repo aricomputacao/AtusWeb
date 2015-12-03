@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_rel_parcelas_contas_receber" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e155ce67-bb53-4668-9aab-cda73f7dbc73">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="zebra">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean( $V{REPORT_COUNT}.intValue() % 2 == 0 )]]></conditionExpression>
+			<style forecolor="#F0F0F0" backcolor="#F0F0F0"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="contaReceber" class="br.com.atus.financeiro.modelo.ContaReceber">
+		<fieldDescription><![CDATA[contaReceber]]></fieldDescription>
+	</field>
+	<field name="dataPagamento" class="java.util.Date">
+		<fieldDescription><![CDATA[dataPagamento]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="nomeDoCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeDoCliente]]></fieldDescription>
+	</field>
+	<field name="numeroDaParcela" class="java.lang.Integer">
+		<fieldDescription><![CDATA[numeroDaParcela]]></fieldDescription>
+	</field>
+	<field name="observcao" class="java.lang.String">
+		<fieldDescription><![CDATA[observcao]]></fieldDescription>
+	</field>
+	<field name="vencimento" class="java.util.Date">
+		<fieldDescription><![CDATA[vencimento]]></fieldDescription>
+	</field>
+	<field name="valorParcela" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valorParcela]]></fieldDescription>
+	</field>
+	<pageHeader>
+		<band height="21">
+			<staticText>
+				<reportElement uuid="3aa907b2-10ce-4997-bca0-abf1c60aa05e" x="57" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número da Parcela]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ddc307fb-d883-46fa-a6a5-f7eaaf5e47f8" x="185" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vencimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f74228df-d187-4378-a241-3556d2b78a57" x="327" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="4951b46e-6be1-4458-8c50-28cad36911f6" x="0" y="20" width="802" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="8e10deeb-8d76-42d2-8919-ba5d186bfc7d" x="-1" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement uuid="7bf089f1-7dbb-4a68-b25e-f61a3a6832ae" x="802" y="0" width="1" height="21"/>
+			</line>
+			<staticText>
+				<reportElement uuid="7612c309-35cf-4407-b7f1-1b0e376be72a" x="485" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Data do Pagamento]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="d8d9b07d-c62a-449e-a643-2bca9972efb9" style="zebra" x="0" y="0" width="802" height="20"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="060b8856-f4a2-4117-99dc-ef7723bcbde0" x="57" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroDaParcela}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="b2acc437-fbd0-4880-88b9-bfe6bc0a6282" x="185" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="f96713bd-71b4-4860-bbef-3c9aa62d6327" x="327" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorParcela}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="8bc736cf-7c58-459b-8536-7436fd092d85" x="-1" y="0" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement uuid="9185208e-ba85-45eb-bd73-6a7149350eb4" x="802" y="0" width="1" height="21"/>
+			</line>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="8e1af216-f12d-442e-9cb3-8aa122cc6d00" x="485" y="1" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dataPagamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

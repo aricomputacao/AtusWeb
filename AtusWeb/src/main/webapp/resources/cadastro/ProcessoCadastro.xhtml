@@ -1,0 +1,423 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:consultas="http://java.sun.com/jsf/composite/consultas">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+        <composite:attribute  name="legend" default="Cadastro" shortDescription="Cabeçalho do fieldset" />
+        <composite:attribute  name="update_from_evento" default="@form" shortDescription="Tela de cad evento que deveta ser atualizada " />
+        <composite:attribute  name="render_btns_addEvento_gerarPeca" default="true" shortDescription="renderizar btns de add evento e imprimir peça " />
+
+    </composite:interface>
+    <composite:implementation  >
+
+
+        <p:fieldset id="fieldCad" rendered="#{navegacaoMB.permissaoIncluir(navegacao['pro.processo'])}" legend="#{cc.attrs.legend}"  >            
+
+            <h:panelGrid>
+                <h:outputText rendered="#{processoMB.processo.id != null}" style="font-size:20px;font-weight: bold" value="&rsaquo;&rsaquo; Id: #{processoMB.processo.id}"/>
+                <h:outputText rendered="#{processoMB.processo.id != null}" style="font-size:20px;font-weight: bold" value="&rsaquo;&rsaquo; Cliente: #{processoMB.processo.cliente.pessoa.nome}"/>
+            </h:panelGrid>
+
+            <p:toolbar  rendered="#{cc.attrs.render_btns_addEvento_gerarPeca}" >
+                <p:toolbarGroup>
+                    <p:separator/>
+                    <p:commandButton icon="ui-icon-circle-plus" title="Adicionar Eventos"  oncomplete="PF('dialogCadEve').show()"  update="#{cc.attrs.update_from_evento}" >
+                        <f:setPropertyActionListener target="#{eventoMB.evento.processo}" value="#{processoMB.processo}"/>                        
+                    </p:commandButton>
+                    <p:separator/>
+                    <p:commandButton icon="ui-icon-plus" title="Gerar Peça"  oncomplete="PF('dialogPeca').show()"/>
+                    <p:separator/>
+                </p:toolbarGroup>
+            </p:toolbar>
+            <p:tabView id="tbView" dynamic="true" >
+                <p:tab id="tabDadosGer" title="#{label.dados_gerais}">
+                    <h:panelGrid columns="1" >
+                        <h:panelGrid columns="2"   >
+                            <h:panelGrid >
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Id" for="id" />
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:inputText value="#{processoMB.processo.id}" size="5" id="id" readonly="true" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid>
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Fase" for="fas"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="fas" effect="fade" style="width: 350px" converter="#{indexConverter}" value="#{processoMB.processo.fase}" required="true"   >
+                                        <f:selectItems value="#{faseMB.listaFases}" var="fas" itemLabel="#{fas.nome} --> #{fas.usuario.nome} (#{fas.prazo} dias) " itemValue="#{fas}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid id="grdEndere">
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="#{label.enderecamento}" for="trat"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="trat" effect="fade" style="width: 250px" converter="#{indexConverter}" value="#{processoMB.processo.enderecamento}" required="true"   >
+                                        <f:selectItems value="#{enderecamentoMB.listaEnderecamentos}" var="end" itemLabel="#{end.nome}" itemValue="#{end}"/>
+                                    </p:selectOneMenu>
+                                    <p:commandButton onclick="PF('dialogoEnderecamento').show()" immediate="true" icon="ui-icon-circle-plus"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid>
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Motivo Fase" for="mo"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:inputTextarea cols="45" maxlength="1024" value="#{processoMB.processo.motivoFase}" id="mo"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid >
+                                <comp:inputText nomeLabel="Número" size="20" value="#{processoMB.processo.numero}"/>
+                            </h:panelGrid>
+                            <h:panelGrid >
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Usuário Fase" for="ufs"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:inputText  value="#{processoMB.processo.fase.usuario.login}" readonly="true" id="ufs"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid id="grdTipCon">
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="#{label.tipo_contrato}" for="tip"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="tip" effect="fade" style="width: 350px" converter="#{indexConverter}" value="#{processoMB.processo.tipoContrato}" required="true"   >
+                                        <f:selectItems value="#{tipoContratoMB.listaTipoContrados}" var="tp" itemLabel="#{tp.nome}" itemValue="#{tp}"/>
+                                    </p:selectOneMenu>
+                                    <p:commandButton onclick="PF('dialogoTipoContrato').show()" immediate="true" icon="ui-icon-circle-plus"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid>
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Materia" for="mat"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="mat" effect="fade" style="width: 350px" converter="#{indexConverter}" value="#{processoMB.processo.materia}" required="true"   >
+                                        <f:selectItems value="#{materiaMB.listaMaterias}" var="mat" itemLabel="#{mat.nome}" itemValue="#{mat}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid >
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Advogado" for="adv"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="adv" effect="fade" style="width: 350px" converter="#{indexConverter}" value="#{processoMB.processo.advogado}" required="true"   >
+                                        <f:selectItems value="#{advogadoMB.listaAdvogados}" var="ad" itemLabel="#{ad.nome}" itemValue="#{ad}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid>
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Colaborador" for="col"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="col" effect="fade" style="width: 350px" converter="#{indexConverter}" value="#{processoMB.processo.colaborador}"    >
+                                        <f:selectItem itemLabel="------------  Selecione  --------------" itemValue="#{null}" /> 
+                                        <f:selectItems value="#{colaboradorMB.listaColaboradors}" var="col" itemLabel="#{col.pessoa.nome}" itemValue="#{col}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid>
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel value="Juizo" for="juz"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="juz" effect="fade" style="width: 350px" converter="#{indexConverter}" value="#{processoMB.processo.juizoTribunal}" required="true"   >
+                                        <f:selectItems value="#{juizoTribunalMB.listaJuizoTribunals}" var="juz" itemLabel="#{juz.nome}" itemValue="#{juz}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                            <h:panelGrid >
+                                <comp:inputTextCalendar nomeLabel="Data Cadastro" size="15" valorData="#{processoMB.processo.dataCadastro}"/>
+                            </h:panelGrid>   
+
+
+
+                            <h:panelGrid id="grdObj"  >
+                                <h:panelGrid >                                   
+                                    <p:outputLabel value="Objeto" for="input_componente_obj"/>
+                                    <h:panelGrid columns="3">
+                                        <p:inputTextarea rows="5" cols="45" value="#{processoMB.processo.objetoProcesso }" id="input_componente_obj"  />
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <comp:inputTextArea nomeLabel="Observações" value="#{processoMB.processo.observacoes}" coluna="45" linha="5"  />
+                        </h:panelGrid>
+                        <h:panelGrid  id="grdParte" columns="2">
+                            <h:panelGrid id="grdInt"  >
+                                <p:panel style="text-align: center"  header="Partes Interessadas">
+                                    <h:panelGrid   >
+                                        <h:panelGrid>
+                                            <p:outputLabel value="Interessado" for="input_componente_int"/>
+                                            <h:panelGrid columns="3">
+                                                <p:inputText value="#{processoMB.parteInteressada.cliente.pessoa.nome}" id="input_componente_int" readonly="true" size="27"/>
+                                                <p:commandButton icon="ui-icon-search"  onclick="PF('dialogoConIntere').show()"  immediate="true"/>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="2">
+                                            <comp:inputText require="false" nomeLabel="Representante\Qualificação" value="#{processoMB.parteInteressada.representante}" size="50" />
+                                            <p:commandButton style="margin-top: 23px" value="Adicionar"  actionListener="#{processoMB.addInteressado()}" update="@form"  icon="ui-icon-circle-plus"  />
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                    <p:dataTable value="#{processoMB.processo.parteInteressadas}" id="tabelaInt" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
+                                                 rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                                 rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+
+                                        <p:column headerText="Nome" sortBy="#{t.cliente.pessoa.nome}">
+                                            <comp:outputText value="#{t.cliente.pessoa.nome}"/>
+                                        </p:column>
+                                        <p:column headerText="Representante" >
+                                            <comp:outputText value="#{t.representante}"/>
+                                        </p:column>
+                                        <p:column headerText="Ação" width="10%"  style="text-align: center">
+                                            <p:commandButton actionListener="#{clienteMB.setarCliente(t.cliente)}"   style="width: 22px;height: 22px" rendered="true" title="Informações"  update="fic" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
+                                            <comp:commandButton_excluir acao_butao="#{processoMB.delInteressado(t, processoMB.processo)}" classe="Interessado" form_to_update="@form"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:panel>
+                            </h:panelGrid>
+
+                            <h:panelGrid id="grdIntAdv"  >
+                                <p:panel style="text-align: center" header="Adversário">
+                                    <h:panelGrid   >
+                                        <h:panelGrid>
+                                            <p:outputLabel value="Adversário" for="input_componente_adv"/>
+                                            <h:panelGrid columns="3">
+                                                <p:inputText value="#{processoMB.adversario.cliente.pessoa.nome}" id="input_componente_adv"  readonly="true" size="27"/>
+                                                <p:commandButton icon="ui-icon-search"  onclick="PF('dialogoConAdv').show()"  immediate="true"/>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="2">
+                                            <comp:inputText nomeLabel="Representante\Qualificação" require="false" value="#{processoMB.adversario.representante}" size="50" />
+                                            <p:commandButton style="margin-top: 23px" value="Adicionar"  actionListener="#{processoMB.addAdversario()}" update="@form"  icon="ui-icon-circle-plus"  />
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                    <p:dataTable value="#{processoMB.processo.adversarios}" id="tabelaAdv" paginatorAlwaysVisible="false" paginator="true" var="t2" rows="10"
+                                                 rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                                 rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+
+                                        <p:column headerText="Nome" sortBy="#{t2.cliente.pessoa.nome}">
+                                            <comp:outputText value="#{t2.cliente.pessoa.nome}"/>
+                                        </p:column>
+                                        <p:column headerText="Representante" >
+                                            <comp:outputText value="#{t2.representante}"/>
+                                        </p:column>
+                                        <p:column headerText="Ação" width="10%" style="text-align: center">
+                                            <p:commandButton actionListener="#{clienteMB.setarCliente(t2.cliente)}"   style="width: 22px;height: 22px" rendered="true" title="Informações"  update="fic" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="ui-icon-info" />
+                                            <comp:commandButton_excluir acao_butao="#{processoMB.delAdversario(t2, processoMB.processo)}" classe="Adversário" form_to_update="@form"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:panel>
+                            </h:panelGrid>
+                        </h:panelGrid>
+
+                    </h:panelGrid>
+
+                </p:tab>
+
+                <p:tab id="tabFatos" title="Dos Fatos">
+                    <comp:inputTextArea  nomeLabel="Dos Fatos" value="#{processoMB.processo.fatos}" coluna="100" linha="20"  />
+
+                </p:tab>
+                <p:tab id="tabProvas" title="Das Provas">
+                    <comp:inputTextArea nomeLabel="Das Provas" value="#{processoMB.processo.provas}" coluna="100" linha="20"  />
+
+
+                </p:tab>
+                <p:tab id="tabInfo" title="Informações Reservadas">
+                    <comp:inputTextArea nomeLabel="Informações Reservadas" value="#{processoMB.processo.informacaoReservada}" coluna="100" linha="20"  />
+
+
+                </p:tab>
+                <p:tab id="tabDadProces" title="Dados Processuais">
+                    <h:panelGrid columns="3">
+                        <h:panelGrid>
+                            <p:outputLabel value="NB Indeferido" for="nb"/>
+                            <p:inputText id="nb" onkeypress="return soNumero()" value="#{processoMB.processo.nbIndeferido}" />
+                        </h:panelGrid>
+                        <h:panelGrid>
+                            <comp:inputTextCalendar nomeLabel="DER" size="15" valorData="#{processoMB.processo.der}" />
+                        </h:panelGrid>
+
+                    </h:panelGrid>
+                    <h:panelGrid columns="3">
+                        <h:panelGrid>
+                            <comp:inputTextArea nomeLabel="Motivo Indeferimento/Cessação" value="#{processoMB.processo.motivoIndeferimento}" coluna="50" linha="5"/>
+                        </h:panelGrid>
+                        <h:panelGrid>
+                            <comp:inputTextArea nomeLabel="Incapacidade/Causa da Morte" value="#{processoMB.processo.incapacidade}" coluna="50" linha="5"/>
+                        </h:panelGrid>
+
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <h:panelGrid>
+                            <comp:inputTextArea nomeLabel="Filho/Cônjuge/Falecido" value="#{processoMB.processo.dependente}" coluna="50" linha="5"/>
+                        </h:panelGrid>
+                        <h:panelGrid>
+
+                            <h:panelGrid columns="2"> 
+                                <h:panelGrid>
+                                    <p:outputLabel value="NB Deferido" />
+                                    <p:inputText  onkeypress="return soNumero()"  value="#{processoMB.processo.nbDeferido}" />
+                                </h:panelGrid>
+                                <h:panelGrid>
+                                    <comp:inputTextCalendar nomeLabel="DCB" size="15" valorData="#{processoMB.processo.dcb}" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2"> 
+                                <h:panelGrid>
+                                    <comp:inputTextCalendar nomeLabel="DIB" size="15" valorData="#{processoMB.processo.dib}" />
+                                </h:panelGrid>
+                                <h:panelGrid>
+                                    <comp:inputTextCalendar nomeLabel="DIP" size="15" valorData="#{processoMB.processo.dip}" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+                        </h:panelGrid>
+
+                    </h:panelGrid>
+
+                </p:tab>
+                <p:tab id="tabMov" title="Movimentações">
+                    <consultas:MovimentacaoConsulta listaDeMovimentacoes="#{processoMB.listaMovimentacaos}" />
+                </p:tab>
+                <p:tab id="tabEvent" title="Eventos">
+                    <p:dataTable value="#{processoMB.listaEventos}" id="tabelaEven" paginatorAlwaysVisible="false"  paginator="true" var="ev" rows="10" 
+                                 rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                 rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                        <p:column headerText="Nome" width="10%" sortBy="#{t.nome}">
+                            <comp:outputText value="#{ev.nome}"/>
+                        </p:column>
+                        <p:column headerText="Tipo" width="10%" >
+                            <comp:outputText value="#{ev.especieEvento.nome}"/>
+                        </p:column>
+                        <p:column headerText="Descrição" width="30%" >
+                            <comp:outputText value="#{ev.observacao}"/>
+                        </p:column>
+                        <p:column headerText="Participante" width="10%" >
+                            <comp:outputText value="#{t.usuario.nome}"/>
+                        </p:column>
+                        <p:column headerText="Data" width="5%" >
+                            <comp:outputText tipo="d" value="#{ev.data}"/>
+                        </p:column>
+                        <p:column headerText="Ação" id="acao" width="3%" style="text-align: center">
+                            <p:commandButton  style="width: 22px;height: 22px" actionListener="#{eventoMB.imprimirEvento(ev)}"  oncomplete="popup('/atus/RelatorioServlet.pdf');" id="btnEvent" icon="ui-icon-print" />
+
+                        </p:column>
+
+                    </p:dataTable>
+                </p:tab>
+                <p:tab id="tabCus" title="Custos e Despesas" >
+                    <p:blockUI block="@form" trigger="btnPrint">
+                        <p:graphicImage library="imagens" name="carregar.gif"/>
+                    </p:blockUI>
+                    <h:panelGrid columns="2" cellspacing="5">
+
+                        <p:commandButton oncomplete="PF('dialogoConPag').show()" update=":frmConPagamento" immediate="true" icon="fa fa-plus fa-lg"
+                                         title="Add Pagamento" actionListener="#{contaReceberMB.consultarTodasContasReceberDo(processoMB.processo)}" />
+                        <p:commandButton id="btnPrint" icon="fa fa-print fa-lg" oncomplete="popup('/atus/RelatorioServlet.pdf'); " 
+                                         actionListener="#{contaReceberMB.imprimirPassando(processoMB.processo)}"  />
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3">
+                        <p:panel header="Parcelas Pagas" style="text-align: center;min-height: 600px" >                           
+                            <p:dataTable value="#{processoMB.listaParcelasPagas}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
+                                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                                <p:column headerText="Número" >
+                                    <comp:outputText value="#{t.numeroDaParcela}"/>
+                                </p:column>
+                                <p:column headerText="Data">
+                                    <comp:outputText value="#{t.dataPagamento}" tipo="d"/>
+                                </p:column>
+                                <p:column headerText="Valor Pago" >
+                                    <comp:outputText value="#{t.valorPago}" tipo="c"/>
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:panel>
+                        <p:panel header="Parcelas Abertas" style="text-align: center;min-height: 600px" >                           
+                            <p:dataTable value="#{processoMB.listaParcelasAbertas}" id="tabAber" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
+                                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                                <p:column headerText="Número" >
+                                    <comp:outputText value="#{t.numeroDaParcela}"/>
+                                </p:column>
+                                <p:column headerText="Vencimento">
+                                    <comp:outputText value="#{t.vencimento}" tipo="d"/>
+                                </p:column>
+                                <p:column headerText="Valor " >
+                                    <comp:outputText value="#{t.valorParcela}" tipo="c"/>
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:panel>
+                        <p:panel header="#{label.parcelas_vencidas}" style="text-align: center;min-height: 600px" >                           
+                            <p:dataTable value="#{processoMB.listaParcelasVencidas}" id="tabVenc" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
+                                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                         rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                                <p:column headerText="Número" >
+                                    <comp:outputText value="#{t.numeroDaParcela}"/>
+                                </p:column>
+                                <p:column headerText="Vencimento">
+                                    <comp:outputText value="#{t.vencimento}" tipo="d"/>
+                                </p:column>
+                                <p:column headerText="Valor " >
+                                    <comp:outputText value="#{t.valorParcela}" tipo="c"/>
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:panel>
+
+                    </h:panelGrid>
+
+                </p:tab>
+                <p:tab  title="#{label.notificacoes}" id="tabNotfi">
+                    <p:commandButton onclick="PF('dialogoConNot').show()" value="#{label.adicionar_notificacao}" style="margin-top: 10px" icon="fa fa-plus-square fa-lg"/>
+                    <p:dataTable value="#{processoMB.listaNotificacaoProcesso}" var="arq" >
+                        <p:column  headerText="#{label.nome} " >
+                            <comp:outputText value="#{arq.nome}" title="#{arq.observacao}"/>
+                        </p:column>
+                        <p:column headerText="#{label.link} " >
+                            <h:outputLink  value="#{arq.link}" target="_blank">#{arq.link}</h:outputLink>
+                        </p:column>
+                        <p:column headerText="#{label.data} " >
+                            <comp:outputText value="#{arq.dataRegistro}" tipo="d" title="#{arq.observacao}"/>
+                        </p:column>
+
+                        <p:column headerText="#{label.acao}" >
+
+                            <p:commandButton title="#{label.visualizar}" rendered="#{arq.arquivo != null}" icon="fa fa-file-pdf-o fa-lg"  actionListener="#{processoMB.viasualizarArquivo(arq)}" 
+                                             oncomplete="popup('/atus/RelatorioServlet.pdf');"/>
+                            <comp:commandButton_excluir classe="Notificação" acao_butao="#{processoMB.excluirNotificacao(arq)}" form_to_update=":frm_pag:cadFrm:compProce:tbView:tabNotfi" />
+                        </p:column>
+                    </p:dataTable>
+
+                </p:tab>
+
+            </p:tabView>
+
+
+
+        </p:fieldset>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

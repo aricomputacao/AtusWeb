@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:cons="http://java.sun.com/jsf/composite/consultas"
+                xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="corpo">
+        <h:form id="frm_pag">
+
+            <comp:menuPanel id="menuPanel" acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['pro.peca'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['pro.peca'])}" acao_imprimir="#{pecaMB.imprimir()}" acao_limpar="#{pecaMB.init()}" acao_salvar="#{pecaMB.salvar()}"/>
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Cadastro de Peças" id_form="frm_pag">
+                <cadastro:PecaCadastro id="cad" rendered="#{navegacaoMB.renderPainelCadastro}"/>
+
+                <cons:PecaConsulta  id="conPeca" rendered="#{not navegacaoMB.renderPainelCadastro}"/>
+
+            </comp:panel_cadastro>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="dialogs">
+        <p:dialog widgetVar="editTag" id="edt" width="600" height="400">
+            <h:form id="frmedt" style="width: 100%;">
+                <h:panelGrid width="100%">
+                    <h:outputText value="Edite o texto abaixo"/>
+                    <p:inputTextarea value="#{pecaMB.tag.value}" style="width: 100%"/>
+                    <p:commandButton value="OK" onclick="PF('editTag').hide();" ajax="true" update=":frm_pag:cadFrm:cad:fieldTextos"/>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>
+

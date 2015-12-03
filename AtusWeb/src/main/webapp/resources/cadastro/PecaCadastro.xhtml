@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+    </composite:interface>
+    <composite:implementation  >
+
+        <p:fieldset legend="Cadastro" rendered="#{navegacaoMB.permissaoIncluir(navegacao['pro.peca'])}" style="font-weight: bold;text-align: left">
+            <h:panelGrid width="100%">
+                <h:panelGrid columns="3">
+                    <h:panelGrid id="griPrin3">
+                        <h:panelGrid columns="2" id="grd03">
+                            <p:outputLabel value="Descrição" for="desc"/>
+                            <p:message for="desc"/>
+                        </h:panelGrid>
+                        <p:inputText value="#{pecaMB.peca.descricao}" size="50" id="desc" required="true" requiredMessage="#{mensagens['require']}"/>
+                    </h:panelGrid>
+                    <h:panelGrid id="griPrin4">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Grupo" for="grupo"/>
+                            <p:message for="grupo"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <p:selectOneMenu value="#{pecaMB.grupo}" id="grupo" converter="#{indexConverter}" style="width: 200px;">
+                                <f:selectItem itemValue="#{null}" itemLabel=""/>
+                                <f:selectItems value="#{pecaMB.listaGrupoPecas}" var="g" itemLabel="#{g.nome}" itemValue="#{g}"/>
+                                <p:ajax event="change" update="sub"  process="@this" listener="#{pecaMB.atualizaListaSubGrupos()}"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid id="sub">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Subgrupo" for="sub"/>
+                            <p:message for="sub"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <p:selectOneMenu value="#{pecaMB.peca.subgrupo}" converter="#{indexConverter}" required="true" requiredMessage="#{mensagens['require']}" style="width: 200px;">
+                                <f:selectItem itemValue="#{null}" itemLabel=""/>
+                                <f:selectItems value="#{pecaMB.listaSubGrupoPecas}" var="s" itemLabel="#{s.nome}" itemValue="#{s}"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGrid id="file">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Arquivo" for="arq"/>
+                        <p:message for="arq"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="3">
+                        <p:inputText value="#{pecaMB.file.fileName}" readonly="true" rendered="#{pecaMB.file != null}" id="arq" size="30"/>
+                        <p:fileUpload id="carArq" mode="advanced" fileUploadListener="#{pecaMB.uploadArquivo}" cancelLabel="Cancelar" label="Carregar Arquivo" uploadLabel="Enviar Arquivo" allowTypes="/(\.|\/)(docx)$/" update="file, textos" rendered="#{pecaMB.file == null}"/>
+                        <p:commandButton value="Excluir arquivo" actionListener="#{pecaMB.excluirArquivo()}" update="file" rendered="#{pecaMB.file != null}" icon="ui-icon-trash" immediate="true"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <p:fieldset legend="Conteúdo do arquivo" style="font-weight: bold;text-align: left" id="fieldTextos">
+                    <h:panelGrid id="textos">
+
+                        <p:commandButton style="float: right"  actionListener="#{pecaMB.apagarListaDeTextos()}" value="Apagar Linhas" 
+                                         icon="ui-icon-trash" update="tblPec" rendered="#{pecaMB.textos != null}">
+                            <p:confirm header="Confirmação" message="Excluir textos?"   icon="ui-icon-alert"/>
+                        </p:commandButton>
+
+                        <p:dataTable id="tblPec" rendered="#{pecaMB.textos != null}" value="#{pecaMB.textos}"  
+                                     selection="#{pecaMB.itensSel}" var="tag" 
+                                     rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" 
+                                     rowIndexVar="rowIx" rowKey="#{tag.value}" emptyMessage="#{mensagens['consulta.vazia']}">
+
+                            <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                            <p:column width="90%">
+                                <h:outputText value="#{tag.value}"/>
+                            </p:column>
+                            <p:column width="10%">     
+                                <p:commandButton icon="ui-icon-circle-arrow-w" title="Corrigir tag" style="width: 22px;height: 22px" 
+                                                 update=":frm_pag:cadFrm:cad:fieldTextos" 
+                                                 actionListener="#{pecaMB.corrigirTexto(tag)}"  immediate="true"/>
+
+                                <p:commandButton icon="ui-icon-pencil" style="width: 22px;height: 22px" 
+                                                 title="Editar tag" update=":frmedt" onclick="PF('editTag').show();"
+                                                 immediate="true">
+                                    <f:setPropertyActionListener value="#{tag}" target="#{pecaMB.tag}"/>
+                                </p:commandButton>
+
+                                <comp:commandButton_excluir classe="Texto" acao_butao="#{pecaMB.apagarTexto(tag)}" 
+                                                            form_to_update=":frm_pag:cadFrm:cad:fieldTextos" immediate="true" />
+
+                            </p:column>
+                        </p:dataTable>
+                          <p:commandButton style="float: right"  actionListener="#{pecaMB.apagarListaDeTextos()}" value="Apagar Linhas" 
+                                         icon="ui-icon-trash" update="tblPec" rendered="#{pecaMB.textos != null}">
+                            <p:confirm header="Confirmação" message="Excluir textos?"   icon="ui-icon-alert"/>
+                        </p:commandButton>
+                    </h:panelGrid>
+                </p:fieldset>
+                <p:fieldset id="tags" legend="Tags válidas" >
+                    <h:panelGrid columns="3" >
+
+                        <p:fieldset toggleable="true" style="height: 2210px" id="tagCliente" legend="Cliente" >
+                            <p:dataTable value="#{pecaMB.lisCliente}"   var="tag"  emptyMessage="Nenhum Subgrupo Selecionado"  
+                                         rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" rowIndexVar="rowIx" >
+                                <p:column >
+                                    <h:outputText value="#{tag.tagName}" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:fieldset>
+                        <p:fieldset toggleable="true" id="tagCol" style="height: 2210px" legend="Colaborador" >
+                            <p:dataTable   rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                           rowIndexVar="rowIx" value="#{pecaMB.lisColaborador}"  var="tag3" emptyMessage="Nenhum Subgrupo Selecionado" >
+                                <p:column>
+                                    <h:outputText value="#{tag3.tagName}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:fieldset>
+
+                        <p:fieldset toggleable="true" id="tagProce" style="height: 2210px" legend="Processo" >
+                            <p:dataTable   rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                                           rowIndexVar="rowIx" value="#{pecaMB.lisProcesso}"  var="tag2" emptyMessage="Nenhum Subgrupo Selecionado" >
+                                <p:column>
+                                    <h:outputText value="#{tag2.tagName}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </p:fieldset>
+            </h:panelGrid>
+        </p:fieldset>
+
+    </composite:implementation>
+</ui:composition>
+
+
+
+

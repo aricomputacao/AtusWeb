@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:util="http://java.sun.com/jsf/composite/util">
+
+    <composite:interface id="int">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+    </composite:interface>
+    <composite:implementation id="int2" >
+        <p:fieldset id="fieldCad" rendered="#{navegacaoMB.permissaoIncluir(navegacao['cad.atendimento'])}" legend="Cadastro" style="text-align: left">
+            <h:panelGrid >
+                <p:outputLabel  value="Usuário" for="usr"/>
+                <p:selectOneMenu id="usr" effectSpeed="fade" converter="#{indexConverter}" value="#{atendimentoMB.atendimento.usuarioAtendimento}">
+                    <f:selectItem value="#{null}" noSelectionOption="true" itemLabel="-----Selecione-----" itemValue="#{null}"/>
+                    <f:selectItems value="#{atendimentoMB.listaUsuarios}" itemValue="#{u}" var="u" itemLabel="#{u.login}" />
+                </p:selectOneMenu>
+
+            </h:panelGrid>
+            <h:panelGrid id="grdUsr"  columns="3" >
+
+                <h:panelGrid >
+                    <comp:input_button nome_dialog="dialogoConCliente" required="false" id="inputCon" input_size="50" nome_label="Cliente" value_input="#{atendimentoMB.atendimento.cliente.pessoa.nome}"  />
+                </h:panelGrid>
+                <h:panelGrid  >
+                    <p:outputLabel value="Visitante" for="nome"/>
+                    <p:inputText value="#{atendimentoMB.atendimento.visitante}"  id="nome" size="41" required="false" requiredMessage="#{mensagens['require']}"/>
+                </h:panelGrid>
+                <h:panelGrid id="grdClieN">
+                    <p:outputLabel  value="CN" title="Cliente Novo" />
+                    <p:selectBooleanCheckbox  value="#{atendimentoMB.atendimento.clienteNovo}" />
+
+                </h:panelGrid>
+            </h:panelGrid>
+
+            <h:panelGrid columns="2">
+                <h:panelGrid  >
+                    <p:outputLabel value="Email" for="email"/>
+                    <p:inputText value="#{atendimentoMB.atendimento.email}"  id="email" size="46" />
+                </h:panelGrid>
+                <h:panelGrid>
+                    <p:outputLabel value="Telefone" for="pra"/>
+                    <p:inputMask mask="(99)9999-9999" value="#{atendimentoMB.atendimento.telefone}"   id="pra" size="20" onkeypress="return soNumero()"   />
+                </h:panelGrid>
+            </h:panelGrid>
+            <h:panelGrid>
+                <comp:inputTextArea nomeLabel="Assunto" value="#{atendimentoMB.atendimento.assunto}" coluna="75" linha="10" />
+            </h:panelGrid>
+        </p:fieldset>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

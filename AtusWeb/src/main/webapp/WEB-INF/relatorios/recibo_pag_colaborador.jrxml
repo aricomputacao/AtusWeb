@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="recibo_pag_colaborador" language="groovy" pageWidth="842" pageHeight="350" orientation="Landscape" columnWidth="832" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="0" uuid="ad792da5-8f50-42f0-8cc1-b743e2218235">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="zebra">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean( $V{REPORT_COUNT}.intValue() % 2 == 0 )]]></conditionExpression>
+			<style forecolor="#F0F0F0" backcolor="#F0F0F0"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="imgAt" class="java.lang.String"/>
+	<parameter name="img" class="java.lang.String"/>
+	<parameter name="img1" class="java.lang.String"/>
+	<parameter name="valor_total" class="java.math.BigDecimal"/>
+	<parameter name="usr_pagou" class="java.lang.String"/>
+	<parameter name="valor_extenso" class="java.lang.String"/>
+	<parameter name="data_pagamento" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="dataDeRecebimento" class="java.util.Date">
+		<fieldDescription><![CDATA[dataDeRecebimento]]></fieldDescription>
+	</field>
+	<field name="colaborador" class="br.com.atus.cadastro.modelo.Colaborador">
+		<fieldDescription><![CDATA[colaborador]]></fieldDescription>
+	</field>
+	<field name="dataDoPagamento" class="java.util.Date">
+		<fieldDescription><![CDATA[dataDoPagamento]]></fieldDescription>
+	</field>
+	<field name="nomeDoCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeDoCliente]]></fieldDescription>
+	</field>
+	<field name="numeroDoRecibo" class="java.lang.Long">
+		<fieldDescription><![CDATA[numeroDoRecibo]]></fieldDescription>
+	</field>
+	<field name="percentualDoColaborador" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[percentualDoColaborador]]></fieldDescription>
+	</field>
+	<field name="recebidoPor" class="java.lang.String">
+		<fieldDescription><![CDATA[recebidoPor]]></fieldDescription>
+	</field>
+	<field name="recibo" class="br.com.atus.financeiro.modelo.Recibo">
+		<fieldDescription><![CDATA[recibo]]></fieldDescription>
+	</field>
+	<field name="usuarioQuePagou" class="br.com.atus.cadastro.modelo.Usuario">
+		<fieldDescription><![CDATA[usuarioQuePagou]]></fieldDescription>
+	</field>
+	<field name="valorDoColaborador" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valorDoColaborador]]></fieldDescription>
+	</field>
+	<field name="valorDoRecibo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valorDoRecibo]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="processo" class="br.com.atus.processo.modelo.Processo">
+		<fieldDescription><![CDATA[processo]]></fieldDescription>
+	</field>
+	<title>
+		<band height="40" splitType="Immediate">
+			<rectangle>
+				<reportElement x="0" y="0" width="832" height="38" uuid="1cdd0845-9bf7-45f5-8118-2583e2c689ab"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="684" y="18" width="45" height="20" uuid="e857f599-8a95-4b9c-a722-af5a7121f7c4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="728" y="18" width="98" height="20" uuid="4473c599-05c1-4d26-a8f0-b6b11d063c9a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{valor_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="139" height="20" uuid="2f2030ec-d88e-4f1c-bb00-27c249c2a5a3"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Atus]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="253" height="20" uuid="93952d57-2bb2-4447-9db5-e81e7d58082c"/>
+				<textElement>
+					<font size="14" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Recibo do Colaborador]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="83" splitType="Immediate">
+			<rectangle>
+				<reportElement x="0" y="0" width="832" height="65" uuid="70ab6c8e-bfe1-460e-9961-c471ae3335d3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="41" height="20" uuid="2287e654-e26c-4d79-be07-c7dae55fcf45"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Sobral,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="64" height="20" uuid="e8f02030-3eab-4597-a6cc-ac8d7d3b4910"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Recebi de:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="23" width="104" height="19" uuid="a58e4a38-9991-4649-aa71-9d381b5a8354"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A importância de:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="43" width="253" height="20" uuid="199df500-e91b-419d-876d-8c855f8d5cc5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Referente as seguintes parcelas recebidas ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="63" width="832" height="20" uuid="99ddbbb7-ac06-4ea9-a6c2-e1f9ceac3fd9"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="63" width="63" height="20" uuid="d1b5b25a-d630-4890-8122-95e4bff87f03"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Id Processo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="485" y="63" width="341" height="20" uuid="7389fb43-29de-4490-a0c2-46ad2d9c0af4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="247" y="63" width="75" height="20" uuid="68faec60-b99e-489c-824a-cecb72ac64fb"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="264" y="0" width="562" height="20" uuid="46b56158-c3ff-4d45-9b36-f773f66b9e77"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{usr_pagou}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="104" y="23" width="722" height="20" uuid="1360569e-e538-45cd-8864-8d576e0919c8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{valor_extenso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="41" y="0" width="159" height="20" uuid="a24e52a6-914a-4a48-b911-a10977c283ad"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{data_pagamento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="81" y="63" width="63" height="20" uuid="7b9aa96c-ed29-4b54-9945-6a0f6a531e36"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Recibo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="63" width="67" height="20" uuid="52a2da7b-4ec2-4142-8e08-13a0b76b2e5d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Total Recibo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="349" y="63" width="75" height="20" uuid="dcd016fa-b44f-4414-8e3d-1aacd21aea78"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Percentual Col.]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="20" splitType="Immediate">
+			<rectangle>
+				<reportElement style="zebra" x="0" y="0" width="832" height="20" uuid="c56592a8-91bd-40c7-85dc-63d532643281"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="485" y="0" width="341" height="20" uuid="af4041af-2670-4b05-a40a-9a11a4e08ff9"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nomeDoCliente}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="247" y="0" width="75" height="20" uuid="7f5176b1-c856-4fc8-acc3-3a7f1a60a05d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorDoColaborador}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="0" width="63" height="20" uuid="15b0f8c6-8383-4ac4-addf-fe78eb5b0912"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroDoRecibo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="161" y="0" width="67" height="20" uuid="41286eea-53b6-47d1-8a5d-7f6e5cc7fc35"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{recibo}.getValorTotal()]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="349" y="0" width="75" height="20" uuid="7ba6cab8-2ded-440a-8167-d801dc78a8f4"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{recibo}.getPercentualColaborador()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="1" height="20" uuid="53d1dfea-dca2-4e52-b58f-0ae34f748256"/>
+			</line>
+			<line>
+				<reportElement x="832" y="0" width="1" height="20" uuid="93eb9931-594c-4ee8-8496-da42a9f526e5"/>
+			</line>
+			<textField>
+				<reportElement x="3" y="0" width="63" height="20" uuid="83588c9b-dc21-4381-be1d-96b0dfae3cfc"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{processo}.getId()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="45" splitType="Immediate">
+			<rectangle>
+				<reportElement x="0" y="0" width="832" height="45" uuid="a06f05e8-669c-4db0-9c15-d3be301d85a7"/>
+			</rectangle>
+			<textField evaluationTime="Report">
+				<reportElement x="799" y="25" width="33" height="20" uuid="889873f8-af67-41db-bcd5-fd1851e34bc3"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="719" y="25" width="80" height="20" uuid="81d4d6e1-fcec-4df4-8526-dcbd0e8b4c41"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pag "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="25" width="559" height="20" uuid="2b8ff0ef-b707-475a-a0d0-4d5156a2fda1"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{colaborador}.getNome()]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="re_declaracao_hipo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d22f032c-f934-4c07-89b5-3bfac5af7496">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="rodapeEmail" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Projetos\\Atus\\atus\\web\\WEB-INF\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id" class="java.lang.String"/>
+	<parameter name="endere" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="cliente" class="br.com.atus.cadastro.modelo.Cliente">
+		<fieldDescription><![CDATA[cliente]]></fieldDescription>
+	</field>
+	<title>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="0" width="555" height="27" backcolor="#CCCCCC" uuid="f3ef1e7d-e84c-4efa-bf3d-db6f3765f965"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DECLARAÇÃO DE HIPOSSUFICIÊNCIA FINANCEIRA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="382" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="69" width="555" height="241" uuid="4b3aa4f2-defc-4bf9-ace2-08cb2fda3d77"/>
+				<textElement textAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["        "+$F{cliente}.getPessoa().getNome() +
+ ($F{cliente}.getNacionalidade() == null  ? "" : ", "+$F{cliente}.getNacionalidade().getNome())
+ +($F{cliente}.getEstadoCivil() == null ? "" :", "+$F{cliente}.getEstadoCivil())
+ +($F{cliente}.getProfissao() == null ? "" :", "+$F{cliente}.getProfissao().getNome())
+ +($F{cliente}.getRg() == null ? "" : " portador(a) da cédula de identidade nº "+$F{cliente}.getRg())
+ +($F{cliente}.getOrgaoEmissor() == null ? "" : " expedida pelo "+$F{cliente}.getOrgaoEmissor().getAbreviacao())
+ +($F{cliente}.getCpfCpnj() == null ? "" : ", inscrito no CPF/MF sob Nº "+$F{cliente}.getCpfCpnj())
+ +($F{cliente}.getPessoa().getCidade() == null ? "" : ", domiciliado em "+$F{cliente}.getPessoa().getCidade().getNome()+", "+$F{cliente}.getPessoa().getCidade().getUnidadeFederativa().getNome())
+ +($F{cliente}.getPessoa().getBairro() == null ? "" : ", no(a) "+$F{cliente}.getPessoa().getBairro())
+ +($F{cliente}.getPessoa().getLogradouro() == null ? "" : ", " +$F{cliente}.getPessoa().getLogradouro())
+ +($F{cliente}.getPessoa().getNumero() == null ? "":  " Nº "+$F{cliente}.getPessoa().getNumero())
+ +" DECLARA, nos termos da lei nº. 1.060/50, que dispõe sobre a prova documental"+" para todos os fins de direito, inclusive para fazer prova junto a esse juízo, que é pobre, na forma da lei, não podendo arcar com custas e emolumentos judiciais, sem prejuizo de seus sustentos e seus familiares,  "+"pelo que assumo inteira responsabilidade, sob as penas da lei, pela presente declaração."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="359" width="437" height="20" uuid="bd84e336-c5ad-4c08-b780-550f27bd4cdd"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente}.getPessoa().getNome()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="57">
+			<subreport>
+				<reportElement x="0" y="3" width="555" height="50" uuid="7dcf67bf-623d-4762-bf6d-0879694265c7"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="endere">
+					<subreportParameterExpression><![CDATA[$P{endere}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="rodapeEmail">
+					<subreportParameterExpression><![CDATA[$P{rodapeEmail}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="imgRoda"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rodape_retrato.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageFooter>
+</jasperReport>

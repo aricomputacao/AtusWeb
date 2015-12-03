@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+    </composite:interface>
+    <composite:implementation  >
+        <p:fieldset id="fieldCad" rendered="#{navegacaoMB.permissaoIncluir(navegacao['pro.contrato'])}" legend="Cadastro" style="font-weight: bold;text-align: left">
+            <h:panelGrid>
+                <h:panelGrid id="griPrin3">
+                    <h:panelGrid columns="2" id="grd03">
+                        <p:outputLabel value="Referencia" for="ref"/>
+                        <p:message for="ref"/>
+                    </h:panelGrid>
+                    <p:inputText value="#{contratoMB.contrato.referencia}" size="100" id="ref" required="true" requiredMessage="#{mensagens['require']}"/>
+                </h:panelGrid>
+                <h:panelGrid id="griPrin4" width="100%">
+                    <p:outputLabel value="Conteúdo" for="con"/>
+                    <p:inputTextarea value="#{contratoMB.contrato.conteudo}" id="con" requiredMessage="#{mensagens['require']}" required="true" maxlength="100000" style="width: 100%" cols="150"/>
+                </h:panelGrid>
+            </h:panelGrid>
+        </p:fieldset>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

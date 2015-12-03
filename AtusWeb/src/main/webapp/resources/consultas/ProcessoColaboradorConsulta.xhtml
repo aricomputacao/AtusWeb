@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+        <composite:facet name="btnConsultaProcesso"/>
+        <composite:attribute name="renderPesquisar" default="true"/>
+        <composite:attribute name="valorSelecionado" />
+        <composite:attribute name="nomeDialog" />
+        <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
+        <composite:attribute name="dialogUpdade" default=":frmDialogCadProce:compCadPro:tbView"/>
+    </composite:interface>
+    <composite:implementation id="compConCli" >
+        <h:panelGrid  width="100%" id="rtt" >
+            <p:fieldset id="fieldCon" rendered="#{navegacaoMB.permissaoConsultar(navegacao['rel.processo_colaborador'])}" legend="#{cc.attrs.nome}" style="font-weight: bold">
+                <h:panelGrid id="grdConsulta" columns="4" rendered="#{cc.attrs.renderPesquisar}">                   
+                    <h:panelGrid>
+                        <p:outputLabel value="Fases" />
+                        <p:selectCheckboxMenu id="selConProc" label="Selecione as fases" required="true" value="#{relatorioMB.listaFasesSelection}" filter="true" 
+                                              filterMatchMode="startsWith" panelStyle="width:350px" converter="#{indexConverter}">
+                            <f:selectItems value="#{faseMB.listaFases}" var="f" itemLabel="#{f.nome} -- #{f.usuario.login}" itemValue="#{f}" />
+                        </p:selectCheckboxMenu>
+
+                    </h:panelGrid>
+                    <h:panelGrid  id="grdConsulta2">                        
+                        <h:panelGrid>
+                            <comp:input_button nome_dialog="dialogoConColaborador" required="false" id="inputCon" input_size="50" nome_label="Colaborador" value_input="#{relatorioMB.colaborador.pessoa.nome}"  />
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid id="grdConsulta3">
+                        <p:spacer width="15" id="spacer"/>
+                        <composite:renderFacet name="btnConsultaProcesso" id="btnConsultaProcesso"/>
+                    </h:panelGrid>
+                    <h:panelGrid id="grdConsulta4">
+                        <p:spacer width="15" id="spacer2"/>
+                        <composite:renderFacet name="btnImpProcesso" id="btnImpProcesso"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <p:dataTable value="#{relatorioMB.listaProcessoUltimaMovimentacaoDTOs}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10"
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                    <p:column headerText="Id" width="5%" sortBy="#{t.processo.id}">
+                        <comp:outputText value="#{t.processo.id}"/>
+                    </p:column>
+                    <p:column headerText="Juizo" width="10%">
+                        <comp:outputText value="#{t.processo.juizoTribunal.nome}"/>
+                    </p:column>
+                    <p:column headerText="Número" width="12%" sortBy="#{t.processo.numero}">
+                        <comp:outputText value="#{t.processo.numero}"/>
+                    </p:column>
+                    <p:column headerText="Objeto" width="20%" >
+                        <comp:outputText value="#{t.processo.objetoProcesso}"/>
+                    </p:column>
+                    <p:column headerText="Cliente | Documento" sortBy="#{t.processo.cliente.pessoa.nome}" width="15%" >
+                        <comp:outputText value="#{t.processo.cliente.pessoa.nome} | "/>
+                        <h:outputText value="#{t.processo.cliente.cpfCpnj}" converter="#{cpfConverter}"/>
+                    </p:column>
+                    <p:column headerText="Motivo" width="20%"  >
+                        <comp:outputText value="#{t.movimentacao.motivo}" />
+                    </p:column>
+                    <p:column headerText="Fase" width="15%" >
+                        <comp:outputText value="#{t.processo.fase.nome}"/>
+                    </p:column>
+                    <p:column headerText="Desde" width="9%" >
+                        <comp:outputText tipo="d" value="#{t.movimentacao.dataMovimentacao}"/>
+                    </p:column>
+                    <p:column headerText="Prazo Final" width="8%" >
+                        <comp:outputText tipo="d" value="#{t.prazo}"/>
+                    </p:column>
+                    <p:column headerText="Endereçamento" width="9%" >
+                        <comp:outputText value="#{t.processo.enderecamento.nome}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+
+        </h:panelGrid>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

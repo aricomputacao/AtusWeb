@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+        <composite:facet name="btnConsultaCliente"/>
+        <composite:attribute name="renderBtnEditar" default="true" shortDescription="renderizar o btn editar" />
+        <composite:attribute name="renderSelecionar" default="false"/>
+        <composite:attribute name="renderInfo" default="true"/>
+        <composite:attribute name="valorSelecionado" />
+        <composite:attribute name="nomeDialog" />
+        <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
+
+
+    </composite:interface>
+    <composite:implementation id="compConCli" >
+
+        <h:panelGrid  width="100%" id="rtt" >
+            <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" rendered="#{navegacaoMB.permissaoConsultar(navegacao['cad.cliente'])}" style="font-weight: bold">
+                <h:panelGrid id="grdConsulta" columns="4">
+                    <h:panelGrid id="grdConsulta1">
+                        <p:outputLabel value="Campo"/>
+                        <p:selectOneMenu id="selectOne" value="#{clienteMB.campoBusca}" styleClass="lista">
+                            <f:selectItem itemLabel="Nome" itemValue="nome" />
+                            <f:selectItem itemLabel="CPF\CNPJ" itemValue="doc" />
+
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <h:panelGrid id="grdConsulta2">
+                        <p:outputLabel value="Buscar por"/>
+                        <p:inputText value="#{clienteMB.valorBusca}" />
+                    </h:panelGrid>
+                    <h:panelGrid id="grdConsulta3">
+                        <p:spacer width="15"/>
+                        <composite:renderFacet name="btnConsultaCliente" id="btnConsultaCliente" />
+
+                    </h:panelGrid>
+                </h:panelGrid>
+                <p:dataTable value="#{clienteMB.listaClientes}" id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10" 
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                    <p:column headerText="Id" width="5%">
+                        <comp:outputText value="#{t.id}"/>
+                    </p:column>
+                    <p:column headerText="Nome/Razão Social" width="30%" sortBy="#{t.pessoa.nome}">
+                        <comp:outputText value="#{t.pessoa.nome}"/>
+                    </p:column>
+                    <p:column headerText="CPF/CNPJ" width="8%" >
+                        <h:outputText value="#{t.cpfCpnj}" converter="#{cpfConverter}" />
+                       
+                    </p:column>
+                    <p:column headerText="Formas de Contato" width="10%" >
+                        <comp:outputText value="#{t.pessoa.email}  #{t.pessoa.telefone}  #{t.pessoa.celular}"/>
+                    </p:column>
+                    <p:column headerText="Cidade/UF" width="15%" >
+                        <comp:outputText value="#{t.pessoa.cidade.nome}-#{t.pessoa.cidade.unidadeFederativa.abreviacao}"/>
+                    </p:column>
+
+
+                    <p:column headerText="Ação" width="7%" style="text-align: center">
+                        <p:commandButton actionListener="#{clienteMB.setarCliente(t)}" action="#{clienteMB.listaProcessoCliente(t)}"  rendered="#{cc.attrs.renderInfo}" title="Informações"  update=":fic" oncomplete="PF('dialogFicha').show()"  id="btnInfo" icon="fa fa-info-circle fa-lg" />
+                        <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderBtnEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.cliente'],'cliente',t)}" />
+                        <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t}" />
+
+                    </p:column>
+
+                </p:dataTable>
+            </p:fieldset>
+
+        </h:panelGrid>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

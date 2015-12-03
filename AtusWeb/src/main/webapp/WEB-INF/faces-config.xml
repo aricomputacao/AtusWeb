@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.1"
+              xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+
+    <converter>
+        <converter-for-class>java.lang.Enum</converter-for-class>
+        <converter-class>javax.faces.convert.EnumConverter</converter-class>
+    </converter>
+      
+    <application>
+        <locale-config>
+            <default-locale>pt_BR</default-locale>
+        </locale-config>
+        <resource-bundle>
+            <base-name>label</base-name>
+            <var>label</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>mensagens</base-name>
+            <var>mensagens</var>
+        </resource-bundle>
+        <message-bundle>label</message-bundle>
+        <resource-bundle>
+            <base-name>navegacao</base-name>
+            <var>navegacao</var>
+        </resource-bundle>
+        <message-bundle>navegacao</message-bundle>
+        
+        <!--parametros para utilização do dialogFramework-->
+        <action-listener>org.primefaces.application.DialogActionListener</action-listener>
+        <navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>
+        <view-handler>org.primefaces.application.DialogViewHandler</view-handler>
+        
+    </application>
+    
+</faces-config>

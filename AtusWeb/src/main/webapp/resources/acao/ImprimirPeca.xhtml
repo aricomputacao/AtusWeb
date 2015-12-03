@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:util="http://java.sun.com/jsf/composite/util">
+
+    <composite:interface id="int">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+    </composite:interface>
+    <composite:implementation id="int2" >
+        <p:fieldset>
+            <h:panelGrid columns="2">
+                <h:panelGrid id="griPrin4">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Grupo" for="grupo"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <p:selectOneMenu value="#{pecaMB.grupo}" id="grupo" converter="#{indexConverter}" style="width: 200px;">
+                            <f:selectItem itemValue="#{null}" itemLabel="----------Selecione----------"/>
+                            <f:selectItems value="#{pecaMB.listaGrupoPecas}" var="g" itemLabel="#{g.nome}" itemValue="#{g}"/>
+                            <p:ajax event="change" update="sub"  process="@this" listener="#{pecaMB.atualizaListaSubGrupos()}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGrid id="sub">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Subgrupo" for="sub"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <p:selectOneMenu value="#{pecaMB.subGrupo}" converter="#{indexConverter}" style="width: 300px;">
+                            <f:selectItem itemValue="#{null}" itemLabel="----------Selecione----------"/>
+                            <f:selectItems value="#{pecaMB.listaSubGrupoPecas}" var="s" itemLabel="#{s.nome}" itemValue="#{s}"/>
+                            <p:ajax event="change" update="tabela_peca"  process="@this" listener="#{pecaMB.atualizaListaPecas()}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </h:panelGrid>
+        </p:fieldset>
+        <p:fieldset>
+
+            <h:panelGrid id="tabela_peca">
+                <p:blockUI block="@form" trigger=":frmPeca:frmConPeca:tblPeca:btnPeca"    >
+                    <p:graphicImage library="imagens" name="carregar.gif"/>
+                </p:blockUI>
+                <p:dataTable style="width: 100%;" paginatorAlwaysVisible="false" paginator="true" value="#{pecaMB.listaPecas}" var="peca" id="tblPeca"
+                             rows="10" rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}" 
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                    <p:column headerText="Descrição"  width="30%" sortBy="#{peca.descricao}">
+                        <comp:outputText value="#{peca.descricao}"/>
+                    </p:column>
+
+                    <p:column headerText="Arquivo" sortBy="#{peca.arquivo}">
+                        <comp:outputText value="#{peca.arquivo}"/>
+                    </p:column>
+                    <p:column headerText="Baixa" width="5%">
+                        <p:commandButton icon="ui-icon-star" id="btnPeca" title="Obter Peça" style="width: 22px;height: 22px" ajax="false" >
+                            <p:fileDownload value="#{processoMB.downloadModelo(processoMB.processo, peca)}"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </h:panelGrid>
+        </p:fieldset>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

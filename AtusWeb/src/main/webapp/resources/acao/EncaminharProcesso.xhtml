@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:util="http://java.sun.com/jsf/composite/util">
+
+    <composite:interface id="int">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+    </composite:interface>
+    <composite:implementation id="int2" >
+        <p:fieldset  legend="Dados do Processo" id="fieldAtend" style="text-align: left" >
+            <h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputText rendered="#{processoMB.processo.id != null}" style="font-weight: bold;font-size: 15px" value="&rsaquo;&rsaquo;Id:"/>
+                    <h:outputText value="#{processoMB.processo.id}" style="font-size: 15px"/>
+                </h:panelGrid>
+                <h:panelGrid rendered="#{processoMB.processo.numero != null}" columns="2">
+                    <h:outputText  style="font-weight: bold;font-size: 15px" value="&rsaquo;&rsaquo;Número:"/>
+                    <h:outputText value="#{processoMB.processo.numero}" style="font-size: 15px"/>
+                </h:panelGrid>
+                <h:panelGrid  columns="2">
+                    <h:outputText  style="font-weight: bold;font-size: 15px" value="&rsaquo;&rsaquo;Cliente:"/>
+                    <h:outputText value="#{processoMB.processo.cliente.pessoa.nome}" style="font-size: 15px"/>
+                </h:panelGrid>
+            </h:panelGrid>
+            <br/>
+            <p:separator/>
+            <h:panelGrid style="margin-top: 15px">
+                <h:panelGrid columns="2" >
+                    <p:outputLabel value="Fase" for="fas"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <p:selectOneMenu id="fas" effect="fade" style="width: 350px" converter="#{indexConverter}" value="#{processoMB.movimentacao.faseNova}" required="true"   >
+                        <f:selectItems value="#{faseMB.listaFases}" var="fas" itemLabel="#{fas.nome} --> #{fas.usuario.nome} (#{fas.prazo} dias) " itemValue="#{fas}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+            </h:panelGrid>
+            <h:panelGrid columns="2">
+                <comp:inputTextArea coluna="47" nomeLabel="Motivo" linha="10" value="#{processoMB.movimentacao.motivo}" require="false" /> 
+            </h:panelGrid>
+
+        </p:fieldset>
+
+    </composite:implementation>
+</ui:composition>
+
+
+
+

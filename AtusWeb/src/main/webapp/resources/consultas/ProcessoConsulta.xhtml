@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+        <composite:facet name="btnConsultaProcesso"/>
+        <composite:attribute name="renderBtnEditar" default="true" shortDescription="renderizar o btn editar" />
+        <composite:attribute name="renderSelecionar" default="false"/>
+        <composite:attribute name="renderInfo" default="true"/>
+        <composite:attribute name="renderMovimen" default="false"/>
+        <composite:attribute name="renderPrintDoc" default="false"/>
+        <composite:attribute name="renderGerarPeca" default="false"/>
+        <composite:attribute name="renderPesquisar" default="true"/>
+        <composite:attribute name="valorSelecionado" />
+        <composite:attribute name="nomeDialog" />
+        <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
+        <composite:attribute name="dialogInfo" default="dialogCadProc"/>
+        <composite:attribute name="dialogMovimen" default="dialogMovimen"/>
+        <composite:attribute name="dialogMovimenUpdate" default="@form"/>
+        <composite:attribute name="listaProcessos" default="#{processoMB.listaUltimaMovimentacaoDTOs}" shortDescription="Lista de processos"/>
+        <composite:attribute name="dialogUpdade" default=":frmDialogCadProce:compCadPro:tbView"/>
+
+    </composite:interface>
+    <composite:implementation id="compConCli" >
+        <h:panelGrid  width="100%" id="rtt" >
+            <p:fieldset id="fieldCon" rendered="#{navegacaoMB.permissaoConsultar(navegacao['pro.processo'])}" legend="#{cc.attrs.nome}" style="font-weight: bold">
+                <h:panelGrid id="grdConsulta" columns="4" rendered="#{cc.attrs.renderPesquisar}">
+                    <h:panelGrid id="grdConsulta1">
+                        <p:outputLabel value="Campo"/>
+                        <p:selectOneMenu value="#{processoMB.campoBusca}" styleClass="lista">
+                            <f:selectItem itemLabel="Id" itemValue="id" />
+                            <f:selectItem itemLabel="Número" itemValue="numero" />
+                            <f:selectItem itemLabel="Cliente" itemValue="cliente" />
+                            <p:ajax listener="#{processoMB.renderizarPesquisa()}" event="change" update="grdConsulta2"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <h:panelGrid  id="grdConsulta2">
+                        <p:outputLabel value="Buscar por"/>
+                        <p:inputText value="#{processoMB.valorBusca}"  size="50"/>
+
+                    </h:panelGrid>
+                    <h:panelGrid id="grdConsulta3">
+                        <p:spacer width="15"/>
+                        <composite:renderFacet name="btnConsultaProcesso" />
+
+                    </h:panelGrid>
+                </h:panelGrid>
+                <p:dataTable value="#{cc.attrs.listaProcessos}"  id="tabela" paginatorAlwaysVisible="false"  paginator="true" var="t" rows="10"
+                             rowStyleClass="#{not processoMB.processoAtrasado(t.processo)?(empty rowIx or rowIx mod 2 ne 0 ? 'linha-atrasada-even-row' : 'linha-atrasada-odd-row'):(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+                    <p:column headerText="Id" width="3%" sortBy="#{t.processo.id}" style="font-size: 8px">
+                        <comp:outputText value="#{t.processo.id}"/>
+                    </p:column>
+                    <p:column headerText="Juizo" width="10%" >
+                        <comp:outputText value="#{t.processo.juizoTribunal.nome}" />
+                    </p:column>
+                    <p:column headerText="Número" width="10%" sortBy="#{t.processo.numero}" >
+                        <comp:outputText value="#{t.processo.numero}"/>
+                    </p:column>
+                    <p:column headerText="Objeto" width="10%" >
+                        <comp:outputText value="#{t.processo.objetoProcesso}"/>
+                    </p:column>
+                    <p:column headerText="Cliente" sortBy="#{t.processo.cliente.pessoa.nome}" width="10%">
+                        <comp:outputText value="#{t.processo.cliente.pessoa.nome}"/>
+                    </p:column>
+                    <p:column headerText="Fase" width="8%"   >
+                        <comp:outputText value="#{t.processo.fase.nome}" title="#{t.processo.motivoFase}"/>
+                    </p:column>
+                    <p:column headerText="Ender" sortBy="#{t.processo.enderecamento.nome}" width="3%" >
+                        <comp:outputText value="#{t.processo.enderecamento.nome}"/>
+                    </p:column>
+                    <p:column headerText="Colaborador" sortBy="#{t.processo.colaborador.pessoa.nome}" width="5%" >
+                        <comp:outputText value="#{t.processo.colaborador.pessoa.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Ação" width="10%" style="text-align: center;" >
+                        <p:commandButton  actionListener="#{processoMB.setarProcesso(t.processo)}"  update="#{cc.attrs.dialogUpdade}"  rendered="#{cc.attrs.renderInfo}" title="Informações" oncomplete="PF('#{cc.attrs.dialogInfo}').show()"  id="btnInfo" icon="fa fa-info-circle fa-lg" />
+                        <comp:button_acao_selecionar alvo="#{cc.attrs.valorSelecionado}" rendered="#{cc.attrs.renderSelecionar}"  componente_to_update="#{cc.attrs.update_form}" nome_dialog="#{cc.attrs.nomeDialog}" valor="#{t.processo}" />
+                        <p:commandButton   actionListener="#{processoMB.setarProcesso(t.processo)}"  update="#{cc.attrs.dialogMovimenUpdate}"  rendered="#{cc.attrs.renderMovimen}" title="Encaminhar" oncomplete="PF('#{cc.attrs.dialogMovimen}').show()"  id="btnMov" icon="fa fa-arrow-circle-up fa-lg" />
+                        <p:commandButton  actionListener="#{processoMB.setarProcesso(t.processo)}"    rendered="#{cc.attrs.renderPrintDoc}" title="Imprimir Documentos" oncomplete="PF('dialogPrintDoc').show()"  id="btnPrintDoc" icon="fa fa-clipboard fa-lg" />
+                        <comp:commandButton_editar id="btnEditaProc" rendered="#{cc.attrs.renderBtnEditar}" acao_butao="#{navegacaoMB.redirecionar(navegacao['pro.processo'],'processo',t.processo)}" />
+                        <p:commandButton   title="Gerar Peça"  oncomplete="PF('dialogPeca').show()" rendered="#{cc.attrs.renderGerarPeca}" icon="fa fa-folder-open fa-lg" >
+                            <f:setPropertyActionListener value="#{t.processo}" target="#{processoMB.processo}" />
+                        </p:commandButton>
+
+                    </p:column>
+
+                </p:dataTable>
+            </p:fieldset>
+
+        </h:panelGrid>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

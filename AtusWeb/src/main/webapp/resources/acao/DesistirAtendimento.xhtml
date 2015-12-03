@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:util="http://java.sun.com/jsf/composite/util">
+
+    <composite:interface id="int">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+    </composite:interface>
+    <composite:implementation id="int2" >
+        <p:fieldset legend="Cancelar Atendimento" id="fieldCanAtend" style="text-align: left" >
+            <h:panelGrid columns="2">
+                <h:outputText style="font-weight: bold" value="Abertura:"/>
+                <comp:outputText value="#{atendimentoMB.atendimento.dataAbertura}" tipo="dt"/>
+            </h:panelGrid>
+            <h:panelGrid columns="2">
+                <h:outputText style="font-weight: bold" value="Visitante:"/>
+                <h:outputText value="#{atendimentoMB.atendimento.visitante}"/>
+            </h:panelGrid>
+            <h:panelGrid>
+                <h:outputText style="font-weight: bold" value="Assunto:"/>
+                <h:outputText value="#{atendimentoMB.atendimento.assunto}"/>
+            </h:panelGrid>  
+
+        </p:fieldset>
+        <h:panelGrid  >
+            <comp:inputTextArea nomeLabel="Motivo" value="#{atendimentoMB.atendimento.desistenciaMotivo}" coluna="50" linha="10" /> 
+        </h:panelGrid>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

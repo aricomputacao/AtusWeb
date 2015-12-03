@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+
+    <composite:interface id="interCompEditar">
+        <composite:attribute name="acao_butao" required="true"  method-signature="java.lang.Void action()"/>
+        <composite:attribute name="update_form" default="@form" shortDescription="componente para atualizar"/>
+
+    </composite:interface>
+    <composite:implementation id="compEditar" >
+        <p:commandButton  icon="fa fa-pencil fa-lg"   update="#{cc.attrs.update_form}" immediate="true" title="Editar" actionListener="#{cc.attrs.acao_butao}" />
+    </composite:implementation>
+</ui:composition>
+
+

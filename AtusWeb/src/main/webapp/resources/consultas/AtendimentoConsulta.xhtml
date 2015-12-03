@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:composite="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp">
+
+    <composite:interface id="interCon">
+        <composite:attribute id="nome" name="nome" default="Consulta" shortDescription="Cabeçalho do panelGrid" />
+        <composite:attribute name="renderExcluir" default="true"/>
+        <composite:attribute name="renderEditar" default="true"/>
+        <composite:attribute name="renderSelecionar" default="false"/>
+        <composite:attribute name="renderCancelar" default="false"/>
+        <composite:attribute name="renderAtenderr" default="false"/>
+        <composite:attribute name="renderGrdConsulta" default="true"/>
+        <composite:attribute name="valorSelecionado" />
+        <composite:attribute name="nomeDialog" />
+        <composite:attribute name="update_form" default="@form" shortDescription="Form a ser atualizado apos selecionar item" />
+        <composite:attribute name="acao_consultar" required="true"  method-signature="java.lang.Void action()"/>
+        <composite:attribute name="lista" shortDescription="Lista de objetos a ser listada" required="true" />
+    </composite:interface>
+    <composite:implementation  >
+       
+        <h:panelGrid  width="100%" id="rtt" >
+            <p:fieldset id="fieldCon" legend="#{cc.attrs.nome}" rendered="#{navegacaoMB.permissaoConsultar(navegacao['cad.atendimento'])}"  style="font-weight: bold">
+                <h:panelGrid rendered="#{cc.attrs.renderGrdConsulta}" id="grdConsulta" columns="4">
+                    <h:panelGrid id="grdConsulta1">
+                        <p:outputLabel value="Campo"/>
+                        <p:selectOneMenu value="#{atendimentoMB.campoBusca}" styleClass="lista">
+                            <f:selectItem itemLabel="Nome" itemValue="nome" />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <h:panelGrid id="grdConsulta2">
+                        <p:outputLabel value="Buscar por"/>
+                        <p:inputText value="#{atendimentoMB.valorBusca}" />
+                    </h:panelGrid>
+                    <h:panelGrid id="grdConsulta3">
+                        <p:spacer width="15"/>
+                        <h:panelGrid columns="2" id="btnConRamo">
+                            <p:blockUI block="@form"  trigger="btnCon2:btn"  >
+                                <p:graphicImage library="imagens" name="carregar.gif"/>
+                            </p:blockUI>
+                            <comp:commandButton_consulta  id="btnCon2"  acao_butao="#{cc.attrs.acao_consultar}"  componente_to_update="@form" />
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <p:dataTable value="#{cc.attrs.lista}" id="tabela" paginatorAlwaysVisible="false" paginator="true" var="t" rows="10"
+                             rowStyleClass="#{(empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row')}"
+                             rowIndexVar="rowIx" emptyMessage="#{mensagens['consulta.vazia']}">
+
+                    <p:column headerText="Cliente">
+                        <p:commandLink value="#{t.cliente.pessoa.nome}"  styleClass="link" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.processo'], 'nomeCliente', t.cliente.pessoa.nome)}"/>
+                    </p:column>
+                    <p:column headerText="Visitante">
+                        <p:commandLink value="#{t.visitante}"  styleClass="link" actionListener="#{navegacaoMB.redirecionarConsulta(navegacao['pro.processo'], 'nomeCliente', t.visitante)}" />
+                        <p:outputLabel style="font-weight: bold"  rendered="#{t.clienteNovo}" value="  &rArr; Cliente novo" />
+                    </p:column>
+                    <p:column headerText="Assunto" >
+                        <comp:outputText value="#{t.assunto}"/>
+                    </p:column>
+                    <p:column headerText="Abertura" width="8%">
+                        <comp:outputText tipo="dt" value="#{t.dataAbertura}"/>
+                    </p:column>
+
+                    <p:column headerText="Ação" width="12%" style="text-align: center">
+                        <comp:commandButton_editar id="btnEditaRamo" rendered="#{cc.attrs.renderEditar}"  acao_butao="#{navegacaoMB.redirecionar(navegacao['cad.atendimento'],'atendimento',t)}" />
+                        <comp:commandButton_excluir acao_butao="#{atendimentoMB.excluir(t)}" rendered="#{cc.attrs.renderExcluir}" classe="Atendimento" form_to_update="@form"/>
+                        <p:commandButton title="Atender" update=":frmAtend:atendi:fieldAtend" onclick="PF('dialogAtend').show();" rendered="#{cc.attrs.renderAtenderr}" icon="ui-icon-circle-check" style="width: 20px;height: 20px;" >
+                            <f:setPropertyActionListener target="#{atendimentoMB.atendimento}" value="#{t}"/>
+                        </p:commandButton>
+                        <p:commandButton  title="Cancelar" icon="ui-icon-close" update=":frmAtend:atendi:fieldAtend" onclick="PF('dialogCanAtend').show();" style="width: 20px;height: 20px;" >
+                            <f:setPropertyActionListener target="#{atendimentoMB.atendimento}" value="#{t}"/>
+                        </p:commandButton>
+
+                    </p:column>
+
+                </p:dataTable>
+            </p:fieldset>
+
+        </h:panelGrid>
+    </composite:implementation>
+</ui:composition>
+
+
+
+

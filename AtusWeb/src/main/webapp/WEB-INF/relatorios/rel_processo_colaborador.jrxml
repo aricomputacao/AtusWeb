@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_processo_colaborador" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="1" bottomMargin="1" uuid="96646ec2-2326-419c-99c4-0364b22c2ab7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="zebra">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean( $V{REPORT_COUNT}.intValue() % 2 == 0 )]]></conditionExpression>
+			<style forecolor="#F0F0F0" backcolor="#F0F0F0"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="img" class="java.lang.String"/>
+	<parameter name="relatorio" class="java.lang.String"/>
+	<parameter name="imgAt" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/ari/Documentos/Projetos/Atus/atus/web/WEB-INF/relatorios/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="movimentacao" class="br.com.atus.processo.modelo.Movimentacao">
+		<fieldDescription><![CDATA[movimentacao]]></fieldDescription>
+	</field>
+	<field name="processo" class="br.com.atus.processo.modelo.Processo">
+		<fieldDescription><![CDATA[processo]]></fieldDescription>
+	</field>
+	<field name="prazo" class="java.util.Date">
+		<fieldDescription><![CDATA[prazo]]></fieldDescription>
+	</field>
+	<variable name="processo_1" class="java.lang.Integer" resetType="Group" resetGroup="colaborador" calculation="Count">
+		<variableExpression><![CDATA[$F{processo}]]></variableExpression>
+	</variable>
+	<variable name="processo_2" class="java.lang.Integer" resetType="Group" resetGroup="fase" calculation="Count">
+		<variableExpression><![CDATA[$F{processo}]]></variableExpression>
+	</variable>
+	<group name="colaborador">
+		<groupExpression><![CDATA[$F{processo}.getColaborador()]]></groupExpression>
+		<groupHeader>
+			<band height="22">
+				<rectangle>
+					<reportElement x="0" y="1" width="802" height="20" uuid="02bf4dad-497e-4e9b-87bb-f5b6ae7643cf"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="2" y="2" width="96" height="20" uuid="b3b7ea6b-e4a2-4087-9784-190b7fbe02e0"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Colaborador:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="98" y="2" width="317" height="20" uuid="c7086d04-85e3-42a3-8320-e4b096fac53a"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{processo}.getColaborador().getPessoa().getNome()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="673" y="0" width="28" height="22" uuid="530b7545-5b68-4157-bdfe-ec35e52a4fdc"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Qtd:]]></text>
+				</staticText>
+				<textField evaluationTime="Group" evaluationGroup="colaborador">
+					<reportElement x="701" y="1" width="72" height="20" uuid="d6c852d1-7756-42e2-9029-e6c611cda39d"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{processo_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="fase">
+		<groupExpression><![CDATA[$F{processo}.getFase()]]></groupExpression>
+		<groupHeader>
+			<band height="21">
+				<rectangle>
+					<reportElement mode="Opaque" x="0" y="0" width="802" height="20" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="e413efc2-b041-4599-b69e-d1fe64966ad3"/>
+					<graphicElement>
+						<pen lineColor="#000000"/>
+					</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement x="2" y="1" width="76" height="20" uuid="afaf8f18-2f32-4854-b303-ccca6bd1c634"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Fase:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="78" y="1" width="337" height="20" uuid="c740e3cd-1741-444b-b40a-a9c2f18d04b7"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isItalic="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{processo}.getFase().getNome()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="673" y="0" width="28" height="20" uuid="2a5233bc-b782-4089-a0db-3946baa994a4"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Qtd:]]></text>
+				</staticText>
+				<textField evaluationTime="Group" evaluationGroup="fase">
+					<reportElement x="704" y="0" width="69" height="20" uuid="26e65a26-08ab-468b-b977-2b5af8a9f006"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{processo_2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<title>
+		<band height="65" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="802" height="65" uuid="fc954b98-138e-4432-ae77-0db0d691710d"/>
+				<subreportParameter name="relatorio">
+					<subreportParameterExpression><![CDATA[$P{relatorio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="img">
+					<subreportParameterExpression><![CDATA[$P{img}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="img1"/>
+				<subreportParameter name="imgAt">
+					<subreportParameterExpression><![CDATA[$P{imgAt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "cabecalho_paisagem.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<detail>
+		<band height="170" splitType="Immediate">
+			<textField isBlankWhenNull="true">
+				<reportElement x="93" y="64" width="50" height="20" uuid="1ee5432d-360a-4274-8c5d-00708855a0fd"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{processo}.getId()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="78" y="3" width="337" height="20" uuid="bf8462a4-bd3b-4ed4-a427-5b541ad81773"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{processo}.getCliente().getPessoa().getNome()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="484" y="127" width="313" height="37" uuid="209b5c7f-7ebf-4524-b6d7-abc6fd2db197"/>
+				<textElement verticalAlignment="Top">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{processo}.getObjetoProcesso()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="78" y="127" width="337" height="37" uuid="b74b4f65-1ab1-4f48-b78d-38531ad7d4c2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{movimentacao}.getMotivo()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="189" y="64" width="226" height="20" uuid="9d098659-0517-4e8d-a0bc-e5cc52a87cd3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{processo}.getNumero() != null ? $F{processo}.getNumero() : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="78" y="104" width="337" height="20" uuid="24ea65c0-bb5a-4aed-8bdb-182296c0ed28"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{processo}.getJuizoTribunal().getNome()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="484" y="64" width="102" height="20" uuid="f6273c21-03df-41f3-985d-716ab17c133c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{movimentacao}.getDataMovimentacao()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="484" y="104" width="313" height="20" uuid="7794acd5-ceb9-4124-86f1-62a64fa8cf20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{processo}.getMateria().getNome()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="484" y="84" width="102" height="20" uuid="f7da750b-b89d-49f5-83ea-8d1e5b81c84a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{prazo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="3" width="76" height="20" uuid="a71bbdc4-8993-4037-b46a-7a56d3f987d8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="23" width="76" height="20" uuid="37afe727-1485-4878-8fa2-37cacc59e55a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Endereço:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="64" width="76" height="20" uuid="71eeba2f-ae37-49b9-a895-55f256e1c3f2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Processo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="84" width="76" height="20" uuid="6fb39453-1482-42e6-abf9-32eaec5efd51"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Réu:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="104" width="76" height="20" uuid="1ab90025-d5f7-4cb9-8458-8dda179d6470"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JuizoTribunal:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="127" width="76" height="20" uuid="aa00d407-7d9f-4abe-9229-df6f12d2f144"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Motivo:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="484" y="3" width="274" height="20" uuid="b8061e59-e2b5-413d-9fc7-0f3029b283bd"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{processo}.getCliente().getDocumentoFormatado()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="422" y="3" width="62" height="20" uuid="ac7510cb-de1a-40aa-90e4-f8b86f3238b0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF/CNPJ:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="78" y="84" width="337" height="20" uuid="c46d6fec-920b-49c0-8a50-bbb2d7fc8869"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{processo}.getTodosAdversarios()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="78" y="23" width="337" height="20" uuid="b94cdd77-be2f-4cd2-89c4-28ad98c4499f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{processo}.getCliente().getPessoa().getLogradouro() == null ? "" :$F{processo}.getCliente().getPessoa().getLogradouro())+
+($F{processo}.getCliente().getPessoa().getNumero() == null ? "" : ", Número: "+ $F{processo}.getCliente().getPessoa().getNumero()) +
+($F{processo}.getCliente().getPessoa().getBairro() == null ? "" : ", Bairro: "+ $F{processo}.getCliente().getPessoa().getBairro()) +
+($F{processo}.getCliente().getPessoa().getCep() == null ? "" : ", CEP: "+ $F{processo}.getCliente().getPessoa().getCep())]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="78" y="43" width="337" height="20" uuid="9f28ce9b-f91e-4c3e-9d95-63b631b27dd4"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{processo}.getCliente().getNomeDaCidade() +"-"+
+$F{processo}.getCliente().getNomeDoEstado()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="43" width="76" height="20" uuid="c7e07f81-0fac-4a37-814e-7dedcf98a15f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cidade:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="127" width="62" height="20" uuid="0d24341c-ebab-4811-8594-26af38334894"/>
+				<textElement verticalAlignment="Top">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Objeto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="104" width="62" height="20" uuid="64bed667-550f-460d-9ce2-4da2f34e8669"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Materia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="64" width="62" height="20" uuid="8bcbe5c4-2382-4123-9c5b-f409bcfde78b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data. Fase:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="84" width="62" height="20" uuid="4da19b31-42db-4aab-b536-5606195412ac"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prazo Final:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="169" width="802" height="1" uuid="82d14020-150f-4039-88e5-6f39a967c454"/>
+			</line>
+			<staticText>
+				<reportElement x="422" y="43" width="62" height="20" uuid="8eefce54-b500-4d8a-b705-9bfdc4706248"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fase Ant. :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="484" y="43" width="274" height="20" uuid="8bbe9a2b-c85e-4a1e-91c7-fb70b589e426"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{movimentacao}.getFaseAntiga().getNome()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="422" y="23" width="62" height="20" uuid="d84ca89b-5290-42d6-8c29-208671c89427"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contatos:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="484" y="23" width="318" height="20" uuid="747f873c-01b5-43c0-9207-7c97e70fe991"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{processo}.getCliente().getContatos()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="78" y="64" width="15" height="20" uuid="c3e43b9c-8bbc-479d-8030-67a841636020"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="143" y="64" width="46" height="20" uuid="3a107156-95ab-4c84-88ef-9256bb650f48"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número:]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

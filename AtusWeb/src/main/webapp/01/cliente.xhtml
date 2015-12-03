@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/modelo/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:comp="http://java.sun.com/jsf/composite/comp"
+                xmlns:cons="http://java.sun.com/jsf/composite/consultas"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:util="http://java.sun.com/jsf/composite/util"
+                xmlns:cadastro="http://java.sun.com/jsf/composite/cadastro">
+
+    <ui:define name="corpo">
+        <h:form id="frm_pag" prependId="false"  >
+            <comp:menuPanel   id="menuPanel"   acao_adicionar="#{navegacaoMB.redirecionarCadastro(navegacao['cad.cliente'])}" acao_consultar="#{navegacaoMB.redirecionarConsulta(navegacao['cad.cliente'])}" acao_imprimir="#{clienteMB.imprimir()}" acao_limpar="#{clienteMB.init()}" acao_salvar="#{clienteMB.salvar()}"/>
+            <comp:panel_cadastro id="cadFrm" cabecalho_grid="Clientes" id_form="frm_pag"  >               
+
+                <cadastro:ClienteCadastro rendered="#{navegacaoMB.renderPainelCadastro}" id="compCad"/>
+                <cons:ClienteConsulta id="conClie" rendered="#{not navegacaoMB.renderPainelCadastro}">
+                    <f:facet name="btnConsultaCliente">
+                        <h:panelGrid columns="2" id="btnConRamo">
+                            <p:blockUI block="@form" trigger="btnCon:btn"    >
+                                <p:graphicImage library="imagens" name="carregar.gif"/>
+                            </p:blockUI>
+                            <comp:commandButton_consulta id="btnCon" acao_butao="#{clienteMB.listar()}"  componente_to_update="@form" />
+                        </h:panelGrid>
+                    </f:facet>
+
+                </cons:ClienteConsulta>
+            </comp:panel_cadastro>
+
+        </h:form>
+    </ui:define>
+
+    <ui:define name="dialogs">
+        <p:dialog showEffect="fade" closable="false"  header="Consulta de CEP" id="ce" modal="true" hideEffect="fade" widgetVar="dialogCep">
+            <util:buscaCep id="compCep" pessoa="#{clienteMB.cliente.pessoa}" uf="#{clienteMB.uf}" update=":frm_pag:cadFrm:compCad:compPf:comEnd:grdEnd"/>
+        </p:dialog>
+        <p:dialog  position="top" width="1000"  header="Consulta de Profissões" id="prf" modal="true" widgetVar="dialogProf">
+            <h:form prependId="false">
+                <cons:ProfissaoConsulta id="compProf"/>
+            </h:form>
+        </p:dialog>
+        <p:dialog  position="top" width="600" height="400"  header="Ficha de Cliente" id="fic" modal="true" widgetVar="dialogFicha">
+            <util:dadosCliente/>
+        </p:dialog>
+        <p:dialog  position="top" width="600" height="400" styleClass="painelPadrao"  header="Cadastro de Tratamento" id="cadTrar" modal="true" widgetVar="dialogoTratamento">
+            <h:form prependId="false" id="frmDialog">
+                <util:menuCadDialogo id="menDialog" frm_update=":frm_pag:cadFrm:compCad:compPf:grdTpTrat" acao_remoteCommand="#{tipoTratamentoMB.listar()}" acao_salvar="#{tipoTratamentoMB.salvar()}"  />
+                <cadastro:TipoTratamentoCadastro/>
+            </h:form>
+        </p:dialog>
+        <p:dialog  position="top" width="600" height="400" styleClass="painelPadrao"  header="Cadastro de Nacionalidade" id="cadNac" modal="true" widgetVar="dialogoNacionalidade">
+            <h:form prependId="false" id="frmDialogNac">
+                <util:menuCadDialogo frm_update=":frm_pag" acao_remoteCommand="#{tipoTratamentoMB.listar()}" acao_salvar="#{tipoTratamentoMB.salvar()}"  />
+                <cadastro:TipoTratamentoCadastro rendered="false"/>
+            </h:form>
+        </p:dialog>
+        <p:dialog  position="top" width="600" height="400" styleClass="painelPadrao"  header="Cadastro de Órgão Emissor" id="cadOre" modal="true" widgetVar="dialogoOrgaoEmissor">
+            <h:form prependId="false" id="frmDialogOrgEmi">
+                <util:menuCadDialogo frm_update=":frm_pag:cadFrm:compCad:compPf:grdOrgEmissor" acao_remoteCommand="#{orgaoEmissorMB.listar()}" acao_salvar="#{orgaoEmissorMB.salvar()}"  />
+                <cadastro:OrgaoEmissorCadastro/>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>
+
