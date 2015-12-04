@@ -18,27 +18,26 @@
     </h:head>
     <h:body class="back-login" >
 
-        <div align="center"   style="margin-top: 300px" >
+
+        <div align="center" style="margin-top: 90px;"  >
             <form action="j_spring_security_check" method="post"  >
-                <div align="center" id="grid"  class=" painelLogin transparencia"   >
-                    <p:graphicImage library="imagens"  name="logo.png" title="Usuário ou senha incorrento!" />
-                    <div class="circulo" >
+                <div align="center" id="grid"  class=" painelLogin  "   >
+                    <p:graphicImage library="imagens" style="margin-left: 34%" name="logo-cab.png"  />
+                    <p:outputLabel value="Gestão de Escritórios de Advocacia" style="color: #808080;font-family: Times New Roman, Times, serif;font-weight: bold;font-size: 15px;font-style: italic"/>
+                    <p:separator style="width: 98%"/>
+                    <div class="circulo" />        
+                    <h:panelGrid>
+                        <p:outputLabel value="Identificação do Usuário"  style="color: #484848  ;font-family: Times New Roman, Times, serif;font-weight: bold;font-size: 23px;font-style: italic;width: 100%"/>
+                    </h:panelGrid>
+                    <h:panelGrid rendered="#{param.erro}" class="msg-login" width="100%" style="align-content: center">
+                        <h:outputText  style="margin-left: 55px;color: red; font-family: Times New Roman, Times, serif;font-size: 15px;font-style: italic ;"  value="Usuário ou senha incorrento!" />
+                    </h:panelGrid>
+
+                    <div style="margin-top: 15px;" >
+                        <p:inputText id="j_username" placeholder="Usuário"  requiredMessage="Preencha !"  required="true" />
+                        <p:password id="j_password" placeholder="Senha"   required="true" />
+                        <h:commandButton id="btnLogin"   value="Entrar" class="btn-login"  />
                     </div>
-                    <p:graphicImage library="imagens" style="float: left;margin-top: 30px;margin-left: 40px" name="pessoa.png" width="42" height="64" title="Usuário ou senha incorrento!" />
-                    <p:inputText id="j_username" placeholder="Usuário"  requiredMessage="Preencha o documento!"  required="true" style="float: left;width: 60%;margin-top: 30px"/>
-                    <p:password id="j_password" placeholder="Sennha"   required="true" style="float: left;width: 60%;"/>
-                    <h:commandButton id="btnLogin"  value="Entrar" style="border-radius: 5px;margin-top: 10px;width: 90%;height: 40px;margin-left: 5px;margin-right: 5px"  />
-                    <!--                    <h:panelGroup >
-                                            <h:panelGrid style="margin-top: 100px;margin-left:   340px" columns="3">
-                                                <h:panelGrid>   
-                                                    <p:inputText id="j_username" placeholder="Usuário"  requiredMessage="Preencha o documento!"  required="true" style="width: 200px;"/>
-                                                    <p:password id="j_password" placeholder="Sennha"   required="true" style="width: 200px;"/>
-                                                </h:panelGrid>
-                                                <h:panelGrid>   
-                                                    <p:graphicImage library="imagens" name="lock.png" width="42" height="64" title="Usuário ou senha incorrento!" rendered="#{param.erro}"/>
-                                                </h:panelGrid>
-                                            </h:panelGrid>
-                                        </h:panelGroup>-->
                 </div>
 
             </form>

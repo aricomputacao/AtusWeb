@@ -14,8 +14,7 @@
         </f:facet>
         <link rel="shortcut icon" href="../resources/imagens/ico.ico" />
         <link rel="icon" type="image/png" href="../resources/imagens/ico.ico" />
-        <h:outputStylesheet library="css" name="default.css"/>
-        <h:outputStylesheet library="css" name="agenda.css"/>
+       
         <h:outputScript name="calendario_pt_BR.js" library="js" />
         <h:outputScript library="js" name="navegacao.js" />
 
@@ -141,5 +140,8 @@
                 <p:commandButton value="#{label.nao}" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times fa-lg"/>
             </p:confirmDialog>
         </ui:insert>
+        
+         <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="agenda.css"/>
     </h:body>
 </ui:composition>

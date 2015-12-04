@@ -205,7 +205,7 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=1 ); /* IE6-8 fallback on horizontal gradient */
     min-height: 475px;
     border: #C8C8C8  solid 1px;
-    text-align: center;
+/*    text-align: center;*/
 
 }
 
