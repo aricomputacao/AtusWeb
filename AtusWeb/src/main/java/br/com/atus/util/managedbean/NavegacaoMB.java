@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -78,7 +79,7 @@ public class NavegacaoMB implements Serializable {
     //Variavel para checar se o usuario é comum ou colaborador
     private boolean ehUsuarioDoEscritorio;
 
-    @Inject
+    @PostConstruct
     private void init() {
         try {
 
